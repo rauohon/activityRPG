@@ -24,7 +24,7 @@ public class FrontController {
 	public ModelAndView home() {
 		mav = new ModelAndView();
 		mav.setViewName("home");
-		
+		System.out.println("hellow world");
 		return mav;
 	}
 }
