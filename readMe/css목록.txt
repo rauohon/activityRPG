@@ -38,7 +38,8 @@ https://codepen.io/kqlambert/pen/tbJCD - 스크롤바 호버
 https://codepen.io/mikemang/pen/zNJZYg - 포켓몬 스타일 css
 
 https://codepen.io/alexerlandsson/pen/mPWgpO - 테이블 커서 위치 호버
-
+`
 https://codepen.io/robinselmer/pen/vJjbOZ?depth=everything&limit=all&order=popularity&page=4&q=error&show_forks=false
  - 404 error page
 
+https://codepen.io/Dannzzor/pen/dlAap - nav 바
