@@ -21,22 +21,10 @@
 	<bean id="dataNomalJNDI" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:comp/env/nomal"></property>
 	</bean>
-	<bean id="dataDeleteJNDI" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="java:comp/env/delete"></property>
-	</bean>
-	<bean id="dataUpdateJNDI" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="java:comp/env/update"></property>
-	</bean>
 	
 	<!-- tx:Transaction 설정하기-->
 	<bean id="nomalTM" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataNomalJNDI"></property>
-	</bean>
-	<bean id="deleteTM" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataDeleteJNDI"></property>
-	</bean>
-	<bean id="updateTM" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataUpdateJNDI"></property>
 	</bean>
 	
 	<!-- sqlSessionFactory 설정하기(Mybatis사용 하기 위해서 .xml 올리기)-->
@@ -44,25 +32,9 @@
 		<property name="dataSource" ref="dataNomalJNDI"></property>
 		<property name="configLocation" value="classpath:com/activityRPG/dao/mybatisConfigure.xml"></property>
 	</bean>
-	<bean id="mbSFdelete" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataDeleteJNDI"></property>
-		<property name="configLocation" value="classpath:com/activityRPG/dao/mybatisConfigure.xml"></property>
-	</bean>
-	<bean id="mbSFupdate" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataUpdateJNDI"></property>
-		<property name="configLocation" value="classpath:com/activityRPG/dao/mybatisConfigure.xml"></property>
-	</bean>
 	<!-- DAO 사용하기(interface class 파일 올리기-->
 	<bean id="mDFnomal" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="sqlSessionFactory" ref="mbSFnomal"></property>
-		<property name="mapperInterface" value="com.activityRPG.dao.IMBnomal"></property>
-	</bean>
-	<bean id="mDFdelete" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="sqlSessionFactory" ref="mbSFdelete"></property>
-		<property name="mapperInterface" value="com.activityRPG.dao.IMBdelete"></property>
-	</bean>
-	<bean id="mDFupdate" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="sqlSessionFactory" ref="mbSFupdate"></property>
-		<property name="mapperInterface" value="com.activityRPG.dao.IMBupdate"></property>
+		<property name="mapperInterface" value="com.activityRPG.dao.IMBytisDao"></property>
 	</bean>
 </beans>
