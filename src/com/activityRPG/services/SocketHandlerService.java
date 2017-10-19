@@ -13,6 +13,6 @@ import org.springframework.stereotype.Service;
  * @수정이력 - 수정일, 수정자, 수정내용
  */
 @Service
-public class SocketHandler {
+public class SocketHandlerService {
 
 }
