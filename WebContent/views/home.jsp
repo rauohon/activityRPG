@@ -9,8 +9,6 @@
 </script>
 </head>
 <body>
-	asdfasfd
-	로컬 수정 추가합니다.
-	다시 수정합니다.
+	<a href='GameForm'>플레이!!</a>
 </body>
 </html>

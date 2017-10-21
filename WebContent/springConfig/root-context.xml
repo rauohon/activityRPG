@@ -35,6 +35,6 @@
 	<!-- DAO 사용하기(interface class 파일 올리기-->
 	<bean id="mDFnomal" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="sqlSessionFactory" ref="mbSFnomal"></property>
-		<property name="mapperInterface" value="com.activityRPG.dao.IMBytisDao"></property>
+		<property name="mapperInterface" value="com.activityRPG.dao.IMBatisDao"></property>
 	</bean>
 </beans>
