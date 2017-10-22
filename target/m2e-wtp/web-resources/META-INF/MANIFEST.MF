@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: RAU
 Build-Jdk: 1.8.0_144
+=======
+Built-By: rnjde
+Build-Jdk: 1.8.0_131
+>>>>>>> a931b54d45e10df9a9ac045c3a6f519b31babb81
 Created-By: Maven Integration for Eclipse
 
