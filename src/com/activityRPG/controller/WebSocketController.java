@@ -48,26 +48,42 @@ public class WebSocketController implements WebSocketHandler{
 		String msg=(String)arg1.getPayload();
 		String[] jobCode = null;
 		jobCode = msg.split(",");
-		if(jobCode[0] == "0") {
+		System.out.println(jobCode[0]);
+		/*for(WebSocketSession socket:list){
+			//메시지 생성
+			WebSocketMessage<String>sentMsg=
+					new TextMessage(msg);
+			//각 세션에게 메시지를 전송
+			socket.sendMessage(sentMsg);
+		}*/
+		if(jobCode[0].equals("0")) {
+			// 전체 채팅
 			for(WebSocketSession socket:list){
+				System.out.println("엥1");
 				//메시지 생성
-				WebSocketMessage<String>sentMsg=
-						new TextMessage(jobCode[1]);
+				WebSocketMessage<String>sentMsg= new TextMessage(msg);
 				//각 세션에게 메시지를 전송
 				socket.sendMessage(sentMsg);
 			}
-		}else if(jobCode[0] == "1") {
+		}else if(jobCode[0].equals("1")) {
+			// 길드 채팅
 			for(WebSocketSession socket:list){
+				System.out.println("엥2");
 				//메시지 생성
-				WebSocketMessage<String>sentMsg=
-						new TextMessage(jobCode[1]);
+				WebSocketMessage<String>sentMsg= new TextMessage(msg);
 				//각 세션에게 메시지를 전송
 				socket.sendMessage(sentMsg);
+			}
+			}else {
+				// 배틀 로그
+				for(WebSocketSession socket:list){
+					System.out.println("엥3");
+					//메시지 생성
+					WebSocketMessage<String>sentMsg= new TextMessage(msg);
+					//각 세션에게 메시지를 전송
+					socket.sendMessage(sentMsg);
 			}
 		}
-
-
-
 	}
 
 	//메시지 전송에 실패했을때 호출되는 메소드

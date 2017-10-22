@@ -32,6 +32,7 @@ $(function(){
 		var msg = $('#message').val();
 		//메시지 전송
 		websocket.send(jobCode+"," + nick + ":" + msg);
+
 		//메시지 입력창 초기화
 		$('#message').val('');
 	});
@@ -68,6 +69,8 @@ function onClose(evt){
 function onMessage(evt){
 	//서버가 전송한 메시지 가져오기
 	var data = evt.data;
+	var jobIndex = data.split(",");
+	alert(jobIndex[0]);
 	//메시지를 출력
-	$('#chatMessageArea').append(data + "<br />");
+	$('#chatMessageArea').append(jobIndex[1] + "<br />");
 }
