@@ -6,8 +6,8 @@
 var websocket;
 
 $(function(){
-	//입장 버튼을 클릭했을 때 이벤트 처리
-	$('#enterBtn').bind('click', function(){
+	//입장 버튼을 클릭했을 때 이벤트 처리 $(document).ready(function()
+	$(document).ready(function(){
 		//웹 소켓 연결
 		websocket = new WebSocket("ws://192.168.0.237:8000/chat-ws");
 		//웹 소켓 이벤트 처리
@@ -28,10 +28,12 @@ $(function(){
 	$('#sendBtn').bind('click', function(){
 		//nickname 과 message에 입력된 내용을 서버에 전송
 		var jobCode = $('#jobCode').val();
-		var nick = $('#nickname').val();
+		var nick = "그림판"
+		// nick에 캐릭터 이름을 받아와야 함
 		var msg = $('#message').val();
 		//메시지 전송
 		websocket.send(jobCode+"," + nick + ":" + msg);
+
 		//메시지 입력창 초기화
 		$('#message').val('');
 	});
@@ -68,6 +70,11 @@ function onClose(evt){
 function onMessage(evt){
 	//서버가 전송한 메시지 가져오기
 	var data = evt.data;
+	var jobIndex = data.split(",");
+	alert(jobIndex[0]);
 	//메시지를 출력
-	$('#chatMessageArea').append(data + "<br />");
+	if(jobIndex[0]=="0"){
+	$('#chatEveryUserMsgArea').append(jobIndex[1] + "<br />");
+	}else if(jobIndex[0]=="1")
+		$('#chatGuildUserMsgArea').append(jobIndex[1] + "<br />");
 }
