@@ -3,12 +3,15 @@ package com.activityRPG.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
+
+import com.activityRPG.services.SocketHandlerService;
 
 /**
  * @클래스명 : WebSocketController
@@ -19,6 +22,9 @@ import org.springframework.web.socket.WebSocketSession;
  */
 @Controller
 public class WebSocketController implements WebSocketHandler{
+
+	@Autowired
+	private SocketHandlerService shs;
 
 	//접속한 클라이언트들의 정보를 저장할 컬렉션 객체
 	public static List<WebSocketSession> list=
@@ -52,9 +58,7 @@ public class WebSocketController implements WebSocketHandler{
 					new TextMessage(msg);
 			//각 세션에게 메시지를 전송
 			socket.sendMessage(sentMsg);
-		}*/
-		if(jobCode[0].equals("0")) {
-			// 전체 채팅
+		}*/		
 			for(WebSocketSession socket:list){
 				System.out.println("엥1");
 				//메시지 생성
@@ -62,25 +66,6 @@ public class WebSocketController implements WebSocketHandler{
 				//각 세션에게 메시지를 전송
 				socket.sendMessage(sentMsg);
 			}
-		}else if(jobCode[0].equals("1")) {
-			// 길드 채팅
-			for(WebSocketSession socket:list){
-				System.out.println("엥2");
-				//메시지 생성
-				WebSocketMessage<String>sentMsg= new TextMessage(msg);
-				//각 세션에게 메시지를 전송
-				socket.sendMessage(sentMsg);
-			}
-			}else {
-				// 배틀 로그
-				for(WebSocketSession socket:list){
-					System.out.println("엥3");
-					//메시지 생성
-					WebSocketMessage<String>sentMsg= new TextMessage(msg);
-					//각 세션에게 메시지를 전송
-					socket.sendMessage(sentMsg);
-			}
-		}
 	}
 
 	//메시지 전송에 실패했을때 호출되는 메소드

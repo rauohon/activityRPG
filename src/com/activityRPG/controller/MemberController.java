@@ -23,7 +23,7 @@ private ModelAndView mav = null;
 	public ModelAndView home() {
 		mav = new ModelAndView();
 		mav.setViewName("home");
-		
+		System.out.println("메인");
 		return mav;
 	}
 

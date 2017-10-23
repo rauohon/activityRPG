@@ -11,5 +11,15 @@ package com.activityRPG.beans;
  * @수정이력 - 수정일, 수정자, 수정내용
  */
 public class GameBean {
+	
+	private String moveValue;
+
+	public String getMoveValue() {
+		return moveValue;
+	}
+
+	public void setMoveValue(String moveValue) {
+		this.moveValue = moveValue;
+	}
 
 }

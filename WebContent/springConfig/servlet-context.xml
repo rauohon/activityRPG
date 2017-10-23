@@ -32,7 +32,7 @@
 	<websocket:handlers>
 		<websocket:mapping handler="chatWebSocketHandler" path="/chat-ws" />
 	</websocket:handlers>
-	<!-- Session Interceptor 거의 완료 단계에서 작동시켜야 됩니다 -->
+<!-- 	Session Interceptor 거의 완료 단계에서 작동시켜야 됩니다 -->
 <!-- 	<interceptors> -->
 <!-- 		<interceptor> -->
 			<!-- 해당 ContextPath의 모든 요청은 Controller에 도착하기전에 가로챈다 -->
