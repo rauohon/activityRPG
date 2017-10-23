@@ -10,8 +10,7 @@
 	display: none;
 }
 </style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/chat.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -30,7 +29,7 @@
 </script>
 </head>
 <body>
-	<h1>채팅 영역</h1>
+	<h1>마을 페이지</h1>
 	<div id="chatEveryUserArea" style="border: 1px solid black;">
 		<h4>전체 채팅</h4>
 		<div id="chatEveryUserMsgArea"></div>

@@ -11,6 +11,8 @@
 <body>
 <h3><a href='BackPage'>뒤로</a></h3>
 캐릭터 정보 페이지 입니다.
+<h4>캐릭터 사진</h4>
+${characterImage }
 <h4>캐릭터 능력치</h4>
 ${characterStatus }
 <h4>경험치</h4>

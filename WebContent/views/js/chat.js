@@ -24,7 +24,7 @@ $(function(){
 		websocket.close();
 	});
 
-	//전송 버튼을 누를 때 이벤트 처리
+	//채팅 전송 버튼을 누를 때 이벤트 처리
 	$('#sendBtn').bind('click', function(){
 		//nickname 과 message에 입력된 내용을 서버에 전송
 		var jobCode = $('#jobCode').val();
@@ -37,7 +37,6 @@ $(function(){
 		//메시지 입력창 초기화
 		$('#message').val('');
 	});
-
 
 	//message 창에서 Enter를 눌렀을 때도 메시지를 전송
 	//키보드를 누를 때 이벤트 처리
