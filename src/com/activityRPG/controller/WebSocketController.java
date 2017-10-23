@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.activityRPG.controller;
 
 import java.util.ArrayList;

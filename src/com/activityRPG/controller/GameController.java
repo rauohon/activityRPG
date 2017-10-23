@@ -37,7 +37,7 @@ public class GameController {
 	@RequestMapping(value="/GameForm", method = RequestMethod.GET)
 	private ModelAndView villagePage(@ModelAttribute GameBean gameBean) {
 		
-		mav = gn.entrance(0, gameBean);
+		mav = gn.entrance(1, gameBean);
 		
 		return mav;
 	}
@@ -54,7 +54,7 @@ public class GameController {
 	@RequestMapping(value="/QuestPage", method = RequestMethod.GET)
 	private ModelAndView questPage(@ModelAttribute GameBean gameBean) {
 		
-		mav = gn.entrance(1, gameBean);
+		mav = gn.entrance(2, gameBean);
 		
 		return mav;
 	}
@@ -69,7 +69,7 @@ public class GameController {
 	@RequestMapping(value="/GuildPage", method = RequestMethod.GET)
 	private ModelAndView guildPage(@ModelAttribute GameBean gameBean) {
 		
-		mav = gn.entrance(2, gameBean);
+		mav = gn.entrance(3, gameBean);
 		
 		return mav;
 	}
@@ -84,7 +84,7 @@ public class GameController {
 	@RequestMapping(value="/DungeonPage", method = RequestMethod.GET)
 	private ModelAndView dungeonPage(@ModelAttribute GameBean gameBean) {
 		
-		mav = gn.entrance(3, gameBean);
+		mav = gn.entrance(4, gameBean);
 		
 		return mav;
 	}
@@ -119,5 +119,19 @@ public class GameController {
 		return mav;
 	}
 	
+	/**
+	 * 처리내용 : 캐릭터 정보 페이지 연결
+	 * 작성일 : 2017. 10. 23.
+	 * 작성자 : 신태휘
+	 * @Method Name : rankingPage
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/CharacterInfo", method = RequestMethod.GET)
+	private ModelAndView characterInfoPage(@ModelAttribute GameBean gameBean) {
+		
+		mav = gn.entrance(5, gameBean);
+
+		return mav;
+	}
 	
 }
