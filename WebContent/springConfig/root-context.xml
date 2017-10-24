@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans.xsd 
@@ -13,28 +12,50 @@
 	<!-- xmlns:추가 태그 정의, xsi:schemaLocation = 이후 주소로 위치 정의 -->
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	
+
 	<!-- AnnotationEnable 만들기 -->
 	<context:component-scan base-package="com.activityRPG.*" />
-	
-	<!-- Spring JNDI : DBCP 연결 하기-->
+
+	<!-- Spring JNDI : DBCP 연결 하기 -->
 	<bean id="dataNomalJNDI" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:comp/env/nomal"></property>
 	</bean>
-	
-	<!-- tx:Transaction 설정하기-->
-	<bean id="nomalTM" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+
+	<!-- tx:Transaction 설정하기 -->
+	<bean id="nomalTM"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataNomalJNDI"></property>
 	</bean>
-	
-	<!-- sqlSessionFactory 설정하기(Mybatis사용 하기 위해서 .xml 올리기)-->
+
+	<!-- sqlSessionFactory 설정하기(Mybatis사용 하기 위해서 .xml 올리기) -->
 	<bean id="mbSFnomal" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataNomalJNDI"></property>
-		<property name="configLocation" value="classpath:com/activityRPG/dao/mybatisConfigure.xml"></property>
+		<property name="configLocation"
+			value="classpath:com/activityRPG/dao/mybatisConfigure.xml"></property>
 	</bean>
-	<!-- DAO 사용하기(interface class 파일 올리기-->
+	<!-- DAO 사용하기(interface class 파일 올리기 -->
 	<bean id="mDFnomal" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="sqlSessionFactory" ref="mbSFnomal"></property>
 		<property name="mapperInterface" value="com.activityRPG.dao.IMBatisDao"></property>
 	</bean>
+
+	<!-- 메일보내기  -->
+   <bean id="javaMailSenderImpl" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com"></property>
+      <property name="port" value="465"></property>
+      <property name="username" value="rnjdejr@gmail.com"></property>
+      <property name="password" value="lgzTSQ?yo*Z7"></property>
+      <property name="javaMailProperties">
+         <props>
+            <prop key="mail.transport.protocol">smtp</prop>
+            <prop key="mail.smtp.socketFactory.port">465</prop>
+            <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+            <prop key="mail.smtp.socketFactory.fallback">false</prop>
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.debug">true</prop>
+         </props>
+      </property>
+   </bean>
+
 </beans>
