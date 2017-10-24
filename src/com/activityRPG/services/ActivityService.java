@@ -45,12 +45,143 @@ public class ActivityService {
 			case 3:
 				mav = adminActivityLogPage((ActivityBean)bean);
 				break;
+			case 4:
+				mav = adminActivityAgeLogPage((ActivityBean)bean);
+				break;
+			case 5:
+				mav = adminActivitySexLogPage((ActivityBean)bean);
+				break;
+			case 6:
+				mav = enrollRaspberryPiPage((ActivityBean)bean);
+				break;
+			case 7:
+				mav = enrollRaspberryPi((ActivityBean)bean);
+				break;
+				
 		}
 		
 		
 		return mav;
 	}
 	
+	/**
+	 * 처리내용 : EnrollRaspberryPi 출력
+	 * 작성일 : 2017. 10. 24.
+	 * 작성자 : 신태휘
+	 * @Method Name : EnrollRaspberryPiPage
+	 * @return type : ModelAndView
+	 */
+	private ModelAndView enrollRaspberryPi(ActivityBean bean) {
+		
+		//라즈베리파이 등록하기
+		
+		return mav;
+	}
+	
+	/**
+	 * 처리내용 : EnrollRaspberryPiPage 출력
+	 * 작성일 : 2017. 10. 24.
+	 * 작성자 : 신태휘
+	 * @Method Name : EnrollRaspberryPiPage
+	 * @return type : ModelAndView
+	 */
+	private ModelAndView enrollRaspberryPiPage(ActivityBean bean) {
+		
+		mav.setViewName("enrollRaspberryPi");
+		
+		return mav;
+	}
+
+	/**
+	 * 처리내용 : 5-2 성별 기준 하루 누적 오른 층 수 불러오기
+	 * 작성일 : 2017. 10. 24.
+	 * 작성자 : 신태휘
+	 * @Method Name : sexFloorDay
+	 * @return type : String
+	 */
+	private String sexFloorDay(ActivityBean bean) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("성별 기준 하루 누적 걸음 수가 json 형태로 전달됩니다.");
+
+		return sb.toString();
+	}
+	
+	/**
+	 * 처리내용 : 5-1 성별 기준 하루 누적 걸음 수 불러오기
+	 * 작성일 : 2017. 10. 24.
+	 * 작성자 : 신태휘
+	 * @Method Name : sexStepDay
+	 * @return type : String
+	 */
+	private String sexStepDay(ActivityBean bean) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("성별 기준 하루 누적 걸음 수가 json 형태로 전달됩니다.");
+
+		return sb.toString();
+	}
+	
+	/**
+	 * 처리내용 : 5. adminActivitySexLogPage 출력
+	 * 작성일 : 2017. 10. 24.
+	 * 작성자 : 신태휘
+	 * @Method Name : adminActivityAgeLogPage
+	 * @return type : ModelAndView
+	 */
+	private ModelAndView adminActivitySexLogPage(ActivityBean bean) {
+		
+		mav.addObject("sexStepDay",sexStepDay(bean));
+		mav.addObject("sexFloorDay",sexFloorDay(bean));
+		
+		mav.setViewName("adminActivitySexLogPage");
+		
+		return mav;
+	}
+	
+	/**
+	 * 처리내용 : 4-2 회원 전체 누적 오른 층 수 불러오기
+	 * 작성일 : 2017. 10. 24.
+	 * 작성자 : 신태휘
+	 * @Method Name : ageFloorDay
+	 * @return type : String
+	 */
+	private String ageFloorDay(ActivityBean bean) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("회원 전체 누적 오른 층 수가 json 형태로 전달됩니다.");
+
+		return sb.toString();
+	}
+	
+	/**
+	 * 처리내용 : 4-1 회원 전체 누적 걸음 수 불러오기
+	 * 작성일 : 2017. 10. 24.
+	 * 작성자 : 신태휘
+	 * @Method Name : floorAllUser
+	 * @return type : String
+	 */
+	private String ageStepDay(ActivityBean bean) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("회원 전체 누적 오른 층 수가 json 형태로 전달됩니다.");
+
+		return sb.toString();
+	}
+	
+	/**
+	 * 처리내용 : 4. adminActivityAgeLogPage 출력
+	 * 작성일 : 2017. 10. 24.
+	 * 작성자 : 신태휘
+	 * @Method Name : adminActivityAgeLogPage
+	 * @return type : ModelAndView
+	 */
+	private ModelAndView adminActivityAgeLogPage(ActivityBean bean) {
+		
+		mav.addObject("ageStepDay",ageStepDay(bean));
+		mav.addObject("ageFloorDay",ageFloorDay(bean));
+		
+		mav.setViewName("adminActivityAgeLog");
+		
+		return mav;
+	}
+
 	/**
 	 * 처리내용 : 3-4 회원 전체 누적 오른 층 수 불러오기
 	 * 작성일 : 2017. 10. 23.
