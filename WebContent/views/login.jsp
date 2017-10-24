@@ -57,9 +57,9 @@
 					
 					<!-- 아이디/패스워드 찾기, 회원가입  -->
 					<p>
-						<a href="http://localhost:80/IdFind">아이디 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="http://localhost:80/PwdFind">패스워드 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="http://localhost:80/JoinForm">회원가입</a>
+						<a href="IdFind">아이디 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="PwdFind">패스워드 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="JoinForm">회원가입</a>
 					</p>
 					
 					<h4>${message }</h4>

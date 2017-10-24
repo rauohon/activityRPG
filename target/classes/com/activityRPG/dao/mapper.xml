@@ -21,15 +21,15 @@
 		INSERT INTO MB(MB_ID, MB_PW, MB_NAME, MB_BIRTH, MB_AGE, MB_GENDER, MB_PHONE, MB_MAIL, MB_TYPE)
 		VALUES(#{id}, #{pwd}, #{name}, #{birth}, #{age}, #{gender}, #{phone}, #{email}, DEFAULT)
 	</insert>
+	
+<!-- 라즈베리파이 등록전 코드 유무 확인 -->
+	<select id='getRaspCheck' parameterType='com.activityRPG.beans.ActivityBean' resultType='Integer'>
+		SELECT COUNT(*) FROM RASPBERRY_INFO WHERE RI_ID=#{riId}
+	</select>
+	
+<!-- 라즈베리파이 등록 -->
+	<insert id="setRaspMem" parameterType="com.activityRPG.beans.ActivityBean">
+		INSERT INTO MEMBER_RASP VALUES(#{riId},#{id},DEFAULT)
+	</insert>
+	
 </mapper>
-<!-- 
-<resultMap type="member" id="joinMap">
-		<result property="id" column="MB_ID" javaType="java.lang.String"/>
-		<result property="pwd" column="MB_PW"  javaType="java.lang.String"/>
-		<result property="name" column="MB_NAME" javaType="java.lang.String"/>
-		<result property="birth" column="MB_BIRTH" javaType="java.lang.String"/>
-		<result property="age" column="MB_AGE" javaType="java.lang.String"/>
-		<result property="gender" column="MB_GENDER" javaType="java.lang.String"/>
-		<result property="phone" column="MB_PHONE" javaType="java.lang.String"/>
-		<result property="email" column="MB_MAIL" javaType="java.lang.String"/>
-	</resultMap> -->

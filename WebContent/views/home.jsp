@@ -9,9 +9,8 @@
 </script>
 </head>
 <body>
-	<a href="http://localhost:80/LoginForm">login Go</a>
-	<a href="http://localhost:80/JoinForm">회원가입</a>
-	<input type="" />
+	<a href="LoginForm">login Go</a>
+	<a href="JoinForm">회원가입</a>
 	<a href='GameForm'>플레이!!</a>
 	<a href='ActivityDayLogPage'>운동정보 확인(회원)</a>
 	<a href='AdminActivityLogPage'>운동정보 확인(관리자)</a>
