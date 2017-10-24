@@ -48,8 +48,8 @@
 					
 					<!-- 아이디/패스워드 찾기, 회원가입  -->
 					<p style="padding-left: 90px;">
-						<a href="http://localhost:80/PwdFind">패스워드 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="http://localhost:80/">메인 페이지</a>
+						<a href="PwdFind">패스워드 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="/">메인 페이지</a>
 					</p>
 					
 					<h4>${message }</h4>

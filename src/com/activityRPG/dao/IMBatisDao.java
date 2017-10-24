@@ -3,6 +3,7 @@
  */
 package com.activityRPG.dao;
 
+import com.activityRPG.beans.ActivityBean;
 import com.activityRPG.beans.MemberBean;
 
 /**
@@ -22,4 +23,8 @@ public interface IMBatisDao {
 	public int AccessHistory(MemberBean mb);
 	
 	public int joinSuccess(MemberBean mb);
+	
+	public int getRaspCheck(ActivityBean ab);		// 라즈베리파이 코드 유무 확인
+	
+	public int setRaspMem(ActivityBean ab);		// 라즈베리파이-회원 연동
 }

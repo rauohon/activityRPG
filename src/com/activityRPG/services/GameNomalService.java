@@ -280,13 +280,17 @@ public class GameNomalService {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView villagePage(GameBean bean) {
-		//if(캐릭터 존재여부 확인)
-		mav.setViewName("village");
-//		try {
-//			session.setAttribute("page", "village");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		// 로그인 여부 확인
+		try {
+			if(session.getAttribute("id") != null) {
+				mav.setViewName("village");
+				session.setAttribute("page", "village");
+			}else {
+				mav.setViewName("home");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return mav;
 	}
 

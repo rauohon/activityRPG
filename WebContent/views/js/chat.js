@@ -28,8 +28,7 @@ $(function(){
 	$('#sendBtn').bind('click', function(){
 		//nickname 과 message에 입력된 내용을 서버에 전송
 		var jobCode = $('#jobCode').val();
-		var nick = "그림판"
-		// nick에 캐릭터 이름을 받아와야 함
+		var nick = $('#nickname').val();
 		var msg = $('#message').val();
 		//메시지 전송
 		websocket.send(jobCode+"," + nick + ":" + msg);

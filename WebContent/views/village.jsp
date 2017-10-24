@@ -14,6 +14,11 @@
 <script src="/js/chat.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		var nickName = $("<input />");
+		nickName.attr("type", "hidden");
+		nickName.attr("value", '${id}');
+		nickName.attr("id", "nickname");
+		$("body").append(nickName);
 		$("#jobCode").click(function() {
 			if ($("#jobCode").val() == "0") {
 				$("#chatGuildUserArea").css({

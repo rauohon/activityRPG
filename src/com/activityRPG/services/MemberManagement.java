@@ -45,8 +45,10 @@ public class MemberManagement extends TranEx {
 		//회원가입
 		case 2:
 			mav = join((MemberBean)object[0]);
+			System.out.println(mav.getViewName() + " : 서비스 스위치 직후 mav 네임");
 			break;
 		}
+		System.out.println(mav.getViewName() + " : 스위치 mav 네임");
 		return mav;
 	}
 	
@@ -124,19 +126,21 @@ public class MemberManagement extends TranEx {
 		
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		
-		System.out.println("service :: join start");
 		try {
+			System.out.println("try 밑에");	
 			mb.setPwd(enc.encode(mb.getPwd()));
 			if(dao.joinSuccess(mb) != 0) {
-				System.out.println("join successful");
-				
-				mav.setViewName("home");
+				System.out.println("join successful");				
+				mav.setViewName("home");		
+				System.out.println(mav.getViewName() + " : 서비스 if 안 mav 네임");
 				transaction = true;
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
-		setTransactionResult(transaction);
+		setTransactionResult(transaction);		
+		System.out.println(mav.getViewName() + " : 서비스 if 밖 mav 네임");
 		return mav;
 	}
+	
 }

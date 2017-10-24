@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.activityRPG.beans.Email;
+/*import com.activityRPG.beans.Email;*/
 import com.activityRPG.beans.MemberBean;
 import com.activityRPG.controller.MemberController;
 import com.activityRPG.services.MemberManagement;
@@ -35,7 +35,6 @@ public class MemberController {
 	private MemberManagement mm;
 	private ModelAndView mav = null;
 
-	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);	
 
 	//메인 페이지
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -43,7 +42,6 @@ public class MemberController {
 		mav = new ModelAndView();
 		System.out.println("MemberController :: home");
 		mav.setViewName("home");
-		System.out.println("메인");
 		return mav;
 	}
 	//메인 페이지 - 데이터 o --> post
@@ -84,8 +82,9 @@ public class MemberController {
 	//회원가입 확인 후 home.jsp
 	@RequestMapping(value = "/Join", method = RequestMethod.POST)
 	public ModelAndView join(@ModelAttribute MemberBean member) throws Exception {
+		System.out.println("MemberController :: join check");
 		mav = mm.entrance(2, member);
-		System.out.println("MemberController :: login check");
+		System.out.println(mav.getViewName() + " : 서비스 직후 mav 네임");
 		return mav;  
 	}
 	
@@ -107,11 +106,11 @@ public class MemberController {
 		return mav;  
 	}
 	
-	@RequestMapping(value="/Mail", method = RequestMethod.POST)
+	/*@RequestMapping(value="/Mail", method = RequestMethod.POST)
 	   public ModelAndView mailSender(@ModelAttribute Email bean) {
 	   
 	      mav=mail.entrance(0, bean);
 	      
 	      return mav;
-	   }
+	   }*/
 }
