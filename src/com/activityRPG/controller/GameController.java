@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.activityRPG.beans.GameBean;
 import com.activityRPG.services.GameNomalService;
+import com.activityRPG.services.GamePlayService;
+import com.activityRPG.utils.ProjectUtils;
 
 /**
  * @클래스명 : GameController
@@ -25,7 +27,24 @@ public class GameController {
 	
 	@Autowired
 	private GameNomalService gn;
-	private ModelAndView mav = null;
+	@Autowired
+	private GamePlayService gp;
+	private ModelAndView mav = new ModelAndView();
+	
+	/**
+	 * 처리내용 : 호출 페이지 연결
+	 * 작성일 : 2017. 10. 23.
+	 * 작성자 : 신태휘
+	 * @Method Name : rankingPage
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/BackPage", method = RequestMethod.GET)
+	private ModelAndView backPage(@ModelAttribute GameBean gameBean) {
+		
+		mav=gn.entrance(0, gameBean);
+		
+		return mav;
+	}
 	
 	/**
 	 * 처리내용 : 마을페이지 연결
@@ -37,12 +56,10 @@ public class GameController {
 	@RequestMapping(value="/GameForm", method = RequestMethod.GET)
 	private ModelAndView villagePage(@ModelAttribute GameBean gameBean) {
 		
-		mav = gn.entrance(0, gameBean);
+		mav = gn.entrance(1, gameBean);
 		
 		return mav;
 	}
-	
-	//	1-1. 채팅접속
 	
 	/**
 	 * 처리내용 : 퀘스트 페이지 이동
@@ -54,7 +71,7 @@ public class GameController {
 	@RequestMapping(value="/QuestPage", method = RequestMethod.GET)
 	private ModelAndView questPage(@ModelAttribute GameBean gameBean) {
 		
-		mav = gn.entrance(1, gameBean);
+		mav = gn.entrance(2, gameBean);
 		
 		return mav;
 	}
@@ -69,7 +86,7 @@ public class GameController {
 	@RequestMapping(value="/GuildPage", method = RequestMethod.GET)
 	private ModelAndView guildPage(@ModelAttribute GameBean gameBean) {
 		
-		mav = gn.entrance(2, gameBean);
+		mav = gn.entrance(3, gameBean);
 		
 		return mav;
 	}
@@ -84,7 +101,7 @@ public class GameController {
 	@RequestMapping(value="/DungeonPage", method = RequestMethod.GET)
 	private ModelAndView dungeonPage(@ModelAttribute GameBean gameBean) {
 		
-		mav = gn.entrance(3, gameBean);
+		mav = gn.entrance(4, gameBean);
 		
 		return mav;
 	}
@@ -119,5 +136,34 @@ public class GameController {
 		return mav;
 	}
 	
+	/**
+	 * 처리내용 : 캐릭터 정보 페이지 연결
+	 * 작성일 : 2017. 10. 23.
+	 * 작성자 : 신태휘
+	 * @Method Name : characterInfoPage
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/CharacterInfo", method = RequestMethod.GET)
+	private ModelAndView characterInfoPage(@ModelAttribute GameBean gameBean) {
+		
+		mav = gn.entrance(5, gameBean);
+
+		return mav; //Movement
+	}
+	
+	/**
+	 * 처리내용 : 던전 페이지 내부 이동
+	 * 작성일 : 2017. 10. 23.
+	 * 작성자 : 신태휘
+	 * @Method Name : movement
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/Movement", method = RequestMethod.GET)
+	private ModelAndView movement(@ModelAttribute GameBean gameBean) {
+		System.out.println(gameBean.getMoveValue());
+		mav = gp.entrance(0, gameBean);
+
+		return mav; //Movement
+	}
 	
 }

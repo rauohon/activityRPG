@@ -46,6 +46,10 @@ public class MemberController {
 		mav = new ModelAndView();
 		System.out.println("MemberController :: home");
 		mav.setViewName("home");
+<<<<<<< HEAD
+=======
+		System.out.println("메인");
+>>>>>>> 04728f14bcd94027423359a69789d42b8eb39065
 		return mav;
 	}
 	//메인 페이지 - 데이터 o --> post
