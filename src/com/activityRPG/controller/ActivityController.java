@@ -72,5 +72,64 @@ public class ActivityController {
 		return mav;
 	}
 	
+	/**
+	 * 처리내용 : adminActivityAgeLogPage 연결
+	 * 작성일 : 2017. 10. 24.
+	 * 작성자 : 신태휘
+	 * @Method Name : AdminActivityAgeLogPage
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/AdminActivityAgeLogPage", method = RequestMethod.GET)
+	private ModelAndView adminActivityAgeLogPage(@ModelAttribute ActivityBean bean) {
+		
+		mav = as.entrance(4, bean);
+		
+		return mav;
+	}	
+
+	/**
+	 * 처리내용 : AdminActivitySexLogPage 연결
+	 * 작성일 : 2017. 10. 24.
+	 * 작성자 : 신태휘
+	 * @Method Name : AdminActivitySexLogPage
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/AdminActivitySexLogPage", method = RequestMethod.GET)
+	private ModelAndView adminActivitySexLogPage(@ModelAttribute ActivityBean bean) {
+		
+		mav = as.entrance(5, bean);
+		
+		return mav;
+	}
+	
+	/**
+	 * 처리내용 : EnrollRaspberryPiPage 연결
+	 * 작성일 : 2017. 10. 24.
+	 * 작성자 : 신태휘
+	 * @Method Name : EnrollRaspberryPiPage
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/EnrollRaspberryPiPage", method = RequestMethod.GET)
+	private ModelAndView enrollRaspberryPiPage(@ModelAttribute ActivityBean bean) {
+		
+		mav = as.entrance(6, bean);
+		
+		return mav;
+	}
+	
+	/**
+	 * 처리내용 : EnrollRaspberryPi 등록
+	 * 작성일 : 2017. 10. 24.
+	 * 작성자 : 신태휘
+	 * @Method Name : EnrollRaspberryPi
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/EnrollRaspberry", method = RequestMethod.GET)
+	private ModelAndView enrollRaspberryPi(@ModelAttribute ActivityBean bean) {
+		
+		mav = as.entrance(7, bean);
+		
+		return mav;
+	}
 	
 }
