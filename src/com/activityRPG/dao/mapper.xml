@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.activityRPG.dao.IMBatisDao">
+
+<!-- login >> ID Check -->
+	<select id="IdCheck" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
+		SELECT COUNT(*) FROM MB WHERE MB_ID=#{id}
+	</select>
+<!-- login >> PWD Check -->
+	<select id="PwdCheck" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
+		SELECT MB_PW AS pwd FROM MB WHERE MB_ID=#{id}
+	</select>
+
+<!-- 로그인 상태 저장 -->
+	<insert id="AccessHistory" parameterType="com.activityRPG.beans.MemberBean">
+		INSERT INTO AH(AH_MBID, AH_DATE, AH_TYPE) VALUES(#{id}, DEFAULT, #{type})
+	</insert>
+
+<!-- 회원가입 -->
+	<insert id="joinSuccess" parameterType="com.activityRPG.beans.MemberBean">
+		INSERT INTO MB(MB_ID, MB_PW, MB_NAME, MB_BIRTH, MB_AGE, MB_GENDER, MB_PHONE, MB_MAIL, MB_TYPE)
+		VALUES(#{id}, #{pwd}, #{name}, #{birth}, #{age}, #{gender}, #{phone}, #{email}, DEFAULT)
+	</insert>
 </mapper>
+<!-- 
+<resultMap type="member" id="joinMap">
+		<result property="id" column="MB_ID" javaType="java.lang.String"/>
+		<result property="pwd" column="MB_PW"  javaType="java.lang.String"/>
+		<result property="name" column="MB_NAME" javaType="java.lang.String"/>
+		<result property="birth" column="MB_BIRTH" javaType="java.lang.String"/>
+		<result property="age" column="MB_AGE" javaType="java.lang.String"/>
+		<result property="gender" column="MB_GENDER" javaType="java.lang.String"/>
+		<result property="phone" column="MB_PHONE" javaType="java.lang.String"/>
+		<result property="email" column="MB_MAIL" javaType="java.lang.String"/>
+	</resultMap> -->

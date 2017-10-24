@@ -33,18 +33,20 @@
 		<websocket:mapping handler="chatWebSocketHandler" path="/chat-ws" />
 	</websocket:handlers>
 	<!-- Session Interceptor 거의 완료 단계에서 작동시켜야 됩니다 -->
-<!-- 	<interceptors> -->
-<!-- 		<interceptor> -->
+ 	<interceptors>
+ 		<interceptor>
 			<!-- 해당 ContextPath의 모든 요청은 Controller에 도착하기전에 가로챈다 -->
-<!-- 			<mapping path="/*" /> -->
+ 			<mapping path="/*" />
 			<!-- 해당 path는 가로채지 않는다 -->
-		<!-- 	<exclude-mapping path="/" />
+		 	<exclude-mapping path="/" />
 			<exclude-mapping path="/Access" />
-			<exclude-mapping path="/AccessOut" />
+			<exclude-mapping path="/LoginForm" />
+			<exclude-mapping path="/JoinForm" />
 			<exclude-mapping path="/Join" />
-			<exclude-mapping path="/logSign" /> -->
+			<exclude-mapping path="/IdFind" />
+			<exclude-mapping path="/PwdFind" />
 			<!-- Interceptor에 의해 가로챈 요청을 체크하는 Class -->
-		<!-- 	<beans:bean class="com.taehwy.utils.SessionIntercepter"></beans:bean>
+		 	<beans:bean class="com.activityRPG.utils.SessionIntercepter"></beans:bean>
 		</interceptor>
-	</interceptors> -->
+	</interceptors>
 </beans:beans>
