@@ -21,6 +21,27 @@
 		INSERT INTO MB(MB_ID, MB_PW, MB_NAME, MB_BIRTH, MB_AGE, MB_GENDER, MB_PHONE, MB_MAIL, MB_TYPE)
 		VALUES(#{id}, #{pwd}, #{name}, #{birth}, #{age}, #{gender}, #{phone}, #{email}, DEFAULT)
 	</insert>
+	
+<!-- 아이디찾기  >> 핸드폰번호 확인 -->
+	<select id="idFind" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
+		SELECT COUNT(*) FROM MB WHERE MB_PHONE=#{phone}
+	</select>
+	<select id="idSend" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
+		SELECT MB_ID AS id FROM MB WHERE MB_PHONE=#{phone}
+	</select>
+	
+<!-- 비밀번호찾기  >> 이메일 확인 -->
+	<select id="mailcheck" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
+		SELECT COUNT(*) FROM MB WHERE MB_MAIL=#{email}
+	</select>
+<!-- 비밀번호찾기  >> 이메일 발송 -->	
+	<select id="mailSend" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
+		SELECT MB_MAIL AS email FROM MB WHERE MB_MAIL=#{email}
+	</select>
+<!-- 비밀번호찾기  >> 임시비밀번호  -->	
+	<insert id="pwdUpdate" parameterType="com.activityRPG.beans.MemberBean">
+		UPDATE MB SET MB_PW=#{pwd} WHERE MB_MAIL=#{email}
+	</insert>
 </mapper>
 <!-- 
 <resultMap type="member" id="joinMap">

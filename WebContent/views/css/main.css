@@ -1,8 +1,7 @@
 @charset "UTF-8";
 
 body {
-	background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-	background: linear-gradient(to right, #f79e87, #e27e36);
+	background: linear-gradient(to right, #2c3338, #475660);
 	font-family: 'Roboto', sans-serif;
 }
 

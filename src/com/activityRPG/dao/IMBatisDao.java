@@ -22,4 +22,12 @@ public interface IMBatisDao {
 	public int AccessHistory(MemberBean mb);
 	
 	public int joinSuccess(MemberBean mb);
+	
+	public int idFind(MemberBean mb);
+	public MemberBean idSend(MemberBean mb);
+	
+	public int mailcheck(MemberBean mb);
+	public MemberBean mailSend(MemberBean mb);
+	
+	public int pwdUpdate(MemberBean mb);
 }

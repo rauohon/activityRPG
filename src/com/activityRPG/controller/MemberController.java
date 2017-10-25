@@ -1,25 +1,16 @@
-/**
- * 
- */
 package com.activityRPG.controller;
-
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.activityRPG.beans.Email;
 import com.activityRPG.beans.MemberBean;
 import com.activityRPG.controller.MemberController;
-import com.activityRPG.services.EmailSender;
 import com.activityRPG.services.MemberManagement;
 
 /**
@@ -34,8 +25,6 @@ public class MemberController {
 
 	@Autowired
 	private MemberManagement mm;
-	@Autowired
-	private EmailSender mail;
 	private ModelAndView mav = null;
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);	
@@ -46,10 +35,6 @@ public class MemberController {
 		mav = new ModelAndView();
 		System.out.println("MemberController :: home");
 		mav.setViewName("home");
-<<<<<<< HEAD
-=======
-		System.out.println("메인");
->>>>>>> 04728f14bcd94027423359a69789d42b8eb39065
 		return mav;
 	}
 	//메인 페이지 - 데이터 o --> post
@@ -75,6 +60,28 @@ public class MemberController {
 	public ModelAndView access(@ModelAttribute MemberBean member) throws Exception {
 		mav = mm.entrance(1, member);
 		System.out.println("MemberController :: login check");
+		return mav;  
+	}
+	
+	//아이디 중복확인
+	@RequestMapping(value = "/IdCheck", method = RequestMethod.POST)
+	public ModelAndView idcheck(@ModelAttribute MemberBean member) throws Exception {
+		mav = mm.entrance(0, member);
+		System.out.println("MemberController :: id check");
+		return mav;  
+	}
+	/*@RequestMapping(value = "/IdCheck")
+	public @ResponseBody Map<String, String>
+	idCheck(@RequestParam("id") MemberBean mb){
+		logger.info("id : {}", mb);
+		return mm.idCheck(mb);
+	}*/
+		
+	//로그아웃
+	@RequestMapping(value = "/AccessOut", method = RequestMethod.POST)
+	public ModelAndView logout(@ModelAttribute MemberBean member) throws Exception {
+		mav = mm.entrance(-1, member);
+		System.out.println("MemberController :: logOut check");
 		return mav;  
 	}
 
@@ -104,7 +111,15 @@ public class MemberController {
 		return mav;  
 	}
 	
-	//아이디찾기 페이지 이동
+	//아이디 찾기
+		@RequestMapping(value = "/IdFind", method = RequestMethod.POST)
+		public ModelAndView idFind(@ModelAttribute MemberBean member) throws Exception {
+			mav = mm.entrance(3, member);
+			System.out.println("MemberController :: idFind >> mail check");
+			return mav;  
+		}
+	
+	//비밀번호 찾기 페이지 이동
 	@RequestMapping(value = "/PwdFind", method = RequestMethod.GET)
 	public ModelAndView pwdFind() {
 		mav = new ModelAndView();
@@ -113,11 +128,28 @@ public class MemberController {
 		return mav;  
 	}
 	
-	@RequestMapping(value="/Mail", method = RequestMethod.POST)
-	   public ModelAndView mailSender(@ModelAttribute Email bean) {
-	   
-	      mav=mail.entrance(0, bean);
-	      
-	      return mav;
-	   }
+	//비밀번호 찾기
+	@RequestMapping(value = "/PwdFind", method = RequestMethod.POST)
+	public ModelAndView pwdFind(@ModelAttribute MemberBean member) throws Exception {
+		mav = mm.entrance(4, member);
+		System.out.println("MemberController :: pwdFind >> id check");
+		return mav;  
+	}
+	
+	//비밀번호 찾기_이메일 발송
+	@RequestMapping(value="/MailSend", method = RequestMethod.POST)
+	public ModelAndView mailSender(@ModelAttribute MemberBean member) throws Exception {
+		System.out.println("MemberController :: pwdFind >> mail send");
+		mav = mm.entrance(5, member);
+		return mav;
+	}
+
+	//나의 정보
+	@RequestMapping(value="/Info", method = RequestMethod.POST)
+	public ModelAndView info(@ModelAttribute MemberBean member) throws Exception {
+		System.out.println("MemberController :: infopage");
+		mav = mm.entrance(6, member);
+		return mav;
+	}
+	
 }
