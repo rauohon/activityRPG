@@ -23,13 +23,79 @@
 	</insert>
 	
 <!-- 라즈베리파이 등록전 코드 유무 확인 -->
-	<select id='getRaspCheck' parameterType='com.activityRPG.beans.ActivityBean' resultType='Integer'>
+	<select id='getRaspCheck' parameterType='actBean' resultType='Integer'>
 		SELECT COUNT(*) FROM RASPBERRY_INFO WHERE RI_ID=#{riId}
 	</select>
 	
 <!-- 라즈베리파이 등록 -->
-	<insert id="setRaspMem" parameterType="com.activityRPG.beans.ActivityBean">
+	<insert id="setRaspMem" parameterType="actBean">
 		INSERT INTO MEMBER_RASP VALUES(#{riId},#{id},DEFAULT)
 	</insert>
+	
+<!-- 캐릭터 능력치 가져오기 -->
+	<select id="getCharacterStatus" parameterType="gameBean" resultType="gameBean">
+		SELECT CH_NAME as chName, CH_LEVEL as chLevel, CH_EXP as chExp, CH_HP
+		as chHp, CH_MP as chMp,
+		CH_STR as chStr, CH_DEX as chDex, CH_INT as chInt, CH_ATTACK as
+		chAttack,CH_DEFENSE as chDefense,
+		CH_GOLD as chGold
+		FROM USER_CHARACTER WHERE CH_MBID=#{id}
+	</select>
+	
+<!-- 장비한 리스트 가져오기 -->
+	<select id="getEquipList" parameterType="map" resultType="gameBean">
+		SELECT ITNAME, ENLEVEL FROM EQUIPLIST WHERE CHNAME = #{content}
+	</select>
+
+<!-- 소지한 장비 리스트 가져오기 -->
+	<select id="getIvenList" parameterType="map" resultType="gameBean">
+		<![CDATA[
+		SELECT ITNAME, ABILITY, AMOUNT, ENLEVEL
+		FROM IVENLIST 
+		WHERE CHNAME=#{content} AND IVITCODE >=#{min} AND IVITCODE <= #{max}]]>
+	</select>
+	
+	
+<!-- 	sadf 
+
+
+<table><tr><th>무기 이름</th><th>추가 능력치</th><th>보유 갯수</th></tr><tr><td>
+대검
+</td><td>
++5
+</td><td>
+1
+</td></tr></table>
+
+
+
+
+
+-->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>

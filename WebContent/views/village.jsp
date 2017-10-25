@@ -12,6 +12,7 @@
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/chat.js"></script>
+<script src="js/common.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var nickName = $("<input />");
@@ -32,6 +33,24 @@
 		});
 	});
 </script>
+<script type="text/javascript">
+function createForm(formName, actionName, method) {
+	alert(formName);
+	alert(actionName);
+	alert(method);
+	var f = $("#fixForm");
+	var i = $("<input />");
+	f.attr("name",formName);
+	f.attr("action",actionName);
+	f.attr("method",method);
+	i.attr("type","hidden");
+	i.attr("name","id");
+	i.attr("value",'${id }');
+	$("#fixForm").append(i);
+	
+  document.characterinfo.submit();
+}
+</script>
 </head>
 <body>
 	<h1>마을 페이지</h1>
@@ -50,7 +69,7 @@
 		<option value="0">전체</option>
 		<option value="1">길드</option>
 	</select>
-	<a href='CharacterInfo'>캐릭터 정보</a>
+	<input type ="button" value='캐릭터 정보' onClick="createForm('characterinfo','CharacterInfo','POST')" />
 	<a href='QuestPage'>퀘스트</a>
 	<a href='GuildPage'>길드</a>
 	<a href='DungeonPage'>던전 이동</a>
@@ -59,6 +78,6 @@
 	<a href='ShopPage'>포션 상점</a>
 	<a href='ShopPage'>강화 상점</a>
 	<a href='RankingPage'>랭킹</a>
-
+	<form id="fixForm"></form>
 </body>
 </html>

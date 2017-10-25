@@ -8,12 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.activityRPG.beans.GameBean;
 import com.activityRPG.services.GameNomalService;
 import com.activityRPG.services.GamePlayService;
 import com.activityRPG.utils.ProjectUtils;
+import com.google.gson.Gson;
 
 /**
  * @클래스명 : GameController
@@ -143,12 +145,11 @@ public class GameController {
 	 * @Method Name : characterInfoPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/CharacterInfo", method = RequestMethod.GET)
+	@RequestMapping(value="/CharacterInfo", method = RequestMethod.POST)
 	private ModelAndView characterInfoPage(@ModelAttribute GameBean gameBean) {
-		
 		mav = gn.entrance(5, gameBean);
 
-		return mav; //Movement
+		return mav; 
 	}
 	
 	/**
@@ -163,7 +164,22 @@ public class GameController {
 		System.out.println(gameBean.getMoveValue());
 		mav = gp.entrance(0, gameBean);
 
-		return mav; //Movement
+		return mav; 
+	}
+	
+	/**
+	 * 처리내용 : 아이템 정보 불러오는 ajax
+	 * 작성일 : 2017. 10. 25.
+	 * 작성자 : 신태휘
+	 * @Method Name : itemInfo
+	 * @return type : String
+	 */
+	@RequestMapping(value="/ItemInfo", method = RequestMethod.GET)
+	private @ResponseBody String itemInfo(@ModelAttribute GameBean gameBean) {
+		
+		String result = "흐으어어억";
+		
+		return result;
 	}
 	
 }

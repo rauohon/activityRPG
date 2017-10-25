@@ -3,6 +3,10 @@
  */
 package com.activityRPG.services;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +27,7 @@ public class GameNomalService {
 	private IMBatisDao dao;
 	@Autowired
 	private ProjectUtils session;
+	
 	/**
 	 * 처리내용 : 게임 일반 서비스 분기
 	 * 작성일 : 2017. 10. 21.
@@ -61,7 +66,7 @@ public class GameNomalService {
 	}
 
 	/**
-	 * 처리내용 : 5-7 소지한 강화석을 불러와 출력
+	 * 처리내용 : 5-6 소지한 강화석을 불러와 출력
 	 * 작성일 : 2017. 10. 23.
 	 * 작성자 : 신태휘
 	 * @Method Name : ehanceItemList
@@ -69,13 +74,25 @@ public class GameNomalService {
 	 */
 	private String ehanceItemList(GameBean bean) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("강화석 : 90");
-
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("content", bean.getChName());
+		map.put("min", "8001");
+		map.put("max", "9000");
+		List<GameBean> invenList = dao.getIvenList(map);
+		sb.append("<table><tr><th>강화석</th><th>보유 갯수</th></tr>");
+		for(int i = 0 ; i < invenList.size() ; i++) {
+			sb.append("<tr><td>");
+			sb.append(invenList.get(i).getItname());
+			sb.append("</td><td>");
+			sb.append(invenList.get(i).getAmount());
+			sb.append("</td></tr>");
+		}
+		sb.append("</table>");
 		return sb.toString();
 	}
 
 	/**
-	 * 처리내용 : 5-6 소지한 포션을 불러와 출력
+	 * 처리내용 : 5-5 소지한 포션을 불러와 출력
 	 * 작성일 : 2017. 10. 23.
 	 * 작성자 : 신태휘
 	 * @Method Name : potionItemList
@@ -83,14 +100,27 @@ public class GameNomalService {
 	 */
 	private String potionItemList(GameBean bean) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("작은 체력 포션 : 90\t");
-		sb.append("작은 마나 포션 : 90");
-
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("content", bean.getChName());
+		map.put("min", "7001");
+		map.put("max", "8000");
+		List<GameBean> invenList = dao.getIvenList(map);
+		sb.append("<table><tr><th>포션 이름</th><th>회복 능력치</th><th>보유 갯수</th></tr>");
+		for(int i = 0 ; i < invenList.size() ; i++) {
+			sb.append("<tr><td>");
+			sb.append(invenList.get(i).getItname());
+			sb.append("</td><td>");
+			sb.append(invenList.get(i).getAbility());
+			sb.append("</td><td>");
+			sb.append(invenList.get(i).getAmount());
+			sb.append("</td></tr>");
+		}
+		sb.append("</table>");
 		return sb.toString();
 	}
 
 	/**
-	 * 처리내용 : 5-5 소지한 방어구 아이템을 불러와 출력
+	 * 처리내용 : 5-4 소지한 방어구 아이템을 불러와 출력
 	 * 작성일 : 2017. 10. 23.
 	 * 작성자 : 신태휘
 	 * @Method Name : armorItemList
@@ -98,15 +128,29 @@ public class GameNomalService {
 	 */
 	private String armorItemList(GameBean bean) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("천갑옷\t");
-		sb.append("천장갑\n");
-		sb.append("천장화\t");
-
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("content", bean.getChName());
+		map.put("min", "2001");
+		map.put("max", "7000");
+		List<GameBean> invenList = dao.getIvenList(map);
+		sb.append("<table><tr><th>+</th><th>방어구 이름</th><th>추가 능력치</th><th>보유 갯수</th></tr>");
+		for(int i = 0 ; i < invenList.size() ; i++) {
+			sb.append("<tr><td>");
+			sb.append(invenList.get(i).getEnlevel());
+			sb.append("</td><td>");
+			sb.append(invenList.get(i).getItname());
+			sb.append("</td><td>");
+			sb.append(invenList.get(i).getAbility());
+			sb.append("</td><td>");
+			sb.append(invenList.get(i).getAmount());
+			sb.append("</td></tr>");
+		}
+		sb.append("</table>");
 		return sb.toString();
 	}
 
 	/**
-	 * 처리내용 : 5-4 소지한 무기 아이템을 불러와 출력
+	 * 처리내용 : 5-3 소지한 무기 아이템을 불러와 출력
 	 * 작성일 : 2017. 10. 23.
 	 * 작성자 : 신태휘
 	 * @Method Name : weaponItemList
@@ -114,44 +158,64 @@ public class GameNomalService {
 	 */
 	private String weaponItemList(GameBean bean) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("대검\t");
-		sb.append("엑스칼리버");
-
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("content", bean.getChName());
+		map.put("min", "1001");
+		map.put("max", "2000");
+		List<GameBean> invenList = dao.getIvenList(map);
+		sb.append("<table><tr><th>+</th><th>무기 이름</th><th>추가 능력치</th><th>보유 갯수</th></tr>");
+		for(int i = 0 ; i < invenList.size() ; i++) {
+			sb.append("<tr><td>");
+			sb.append(invenList.get(i).getEnlevel());
+			sb.append("</td><td>");
+			sb.append(invenList.get(i).getItname());
+			sb.append("</td><td>");
+			sb.append(invenList.get(i).getAbility());
+			sb.append("</td><td>");
+			sb.append(invenList.get(i).getAmount());
+			sb.append("</td></tr>");
+		}
+		sb.append("</table>");
 		return sb.toString();
 	}
 
 	/**
-	 * 처리내용 : 5-3 착용한 아이템을 불러와 출력
+	 * 처리내용 : 5-2 착용한 아이템을 불러와 출력
 	 * 작성일 : 2017. 10. 23.
 	 * 작성자 : 신태휘
 	 * @Method Name : equipedList
 	 * @return type : String
 	 */
-	private String equipedList(GameBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("머리 : 999\t");
-		sb.append("몸 : 999\n");
-		sb.append("장갑 : 999\t");
-		sb.append("발 : 999\n");
-		sb.append("반지 : 999\t");
-		sb.append("목걸이 : 999\t");
-
-		return sb.toString();
-	}
-
-	/**
-	 * 처리내용 : 5-2 경험치를 불러와 출력
-	 * 작성일 : 2017. 10. 23.
-	 * 작성자 : 신태휘
-	 * @Method Name : characterExp
-	 * @return type : String
-	 */
-	private String characterExp(GameBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("현재 : 999\t");
-		sb.append("필요 : 999\n");
-
-		return sb.toString();
+	private Map<String, String> equipedMap(GameBean bean) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("content",bean.getChName());
+		List<GameBean> equipList = dao.getEquipList(map);
+		map.put("weapon", "<h1 onClick=\'startAjax()\'>"+equipList.get(0).getItname()+"</h1>");
+		if(equipList.get(0).getEnlevel() != 0) {
+			map.put("weaponEn", "+"+String.valueOf(equipList.get(0).getEnlevel()));
+		}
+		map.put("armor", equipList.get(1).getItname());
+		if(equipList.get(1).getEnlevel() != 0) {
+			map.put("armorEn", "+"+String.valueOf(equipList.get(1).getEnlevel()));
+		}
+		map.put("glove", equipList.get(2).getItname());
+		if(equipList.get(2).getEnlevel() != 0) {
+			map.put("gloveEn", "+"+String.valueOf(equipList.get(2).getEnlevel()));
+		}
+		map.put("shoe", equipList.get(3).getItname());
+		if(equipList.get(3).getEnlevel() != 0) {
+			map.put("shoeEn", "+"+String.valueOf(equipList.get(3).getEnlevel()));
+		}
+		map.put("ring", equipList.get(4).getItname());
+		if(equipList.get(4).getEnlevel() != 0) {
+			map.put("ringEn", "+"+String.valueOf(equipList.get(4).getEnlevel()));
+		}
+		map.put("necklace", equipList.get(5).getItname());
+		if(equipList.get(5).getEnlevel() != 0) {
+			map.put("necklaceEn", "+"+String.valueOf(equipList.get(5).getEnlevel()));
+		}
+		
+		return map;
 	}
 
 	/**
@@ -161,17 +225,12 @@ public class GameNomalService {
 	 * @Method Name : characterStatus
 	 * @return type : String
 	 */
-	private String characterStatus(GameBean bean) {
+	private GameBean characterStatus(GameBean bean) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("힘 : 999\t");
-		sb.append("민첩 : 999\n");
-		sb.append("지능 : 999\t");
-		sb.append("공격력 : 999\n");
-		sb.append("방어력 : 999\t");
-		sb.append("체력 : 999\t");
-		sb.append("마법력 : 999");	
+		
+		bean = dao.getCharacterStatus(bean);
 
-		return sb.toString();
+		return bean;
 	}
 	
 	/**
@@ -196,15 +255,38 @@ public class GameNomalService {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView characterInfoPage(GameBean bean) {
-		
-		mav.addObject("characterImage", characterImage(bean));
-		mav.addObject("characterStatus", characterStatus(bean));
-		mav.addObject("characterExp", characterExp(bean));
-		mav.addObject("equipedList", equipedList(bean));
+				
+//		System.out.println(map.get("weapon") + "메소드 테스트");
+		bean = characterStatus(bean);
+		Map<String, String> map = equipedMap(bean);
+		mav.addObject("chName", bean.getChName());
+		mav.addObject("chLevel", bean.getChLevel());
+		mav.addObject("chExp", bean.getChExp());
+		mav.addObject("chHp", bean.getChHp());
+		mav.addObject("chMp", bean.getChMp());
+		mav.addObject("chStr", bean.getChStr());
+		mav.addObject("chDex", bean.getChDex());
+		mav.addObject("chInt", bean.getChInt());
+		mav.addObject("chAttack", bean.getChAttack());
+		mav.addObject("chDefense", bean.getChDefense());
+		mav.addObject("chGold", bean.getChGold());
+		mav.addObject("weapon",map.get("weapon"));
+		mav.addObject("weaponEn",map.get("weaponEn"));
+		mav.addObject("armor",map.get("armor"));
+		mav.addObject("armorEn",map.get("armorEn"));
+		mav.addObject("glove",map.get("glove"));
+		mav.addObject("gloveEn",map.get("gloveEn"));
+		mav.addObject("shoe",map.get("shoe"));
+		mav.addObject("shoeEn",map.get("shoeEn"));
+		mav.addObject("ring",map.get("ring"));
+		mav.addObject("ringEn",map.get("ringEn"));
+		mav.addObject("necklace",map.get("necklace"));
+		mav.addObject("necklaceEn",map.get("necklaceEn"));
 		mav.addObject("weaponItemList", weaponItemList(bean));
 		mav.addObject("armorItemList", armorItemList(bean));
 		mav.addObject("potionItemList", potionItemList(bean));
 		mav.addObject("ehanceItemList", ehanceItemList(bean));
+		mav.addObject("characterImage", characterImage(bean));
 		mav.setViewName("characterInfo");
 
 		return mav;

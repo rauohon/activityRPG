@@ -3,7 +3,11 @@
  */
 package com.activityRPG.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import com.activityRPG.beans.ActivityBean;
+import com.activityRPG.beans.GameBean;
 import com.activityRPG.beans.MemberBean;
 
 /**
@@ -24,7 +28,13 @@ public interface IMBatisDao {
 	
 	public int joinSuccess(MemberBean mb);
 	
-	public int getRaspCheck(ActivityBean ab);		// 라즈베리파이 코드 유무 확인
+	public int getRaspCheck(ActivityBean bean);			// 라즈베리파이 코드 유무 확인
 	
-	public int setRaspMem(ActivityBean ab);		// 라즈베리파이-회원 연동
+	public int setRaspMem(ActivityBean bean);			// 라즈베리파이-회원 연동
+	
+	public GameBean getCharacterStatus(GameBean bean);	// 캐릭터 능력치 조회
+	
+	public List<GameBean> getEquipList(Map map);	// 캐릭터 장비 조회
+	
+	public List<GameBean> getIvenList(Map map);
 }
