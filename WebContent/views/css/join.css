@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+body {
+  background: linear-gradient(to right, #2c3338, #475660);
+  color: #606468;
+  font: 87.5%/1.5em 'Open Sans', sans-serif;
+  margin: 0;
+}
+
+#register-form {
+	color: #ffffff;
+}
+
+input[type="text"], input[type="password"] {
+background-color: #3b4148;
+color: #ffffff;
+
+}
+
+.input-group-addon{
+	background-color: #3b4148;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #f47757;
+    border-color: #f47757;
+}
+
+.btn-info:hover {
+    color: #fff;
+    background-color: #f79e87;
+    border-color: #f79e87;
+}
+
+.input-group .form-control {
+    position: relative;
+    z-index: 2;
+    float: left;
+    width: 85%;
+    margin-bottom: 0;
+}
+
+.input-group{
+    margin-bottom: 40px;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #c84137;
+    border-color: #c84137;
+    
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #de8d87;
+    border-color: #de8d87;
+}
+
+input[type="button"] {
+	color: #fff;
+    background-color: #f47757;
+    border-color: #f47757;
+    height: 35px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    width: 100px;
+}
+
+input[type="button"]:hover {
+	color: #fff;
+    background-color: #f79e87;
+    border-color: #f79e87;
+    
+}
+
+element.style {
+    width: 527px;
+}
+
+.help-block {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #737373;
+    font-size: 14px;
+}

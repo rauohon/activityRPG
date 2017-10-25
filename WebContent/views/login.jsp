@@ -35,7 +35,7 @@
 	<!-- login -->
 	<div class="container">
 		<div id="login">
-			<form action="javascript:void(0);" method="get">
+			<form>
 				<fieldset class="clearfix">
 				
 					<!-- JS because of IE support; better: placeholder="Username" -->

@@ -53,7 +53,7 @@ $(function()
     	
    	    pwd: {
 	     required: true,
-	     minlength: 8,
+	     minlength: 5,
 	     maxlength: 15
 	    },
 	    
@@ -108,7 +108,7 @@ $(function()
 
     	 pwd:{
     		 required: "패스워드를 입력해주세요.",
-    		 minlength: "패스워드 8자리 이상 입력해주세요.",
+    		 minlength: "패스워드 5자리 이상 입력해주세요.",
     		 maxlength: "패스워드 15자리를 넘어가지 말아주세요."
     	 },
 

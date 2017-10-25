@@ -24,7 +24,17 @@ public interface IMBatisDao {
 	
 	public int joinSuccess(MemberBean mb);
 	
+<<<<<<< HEAD
 	public int getRaspCheck(ActivityBean ab);		// 라즈베리파이 코드 유무 확인
 	
 	public int setRaspMem(ActivityBean ab);		// 라즈베리파이-회원 연동
+=======
+	public int idFind(MemberBean mb);
+	public MemberBean idSend(MemberBean mb);
+	
+	public int mailcheck(MemberBean mb);
+	public MemberBean mailSend(MemberBean mb);
+	
+	public int pwdUpdate(MemberBean mb);
+>>>>>>> 57a8f917fba6119a8bce1ca3b313b7397493edbe
 }
