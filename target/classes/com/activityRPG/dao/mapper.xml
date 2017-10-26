@@ -76,17 +76,48 @@
 	
 <!-- 장비한 리스트 가져오기 -->
 	<select id="getEquipList" parameterType="map" resultType="gameBean">
-		SELECT ITNAME, ENLEVEL FROM EQUIPLIST WHERE CHNAME = #{content}
+		SELECT ITNAME, ENLEVEL, ITCODE FROM EQUIPLIST WHERE CHNAME = #{content}
 	</select>
 
 <!-- 소지한 장비 리스트 가져오기 -->
 	<select id="getIvenList" parameterType="map" resultType="gameBean">
-		<![CDATA[
-		SELECT ITNAME, ABILITY, AMOUNT, ENLEVEL
-		FROM IVENLIST 
-		WHERE CHNAME=#{content} AND IVITCODE >=#{min} AND IVITCODE <= #{max}]]>
+		<![CDATA[SELECT IVITCODE as ITCODE, ITNAME, REQUIRE as  REQUIABILITY, ABILITY, AMOUNT, ENLEVEL, BUYPRICE, SELLPRICE	FROM IVENLIST	WHERE CHNAME=#{content} AND IVITCODE >=#{min} AND IVITCODE <= #{max}]]>
+	</select>
+	
+<!-- 아이템 정보 가져오기 -->
+	<select id="getItemInfo" parameterType="gameBean" resultType="gameBean">
+		SELECT IT_NAME AS ITNAME, IT_REQUIREABILITY AS REQUIABILITY, IT_ABILITY AS ABILITY, IT_BUY AS BUYPRICE, IT_SELL AS SELLPRICE FROM ITEM WHERE IT_CODE=#{content}
 	</select>
 
+<!-- 길드보드 리스트 가져오기 -->
+	<select id="getGuildBoardList" parameterType="boardBean" resultMap="gBoardMap">
+		SELECT * FROM GUILDBOARD
+	</select>
+	
+<!-- 	길드보드 내용 가져오기 -->
+	<select id="getGuildBoardContent" parameterType="boardBean" resultType="boardBean">
+		SELECT GB_TITLE AS GBTITLE, GB_WDATE AS GBWDATE, GB_NAME AS CHANEM, GB_MBID AS "ID", GB_HIT AS GBHIT, GB_CONTENT AS GBCONTENT FROM GUILDBOARD WHERE GB_CODE=#{gbCode}
+	</select>
+
+<!-- 길드보드 게시판 작성하기 -->
+	<insert id="setGuildBoard" parameterType="boardBean">
+		INSERT INTO GUILDBOARD VALUES (GBOARD_SEQ.nextval, #{id}, #{gbTitle}', #{gbContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT,NULL,#{chName});
+	</insert>
+
+<!-- 길드보드 리스트 가져오기위한 맵 -->
+	<resultMap type="boardBean" id="gBoardMap">
+		<result property="gbCode" column="GB_CODE" javaType="java.lang.Integer" />
+		<result property="id" column="GB_MBID" javaType="java.lang.String" />
+		<result property="chName" column="GB_NAME" javaType="java.lang.String" />
+		<result property="gbTitle" column="GB_TITLE" javaType="java.lang.String" />
+		<result property="gbContent" column="GB_CONTENT" javaType="java.lang.String" />
+		<result property="gbWDate" column="GB_WDATE" javaType="java.util.Date" />
+		<result property="gbMDate" column="GB_MDATE" javaType="java.util.Date" />
+		<result property="gbHit" column="GB_HIT" javaType="java.lang.Integer" />
+		<result property="gbGroup" column="GB_GROUP" javaType="java.lang.Integer" />
+		<result property="gbStep" column="GB_STEP" javaType="java.lang.Integer" />
+		<result property="gbIndent" column="GB_INDENT" javaType="java.lang.Integer" />
+	</resultMap>
 </mapper>
 <!-- 	sadf 
 
@@ -104,7 +135,6 @@
 
 
 -->
-	
 	
 	
 	

@@ -60,7 +60,6 @@ public class ActivityService {
 
 		}
 
-
 		return mav;
 	}
 
@@ -74,17 +73,25 @@ public class ActivityService {
 	private ModelAndView enrollRaspberryPi(ActivityBean bean) {
 
 		//라즈베리파이 등록하기
-
+		try {
 		if(dao.getRaspCheck(bean) != 0) {
 			System.out.println("조회 성공");
 			if(dao.setRaspMem(bean) != 0) {
 				System.out.println("등록 성공");
+				mav.addObject("msg", "system error");
 				mav.setViewName("home");
 			}else {
 				mav.addObject("msg", "system error");
+				mav.setViewName("enrollRaspberryPi");
 			}
 		}else {
 			mav.addObject("msg", "라즈베리 코드를 다시 확인해 주세요.");
+			mav.setViewName("enrollRaspberryPi");
+		}
+		}catch(Exception e){
+			e.printStackTrace();
+			mav.addObject("msg", "라즈베리 코드를 다시 확인해 주세요.");
+			mav.setViewName("enrollRaspberryPi");
 		}
 		return mav;
 	}

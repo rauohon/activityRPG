@@ -7,16 +7,14 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-	function startAjax(){
-		alert("function 시작!!");
+	function startAjax(code){
 		$.ajax({
 			type: "get",
 			url: "ItemInfo",
-			data: { id : "taehwy",pw : "1234" },													// 전달 값
+			data: { chName : '${chName}', itcode:code},							// 전달 값
 			dataType: "html",										// json, xml, html(text): 안쓰면 html
 			timeout : "5000",										// 타임아웃
 			success : function(data) {							// 성공
-				alert(data);
 				console.log(data);
 				$("#ajax_div").append(data);
 			},
@@ -26,7 +24,10 @@
 			}
 		});
 	}
-
+// 	function hideDiv(){
+// 	사라지게 하기
+// 		$("#ajax_div").fadeOut();
+// 	}
 </script>
 <style>
 	table{

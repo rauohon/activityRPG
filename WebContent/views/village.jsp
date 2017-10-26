@@ -35,9 +35,6 @@
 </script>
 <script type="text/javascript">
 function createForm(formName, actionName, method) {
-	alert(formName);
-	alert(actionName);
-	alert(method);
 	var f = $("#fixForm");
 	var i = $("<input />");
 	f.attr("name",formName);

@@ -44,11 +44,9 @@
 	} */
 </script>
 </head>
-<<<<<<< HEAD
 <body>
 	<a href="LoginForm">login Go</a>
 	<a href="JoinForm">회원가입</a>
-=======
 <body onLoad="init()">
 
 	<div id="layer_fixed">
@@ -65,16 +63,16 @@
 			</tr>
 		</table>
 	</div>
-	</br></br></br>
+	<br/><br/><br/>
 	<h4 id="logincheck">${id }님 로그인 된 메인 페이지 입니다.</h4>
 	<button onClick="info()">나의 정보</button>
 	<form action="AccessOut" method="post">
 	<input type="submit" value="로그아웃" />
 	</form>
->>>>>>> 57a8f917fba6119a8bce1ca3b313b7397493edbe
 	<a href='GameForm'>플레이!!</a>
 	<a href='ActivityDayLogPage'>운동정보 확인(회원)</a>&nbsp;&nbsp;&nbsp;&nbsp;
 	<a href='AdminActivityLogPage'>운동정보 확인(관리자)</a>&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href='EnrollRaspberryPiPage'>라즈베리파이 등록</a>
+	<a href='EnrollRaspberryPiPage'>라즈베리파이 등록 하러가기</a>
+	<a href='GuildBoardPage'>길드 게시판 이동</a>
 </body>
 </html>

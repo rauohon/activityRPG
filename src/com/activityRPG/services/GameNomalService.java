@@ -56,6 +56,9 @@ public class GameNomalService {
 			break;
 		case 5:
 			mav = characterInfoPage((GameBean)bean);
+			break;			
+		case 6:
+			mav = itemInfo((GameBean)bean);
 			break;
 		}
 
@@ -63,6 +66,32 @@ public class GameNomalService {
 		return mav;
 
 
+	}
+
+	/**
+	 * 처리내용 : 6. 아이템 정보를 리턴
+	 * 작성일 : 2017. 10. 26.
+	 * 작성자 : 신태휘
+	 * @Method Name : itemInfo
+	 * @return type : ModelAndView
+	 */
+	private ModelAndView itemInfo(GameBean bean) {
+		StringBuffer sb = new StringBuffer();
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("content", bean.getItcode());
+		bean = dao.getItemInfo(map);
+		sb.append("<table><tr><th>이름</th><th>향상 능력치</th><th>필요 능력치</th></tr><tr><td>");
+		sb.append(bean.getItname());
+		sb.append("</td><td>");
+		sb.append(bean.getAbility());
+		sb.append("</td><td>");
+		sb.append(bean.getRequiAbility());
+		sb.append("</td></tr></table>");
+		mav.addObject("itemInfo", sb.toString());
+		
+		mav.setViewName("itemInfo");
+		
+		return mav;
 	}
 
 	/**
@@ -107,7 +136,7 @@ public class GameNomalService {
 		List<GameBean> invenList = dao.getIvenList(map);
 		sb.append("<table><tr><th>포션 이름</th><th>회복 능력치</th><th>보유 갯수</th></tr>");
 		for(int i = 0 ; i < invenList.size() ; i++) {
-			sb.append("<tr><td>");
+			sb.append("<tr onClick=\'startAjax(\""+invenList.get(i).getItcode()+"\")\'><td>");
 			sb.append(invenList.get(i).getItname());
 			sb.append("</td><td>");
 			sb.append(invenList.get(i).getAbility());
@@ -135,7 +164,7 @@ public class GameNomalService {
 		List<GameBean> invenList = dao.getIvenList(map);
 		sb.append("<table><tr><th>+</th><th>방어구 이름</th><th>추가 능력치</th><th>보유 갯수</th></tr>");
 		for(int i = 0 ; i < invenList.size() ; i++) {
-			sb.append("<tr><td>");
+			sb.append("<tr onClick=\'startAjax(\""+invenList.get(i).getItcode()+"\")\'><td>");
 			sb.append(invenList.get(i).getEnlevel());
 			sb.append("</td><td>");
 			sb.append(invenList.get(i).getItname());
@@ -165,7 +194,7 @@ public class GameNomalService {
 		List<GameBean> invenList = dao.getIvenList(map);
 		sb.append("<table><tr><th>+</th><th>무기 이름</th><th>추가 능력치</th><th>보유 갯수</th></tr>");
 		for(int i = 0 ; i < invenList.size() ; i++) {
-			sb.append("<tr><td>");
+			sb.append("<tr onClick=\'startAjax(\""+invenList.get(i).getItcode()+"\")\'><td>");
 			sb.append(invenList.get(i).getEnlevel());
 			sb.append("</td><td>");
 			sb.append(invenList.get(i).getItname());
@@ -190,27 +219,27 @@ public class GameNomalService {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("content",bean.getChName());
 		List<GameBean> equipList = dao.getEquipList(map);
-		map.put("weapon", "<h1 onClick=\'startAjax()\'>"+equipList.get(0).getItname()+"</h1>");
+		map.put("weapon", "<h1 onmouseout=\'hideDiv()\' onClick=\'startAjax(\""+equipList.get(0).getItcode()+"\")\'>"+equipList.get(0).getItname()+"</h1>");
 		if(equipList.get(0).getEnlevel() != 0) {
 			map.put("weaponEn", "+"+String.valueOf(equipList.get(0).getEnlevel()));
 		}
-		map.put("armor", equipList.get(1).getItname());
+		map.put("armor", "<h1 onClick=\'startAjax(\""+equipList.get(1).getItcode()+"\")\'>"+equipList.get(1).getItname());
 		if(equipList.get(1).getEnlevel() != 0) {
 			map.put("armorEn", "+"+String.valueOf(equipList.get(1).getEnlevel()));
 		}
-		map.put("glove", equipList.get(2).getItname());
+		map.put("glove", "<h1 onClick=\'startAjax(\""+equipList.get(2).getItcode()+"\")\'>"+equipList.get(2).getItname());
 		if(equipList.get(2).getEnlevel() != 0) {
 			map.put("gloveEn", "+"+String.valueOf(equipList.get(2).getEnlevel()));
 		}
-		map.put("shoe", equipList.get(3).getItname());
+		map.put("shoe", "<h1 onClick=\'startAjax(\""+equipList.get(3).getItcode()+"\")\'>"+equipList.get(3).getItname());
 		if(equipList.get(3).getEnlevel() != 0) {
 			map.put("shoeEn", "+"+String.valueOf(equipList.get(3).getEnlevel()));
 		}
-		map.put("ring", equipList.get(4).getItname());
+		map.put("ring", "<h1 onClick=\'startAjax(\""+equipList.get(4).getItcode()+"\")\'>"+equipList.get(4).getItname());
 		if(equipList.get(4).getEnlevel() != 0) {
 			map.put("ringEn", "+"+String.valueOf(equipList.get(4).getEnlevel()));
 		}
-		map.put("necklace", equipList.get(5).getItname());
+		map.put("necklace", "<h1 onClick=\'startAjax(\""+equipList.get(5).getItcode()+"\")\'>"+equipList.get(5).getItname());
 		if(equipList.get(5).getEnlevel() != 0) {
 			map.put("necklaceEn", "+"+String.valueOf(equipList.get(5).getEnlevel()));
 		}

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.activityRPG.beans.ActivityBean;
+import com.activityRPG.beans.BoardBean;
 import com.activityRPG.beans.GameBean;
 import com.activityRPG.beans.MemberBean;
 
@@ -27,6 +28,14 @@ public interface IMBatisDao {
 	public int AccessHistory(MemberBean mb);
 	
 	public int joinSuccess(MemberBean mb);
+
+	public int idFind(MemberBean mb);
+	public MemberBean idSend(MemberBean mb);
+	
+	public int mailcheck(MemberBean mb);
+	public MemberBean mailSend(MemberBean mb);
+	
+	public int pwdUpdate(MemberBean mb);
 	
 	public int getRaspCheck(ActivityBean bean);			// 라즈베리파이 코드 유무 확인
 	
@@ -37,13 +46,15 @@ public interface IMBatisDao {
 	public List<GameBean> getEquipList(Map map);	// 캐릭터 장비 조회
 	
 	public List<GameBean> getIvenList(Map map);		// 캐릭터 소지품 조회
-
-
-	public int idFind(MemberBean mb);
-	public MemberBean idSend(MemberBean mb);
 	
-	public int mailcheck(MemberBean mb);
-	public MemberBean mailSend(MemberBean mb);
+	public GameBean getItemInfo(Map map);		// 아이템 정보 조회
 	
-	public int pwdUpdate(MemberBean mb);
+	public List<BoardBean> getGuildBoardList(BoardBean bean);		// 길드 보드의 리스트 불러오기
+	
+	public BoardBean getGuildBoardContent(BoardBean bean);	// 길드 보드 내용 불러오기
+	
+	public int setGuildBoard(BoardBean bean);					// 길드 보드 작성하기
+	
+	
+	
 }

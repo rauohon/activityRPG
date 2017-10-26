@@ -15,6 +15,30 @@ import org.apache.ibatis.type.Alias;
 @Alias("gameBean")
 public class GameBean {
 	
+	public int getRequiAbility() {
+		return requiAbility;
+	}
+
+	public void setRequiAbility(int requiAbility) {
+		this.requiAbility = requiAbility;
+	}
+
+	public int getBuyPrice() {
+		return buyPrice;
+	}
+
+	public void setBuyPrice(int buyPrice) {
+		this.buyPrice = buyPrice;
+	}
+
+	public int getSellPirce() {
+		return sellPirce;
+	}
+
+	public void setSellPirce(int sellPirce) {
+		this.sellPirce = sellPirce;
+	}
+
 	private String moveValue;
 	private String chName;
 	private String id;
@@ -32,10 +56,16 @@ public class GameBean {
 	private int chGuCode;
 	private int chGlCode;
 	private String itname;
+	private String itcode;
+	private int requiAbility;
+	private int buyPrice;
+	private int sellPirce;
 	private int ability;
 	private int amount;
 	private int enlevel;
 
+	
+	
 	public int getAmount() {
 		return amount;
 	}
@@ -195,5 +225,20 @@ public class GameBean {
 	public void setEnlevel(int enlevel) {
 		this.enlevel = enlevel;
 	}
+
+	/**
+	 * @return the itcode
+	 */
+	public String getItcode() {
+		return itcode;
+	}
+
+	/**
+	 * @param itcode the itcode to set
+	 */
+	public void setItcode(String itcode) {
+		this.itcode = itcode;
+	}
+
 
 }
