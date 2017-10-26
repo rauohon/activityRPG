@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
 /*import com.activityRPG.beans.Email;*/
-=======
->>>>>>> 57a8f917fba6119a8bce1ca3b313b7397493edbe
 import com.activityRPG.beans.MemberBean;
 import com.activityRPG.controller.MemberController;
 import com.activityRPG.services.MemberManagement;
@@ -132,7 +129,6 @@ public class MemberController {
 		return mav;  
 	}
 	
-<<<<<<< HEAD
 	/*@RequestMapping(value="/Mail", method = RequestMethod.POST)
 	   public ModelAndView mailSender(@ModelAttribute Email bean) {
 	   
@@ -140,7 +136,6 @@ public class MemberController {
 	      
 	      return mav;
 	   }*/
-=======
 	//비밀번호 찾기
 	@RequestMapping(value = "/PwdFind", method = RequestMethod.POST)
 	public ModelAndView pwdFind(@ModelAttribute MemberBean member) throws Exception {
@@ -165,5 +160,4 @@ public class MemberController {
 		return mav;
 	}
 	
->>>>>>> 57a8f917fba6119a8bce1ca3b313b7397493edbe
 }

@@ -22,7 +22,6 @@
 		VALUES(#{id}, #{pwd}, #{name}, #{birth}, #{age}, #{gender}, #{phone}, #{email}, DEFAULT)
 	</insert>
 	
-<<<<<<< HEAD
 <!-- 라즈베리파이 등록전 코드 유무 확인 -->
 	<select id='getRaspCheck' parameterType='com.activityRPG.beans.ActivityBean' resultType='Integer'>
 		SELECT COUNT(*) FROM RASPBERRY_INFO WHERE RI_ID=#{riId}
@@ -33,8 +32,6 @@
 		INSERT INTO MEMBER_RASP VALUES(#{riId},#{id},DEFAULT)
 	</insert>
 	
-</mapper>
-=======
 <!-- 아이디찾기  >> 핸드폰번호 확인 -->
 	<select id="idFind" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
 		SELECT COUNT(*) FROM MB WHERE MB_PHONE=#{phone}
@@ -55,6 +52,7 @@
 	<insert id="pwdUpdate" parameterType="com.activityRPG.beans.MemberBean">
 		UPDATE MB SET MB_PW=#{pwd} WHERE MB_MAIL=#{email}
 	</insert>
+
 </mapper>
 <!-- 
 <resultMap type="member" id="joinMap">
@@ -67,4 +65,3 @@
 		<result property="phone" column="MB_PHONE" javaType="java.lang.String"/>
 		<result property="email" column="MB_MAIL" javaType="java.lang.String"/>
 	</resultMap> -->
->>>>>>> 57a8f917fba6119a8bce1ca3b313b7397493edbe

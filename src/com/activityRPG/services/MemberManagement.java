@@ -151,17 +151,7 @@ public class MemberManagement extends TranEx {
 		boolean transaction = false;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-<<<<<<< HEAD
-		
-		try {
-			System.out.println("try 밑에");	
-			mb.setPwd(enc.encode(mb.getPwd()));
-			if(dao.joinSuccess(mb) != 0) {
-				System.out.println("join successful");				
-				mav.setViewName("home");		
-				System.out.println(mav.getViewName() + " : 서비스 if 안 mav 네임");
-				transaction = true;
-=======
+
 
 		System.out.println("service :: join start");
 		try {
@@ -173,7 +163,6 @@ public class MemberManagement extends TranEx {
 					mav.setViewName("home");
 					transaction = true;
 				}
->>>>>>> 57a8f917fba6119a8bce1ca3b313b7397493edbe
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -183,8 +172,6 @@ public class MemberManagement extends TranEx {
 		return mav;
 	}
 	
-<<<<<<< HEAD
-=======
 	//아이디 중복확인
 	public ModelAndView idCheck(MemberBean mb) {
 		ModelAndView mav = new ModelAndView();
@@ -323,5 +310,4 @@ public class MemberManagement extends TranEx {
 		setTransactionResult(transaction);
 		return json;
 	}*/
->>>>>>> 57a8f917fba6119a8bce1ca3b313b7397493edbe
 }
