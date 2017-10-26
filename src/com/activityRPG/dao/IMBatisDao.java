@@ -36,5 +36,14 @@ public interface IMBatisDao {
 	
 	public List<GameBean> getEquipList(Map map);	// 캐릭터 장비 조회
 	
-	public List<GameBean> getIvenList(Map map);
+	public List<GameBean> getIvenList(Map map);		// 캐릭터 소지품 조회
+
+
+	public int idFind(MemberBean mb);
+	public MemberBean idSend(MemberBean mb);
+	
+	public int mailcheck(MemberBean mb);
+	public MemberBean mailSend(MemberBean mb);
+	
+	public int pwdUpdate(MemberBean mb);
 }

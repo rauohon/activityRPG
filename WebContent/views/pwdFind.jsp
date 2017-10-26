@@ -16,12 +16,10 @@
 		var form = createForm("pwdFindForm", "PwdFind", "post");
 
 		//현재 페이지명 저장 hidden개체 생성
-		createObj("hidden", "page", "home", "");
-		alert("hiddenForm");
+		createObj("hidden", "", "mailSend", "");
 
 		//생성 된 폼과 요소 개체간의 연결
 		relationObj("pwdFindForm", "id");
-		alert("relatopmObj");
 
 		//서버 전송
 		form.submit();
@@ -39,8 +37,8 @@
 					<!-- 아이디 입력(패스워드 찾기) -->
 					<p>
 						<span class="fontawesome-user"></span>
-						<input type="text" name="pwd" value="Password" onBlur="if(this.value == '') this.value = 'Pwd'"
-								onFocus="if(this.value == 'Pwd') this.value = ''" required>
+						<input type="text" name="id" value="Id" onBlur="if(this.value == '') this.value = 'Id'"
+								onFocus="if(this.value == 'Id') this.value = ''" required>
 					</p>
 					
 					<!-- 로그인 버튼 -->
@@ -51,7 +49,7 @@
 						<a href="/">메인 페이지</a>
 					</p>
 					
-					<h4>${message }</h4>
+					${message }
 				</fieldset>
 			</form>
 		</div>
