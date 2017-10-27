@@ -59,6 +59,21 @@ public class BoardController {
 	}
 	
 	/**
+	 * 처리내용 : writeGBoard 작성
+	 * 작성일 : 2017. 10. 26.
+	 * 작성자 : 신태휘
+	 * @Method Name : writeGBoardPage
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/WriteGBoard", method = RequestMethod.GET)
+	private ModelAndView writeGBoard(@ModelAttribute BoardBean bean) {
+		
+		mav=gBoard.entrance(2, bean);
+		
+		return mav;
+	}
+	
+	/**
 	 * 처리내용 : readGBoardPage연결
 	 * 작성일 : 2017. 10. 26.
 	 * 작성자 : 신태휘
@@ -67,7 +82,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/ReadGBoardPage", method = RequestMethod.POST)
 	private ModelAndView readGBoardPage(@ModelAttribute BoardBean bean) {
-		mav=gBoard.entrance(2, bean);
+		mav=gBoard.entrance(3, bean);
 		
 		return mav;
 	}
@@ -81,7 +96,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/ConfirmDeleteGBoardPage", method = RequestMethod.GET)
 	private ModelAndView confirmDeleteGBoardPage(@ModelAttribute BoardBean bean) {
-		mav=gBoard.entrance(3, bean);
+		mav=gBoard.entrance(4, bean);
 		
 		return mav;
 	}
@@ -95,7 +110,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/ConfirmModifyGBoardPage", method = RequestMethod.GET)
 	private ModelAndView confirmModifyGBoardPage(@ModelAttribute BoardBean bean) {
-		mav=gBoard.entrance(4, bean);
+		mav=gBoard.entrance(5, bean);
 		
 		return mav;
 	}
@@ -109,7 +124,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/DeleteGBoard", method = RequestMethod.GET)
 	private ModelAndView deleteGBoard(@ModelAttribute BoardBean bean) {
-		mav=gBoard.entrance(5, bean);
+		mav=gBoard.entrance(6, bean);
 		
 		return mav;
 	}
@@ -123,7 +138,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/ModifyGBoardPage", method = RequestMethod.GET)
 	private ModelAndView modifyGBoardPage(@ModelAttribute BoardBean bean) {
-		mav=gBoard.entrance(6, bean);
+		mav=gBoard.entrance(7, bean);
 		
 		return mav;
 	}

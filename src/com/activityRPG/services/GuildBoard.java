@@ -13,6 +13,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.activityRPG.beans.BoardBean;
 import com.activityRPG.beans.GameBean;
@@ -182,7 +183,7 @@ public class GuildBoard {
 	}
 	
 	/**
-	 * 처리내용 : 2. 게시글 작성 페이지 연결
+	 * 처리내용 : 2. 게시글 작성
 	 * 작성일 : 2017. 10. 26.
 	 * 작성자 : 신태휘
 	 * @Method Name : writeBoardPage
@@ -190,12 +191,20 @@ public class GuildBoard {
 	 */
 	private ModelAndView writeGBoard(BoardBean bean) {
 		
-		if(dao.setGuildBoard(bean) !=0) {
-			
+		try {
+			bean.setId(session.getAttribute("id").toString());
+			if(dao.setGuildBoard(bean) !=0) {
+				RedirectView rv = null;
+				rv = new RedirectView("/GuildBoardPage");
+				rv.setExposeModelAttributes(false);
+				mav.setView(rv);
+			}else {
+				mav.addObject("msg","system error");
+				mav.setViewName("guildBoard");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		
-		mav.setViewName("gBoardWrite");
-		
 		return mav;
 	}
 
@@ -207,8 +216,19 @@ public class GuildBoard {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView writeGBoardPage(BoardBean bean) {
-				
-		mav.setViewName("gBoardWrite");
+		
+		try {
+			bean.setId(session.getAttribute("id").toString());
+			bean = dao.getCharaName(bean);
+			session.setAttribute("chName", bean.getChName());
+			mav.setViewName("gBoardWrite");
+		}catch(Exception e) {
+			e.printStackTrace();
+			mav.addObject("msg", "system error");
+			mav.setViewName("guildBoard");
+		}
+		
+		
 		
 		return mav;
 	}

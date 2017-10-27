@@ -101,8 +101,13 @@
 
 <!-- 길드보드 게시판 작성하기 -->
 	<insert id="setGuildBoard" parameterType="boardBean">
-		INSERT INTO GUILDBOARD VALUES (GBOARD_SEQ.nextval, #{id}, #{gbTitle}', #{gbContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT,NULL,#{chName});
+		INSERT INTO GUILDBOARD VALUES (GBOARD_SEQ.nextval, #{id}, #{gbTitle}, #{gbContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT,NULL,#{chName})
 	</insert>
+
+<!-- 캐릭터 이름 가져오기 -->
+	<select id="getCharaName" parameterType="boardBean" resultType="boardBean">
+		SELECT CH_NAME AS chName FROM USER_CHARACTER WHERE CH_MBID=#{id}
+	</select>
 
 <!-- 길드보드 리스트 가져오기위한 맵 -->
 	<resultMap type="boardBean" id="gBoardMap">

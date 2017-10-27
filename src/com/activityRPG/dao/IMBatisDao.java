@@ -55,6 +55,8 @@ public interface IMBatisDao {
 	
 	public int setGuildBoard(BoardBean bean);					// 길드 보드 작성하기
 	
+	public BoardBean getCharaName(BoardBean bean);		// 캐릭터 이름 불러오기
+	
 	
 	
 }
