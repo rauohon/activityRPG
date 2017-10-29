@@ -69,7 +69,6 @@ function onMessage(evt){
 	//서버가 전송한 메시지 가져오기
 	var data = evt.data;
 	var jobIndex = data.split(",");
-	alert(jobIndex[0]);
 	//메시지를 출력
 	if(jobIndex[0]=="0"){
 	$('#chatEveryUserMsgArea').append(jobIndex[1] + "<br />");

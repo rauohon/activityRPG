@@ -41,6 +41,8 @@ public interface IMBatisDao {
 	
 	public int setRaspMem(ActivityBean bean);			// 라즈베리파이-회원 연동
 	
+	public BoardBean getCharaName(BoardBean bean);		// 캐릭터 이름 불러오기
+	
 	public GameBean getCharacterStatus(GameBean bean);	// 캐릭터 능력치 조회
 	
 	public List<GameBean> getEquipList(Map map);	// 캐릭터 장비 조회
@@ -53,9 +55,14 @@ public interface IMBatisDao {
 	
 	public BoardBean getGuildBoardContent(BoardBean bean);	// 길드 보드 내용 불러오기
 	
-	public int setGuildBoard(BoardBean bean);					// 길드 보드 작성하기
+	public int setGuildBoardUpHit(BoardBean bean);					// 길드 보드 조회수 증가
 	
-	public BoardBean getCharaName(BoardBean bean);		// 캐릭터 이름 불러오기
+	public int setGuildBoardWrite(BoardBean bean);					// 길드 보드 글 작성하기
+	
+	public int setGuildBoardReplyWrite(BoardBean bean);					// 길드 보드 답글 작성하기
+	
+	
+	
 	
 	
 	

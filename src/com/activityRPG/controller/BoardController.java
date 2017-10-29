@@ -142,5 +142,28 @@ public class BoardController {
 		
 		return mav;
 	}
+	
+	/**
+	 * 처리내용 : ReplyGBoardPage연결
+	 * 작성일 : 2017. 10. 27.
+	 * 작성자 : 신태휘
+	 * @Method Name : replyGBoardPage
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/ReplyGBoardPage", method = RequestMethod.GET)
+	private ModelAndView replyGBoardPage(@ModelAttribute BoardBean bean) {
+				
+		mav=gBoard.entrance(8, bean);
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/ReplyGBoard", method = RequestMethod.GET)
+	private ModelAndView replyGBoard(@ModelAttribute BoardBean bean) {
+		
+		mav=gBoard.entrance(9, bean); 	//replyGBoard
+		
+		return mav;
+	}
 
 }

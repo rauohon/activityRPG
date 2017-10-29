@@ -64,6 +64,11 @@
 	<insert id="setRaspMem" parameterType="actBean">
 		INSERT INTO MEMBER_RASP VALUES(#{riId},#{id},DEFAULT)
 	</insert>
+<!-- 캐릭터 이름 가져오기 -->
+	<select id="getCharaName" parameterType="boardBean" resultType="boardBean">
+		SELECT CH_NAME AS chName FROM USER_CHARACTER WHERE CH_MBID=#{id}
+	</select>
+
 <!-- 캐릭터 능력치 가져오기 -->
 	<select id="getCharacterStatus" parameterType="gameBean" resultType="gameBean">
 		SELECT CH_NAME as chName, CH_LEVEL as chLevel, CH_EXP as chExp, CH_HP
@@ -96,18 +101,29 @@
 	
 <!-- 	길드보드 내용 가져오기 -->
 	<select id="getGuildBoardContent" parameterType="boardBean" resultType="boardBean">
-		SELECT GB_TITLE AS GBTITLE, GB_WDATE AS GBWDATE, GB_NAME AS CHANEM, GB_MBID AS "ID", GB_HIT AS GBHIT, GB_CONTENT AS GBCONTENT FROM GUILDBOARD WHERE GB_CODE=#{gbCode}
+		SELECT GB_CODE AS gbCode,  GB_MBID AS "ID", GB_TITLE AS GBTITLE, 
+		GB_CONTENT AS GBCONTENT, GB_WDATE AS GBWDATE, GB_HIT AS GBHIT, 
+		GB_GROUP AS gbGroup, GB_STEP AS gbStep, GB_INDENT as gbIndent,  
+		GB_MDATE AS gbMdate, GB_NAME AS CHNAME
+		FROM GUILDBOARD WHERE GB_CODE=#{gbCode}
 	</select>
 
-<!-- 길드보드 게시판 작성하기 -->
-	<insert id="setGuildBoard" parameterType="boardBean">
-		INSERT INTO GUILDBOARD VALUES (GBOARD_SEQ.nextval, #{id}, #{gbTitle}, #{gbContent}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT,NULL,#{chName})
+<!-- 	길드보드 조회수 증가하기 -->
+	<update id="setGuildBoardUpHit" parameterType="boardBean">
+		UPDATE GUILDBOARD SET GB_HIT = GB_HIT+1 WHERE GB_CODE=#{gbCode}
+	</update>
+
+<!-- 길드보드 글 작성하기 -->
+	<insert id="setGuildBoardWrite" parameterType="boardBean">
+		INSERT INTO GUILDBOARD (GB_CODE,GB_CONTENT,GB_GROUP,GB_HIT,GB_INDENT,GB_MBID,GB_MDATE,GB_NAME,GB_STEP,GB_TITLE,GB_WDATE)
+	    VALUES(GBOARD_SEQ.nextval,#{gbContent},DEFAULT,DEFAULT,DEFAULT,#{id},null,#{chName},DEFAULT,#{gbTitle},DEFAULT)
 	</insert>
-
-<!-- 캐릭터 이름 가져오기 -->
-	<select id="getCharaName" parameterType="boardBean" resultType="boardBean">
-		SELECT CH_NAME AS chName FROM USER_CHARACTER WHERE CH_MBID=#{id}
-	</select>
+	
+<!-- 길드보드 답글 작성하기 -->
+	<insert id="setGuildBoardReplyWrite" parameterType="boardBean">
+		INSERT INTO GUILDBOARD (GB_CODE,GB_CONTENT,GB_GROUP,GB_HIT,GB_INDENT,GB_MBID,GB_MDATE,GB_NAME,GB_STEP,GB_TITLE,GB_WDATE)
+	    VALUES(GBOARD_SEQ.nextval,#{gbContent},+1,DEFAULT,+1,#{id},null,#{chName},+1,#{gbTitle},DEFAULT)
+	</insert>
 
 <!-- 길드보드 리스트 가져오기위한 맵 -->
 	<resultMap type="boardBean" id="gBoardMap">

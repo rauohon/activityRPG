@@ -78,7 +78,98 @@ public class GuildBoard {
 			case 7:
 				mav = modifyGBoardPage((BoardBean)bean);
 				break;
+			
+			case 8:
+				mav = replyGBoardPage((BoardBean)bean);
+				break;
+			
+			case 9:
+				mav = replyGBoard((BoardBean)bean);
+				break;
 		}		
+		
+		return mav;
+	}
+	
+	/**
+	 * 처리내용 : 답글 작성
+	 * 작성일 : 2017. 10. 27.
+	 * 작성자 : 신태휘
+	 * @Method Name : replyGBoard
+	 * @return type : ModelAndView
+	 */
+	private ModelAndView replyGBoard(BoardBean bean) {
+		
+		try {
+			bean.setId(session.getAttribute("id").toString());
+			bean.setGbTitle("└"+bean.getGbTitle());
+			if(dao.setGuildBoardReplyWrite(bean) !=0) {
+				RedirectView rv = null;
+				rv = new RedirectView("/GuildBoardPage");
+				rv.setExposeModelAttributes(false);
+				mav.setView(rv);
+			}else {
+				mav.addObject("msg","system error");
+				mav.setViewName("guildBoard");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return mav;
+	}
+
+	/**
+	 * 처리내용 : 8-1. 답글 작성에서 원글 내용 불러오기
+	 * 작성일 : 2017. 10. 27.
+	 * 작성자 : 신태휘
+	 * @Method Name : replyGBoardRead
+	 * @return type : Map<String,String>
+	 */
+	private Map<String, String> replyGBoardRead(BoardBean bean) {
+		Map<String, String> map = new HashMap<String, String>();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		bean = dao.getGuildBoardContent(bean);
+		
+		try {
+			map.put("writer", session.getAttribute("chName").toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		map.put("title", bean.getGbTitle());
+		map.put("reply", "-----------------------------");
+		map.put("content", bean.getGbContent());
+		map.put("wdate", sdf.format(bean.getGbWDate()));
+		map.put("gbGroup",String.valueOf(bean.getGbGroup()));
+		map.put("gbStep", String.valueOf(bean.getGbStep()));
+		map.put("gbIndent", String.valueOf(bean.getGbIndent()));
+		
+		return map;
+	}
+
+	/**
+	 * 처리내용 : 8. replyGBoardPage 연결
+	 * 작성일 : 2017. 10. 27.
+	 * 작성자 : 신태휘
+	 * @Method Name : replyGBoardPage
+	 * @return type : ModelAndView
+	 */
+	private ModelAndView replyGBoardPage(BoardBean bean) {
+		
+		Map<String, String> map = replyGBoardRead(bean);
+		
+		mav.addObject("action","ReplyGBoard");
+		mav.addObject("writer", map.get("writer"));
+		mav.addObject("title",map.get("title"));
+		mav.addObject("reply",map.get("reply"));
+		mav.addObject("content",map.get("content"));
+		mav.addObject("hit",map.get("hit"));
+		mav.addObject("gbGroup",map.get("gbGroup"));
+		mav.addObject("gbStep",map.get("gbStep"));
+		mav.addObject("gbIndent",map.get("gbIndent"));
+		
+		
+		mav.setViewName("gBoardWriteReply");
 		
 		return mav;
 	}
@@ -157,6 +248,7 @@ public class GuildBoard {
 		map.put("content", bean.getGbContent());
 		map.put("wdate", sdf.format(bean.getGbWDate()));
 		map.put("hit", String.valueOf(bean.getGbHit()));
+		map.put("gbCode",String.valueOf(bean.getGbCode()));
 		
 		return map;
 	}
@@ -170,15 +262,21 @@ public class GuildBoard {
 	 */
 	private ModelAndView readGBoardPage(BoardBean bean) {
 		Map<String, String> map = readGBoard(bean);
-		
-		mav.addObject("writer", map.get("writer"));
-		mav.addObject("title", map.get("title"));
-		mav.addObject("content", map.get("content"));
-		mav.addObject("wdate", map.get("wdate"));
-		mav.addObject("hit", map.get("hit"));
-		
-		mav.setViewName("gBoardRead");
-		
+		if(dao.setGuildBoardUpHit(bean) != 0) {
+			mav.addObject("writer", map.get("writer"));
+			mav.addObject("title", map.get("title"));
+			mav.addObject("content", map.get("content"));
+			mav.addObject("wdate", map.get("wdate"));
+			mav.addObject("hit", map.get("hit"));
+			mav.addObject("gbCode",map.get("gbCode"));
+			
+			mav.setViewName("gBoardRead");
+		}else {
+			RedirectView rv = null;
+			rv = new RedirectView("/GuildBoardPage");
+			rv.setExposeModelAttributes(false);
+			mav.setView(rv);
+		}
 		return mav;
 	}
 	
@@ -192,8 +290,9 @@ public class GuildBoard {
 	private ModelAndView writeGBoard(BoardBean bean) {
 		
 		try {
+			System.out.println("안오냐?");
 			bean.setId(session.getAttribute("id").toString());
-			if(dao.setGuildBoard(bean) !=0) {
+			if(dao.setGuildBoardWrite(bean) !=0) {
 				RedirectView rv = null;
 				rv = new RedirectView("/GuildBoardPage");
 				rv.setExposeModelAttributes(false);
@@ -216,20 +315,10 @@ public class GuildBoard {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView writeGBoardPage(BoardBean bean) {
-		
-		try {
-			bean.setId(session.getAttribute("id").toString());
-			bean = dao.getCharaName(bean);
-			session.setAttribute("chName", bean.getChName());
+			
+			mav.addObject("action","WriteGBoard");
 			mav.setViewName("gBoardWrite");
-		}catch(Exception e) {
-			e.printStackTrace();
-			mav.addObject("msg", "system error");
-			mav.setViewName("guildBoard");
-		}
-		
-		
-		
+				
 		return mav;
 	}
 	
@@ -245,15 +334,15 @@ public class GuildBoard {
 		StringBuffer sb = new StringBuffer();
 		List<BoardBean> gBoardList = dao.getGuildBoardList(bean);
 		sb.append("<table><tr><th>글 번호</th><th>작성자</th><th>글 제목</th><th>작성일</th><th>조회수</th></tr>");
-		
-		Collections.sort(gBoardList, new Comparator<BoardBean>(){
-			@Override
-			public int compare(BoardBean r2, BoardBean r1){
-				return r1.getGbWDate().compareTo(r2.getGbWDate());
-			}
-		});
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-		for(int i=0 ; i < gBoardList.size() ; i++) {
+		for(int i=0 ; i< gBoardList.size();i++) {
+			Collections.sort(gBoardList, new Comparator<BoardBean>(){
+				@Override
+				public int compare(BoardBean r2, BoardBean r1){
+					return r1.getGbWDate().compareTo(r2.getGbWDate());
+				}
+			});
+			System.out.println(gBoardList.get(i).getGbCode());
 			sb.append("<tr><td>");
 			sb.append(gBoardList.get(i).getGbCode());
 			sb.append("</td><td>");
@@ -266,6 +355,7 @@ public class GuildBoard {
 			sb.append(gBoardList.get(i).getGbHit());
 			sb.append("</td></tr>");
 		}
+
 		sb.append("</table>");
 		return sb.toString();
 	}
@@ -280,6 +370,9 @@ public class GuildBoard {
 		// 로그인 여부 확인
 		try {
 			if(session.getAttribute("id") != null) {
+				bean.setId(session.getAttribute("id").toString());
+				bean = dao.getCharaName(bean);
+				session.setAttribute("chName", bean.getChName());
 				mav.addObject("boards", guildBoardList(bean));
 				mav.setViewName("guildBoard");
 				session.setAttribute("page", "guildBoard");

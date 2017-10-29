@@ -177,14 +177,9 @@ public class GameController {
 	@RequestMapping(value="/ItemInfo", method = RequestMethod.GET, produces = "application/text; charset=utf8")
 	private ModelAndView itemInfo(@ModelAttribute GameBean gameBean) {
 		
-//		private @ResponseBody String itemInfo(@ModelAttribute GameBean gameBean) {
-		Gson gson = new Gson();
 		System.out.println(gameBean.getItcode() + " : controller 아이템코드");
 		mav = gn.entrance(6, gameBean);
-		
-//		String jsonParse = gson.toJson(gameBean);
-		
-		
+				
 		return mav;
 	}
 	

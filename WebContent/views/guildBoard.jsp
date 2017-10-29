@@ -13,7 +13,7 @@ function createForm(code) {
 	f.attr("name","readgboardpage");
 	f.attr("action","ReadGBoardPage");
 	f.attr("method","POST");
-	i.attr("type","text");
+	i.attr("type","hidden");
 	i.attr("name","gbCode");
 	i.attr("value",code);
 	$("#fixForm").append(i);
@@ -26,7 +26,6 @@ function createForm(code) {
 <h1>guildBoardPage 입니다.</h1>
 ${boards }
 <a href='WriteGBoardPage'>글 작성</a>
-<a href='ReadGBoardPage'>글 읽기</a>
 <form id="fixForm"></form>
 </body>
 </html>

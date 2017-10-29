@@ -45,7 +45,7 @@ function createForm(formName, actionName, method) {
 	i.attr("value",'${id }');
 	$("#fixForm").append(i);
 	
-  document.characterinfo.submit();
+  f.submit();
 }
 </script>
 </head>
