@@ -3,7 +3,14 @@
  */
 package com.activityRPG.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.activityRPG.dao.IMBatisDao;
+import com.activityRPG.utils.Encryption;
+import com.activityRPG.utils.ProjectUtils;
+import com.activityRPG.beans.MemberBean;
 
 /**
  * @클래스명 : AttackBoard
@@ -14,5 +21,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AttackBoard {
-
+	@Autowired
+	private Encryption Encryption;
+	@Autowired
+	private ProjectUtils session;
+	@Autowired
+	private IMBatisDao IMBatisDao;
+	
+	/*Object...object >> Object 개체를 배열로 받는다. */
+	
+	
 }

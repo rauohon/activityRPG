@@ -3,7 +3,13 @@
  */
 package com.activityRPG.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.activityRPG.utils.ProjectUtils;
 
 /**
  * @클래스명 : Board
@@ -14,5 +20,25 @@ import org.springframework.stereotype.Controller;
  */
 @Controller
 public class BoardController {
-
+	@Autowired
+	private ProjectUtils session;
+	ModelAndView mav = null;
+	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView accessMain() {
+		mav = new ModelAndView();
+		mav.setViewName("home");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/AttackBoard", method = RequestMethod.GET)
+	public ModelAndView attackBoard()
+	{
+		mav = new ModelAndView();
+		mav.setViewName("attackBoard");
+		return mav;		    
+	}
+	
+	
+	
 }

@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-</script>
 </head>
 <body>
-	<a href='GameForm'>플레이!!</a>
-	<a href='AttackBoard'>공략게시판</a>
+공략게시판
 </body>
 </html>
