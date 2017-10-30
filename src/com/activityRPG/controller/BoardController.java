@@ -3,7 +3,15 @@
  */
 package com.activityRPG.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.activityRPG.beans.BoardBean;
+import com.activityRPG.services.FreeBoard;
 
 /**
  * @클래스명 : Board
@@ -15,4 +23,22 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class BoardController {
 
+	@Autowired
+	private FreeBoard fb;
+	private ModelAndView mav = null;
+	
+	//회원 메인 게시판 리스트(자유)
+	@RequestMapping(value="/freeBoard", method = RequestMethod.POST)
+	public ModelAndView freeBoardList(@ModelAttribute BoardBean board) throws Exception {
+		System.out.println("MemberController :: 메인 게시판 리스트(자유)");
+		mav = fb.entrance(1, board);
+		return mav;
+	}
+	//회원 메인 게시판(자유)
+	@RequestMapping(value="/freeContent", method = RequestMethod.POST)
+	public ModelAndView freeBoardContent(@ModelAttribute BoardBean board) throws Exception {
+		System.out.println("MemberController :: 자유 게시판 내용 보기");
+		mav = fb.entrance(2, board);
+		return mav;
+	}
 }

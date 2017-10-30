@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.activityRPG.beans;
 
 import java.util.Date;
@@ -15,9 +12,7 @@ import org.apache.ibatis.type.Alias;
  * @수정이력 - 수정일, 수정자, 수정내용
  */
 
-@Alias("member")
 public class MemberBean {
-
 	private String id;
 	private String pwd;
 	private String name;
@@ -35,27 +30,10 @@ public class MemberBean {
 	private String subject;
     private String content;
     private String receiver;
+    //
+    private String mbid;
+    private String msgText;
      
-    public String getReceiver() {
-        return receiver;
-    }
-    public void setReceiver(String receiver) {
-        this.receiver = receiver;
-    }
- 
-    public String getSubject() {
-        return subject;
-    }
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-    public String getContent() {
-        return content;
-    }
-    public void setContent(String content) {
-        this.content = content;
-    }
-	//
 	public String getId() {
 		return id;
 	}
@@ -133,5 +111,38 @@ public class MemberBean {
 	}
 	public void setPage(String page) {
 		this.page = page;
+	}
+	//
+	public String getReceiver() {
+        return receiver;
+    }
+    public void setReceiver(String receiver) {
+        this.receiver = receiver;
+    }
+ 
+    public String getSubject() {
+        return subject;
+    }
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+    public String getContent() {
+        return content;
+    }
+    public void setContent(String content) {
+        this.content = content;
+    }
+    //
+    public String getMbid() {
+		return mbid;
+	}
+	public void setMbid(String mbid) {
+		this.mbid = mbid;
+	}
+	public String getMsgText() {
+		return msgText;
+	}
+	public void setMsgText(String msgText) {
+		this.msgText = msgText;
 	}
 }

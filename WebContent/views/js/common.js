@@ -31,3 +31,24 @@ function relationObj(formName, objName){
 	}
 	return result;
 }
+
+/*form과 요소개체 연결*/
+function relationform(formName){
+	var form = document.getElementsByName(formName)[0];
+	var result = false;
+	if(form != null){
+		form.appendChild(obj);
+		result = true;
+	}
+	return result;
+}
+
+//input 생성
+function createinput(itype, iname, ivalue) {
+   var input = document.createElement("input");
+   input.type = itype;
+   input.name = iname;
+   input.value = ivalue;
+
+   document.body.appendChild(input);
+}

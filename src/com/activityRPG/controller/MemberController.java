@@ -31,7 +31,7 @@ public class MemberController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView home() {
 		mav = new ModelAndView();
-		System.out.println("MemberController :: home");
+		System.out.println("MemberController :: 메인페이지(get)");
 		mav.setViewName("home");
 		return mav;
 	}
@@ -39,7 +39,7 @@ public class MemberController {
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public ModelAndView home(@ModelAttribute MemberBean member) {
 		mav = new ModelAndView();
-		System.out.println("MemberController :: home(post)");
+		System.out.println("MemberController :: 메인페이지(post)");
 		mav.setViewName("home");
 		return mav;
 	}
@@ -48,7 +48,7 @@ public class MemberController {
 	@RequestMapping(value = "/LoginForm", method = RequestMethod.GET)
 	public ModelAndView login() {
 		mav = new ModelAndView();
-		System.out.println("MemberController :: login page");
+		System.out.println("MemberController :: 로그인 페이지");
 		mav.setViewName("login");
 		return mav;  
 	}
@@ -57,7 +57,7 @@ public class MemberController {
 	@RequestMapping(value = "/Access", method = RequestMethod.POST)
 	public ModelAndView access(@ModelAttribute MemberBean member) throws Exception {
 		mav = mm.entrance(1, member);
-		System.out.println("MemberController :: login check");
+		System.out.println("MemberController :: 로그인 하기");
 		return mav;  
 	}
 	
@@ -65,21 +65,15 @@ public class MemberController {
 	@RequestMapping(value = "/IdCheck", method = RequestMethod.POST)
 	public ModelAndView idcheck(@ModelAttribute MemberBean member) throws Exception {
 		mav = mm.entrance(0, member);
-		System.out.println("MemberController :: id check");
+		System.out.println("MemberController :: 아이디 중복확인");
 		return mav;  
 	}
-	/*@RequestMapping(value = "/IdCheck")
-	public @ResponseBody Map<String, String>
-	idCheck(@RequestParam("id") MemberBean mb){
-		logger.info("id : {}", mb);
-		return mm.idCheck(mb);
-	}*/
-		
+	
 	//로그아웃
 	@RequestMapping(value = "/AccessOut", method = RequestMethod.POST)
 	public ModelAndView logout(@ModelAttribute MemberBean member) throws Exception {
 		mav = mm.entrance(-1, member);
-		System.out.println("MemberController :: logOut check");
+		System.out.println("MemberController :: 로그아웃");
 		return mav;  
 	}
 
@@ -87,7 +81,7 @@ public class MemberController {
 	@RequestMapping(value = "/JoinForm", method = RequestMethod.GET)
 	public ModelAndView join() {
 		mav = new ModelAndView();
-		System.out.println("MemberController :: join page");
+		System.out.println("MemberController :: 회원가입 페이지");
 		mav.setViewName("join");
 		return mav;  
 	}
@@ -105,7 +99,7 @@ public class MemberController {
 	@RequestMapping(value = "/IdFind", method = RequestMethod.GET)
 	public ModelAndView idFind() {
 		mav = new ModelAndView();
-		System.out.println("MemberController :: idFind page");
+		System.out.println("MemberController :: 아이디 찾기 페이지");
 		mav.setViewName("idFind");
 		return mav;  
 	}
@@ -114,7 +108,7 @@ public class MemberController {
 		@RequestMapping(value = "/IdFind", method = RequestMethod.POST)
 		public ModelAndView idFind(@ModelAttribute MemberBean member) throws Exception {
 			mav = mm.entrance(3, member);
-			System.out.println("MemberController :: idFind >> mail check");
+			System.out.println("MemberController :: idFind >> 핸드폰 번호 확인");
 			return mav;  
 		}
 	
@@ -122,29 +116,23 @@ public class MemberController {
 	@RequestMapping(value = "/PwdFind", method = RequestMethod.GET)
 	public ModelAndView pwdFind() {
 		mav = new ModelAndView();
-		System.out.println("MemberController :: pwdFind page");
+		System.out.println("MemberController :: 비밀번호 찾기 페이지");
 		mav.setViewName("pwdFind");
 		return mav;  
 	}
-	
-	/*@RequestMapping(value="/Mail", method = RequestMethod.POST)
-	   public ModelAndView mailSender(@ModelAttribute Email bean) {
-	      mav=mail.entrance(0, bean);
-	      return mav;
-	   }*/
 	
 	//비밀번호 찾기
 	@RequestMapping(value = "/PwdFind", method = RequestMethod.POST)
 	public ModelAndView pwdFind(@ModelAttribute MemberBean member) throws Exception {
 		mav = mm.entrance(4, member);
-		System.out.println("MemberController :: pwdFind >> id check");
+		System.out.println("MemberController :: pwdFind >> 아이디 확인");
 		return mav;  
 	}
 	
 	//비밀번호 찾기_이메일 발송
 	@RequestMapping(value="/MailSend", method = RequestMethod.POST)
 	public ModelAndView mailSender(@ModelAttribute MemberBean member) throws Exception {
-		System.out.println("MemberController :: pwdFind >> mail send");
+		System.out.println("MemberController :: pwdFind >> 메일 발송");
 		mav = mm.entrance(5, member);
 		return mav;
 	}
@@ -152,9 +140,48 @@ public class MemberController {
 	//나의 정보
 	@RequestMapping(value="/Info", method = RequestMethod.POST)
 	public ModelAndView info(@ModelAttribute MemberBean member) throws Exception {
-		System.out.println("MemberController :: infopage");
+		System.out.println("MemberController :: 나의 정보");
 		mav = mm.entrance(6, member);
 		return mav;
 	}
 	
+	//나의 정보 수정
+	@RequestMapping(value="/InfoUpdate", method = RequestMethod.POST)
+	public ModelAndView infoUpdate(@ModelAttribute MemberBean member) throws Exception {
+		System.out.println("MemberController :: 나의 정보 수정");
+		mav = mm.entrance(7, member);
+		return mav;
+	}
+		
+	//받은메시지함(메인 메시지창)
+	@RequestMapping(value="/getMessageList", method = RequestMethod.POST)
+	public ModelAndView getMessage(@ModelAttribute MemberBean member) throws Exception {
+		System.out.println("MemberController :: 받은 메시지창(메인)");
+		mav = mm.entrance(8, member);
+		return mav;
+	}
+	
+	//글 쓰기
+	@RequestMapping(value="/writingMessage", method = RequestMethod.POST)
+	public ModelAndView writingMessage(@ModelAttribute MemberBean member) throws Exception {
+		System.out.println("MemberController :: 메시지 쓰기 페이지");
+		mav = mm.entrance(9, member);
+		return mav;
+	}
+	
+	//쓴 글 보내기
+	@RequestMapping(value="/setMessage", method = RequestMethod.POST)
+	public ModelAndView setMessage(@ModelAttribute MemberBean member) throws Exception {
+		System.out.println("MemberController :: 메시지 쓴 글 보내기");
+		mav = mm.entrance(10, member);
+		return mav;
+	}
+	
+	//보낸메시지함
+	@RequestMapping(value="/sendmessage", method = RequestMethod.POST)
+	public ModelAndView sendMessage(@ModelAttribute MemberBean member) throws Exception {
+		System.out.println("MemberController :: 보낸 메시지창");
+		mav = mm.entrance(11, member);
+		return mav;
+	}
 }

@@ -45,23 +45,57 @@
 	<select id="mailcheck" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
 		SELECT COUNT(*) FROM MB WHERE MB_MAIL=#{email}
 	</select>
+	
 <!-- 비밀번호찾기  >> 이메일 발송 -->	
 	<select id="mailSend" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
 		SELECT MB_MAIL AS email FROM MB WHERE MB_MAIL=#{email}
 	</select>
-<!-- 비밀번호찾기  >> 임시비밀번호  -->	
+	
+<!-- 원래 비밀번호  >> 임시비밀번호 변경  -->	
 	<insert id="pwdUpdate" parameterType="com.activityRPG.beans.MemberBean">
 		UPDATE MB SET MB_PW=#{pwd} WHERE MB_MAIL=#{email}
 	</insert>
+	
+	<!-- 정보 확인 -->
+	<select id="info" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
+		SELECT MB_NAME AS name, MB_PHONE AS phone, MB_MAIL AS email FROM MB WHERE MB_ID=#{id}
+	</select>
+	
+	<!-- 정보 수정 -->
+	<insert id="infoUpdate" parameterType="com.activityRPG.beans.MemberBean">
+		UPDATE MB SET MB_NAME=#{pwd}, MB_NAME=#{pwd}, MB_NAME=#{pwd} WHERE MB_MAIL=#{email}
+	</insert>
+	
+	<!-- 받은 메시지 리스트 -->
+	<select id="getMessageList" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
+		SELECT MSG_MBID AS mbid, MSG_DATE AS "date", MSG_TEXT AS msgText FROM MSG WHERE MSG_RECID=#{id}
+	</select>
+	
+	<!-- 메시지 작성 -->
+	<insert id="writingMessage" parameterType="com.activityRPG.beans.MemberBean">
+		INSERT INTO MSG(MSG_MBID, MSG_DATE, MSG_RECID, MSG_TEXT)
+		VALUES(#{id}, DEFAULT, #{mbid}, #{msgText})
+	</insert>
+	
+	<!-- 보낸 메시지 리스트 -->
+	<select id="sendMessageList" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
+		SELECT MSG_RECID AS mbid, MSG_DATE AS "date", MSG_TEXT AS msgText FROM MSG WHERE MSG_MBID=#{id}
+	</select>
+	
+	<!-- 관리자 로그인 확인 -->
+	<select id="adminId" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
+		SELECT COUNT(*) FROM MB WHERE MB_TYPE=2 AND MB_ID=#{id}
+	</select>
+	
+	<!-- 자유게시판 리스트 -->
+	<select id="freeBoardList" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
+		SELECT FB_CODE AS code, FB_TITLE AS title, FB_MBID AS id, FB_DATE AS "date" FROM FB
+	</select>
+	
+	<!-- 자유게시판 내용 보기 -->
+	<select id="freeBoardContent" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
+		<!-- SELECT * FROM FB WHERE FB_TITLE=#{title} AND FB_DATE=#{date} -->
+		SELECT * FROM FB WHERE FB_DATE=#{date}
+	</select>
+	
 </mapper>
-<!-- 
-<resultMap type="member" id="joinMap">
-		<result property="id" column="MB_ID" javaType="java.lang.String"/>
-		<result property="pwd" column="MB_PW"  javaType="java.lang.String"/>
-		<result property="name" column="MB_NAME" javaType="java.lang.String"/>
-		<result property="birth" column="MB_BIRTH" javaType="java.lang.String"/>
-		<result property="age" column="MB_AGE" javaType="java.lang.String"/>
-		<result property="gender" column="MB_GENDER" javaType="java.lang.String"/>
-		<result property="phone" column="MB_PHONE" javaType="java.lang.String"/>
-		<result property="email" column="MB_MAIL" javaType="java.lang.String"/>
-	</resultMap> -->
