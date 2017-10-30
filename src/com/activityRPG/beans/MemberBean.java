@@ -26,11 +26,9 @@ public class MemberBean {
 	private String info;
 	private String comment;
 	private String page;
-	//
 	private String subject;
     private String content;
     private String receiver;
-    //
     private String mbid;
     private String msgText;
      

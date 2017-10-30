@@ -13,31 +13,7 @@ import org.apache.ibatis.type.Alias;
  * @수정이력 - 수정일, 수정자, 수정내용
  */
 @Alias("gameBean")
-public class GameBean {
-	
-	public int getRequiAbility() {
-		return requiAbility;
-	}
-
-	public void setRequiAbility(int requiAbility) {
-		this.requiAbility = requiAbility;
-	}
-
-	public int getBuyPrice() {
-		return buyPrice;
-	}
-
-	public void setBuyPrice(int buyPrice) {
-		this.buyPrice = buyPrice;
-	}
-
-	public int getSellPirce() {
-		return sellPirce;
-	}
-
-	public void setSellPirce(int sellPirce) {
-		this.sellPirce = sellPirce;
-	}
+public class GameBean {	
 
 	private String moveValue;
 	private String chName;
@@ -64,8 +40,31 @@ public class GameBean {
 	private int amount;
 	private int enlevel;
 
-	
-	
+
+	public int getRequiAbility() {
+		return requiAbility;
+	}
+
+	public void setRequiAbility(int requiAbility) {
+		this.requiAbility = requiAbility;
+	}
+
+	public int getBuyPrice() {
+		return buyPrice;
+	}
+
+	public void setBuyPrice(int buyPrice) {
+		this.buyPrice = buyPrice;
+	}
+
+	public int getSellPirce() {
+		return sellPirce;
+	}
+
+	public void setSellPirce(int sellPirce) {
+		this.sellPirce = sellPirce;
+	}
+
 	public int getAmount() {
 		return amount;
 	}
@@ -226,16 +225,10 @@ public class GameBean {
 		this.enlevel = enlevel;
 	}
 
-	/**
-	 * @return the itcode
-	 */
 	public String getItcode() {
 		return itcode;
 	}
 
-	/**
-	 * @param itcode the itcode to set
-	 */
 	public void setItcode(String itcode) {
 		this.itcode = itcode;
 	}

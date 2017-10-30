@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.activityRPG.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,9 +94,7 @@ public class ActivityController {
 	@RequestMapping(value="/AdminActivitySexLogPage", method = RequestMethod.GET)
 	private ModelAndView adminActivitySexLogPage(@ModelAttribute ActivityBean bean) {
 		
-		mav = as.entrance(5, bean);
-		
-		
+		mav = as.entrance(5, bean);		
 		
 		return mav;
 	}

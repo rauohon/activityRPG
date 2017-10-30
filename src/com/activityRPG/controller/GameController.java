@@ -55,7 +55,7 @@ public class GameController {
 	 * @Method Name : villagePage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/GameForm", method = RequestMethod.GET)
+	@RequestMapping(value="/GameForm", method = RequestMethod.POST)
 	private ModelAndView villagePage(@ModelAttribute GameBean gameBean) {
 		
 		mav = gn.entrance(1, gameBean);

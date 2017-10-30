@@ -21,17 +21,6 @@
 		INSERT INTO MB(MB_ID, MB_PW, MB_NAME, MB_BIRTH, MB_AGE, MB_GENDER, MB_PHONE, MB_MAIL, MB_TYPE)
 		VALUES(#{id}, #{pwd}, #{name}, #{birth}, #{age}, #{gender}, #{phone}, #{email}, DEFAULT)
 	</insert>
-	
-<!-- 라즈베리파이 등록전 코드 유무 확인 -->
-	<select id='getRaspCheck' parameterType='com.activityRPG.beans.ActivityBean' resultType='Integer'>
-		SELECT COUNT(*) FROM RASPBERRY_INFO WHERE RI_ID=#{riId}
-	</select>
-	
-<!-- 라즈베리파이 등록 -->
-	<insert id="setRaspMem" parameterType="com.activityRPG.beans.ActivityBean">
-		INSERT INTO MEMBER_RASP VALUES(#{riId},#{id},DEFAULT)
-	</insert>
-	
 
 <!-- 아이디찾기  >> 핸드폰번호 확인 -->
 	<select id="idFind" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
@@ -185,13 +174,12 @@
 	</select>
 	
 	<!-- 자유게시판 리스트 -->
-	<select id="freeBoardList" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
+	<select id="freeBoardList" parameterType="com.activityRPG.beans.BoardBean" resultType="boardBean">
 		SELECT FB_CODE AS code, FB_TITLE AS title, FB_MBID AS id, FB_DATE AS "date" FROM FB
 	</select>
 	
 	<!-- 자유게시판 내용 보기 -->
-	<select id="freeBoardContent" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
-		<!-- SELECT * FROM FB WHERE FB_TITLE=#{title} AND FB_DATE=#{date} -->
+	<select id="freeBoardContent" parameterType="com.activityRPG.beans.BoardBean" resultType="boardBean">
 		SELECT * FROM FB WHERE FB_DATE=#{date}
 	</select>
 	

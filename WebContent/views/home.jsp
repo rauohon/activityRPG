@@ -58,7 +58,7 @@
 				<td><button onClick="total('mainForm', '/', 'post')" id="bar">MAIN PAGE</button></td>
 				<td><button onClick="total('msgForm', 'getMessageList', 'post')" id="bar">MESSAGE</button></td>
 				<td><button onClick="total('freeBoardForm', 'freeBoard', 'post')" id="bar">BOARD</button></td>
-				<td><button onClick="total('gameForm', 'game', 'post')" id="bar">GAME PLAY</button></td>
+				<td><button onClick="total('gameForm', 'GameForm', 'post')" id="bar">GAME PLAY</button></td>
 			</tr>
 		</table>
 	</div>
