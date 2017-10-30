@@ -50,7 +50,7 @@
 						<a href="/">메인 페이지</a>
 					</p>
 					
-					</br>${message }
+					<br/>${message }
 				</fieldset>
 			</form>
 		</div>

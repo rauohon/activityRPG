@@ -242,6 +242,7 @@ public class MemberManagement extends TranEx {
 	//아이디 찾기
 	public ModelAndView idfind(MemberBean mb) {
 		ModelAndView mav = new ModelAndView();
+		System.out.println("아이디파인드");
 		String ms = "찾으시는 아이디는 ";
 		String msg = " 입니다.";
 		System.out.println("service :: idFind >> mailCheck");

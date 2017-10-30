@@ -44,9 +44,6 @@
 	}
 </script>
 </head>
-<body>
-	<a href="LoginForm">login Go</a>
-	<a href="JoinForm">회원가입</a>
 <body onLoad="init()">
 
 	<div id="layer_fixed">
@@ -71,6 +68,8 @@
 				<td><a href="PwdFind">패스워드 찾기</a></td>
 			</tr>
 		</table>
+	<a href="LoginForm">login Go</a>
+	<a href="JoinForm">회원가입</a>
 	<button onClick="info()">나의 정보</button>
 	<form action="AccessOut" method="post">
 	<input type="submit" value="로그아웃" />
