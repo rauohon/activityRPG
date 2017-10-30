@@ -27,15 +27,10 @@
 <script>
  	function btnId(){
 		var form = createForm("idForm", "IdCheck", "post");
-
 		//현재 페이지명 저장 hidden개체 생성
 		createObj("hidden", "", "home", "");
-		alert("hiddenForm");
-
 		//생성 된 폼과 요소 개체간의 연결
 		relationObj("idForm", "id");
-		alert("relatopmObj");
-
 		//서버 전송
 		form.submit();
 	}
@@ -54,7 +49,7 @@
 				}
 			});
 		});
-	}); */
+	});	*/
 </script>
 </head>
 
@@ -68,6 +63,7 @@
 					<h3 class="form-title" style="margin-top: 30px; margin-bottom: 30px">
 						<i class="fa fa-user"></i> Sign Up
 					</h3>
+					${message }
 				</div>
 
 				<div class="form-body">

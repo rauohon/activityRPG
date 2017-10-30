@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="css/login.css" media="screen" type="text/css" />
 
 <script>
-	function sendData() {
+/* 	function sendData() {
 		//폼 생성 요청
 		var form = createForm("accessForm", "Access", "post");
 
@@ -27,7 +27,7 @@
 
 		//서버 전송
 		form.submit();
-	}
+	} */
 </script>
 </head>
 
@@ -35,9 +35,9 @@
 	<!-- login -->
 	<div class="container">
 		<div id="login">
-			<form>
+			
 				<fieldset class="clearfix">
-				
+				<form  action="Access" method="post">
 					<!-- JS because of IE support; better: placeholder="Username" -->
 					<p>
 						<span class="fontawesome-user"></span>
@@ -53,8 +53,9 @@
 					</p>
 					
 					<!-- 로그인 버튼 -->
-					<p> <input type="button" value="Log In" onClick="sendData()"> </p> 
-					
+					<!-- <p> <input type="button" value="Log In" onClick="sendData()"> </p>  -->
+					<input type="submit" value="Log In"/>
+				</form>
 					<!-- 아이디/패스워드 찾기, 회원가입  -->
 					<p>
 						<a href="IdFind">아이디 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -64,7 +65,7 @@
 					
 					<h4>${message }</h4>
 				</fieldset>
-			</form>
+		
 		</div>
 	</div>
 	<!-- end login -->

@@ -22,7 +22,18 @@
 		VALUES(#{id}, #{pwd}, #{name}, #{birth}, #{age}, #{gender}, #{phone}, #{email}, DEFAULT)
 	</insert>
 	
-	<!-- 아이디찾기  >> 핸드폰번호 확인 -->
+<!-- 라즈베리파이 등록전 코드 유무 확인 -->
+	<select id='getRaspCheck' parameterType='com.activityRPG.beans.ActivityBean' resultType='Integer'>
+		SELECT COUNT(*) FROM RASPBERRY_INFO WHERE RI_ID=#{riId}
+	</select>
+	
+<!-- 라즈베리파이 등록 -->
+	<insert id="setRaspMem" parameterType="com.activityRPG.beans.ActivityBean">
+		INSERT INTO MEMBER_RASP VALUES(#{riId},#{id},DEFAULT)
+	</insert>
+	
+
+<!-- 아이디찾기  >> 핸드폰번호 확인 -->
 	<select id="idFind" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
 		SELECT COUNT(*) FROM MB WHERE MB_PHONE=#{phone}
 	</select>
@@ -34,11 +45,13 @@
 	<select id="mailcheck" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
 		SELECT COUNT(*) FROM MB WHERE MB_MAIL=#{email}
 	</select>
+	
 <!-- 비밀번호찾기  >> 이메일 발송 -->	
 	<select id="mailSend" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
 		SELECT MB_MAIL AS email FROM MB WHERE MB_MAIL=#{email}
 	</select>
-<!-- 비밀번호찾기  >> 임시비밀번호  -->	
+	
+<!-- 원래 비밀번호  >> 임시비밀번호 변경  -->	
 	<insert id="pwdUpdate" parameterType="com.activityRPG.beans.MemberBean">
 		UPDATE MB SET MB_PW=#{pwd} WHERE MB_MAIL=#{email}
 	</insert>
@@ -139,46 +152,47 @@
 		<result property="gbStep" column="GB_STEP" javaType="java.lang.Integer" />
 		<result property="gbIndent" column="GB_INDENT" javaType="java.lang.Integer" />
 	</resultMap>
+	
+	<!-- 정보 확인 -->
+	<select id="info" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
+		SELECT MB_NAME AS name, MB_PHONE AS phone, MB_MAIL AS email FROM MB WHERE MB_ID=#{id}
+	</select>
+	
+	<!-- 정보 수정 -->
+	<insert id="infoUpdate" parameterType="com.activityRPG.beans.MemberBean">
+		UPDATE MB SET MB_NAME=#{pwd}, MB_NAME=#{pwd}, MB_NAME=#{pwd} WHERE MB_MAIL=#{email}
+	</insert>
+	
+	<!-- 받은 메시지 리스트 -->
+	<select id="getMessageList" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
+		SELECT MSG_MBID AS mbid, MSG_DATE AS "date", MSG_TEXT AS msgText FROM MSG WHERE MSG_RECID=#{id}
+	</select>
+	
+	<!-- 메시지 작성 -->
+	<insert id="writingMessage" parameterType="com.activityRPG.beans.MemberBean">
+		INSERT INTO MSG(MSG_MBID, MSG_DATE, MSG_RECID, MSG_TEXT)
+		VALUES(#{id}, DEFAULT, #{mbid}, #{msgText})
+	</insert>
+	
+	<!-- 보낸 메시지 리스트 -->
+	<select id="sendMessageList" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
+		SELECT MSG_RECID AS mbid, MSG_DATE AS "date", MSG_TEXT AS msgText FROM MSG WHERE MSG_MBID=#{id}
+	</select>
+	
+	<!-- 관리자 로그인 확인 -->
+	<select id="adminId" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
+		SELECT COUNT(*) FROM MB WHERE MB_TYPE=2 AND MB_ID=#{id}
+	</select>
+	
+	<!-- 자유게시판 리스트 -->
+	<select id="freeBoardList" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
+		SELECT FB_CODE AS code, FB_TITLE AS title, FB_MBID AS id, FB_DATE AS "date" FROM FB
+	</select>
+	
+	<!-- 자유게시판 내용 보기 -->
+	<select id="freeBoardContent" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
+		<!-- SELECT * FROM FB WHERE FB_TITLE=#{title} AND FB_DATE=#{date} -->
+		SELECT * FROM FB WHERE FB_DATE=#{date}
+	</select>
+	
 </mapper>
-<!-- 	sadf 
-
-
-<table><tr><th>무기 이름</th><th>추가 능력치</th><th>보유 갯수</th></tr><tr><td>
-대검
-</td><td>
-+5
-</td><td>
-1
-</td></tr></table>
-
-
-
-
-
--->
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-

@@ -34,7 +34,7 @@ public class ActivityController {
 	 * @Method Name : activityDayLogPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/ActivityDayLogPage", method = RequestMethod.GET)
+	@RequestMapping(value="/ActivityDayLogPage", method = RequestMethod.POST)
 	private ModelAndView activityDayLogPage(@ModelAttribute ActivityBean bean) {
 		
 		mav = as.entrance(1, bean);
@@ -99,6 +99,8 @@ public class ActivityController {
 		
 		mav = as.entrance(5, bean);
 		
+		
+		
 		return mav;
 	}
 	
@@ -109,7 +111,7 @@ public class ActivityController {
 	 * @Method Name : EnrollRaspberryPiPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/EnrollRaspberryPiPage", method = RequestMethod.GET)
+	@RequestMapping(value="/EnrollRaspberryPiPage", method = RequestMethod.POST)
 	private ModelAndView enrollRaspberryPiPage(@ModelAttribute ActivityBean bean) {
 		
 		mav = as.entrance(6, bean);
