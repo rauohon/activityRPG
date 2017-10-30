@@ -64,26 +64,18 @@ public class GuildBoard {
 				break;
 			
 			case 4:
-				mav = confirmDeleteGBoardPage((BoardBean)bean);
-				break;
-			
-			case 5:
-				mav = confirmModifyGBoardPage((BoardBean)bean);
-				break;
-			
-			case 6:
-				mav = deleteGBoard((BoardBean)bean);
-				break;
-				
-			case 7:
 				mav = modifyGBoardPage((BoardBean)bean);
 				break;
 			
-			case 8:
+			case 5:
+				mav = deleteGBoard((BoardBean)bean);
+				break;
+			
+			case 7:
 				mav = replyGBoardPage((BoardBean)bean);
 				break;
 			
-			case 9:
+			case 8:
 				mav = replyGBoard((BoardBean)bean);
 				break;
 		}		
@@ -202,34 +194,6 @@ public class GuildBoard {
 		
 		return mav;
 	}	
-
-	/**
-	 * 처리내용 : 5. 수정전 확인(비밀번호) 페이지 연결
-	 * 작성일 : 2017. 10. 26.
-	 * 작성자 : 신태휘
-	 * @Method Name : confirmModifyGBoardPage
-	 * @return type : ModelAndView
-	 */
-	private ModelAndView confirmModifyGBoardPage(BoardBean bean) {
-		
-		mav.setViewName("gBoardConfirm");
-		
-		return mav;
-	}
-
-	/**
-	 * 처리내용 : 4. 삭제전 확인(비밀번호) 페이지 연결
-	 * 작성일 : 2017. 10. 26.
-	 * 작성자 : 신태휘
-	 * @Method Name : deleteGBoardPage
-	 * @return type : ModelAndView
-	 */
-	private ModelAndView confirmDeleteGBoardPage(BoardBean bean) {
-		
-		mav.setViewName("gBoardConfirm");
-		
-		return mav;
-	}
 	
 	/**
 	 * 처리내용 : 3-1. 게시글 내용 출력
@@ -342,7 +306,6 @@ public class GuildBoard {
 					return r1.getGbWDate().compareTo(r2.getGbWDate());
 				}
 			});
-			System.out.println(gBoardList.get(i).getGbCode());
 			sb.append("<tr><td>");
 			sb.append(gBoardList.get(i).getGbCode());
 			sb.append("</td><td>");

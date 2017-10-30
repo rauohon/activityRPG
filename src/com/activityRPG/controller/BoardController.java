@@ -88,29 +88,15 @@ public class BoardController {
 	}
 	
 	/**
-	 * 처리내용 : confirmDeleteGBoardPage연결
-	 * 작성일 : 2017. 10. 26.
-	 * 작성자 : 신태휘
-	 * @Method Name : confirmDeleteGBoard
-	 * @return type : ModelAndView
-	 */
-	@RequestMapping(value="/ConfirmDeleteGBoardPage", method = RequestMethod.GET)
-	private ModelAndView confirmDeleteGBoardPage(@ModelAttribute BoardBean bean) {
-		mav=gBoard.entrance(4, bean);
-		
-		return mav;
-	}
-	
-	/**
-	 * 처리내용 : ConfirmModifyGBoardPage연결
+	 * 처리내용 : ModifyGBoardPage연결
 	 * 작성일 : 2017. 10. 26.
 	 * 작성자 : 신태휘
 	 * @Method Name : ConfirmModifyGBoardPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/ConfirmModifyGBoardPage", method = RequestMethod.GET)
-	private ModelAndView confirmModifyGBoardPage(@ModelAttribute BoardBean bean) {
-		mav=gBoard.entrance(5, bean);
+	@RequestMapping(value="/ModifyGBoardPage", method = RequestMethod.GET)
+	private ModelAndView modifyGBoardPage(@ModelAttribute BoardBean bean) {
+		mav=gBoard.entrance(4, bean);
 		
 		return mav;
 	}
@@ -124,21 +110,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/DeleteGBoard", method = RequestMethod.GET)
 	private ModelAndView deleteGBoard(@ModelAttribute BoardBean bean) {
-		mav=gBoard.entrance(6, bean);
-		
-		return mav;
-	}
-	
-	/**
-	 * 처리내용 : modifyGBoardPage연결
-	 * 작성일 : 2017. 10. 26.
-	 * 작성자 : 신태휘
-	 * @Method Name : modifyGBoard
-	 * @return type : ModelAndView
-	 */
-	@RequestMapping(value="/ModifyGBoardPage", method = RequestMethod.GET)
-	private ModelAndView modifyGBoardPage(@ModelAttribute BoardBean bean) {
-		mav=gBoard.entrance(7, bean);
+		mav=gBoard.entrance(5, bean);
 		
 		return mav;
 	}
@@ -153,15 +125,22 @@ public class BoardController {
 	@RequestMapping(value="/ReplyGBoardPage", method = RequestMethod.GET)
 	private ModelAndView replyGBoardPage(@ModelAttribute BoardBean bean) {
 				
-		mav=gBoard.entrance(8, bean);
+		mav=gBoard.entrance(7, bean);
 		
 		return mav;
 	}
 	
+	/**
+	 * 처리내용 : 답글 작성
+	 * 작성일 : 2017. 10. 30.
+	 * 작성자 : 신태휘
+	 * @Method Name : replyGBoard
+	 * @return type : ModelAndView
+	 */
 	@RequestMapping(value="/ReplyGBoard", method = RequestMethod.GET)
 	private ModelAndView replyGBoard(@ModelAttribute BoardBean bean) {
 		
-		mav=gBoard.entrance(9, bean); 	//replyGBoard
+		mav=gBoard.entrance(8, bean); 	//replyGBoard
 		
 		return mav;
 	}

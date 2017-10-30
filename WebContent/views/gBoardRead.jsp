@@ -29,13 +29,13 @@ function createForm(formName, actionName, method) {
 <h1>${title }</h1>
 <h1>${content }</h1>
 <h1>${wdate }</h1>
-<h1>${hit }</h1>ReplyGBoardPage
+<h1>${hit }</h1>
 
 <a href='GuildBoardPage'>전체 목록</a>
 <input type='button' onClick='createForm("replygboardpage", "ReplyGBoardPage", "GET")' value='답글 달기' />
-<a href='ConfirmDeleteGBoardPage'>삭제</a>
-<a href='ConfirmModifyGBoardPage'>수정</a>
-<a href='WriteGBoardPage'>글쓰기</a>
+<input type='button' onClick='createForm("deletegboard", "DeleteGBoard", "GET")' value='삭제' />
+<input type='button' onClick='createForm("modifygboardpage", "ModifyGBoardPage", "GET")' value='수정' />
+<input type='button' onClick='createForm("writegboardpage", "WriteGBoardPage", "GET")' value='글쓰기' />
 <form id="fixForm"></form>
 </body>
 </html>
