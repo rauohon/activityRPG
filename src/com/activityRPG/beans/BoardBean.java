@@ -6,6 +6,7 @@ package com.activityRPG.beans;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @클래스명 : BoardBean
@@ -28,6 +29,9 @@ public class BoardBean {
 	private int gbGroup;		//길드 게시판 글 그룹
 	private int gbStep;			//길드 게시판 step
 	private int gbIndent;		//길드 게시판 들여쓰기
+	private String gbReplyContent ; // 길드 게시판 댓글 달기
+	private int grCode; // 길드 게시판 댓글 번호
+	private MultipartFile gBoardFile;		// 길드 게시판 파일
 
 	public int code;
 	public String title;
@@ -153,5 +157,23 @@ public class BoardBean {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getGbReplyContent() {
+		return gbReplyContent;
+	}
+	public void setGbReplyContent(String gbReplyContent) {
+		this.gbReplyContent = gbReplyContent;
+	}
+	public int getGrCode() {
+		return grCode;
+	}
+	public void setGrCode(int grCode) {
+		this.grCode = grCode;
+	}
+	public MultipartFile getgBoardFile() {
+		return gBoardFile;
+	}
+	public void setgBoardFile(MultipartFile gBoardFile) {
+		this.gBoardFile = gBoardFile;
 	}
 }

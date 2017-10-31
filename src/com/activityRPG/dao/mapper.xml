@@ -121,11 +121,34 @@
 	    VALUES(GBOARD_SEQ.nextval,#{gbContent},DEFAULT,DEFAULT,DEFAULT,#{id},null,#{chName},DEFAULT,#{gbTitle},DEFAULT)
 	</insert>
 	
-<!-- 길드보드 답글 작성하기 -->
-	<insert id="setGuildBoardReplyWrite" parameterType="boardBean">
-		INSERT INTO GUILDBOARD (GB_CODE,GB_CONTENT,GB_GROUP,GB_HIT,GB_INDENT,GB_MBID,GB_MDATE,GB_NAME,GB_STEP,GB_TITLE,GB_WDATE)
-	    VALUES(GBOARD_SEQ.nextval,#{gbContent},+1,DEFAULT,+1,#{id},null,#{chName},+1,#{gbTitle},DEFAULT)
-	</insert>
+<!-- 길드보드 글 삭제하기 -->
+<delete id="setGuildBoardRemove" parameterType="boardBean">
+		DELETE FROM GUILDBOARD WHERE GB_CODE = #{gbCode}
+</delete>
+
+<!-- 길드보드 글 삭제하기 -->
+<update id="setGuildBoardModify" parameterType="boardBean">
+		UPDATE GUILDBOARD SET GB_TITLE = #{gbTitle}, GB_CONTENT = #{gbContent}, GB_MDATE = SYSDATE 
+		WHERE GB_CODE = #{gbCode}
+</update>
+
+<!-- 길드보드 댓글 불러오기 -->
+<select id="getGuildBoardReply" parameterType="boardBean" resultType="boardBean">
+	SELECT GR_NAME as chName, GR_CONTENT as gbReplyContent, GR_DATE as  gbWDate,
+	GR_CODE as grCode
+	FROM GBREPLY WHERE GR_BDCODE = #{gbCode}
+</select>
+
+<!-- 길드보드 댓글 달기 -->
+<insert id="setGuildBoardReply" parameterType="boardBean">
+	INSERT INTO GBREPLY (GR_CODE, GR_NAME, GR_BDCODE, GR_DATE, GR_CONTENT) 
+	VALUES (GBREPLY_SEQ.nextval, #{chName}, #{gbCode}, DEFAULT, #{gbReplyContent})
+</insert>
+
+<!-- 길드보드 댓글 삭제 -->
+<delete id="setGuildBoardReplyDelete" parameterType="boardBean">
+		DELETE FROM GBREPLY WHERE GR_CODE = #{grCode}
+</delete>
 
 <!-- 길드보드 리스트 가져오기위한 맵 -->
 	<resultMap type="boardBean" id="gBoardMap">

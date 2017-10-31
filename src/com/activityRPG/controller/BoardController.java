@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.activityRPG.beans.BoardBean;
@@ -44,8 +45,7 @@ public class BoardController {
 		mav=gBoard.entrance(0, bean);
 		
 		return mav;
-	}
-	
+	}	
 	
 	/**
 	 * 처리내용 : writeGBoardPage연결
@@ -83,8 +83,11 @@ public class BoardController {
 	 * @Method Name : readGBoardPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/ReadGBoardPage", method = RequestMethod.POST)
+	@RequestMapping(value="/ReadGBoardPage", method = RequestMethod.GET)
 	private ModelAndView readGBoardPage(@ModelAttribute BoardBean bean) {
+		
+		System.out.println("컨트롤러 글번호 확인 :: " + bean.getGbCode());
+		
 		mav=gBoard.entrance(3, bean);
 		
 		return mav;
@@ -97,9 +100,24 @@ public class BoardController {
 	 * @Method Name : ConfirmModifyGBoardPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/ModifyGBoardPage", method = RequestMethod.GET)
+	@RequestMapping(value="/ModifyGBoardPage", method = RequestMethod.POST)
 	private ModelAndView modifyGBoardPage(@ModelAttribute BoardBean bean) {
+		
 		mav=gBoard.entrance(4, bean);
+		
+		return mav;
+	}
+	
+	/**
+	 * 처리내용 : ModifyGBoardPage연결
+	 * 작성일 : 2017. 10. 26.
+	 * 작성자 : 신태휘
+	 * @Method Name : ConfirmModifyGBoardPage
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/ModifyGBoard", method = RequestMethod.POST)
+	private ModelAndView modifyGBoard(@ModelAttribute BoardBean bean) {
+		mav=gBoard.entrance(5, bean);
 		
 		return mav;
 	}
@@ -111,39 +129,55 @@ public class BoardController {
 	 * @Method Name : deleteGBoard
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/DeleteGBoard", method = RequestMethod.GET)
+	@RequestMapping(value="/DeleteGBoard", method = RequestMethod.POST)
 	private ModelAndView deleteGBoard(@ModelAttribute BoardBean bean) {
-		mav=gBoard.entrance(5, bean);
+		
+		mav=gBoard.entrance(6, bean);
 		
 		return mav;
 	}
 	
 	/**
-	 * 처리내용 : ReplyGBoardPage연결
-	 * 작성일 : 2017. 10. 27.
+	 * 처리내용 : 댓글 작성
+	 * 작성일 : 2017. 10. 30.
 	 * 작성자 : 신태휘
-	 * @Method Name : replyGBoardPage
-	 * @return type : ModelAndView
+	 * @Method Name : replyGBoard
+	 * @return type : String
 	 */
-	@RequestMapping(value="/ReplyGBoardPage", method = RequestMethod.GET)
-	private ModelAndView replyGBoardPage(@ModelAttribute BoardBean bean) {
-				
+	@RequestMapping(value="/ReplyGBoard", method = RequestMethod.POST )
+	private ModelAndView replyGBoard(@ModelAttribute BoardBean bean) {
+		
 		mav=gBoard.entrance(7, bean);
 		
 		return mav;
 	}
 	
 	/**
-	 * 처리내용 : 답글 작성
-	 * 작성일 : 2017. 10. 30.
+	 * 처리내용 : 댓글 수정
+	 * 작성일 : 2017. 10. 31.
 	 * 작성자 : 신태휘
-	 * @Method Name : replyGBoard
+	 * @Method Name : replyDelete
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/ReplyGBoard", method = RequestMethod.GET)
-	private ModelAndView replyGBoard(@ModelAttribute BoardBean bean) {
+	@RequestMapping(value="/ReplyDelete", method = RequestMethod.POST )
+	private ModelAndView replyDelete(@ModelAttribute BoardBean bean) {
 		
-		mav=gBoard.entrance(8, bean); 	//replyGBoard
+		mav=gBoard.entrance(8, bean);
+		
+		return mav;
+	}
+	
+	/**
+	 * 처리내용 : 파일 업로드
+	 * 작성일 : 2017. 10. 31.
+	 * 작성자 : 신태휘
+	 * @Method Name : fileUploadGBoard
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/UploadFileGBoard", method = RequestMethod.POST )
+	private ModelAndView fileUploadGBoard(@ModelAttribute BoardBean bean) {
+		
+		mav=gBoard.entrance(9, bean);
 		
 		return mav;
 	}

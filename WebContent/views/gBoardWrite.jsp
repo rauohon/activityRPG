@@ -41,7 +41,8 @@ function startc(){
 </tr>
 </table>
 </form>
-
-
+<form action="UploadFileGBoard" method="post" enctype="multipart/form-data">
+	파일 : <input type="file" name="gBoardFile" /> <input type="button" value="제출">
+</form>
 </body>
 </html>

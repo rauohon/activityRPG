@@ -12,7 +12,7 @@ function startc(){
 </script>
 </head>
 <body>
-<h1>writeGBoardReply Page 입니다.</h1>
+<h1>writeGBoardModyfy Page 입니다.</h1>
 <form action='${action }' method='GET'>
 <table style='border:1px solid black; width:100%;'>
 <tr>
@@ -24,7 +24,7 @@ function startc(){
 <tr>
 <td>제목</td>
 <td>
-<input type='text' name='gbTitle' placeholder='제목을 입력 하세요' />
+<input type='text' name='gbTitle' placeholder='제목을 입력 하세요'  value='${gbTitle }' />
 <input type='hidden' name='gbGroup' value='${gbGroup }'/>
 <input type='hidden' name='gbStep' value='${gbStep }'/>
 <input type='hidden' name=gbIndent value='${gbIndent }'/>

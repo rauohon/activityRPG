@@ -74,8 +74,14 @@ public interface IMBatisDao {
 	
 	public int setGuildBoardWrite(BoardBean bean);					// 길드 보드 글 작성하기
 	
-	public int setGuildBoardReplyWrite(BoardBean bean);					// 길드 보드 답글 작성하기
+	public int setGuildBoardRemove(BoardBean bean);					// 길드 보드 글 삭제 하기
 	
+	public int setGuildBoardModify(BoardBean bean);					// 길드 보드 글 수정 하기
 	
+	public List<BoardBean> getGuildBoardReply(BoardBean bean);					// 길드 댓글 불러오기
+	
+	public int setGuildBoardReply(BoardBean bean);					// 길드 보드 댓글 작성하기
+	
+	public int setGuildBoardReplyDelete(BoardBean bean);		// 길드 보드 댓글 삭제하기
 }
 	

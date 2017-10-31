@@ -12,7 +12,7 @@ function createForm(code) {
 	var i = $("<input />");
 	f.attr("name","readgboardpage");
 	f.attr("action","ReadGBoardPage");
-	f.attr("method","POST");
+	f.attr("method","GET");
 	i.attr("type","hidden");
 	i.attr("name","gbCode");
 	i.attr("value",code);
