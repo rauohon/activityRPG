@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="js/common.js"></script>
 <script>
 	function startAjax(code){
 		$.ajax({
@@ -24,52 +25,103 @@
 			}
 		});
 	}
-// 	function hideDiv(){
-// 	사라지게 하기
-// 		$("#ajax_div").fadeOut();
-// 	}
 </script>
 <style>
 	table{
-            text-align: center;
-        }
+	           text-align: center;
+	}
 </style>
 </head>
 <body>
-	<h3>
-		<a href='BackPage'>뒤로</a>
-	</h3>
-	캐릭터 정보 페이지 입니다.
-	<h4>캐릭터 사진</h4>
-	${characterImage }
-	<div id='ajax_div'></div>
-	<h4>캐릭터 이름 : ${chName }</h4>
-	<h5>캐릭터 레벨 : ${chLevel }</h5>
-	<h5>경험치 : ${chExp }</h5>
-	<h5>체력 : ${chHp }</h5>
-	<h5>마나 : ${chMp }</h5>
-	<h5>힘 : ${chStr }</h5>
-	<h5>민첩 : ${chDex }</h5>
-	<h5>지능 : ${chInt }</h5>
-	<h5>공격력 : ${chAttack }</h5>
-	<h5>방어 : ${chDefense }</h5>
-	<h5>소지금 : ${chGold }</h5>
-	<h4>착용아이템</h4>
-	<h5>무기 : ${weapon } ${weaponEn }</h5>
-	<h5>갑옷 : ${armor } ${armorEn }</h5>
-	<h5>장갑 : ${glove } ${gloveEn }</h5>
-	<h5>신발 : ${shoe } ${shoeEn }</h5>
-	<h5>반지 : ${ring } ${ringEn }</h5>
-	<h5>목걸이 : ${necklace } ${necklaceEn }</h5>
-	<h3>소지아아템</h3>
-	<h4>무기</h4>
-	${weaponItemList }
-	<h4>방어구</h4>
-	${armorItemList }
-	<h4>포션</h4>
-	${potionItemList }
-	<h4>강화석</h4>
-	${ehanceItemList }
+	<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
+	<h3 style="text-align: right;"><a href='BackPage'>뒤로</a></h3>
+		<div id='charaInfo' style='float: left; width:45%; margin-left: 3%; margin-right: 5%;'>
+			<div id='charaPhoto' style='float: left; width:50%; color: white;'>
+				<h4>캐릭터 사진</h4>
+				<img alt="테스트" src="images/skull_Icon.png" width="50%" height="50%">
+<%-- 				${characterImage } --%>
+			</div>
+			<div id='ajax_div'></div>
+			<div id='charaGeneInfo' style="color: white;">
+				<h4>캐릭터 이름 : ${chName }</h4>
+				<h5>캐릭터 레벨 : ${chLevel }</h5>
+			</div>
+			<div id='charaStatus' style="margin-top: 12px; color: white;">
+				<table style="width: 100%;">
+					<tr>
+						<th>경험치</th><td> ${chExp }</td>
+					</tr>
+					<tr>
+						<th>체력</th><td> ${chHp }</td>
+					</tr>
+					<tr>
+						<th>마나</th><td>  ${chMp }</td>
+					</tr>
+					<tr>
+						<th>힘</th><td> ${chStr }</td>
+					</tr>
+					<tr>
+						<th>체력</th><td> ${chHp }</td>
+					</tr>
+					<tr>
+						<th>민첩</th><td> ${chDex }</td>
+					</tr>
+					<tr>
+						<th>지능</th><td>${chInt }</td>
+					</tr>
+					<tr>
+						<th>공격력</th><td>${chAttack }</td>
+					</tr>
+					<tr>
+						<th>방어</th><td>${chDefense }</td>
+					</tr>
+				</table>
+			</div>
+			<div style="margin-top: 12px; background-image: url('images/people_Icon.png'); color: white;">
+				<br/>
+				<div style='margin-left: 35%; margin-top: 10%;'>
+					<h5>${necklace } ${necklaceEn }</h5>
+				</div>
+				<div style='margin-top: 20%;'>
+					<div style='float: left; margin-left: 19%;'>
+						<h5>${glove } ${gloveEn }</h5>
+					</div>
+					<div style='float: left; margin-left: 2%;'>
+						<h5>${armor } ${armorEn }</h5>
+					</div>
+				</div>
+				<br/><br/><br/>
+				<div style='float: left; margin-left: 25%'>
+					<h5>${weapon }${weaponEn }</h5>
+				</div>
+				<div style='margin-left: 60%;'>
+					<h5> ${ring } ${ringEn }</h5>
+				</div>
+				<div style='margin-left: 38%; margin-top: 20%;'>
+					<h5>${shoe } ${shoeEn }</h5>
+				</div>
+			</div>
+		</div>
+		<div id='inventory' style="margin-left: ; color: white;">
+			<h4>소지금 : ${chGold }</h4>
+			<div style='margin-top:4%;'>
+				<h4>무기</h4>
+				${weaponItemList }
+			</div>
+			<div style='margin-top:4%;'>
+				<h4>방어구</h4>
+				${armorItemList }
+			</div>
+			<div style='margin-top:4%;'>
+				<h4>포션</h4>
+				${potionItemList }
+			</div>
+			<div style='margin-top:4%;'>
+				<h4>강화석</h4>
+				${ehanceItemList }
+			</div>
+		</div>
+	</div>
 </body>
-
 </html>

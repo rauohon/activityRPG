@@ -54,12 +54,12 @@ public class GamePlayService {
 		int moveValue = Integer.parseInt(bean.getMoveValue());
 		if((random%moveValue) == 0) {
 			System.out.println("일반 전투");
-			rv = new RedirectView("/DungeonPage");
+			rv = new RedirectView("/GameForm");
 			rv.setExposeModelAttributes(false);
 			mav.setView(rv);
 		}else if((random%moveValue) == 2) {
 			System.out.println("보스 스테이지");
-			rv = new RedirectView("/DungeonPage");
+			rv = new RedirectView("/GameForm");
 			rv.setExposeModelAttributes(false);
 			mav.setView(rv);
 		}else {

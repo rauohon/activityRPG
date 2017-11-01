@@ -100,7 +100,7 @@ public class GameController {
 	 * @Method Name : dungeonPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/DungeonPage", method = RequestMethod.GET)
+	@RequestMapping(value="/DungeonPage", method = RequestMethod.POST)
 	private ModelAndView dungeonPage(@ModelAttribute GameBean gameBean) {
 		
 		mav = gn.entrance(4, gameBean);
@@ -147,6 +147,7 @@ public class GameController {
 	 */
 	@RequestMapping(value="/CharacterInfo", method = RequestMethod.POST)
 	private ModelAndView characterInfoPage(@ModelAttribute GameBean gameBean) {
+		
 		mav = gn.entrance(5, gameBean);
 
 		return mav; 

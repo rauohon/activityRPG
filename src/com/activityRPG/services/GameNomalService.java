@@ -219,27 +219,27 @@ public class GameNomalService {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("content",bean.getChName());
 		List<GameBean> equipList = dao.getEquipList(map);
-		map.put("weapon", "<h1 onmouseout=\'hideDiv()\' onClick=\'startAjax(\""+equipList.get(0).getItcode()+"\")\'>"+equipList.get(0).getItname()+"</h1>");
+		map.put("weapon", "<h4 onmouseout=\'hideDiv()\' onClick=\'startAjax(\""+equipList.get(0).getItcode()+"\")\'>"+equipList.get(0).getItname()+"</h4>");
 		if(equipList.get(0).getEnlevel() != 0) {
 			map.put("weaponEn", "+"+String.valueOf(equipList.get(0).getEnlevel()));
 		}
-		map.put("armor", "<h1 onClick=\'startAjax(\""+equipList.get(1).getItcode()+"\")\'>"+equipList.get(1).getItname());
+		map.put("armor", "<h4 onClick=\'startAjax(\""+equipList.get(1).getItcode()+"\")\'>"+equipList.get(1).getItname());
 		if(equipList.get(1).getEnlevel() != 0) {
 			map.put("armorEn", "+"+String.valueOf(equipList.get(1).getEnlevel()));
 		}
-		map.put("glove", "<h1 onClick=\'startAjax(\""+equipList.get(2).getItcode()+"\")\'>"+equipList.get(2).getItname());
+		map.put("glove", "<h4 onClick=\'startAjax(\""+equipList.get(2).getItcode()+"\")\'>"+equipList.get(2).getItname());
 		if(equipList.get(2).getEnlevel() != 0) {
 			map.put("gloveEn", "+"+String.valueOf(equipList.get(2).getEnlevel()));
 		}
-		map.put("shoe", "<h1 onClick=\'startAjax(\""+equipList.get(3).getItcode()+"\")\'>"+equipList.get(3).getItname());
+		map.put("shoe", "<h4 onClick=\'startAjax(\""+equipList.get(3).getItcode()+"\")\'>"+equipList.get(3).getItname());
 		if(equipList.get(3).getEnlevel() != 0) {
 			map.put("shoeEn", "+"+String.valueOf(equipList.get(3).getEnlevel()));
 		}
-		map.put("ring", "<h1 onClick=\'startAjax(\""+equipList.get(4).getItcode()+"\")\'>"+equipList.get(4).getItname());
+		map.put("ring", "<h4 onClick=\'startAjax(\""+equipList.get(4).getItcode()+"\")\'>"+equipList.get(4).getItname());
 		if(equipList.get(4).getEnlevel() != 0) {
 			map.put("ringEn", "+"+String.valueOf(equipList.get(4).getEnlevel()));
 		}
-		map.put("necklace", "<h1 onClick=\'startAjax(\""+equipList.get(5).getItcode()+"\")\'>"+equipList.get(5).getItname());
+		map.put("necklace", "<h4 onClick=\'startAjax(\""+equipList.get(5).getItcode()+"\")\'>"+equipList.get(5).getItname());
 		if(equipList.get(5).getEnlevel() != 0) {
 			map.put("necklaceEn", "+"+String.valueOf(equipList.get(5).getEnlevel()));
 		}
