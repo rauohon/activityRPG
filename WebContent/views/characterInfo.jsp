@@ -50,31 +50,31 @@
 			<div id='charaStatus' style="margin-top: 12px; color: white;">
 				<table style="width: 100%;">
 					<tr>
-						<th>경험치</th><td> ${chExp }</td>
+						<th>경험치</th><td> ${chExp }</td><td></td>
 					</tr>
 					<tr>
-						<th>체력</th><td> ${chHp }</td>
+						<th>체력</th><td> ${chHp }</td><td>(+${hpAbility })</td>
 					</tr>
 					<tr>
-						<th>마나</th><td>  ${chMp }</td>
+						<th>마나</th><td>  ${chMp }</td><td>(+${manaAbility })</td>
 					</tr>
 					<tr>
-						<th>힘</th><td> ${chStr }</td>
+						<th>힘</th><td> ${chStr }</td><td></td>
 					</tr>
 					<tr>
-						<th>체력</th><td> ${chHp }</td>
+						<th>체력</th><td> ${chHp }</td><td></td>
 					</tr>
 					<tr>
-						<th>민첩</th><td> ${chDex }</td>
+						<th>민첩</th><td> ${chDex }</td><td></td>
 					</tr>
 					<tr>
-						<th>지능</th><td>${chInt }</td>
+						<th>지능</th><td>${chInt }</td><td></td>
 					</tr>
 					<tr>
-						<th>공격력</th><td>${chAttack }</td>
+						<th>공격력</th><td>${chAttack }</td><td>(+${weaponAbility })</td>
 					</tr>
 					<tr>
-						<th>방어</th><td>${chDefense }</td>
+						<th>방어력</th><td>${chDefense }</td><td>(+${armorAbility })</td>
 					</tr>
 				</table>
 			</div>
@@ -98,7 +98,7 @@
 				<div style='margin-left: 60%;'>
 					<h5> ${ring } ${ringEn }</h5>
 				</div>
-				<div style='margin-left: 38%; margin-top: 20%;'>
+				<div style='margin-left: 38%; margin-top: 14%;'>
 					<h5>${shoe } ${shoeEn }</h5>
 				</div>
 			</div>

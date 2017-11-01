@@ -34,11 +34,26 @@ public class GamePlayService {
 				mav = movement((GameBean)bean);
 				break;
 			case 1:
+				mav = itemUse((GameBean)bean);
 				break;
 		
 		}
 		
 		return mav;
+	}
+
+	/**
+	 * 처리내용 : 1. 아이템 사용
+	 * 작성일 : 2017. 11. 1.
+	 * 작성자 : 신태휘
+	 * @Method Name : itemUse
+	 * @return type : ModelAndView
+	 */
+	private ModelAndView itemUse(GameBean bean) {
+		
+		
+		
+		return null;
 	}
 
 	/**

@@ -83,7 +83,7 @@
 	
 <!-- 장비한 리스트 가져오기 -->
 	<select id="getEquipList" parameterType="map" resultType="gameBean">
-		SELECT ITNAME, ENLEVEL, ITCODE FROM EQUIPLIST WHERE CHNAME = #{content}
+		SELECT ITNAME, ENLEVEL, ITCODE, ABILITY FROM EQUIPLIST WHERE CHNAME = #{content}
 	</select>
 
 <!-- 소지한 장비 리스트 가져오기 -->

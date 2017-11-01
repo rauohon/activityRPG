@@ -109,6 +109,36 @@ public class GameController {
 	}
 	
 	/**
+	 * 처리내용 : 캐릭터 정보 페이지 연결
+	 * 작성일 : 2017. 10. 23.
+	 * 작성자 : 신태휘
+	 * @Method Name : characterInfoPage
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/CharacterInfo", method = RequestMethod.POST)
+	private ModelAndView characterInfoPage(@ModelAttribute GameBean gameBean) {
+		
+		mav = gn.entrance(5, gameBean);
+
+		return mav; 
+	}
+	
+	/**
+	 * 처리내용 : 아이템 정보 불러오는 ajax
+	 * 작성일 : 2017. 10. 25.
+	 * 작성자 : 신태휘
+	 * @Method Name : itemInfo
+	 * @return type : String
+	 */
+	@RequestMapping(value="/ItemInfo", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	private ModelAndView itemInfo(@ModelAttribute GameBean gameBean) {
+		
+		mav = gn.entrance(6, gameBean);
+		
+		return mav;
+	}	
+
+	/**
 	 * 처리내용 : 각 상점 페이지 연결
 	 * 작성일 : 2017. 10. 21.
 	 * 작성자 : 신태휘
@@ -139,21 +169,6 @@ public class GameController {
 	}
 	
 	/**
-	 * 처리내용 : 캐릭터 정보 페이지 연결
-	 * 작성일 : 2017. 10. 23.
-	 * 작성자 : 신태휘
-	 * @Method Name : characterInfoPage
-	 * @return type : ModelAndView
-	 */
-	@RequestMapping(value="/CharacterInfo", method = RequestMethod.POST)
-	private ModelAndView characterInfoPage(@ModelAttribute GameBean gameBean) {
-		
-		mav = gn.entrance(5, gameBean);
-
-		return mav; 
-	}
-	
-	/**
 	 * 처리내용 : 던전 페이지 내부 이동
 	 * 작성일 : 2017. 10. 23.
 	 * 작성자 : 신태휘
@@ -162,26 +177,24 @@ public class GameController {
 	 */
 	@RequestMapping(value="/Movement", method = RequestMethod.GET)
 	private ModelAndView movement(@ModelAttribute GameBean gameBean) {
-		System.out.println(gameBean.getMoveValue());
-		mav = gp.entrance(0, gameBean);
+		
+		mav=gp.entrance(0, gameBean);
 
 		return mav; 
 	}
 	
 	/**
-	 * 처리내용 : 아이템 정보 불러오는 ajax
-	 * 작성일 : 2017. 10. 25.
+	 * 처리내용 : 아이템 사용
+	 * 작성일 : 2017. 11. 1.
 	 * 작성자 : 신태휘
-	 * @Method Name : itemInfo
-	 * @return type : String
+	 * @Method Name : itemUse
+	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/ItemInfo", method = RequestMethod.GET, produces = "application/text; charset=utf8")
-	private ModelAndView itemInfo(@ModelAttribute GameBean gameBean) {
+	@RequestMapping(value="/ItemUse", method = RequestMethod.GET)
+	private ModelAndView itemUse(@ModelAttribute GameBean gameBean) {
 		
-		System.out.println(gameBean.getItcode() + " : controller 아이템코드");
-		mav = gn.entrance(6, gameBean);
-				
+		mav=gp.entrance(1, gameBean);
+		
 		return mav;
 	}
-	
 }
