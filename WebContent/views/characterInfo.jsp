@@ -25,6 +25,24 @@
 			}
 		});
 	}
+	function itemuse(code){
+		var f = $("#fixForm");
+		var i = $("<input />");
+		var chName = $("<input />")
+		f.attr("name", "itemUse");
+		f.attr("action","ItemUse");
+		f.attr("method","POST");
+		i.attr("name","itcode");
+		chName.attr("name", "chName");
+		i.attr("value",code);
+		chName.attr("value",'${chName}');
+		i.attr("type","hidden");
+		chName.attr("type","hidden");
+		$("#fixForm").append(i);
+		$("#fixForm").append(chName);
+		
+		f.submit();
+	}
 </script>
 <style>
 	table{
@@ -35,14 +53,12 @@
 <body>
 	<%@ include file="nav.jsp"%>
 	<div id='wraper' style="padding-top: 60px;">
-	<h3 style="text-align: right;"><a href='BackPage'>뒤로</a></h3>
-		<div id='charaInfo' style='float: left; width:45%; margin-left: 3%; margin-right: 5%;'>
+		<div id='charaInfo' style='float: left; width:40%; margin-left: 2%; margin-right: 2%;'>
 			<div id='charaPhoto' style='float: left; width:50%; color: white;'>
 				<h4>캐릭터 사진</h4>
 				<img alt="테스트" src="images/skull_Icon.png" width="50%" height="50%">
 <%-- 				${characterImage } --%>
 			</div>
-			<div id='ajax_div'></div>
 			<div id='charaGeneInfo' style="color: white;">
 				<h4>캐릭터 이름 : ${chName }</h4>
 				<h5>캐릭터 레벨 : ${chLevel }</h5>
@@ -50,31 +66,31 @@
 			<div id='charaStatus' style="margin-top: 12px; color: white;">
 				<table style="width: 100%;">
 					<tr>
-						<th>경험치</th><td> ${chExp }</td><td></td>
+						<th>경험치</th><td> ${chExp }</td>
 					</tr>
 					<tr>
-						<th>체력</th><td> ${chHp }</td><td>(+${hpAbility })</td>
+						<th>체력</th><td> ${chHp }</td>
 					</tr>
 					<tr>
-						<th>마나</th><td>  ${chMp }</td><td>(+${manaAbility })</td>
+						<th>마나</th><td>  ${chMp }</td>
 					</tr>
 					<tr>
-						<th>힘</th><td> ${chStr }</td><td></td>
+						<th>힘</th><td> ${chStr }</td>
 					</tr>
 					<tr>
-						<th>체력</th><td> ${chHp }</td><td></td>
+						<th>체력</th><td> ${chHp }</td>
 					</tr>
 					<tr>
-						<th>민첩</th><td> ${chDex }</td><td></td>
+						<th>민첩</th><td> ${chDex }</td>
 					</tr>
 					<tr>
-						<th>지능</th><td>${chInt }</td><td></td>
+						<th>지능</th><td>${chInt }</td>
 					</tr>
 					<tr>
-						<th>공격력</th><td>${chAttack }</td><td>(+${weaponAbility })</td>
+						<th>공격력</th><td>${weaponAbility }</td>
 					</tr>
 					<tr>
-						<th>방어력</th><td>${chDefense }</td><td>(+${armorAbility })</td>
+						<th>방어력</th><td>${armorAbility }</td>
 					</tr>
 				</table>
 			</div>
@@ -103,7 +119,7 @@
 				</div>
 			</div>
 		</div>
-		<div id='inventory' style="margin-left: ; color: white;">
+		<div id='inventory' style="margin-left: ; color: white; float:left; margin-right: 2%;">
 			<h4>소지금 : ${chGold }</h4>
 			<div style='margin-top:4%;'>
 				<h4>무기</h4>
@@ -122,6 +138,10 @@
 				${ehanceItemList }
 			</div>
 		</div>
+		<h3 style="text-align: right;"><a href='BackPage'>뒤로</a></h3>
+		<div id='ajax_div' style="color: white;" >${msg}</div>
 	</div>
+	
+	<form id="fixForm"></form>
 </body>
 </html>

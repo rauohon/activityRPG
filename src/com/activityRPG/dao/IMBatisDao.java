@@ -56,15 +56,25 @@ public interface IMBatisDao {
 	
 	public List<BoardBean> freeBoardContent(BoardBean board);		//자유게시판 내용 보기
 	
-	public BoardBean getCharaName(BoardBean bean);		// 캐릭터 이름 불러오기
-	
 	public GameBean getCharacterStatus(GameBean bean);	// 캐릭터 능력치 조회
 	
-	public List<GameBean> getEquipList(Map<String, String> map);	// 캐릭터 장비 조회
+	public GameBean getEquipList(Map<String, String> map);	// 캐릭터 장비 조회
+	
+	public GameBean getItemName(Map<String, String> map);	// 캐릭터 장비 강화 레벨 조회
+	
+	public GameBean getEnLevel(Map<String, String> map);	// 캐릭터 장비 강화 레벨 조회
 	
 	public List<GameBean> getIvenList(Map<String, String> map);		// 캐릭터 소지품 조회
 	
-	public GameBean getItemInfo(Map<String, String> map);		// 아이템 정보 조회
+	public GameBean getItemInfo(GameBean bean);		// 아이템 정보 조회
+	
+	public GameBean getIsEquip(Map<String, String> map);						// 착용 아이템 사용전 기 착용여부 확인
+	
+	public int setEquipItemUpdate(Map<String, String> map);						// 착용 아이템 사용
+
+	public int setItemApplyStatus(GameBean bean);				// 아이템 사용후 캐릭터 능력치 업데이트
+	
+	public BoardBean getCharaName(BoardBean bean);		// 캐릭터 이름 불러오기
 	
 	public List<BoardBean> getGuildBoardList(BoardBean bean);		// 길드 보드의 리스트 불러오기
 	

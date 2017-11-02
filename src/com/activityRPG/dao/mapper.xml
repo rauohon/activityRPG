@@ -83,7 +83,27 @@
 	
 <!-- 장비한 리스트 가져오기 -->
 	<select id="getEquipList" parameterType="map" resultType="gameBean">
-		SELECT ITNAME, ENLEVEL, ITCODE, ABILITY FROM EQUIPLIST WHERE CHNAME = #{content}
+		SELECT 
+			EQ_WEAPON AS EQWEAPON, EQ_ARMOR AS EQARMOR, EQ_GLOVE AS EQGLOVE, 
+			EQ_SHOE AS EQSHOE, EQ_RING AS EQRING, EQ_NECKLACE AS EQNECKLACE 
+		FROM 
+			EQUIPMENT 
+		WHERE 
+			EQ_CHNAME = #{content}
+	</select>
+	
+<!-- 	장비한 리스트의 아이템 이름 가져오기 -->
+	<select id="getItemName" parameterType="map" resultType="gameBean">
+		SELECT 
+			IT_CODE AS ITCODE, IT_NAME AS ITNAME, IT_REQUIREABILITY AS REQUIABILITY, 
+			IT_ABILITY AS ABILITY FROM ITEM 
+		WHERE 
+			IT_CODE =  #{itcode}
+	</select>
+
+<!-- 장비한 리스트의 강화레벨 가져오기 -->
+	<select id="getEnLevel" parameterType="map" resultType="gameBean">
+		SELECT IV_ENLEVEL as enlevel FROM INVENTORY WHERE IV_ITCODE = #{itcode} AND IV_CHNAME = #{content}
 	</select>
 
 <!-- 소지한 장비 리스트 가져오기 -->
@@ -93,8 +113,45 @@
 	
 <!-- 아이템 정보 가져오기 -->
 	<select id="getItemInfo" parameterType="gameBean" resultType="gameBean">
-		SELECT IT_NAME AS ITNAME, IT_REQUIREABILITY AS REQUIABILITY, IT_ABILITY AS ABILITY, IT_BUY AS BUYPRICE, IT_SELL AS SELLPRICE FROM ITEM WHERE IT_CODE=#{content}
+		SELECT 
+			IT_CODE as ITCODE, IT_NAME AS ITNAME, IT_REQUIREABILITY AS REQUIABILITY, 
+			IT_ABILITY AS ABILITY, IT_BUY AS BUYPRICE, IT_SELL AS SELLPRICE 
+		FROM 
+			ITEM 
+		WHERE 
+			IT_CODE=#{itcode}
 	</select>
+	
+<!-- 아이템 착용전 기착용 여부 확인 -->
+	<select id="getIsEquip"  parameterType="gameBean" resultType="gameBean">
+		SELECT EQ_WEAPON AS ITCODE FROM EQUIPMENT WHERE EQ_CHNAME = #{content}
+	</select>
+	
+	<!-- 아이템 착용 -->
+		<update id="setEquipItemUpdate" parameterType="map">
+			UPDATE 
+				EQUIPMENT 
+			SET 
+				EQ_WEAPON = #{useItem}
+			<where>
+				EQ_CHNAME = #{content}
+				<if test="equipItem != 0">
+					AND EQ_WEAPON = #{equipItem}
+				</if>
+			</where>
+		</update>
+	
+	<!-- 아이템 착용 후 능력치 적용 -->
+		<update id="setItemApplyStatus" parameterType="gameBean">
+			UPDATE USER_CHARACTER
+			<set>
+				<if test="chAttack != 0"> CH_ATTACK = #{chAttack} </if>
+				<if test="chDefense != 0"> CH_DEFENSE = CH_DEFENSE + #{chDefense} </if>
+				<if test="chHp != 0"> CH_HP = CH_HP + #{chHp} </if>
+				<if test="chMp != 0"> CH_MP = CH_MP + #{chMp} </if>
+			</set>
+			WHERE CH_NAME=#{chName}
+		</update>
 
 <!-- 길드보드 리스트 가져오기 -->
 	<select id="getGuildBoardList" parameterType="boardBean" resultMap="gBoardMap">

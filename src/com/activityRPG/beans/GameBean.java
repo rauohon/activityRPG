@@ -39,7 +39,12 @@ public class GameBean {
 	private int ability;
 	private int amount;
 	private int enlevel;
-
+	private int eqWeapon;
+	private int eqArmor;
+	private int eqGlove;
+	private int eqShoe;
+	private int eqRing;
+	private int eqNecklace;
 
 	public int getRequiAbility() {
 		return requiAbility;
@@ -233,5 +238,52 @@ public class GameBean {
 		this.itcode = itcode;
 	}
 
+	public int getEqWeapon() {
+		return eqWeapon;
+	}
+
+	public void setEqWeapon(int eqWeapon) {
+		this.eqWeapon = eqWeapon;
+	}
+
+	public int getEqArmor() {
+		return eqArmor;
+	}
+
+	public void setEqArmor(int eqArmor) {
+		this.eqArmor = eqArmor;
+	}
+
+	public int getEqGlove() {
+		return eqGlove;
+	}
+
+	public void setEqGlove(int eqGlove) {
+		this.eqGlove = eqGlove;
+	}
+
+	public int getEqShoe() {
+		return eqShoe;
+	}
+
+	public void setEqShoe(int eqShoe) {
+		this.eqShoe = eqShoe;
+	}
+
+	public int getEqRing() {
+		return eqRing;
+	}
+
+	public void setEqRing(int eqRing) {
+		this.eqRing = eqRing;
+	}
+
+	public int getEqNecklace() {
+		return eqNecklace;
+	}
+
+	public void setEqNecklace(int eqNecklace) {
+		this.eqNecklace = eqNecklace;
+	}
 
 }

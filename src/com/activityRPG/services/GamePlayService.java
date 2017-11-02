@@ -3,11 +3,20 @@
  */
 package com.activityRPG.services;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.activityRPG.beans.GameBean;
+import com.activityRPG.dao.IMBatisDao;
+import com.activityRPG.dao.TranEx;
+import com.activityRPG.utils.ProjectUtils;
 
 /**
  * @클래스명 : GamePlayService
@@ -17,9 +26,14 @@ import com.activityRPG.beans.GameBean;
  * @수정이력 - 수정일, 수정자, 수정내용
  */
 @Service
-public class GamePlayService {
+public class GamePlayService  extends TranEx {
 	ModelAndView mav = new ModelAndView();
-
+	@Autowired
+	private IMBatisDao dao;
+	@Autowired
+	private ProjectUtils session;
+	boolean transaction = false;
+	
 	/**
 	 * 처리내용 : 게임 플레이 서비스 분기
 	 * 작성일 : 2017. 10. 23.
@@ -41,6 +55,75 @@ public class GamePlayService {
 		
 		return mav;
 	}
+	
+	private void setEquipment(GameBean bean, int jobCode) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("content",bean.getChName());
+//		List<GameBean> equipList = dao.getEquipList(map);
+		int requiAbility = 0;			// 장비 필요 능력치
+		int chStatus = 0;						// 캐릭터의 해당 능력치
+		int applyStatus = 0;			// 캐릭터에 적용할 능력치
+		
+		if(chStatus >= requiAbility) {
+			System.out.println("능력치 적합 여부 확인");
+			bean = dao.getItemInfo(bean);
+			map.put("useItem", bean.getItcode());
+			requiAbility = bean.getRequiAbility();
+			applyStatus = bean.getAbility();
+			bean = dao.getEquipList(map);
+			System.out.println(bean.getEqWeapon() + " :: 2");
+			map.put("equipItem", String.valueOf(bean.getEqWeapon()));
+			try { bean.setId(session.getAttribute("id").toString());}catch(Exception e) {}
+			bean = dao.getCharacterStatus(bean);
+			System.out.println(bean.getChName() + "캐릭터 이름 확인");
+			switch(jobCode) {
+				case 0:
+					// 무기 변경
+					if(dao.getIsEquip(map) != null) {
+						System.out.println("착용된 상태라면");
+						if(dao.setEquipItemUpdate(map) != 0) {
+							bean.setChAttack(applyStatus);
+							bean.setChDefense(0);
+							bean.setChHp(0);
+							bean.setChMp(0);
+							System.out.println("chAttack : " + bean.getChAttack());
+							if(dao.setItemApplyStatus(bean) != 0) {
+								System.out.println("능력치 변경 여부 확인 ㅇㅇ?");
+								transaction = true;
+							}
+						}
+					}else {
+						if(dao.setEquipItemUpdate(map) != 0) {
+							transaction = true;
+						}
+					}					
+					break;
+				case 1:
+					// 갑옷 변경
+					if(dao.getIsEquip(map) != null) {
+						System.out.println("착용된 상태라면");
+						if(dao.setEquipItemUpdate(map) != 0) {
+							bean.setChAttack(0);
+							bean.setChDefense(applyStatus);
+							bean.setChHp(0);
+							bean.setChMp(0);
+							System.out.println("chAttack : " + bean.getChAttack());
+							if(dao.setItemApplyStatus(bean) != 0) {
+								System.out.println("능력치 변경 여부 확인 ㅇㅇ?");
+								transaction = true;
+							}
+						}
+					}else {
+						if(dao.setEquipItemUpdate(map) != 0) {
+							transaction = true;
+						}
+					}
+					break;
+			}
+			chStatus = bean.getChStr();
+			
+		}
+	}
 
 	/**
 	 * 처리내용 : 1. 아이템 사용
@@ -50,10 +133,47 @@ public class GamePlayService {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView itemUse(GameBean bean) {
-		
-		
-		
-		return null;
+		RedirectView rv = null;
+		rv = new RedirectView("/CharacterInfo");
+		rv.setExposeModelAttributes(false);
+		mav.setView(rv);
+		int jobcode = Integer.parseInt(bean.getItcode());	// 동적 SQL 사용용 잡코드
+		Map<String, String> map = new HashMap<String, String>();
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		try {
+		if(jobcode <= 2000) {
+			System.out.println("무기 입니다.");
+			setEquipment(bean, 0);
+		}else if(jobcode <= 3000) {
+			System.out.println("갑옷류 입니다.");
+			setEquipment(bean, 1);
+		}else if(jobcode <= 4000) {
+			System.out.println("장갑류 입니다.");
+			
+		}else if(jobcode <= 5000) {
+			System.out.println("신발류 입니다.");
+			
+		}else if(jobcode <= 6000) {
+			System.out.println("반지류 입니다.");
+			
+		}else if(jobcode <= 7000) {
+			System.out.println("목걸이류 입니다.");
+			
+		}else if(jobcode <= 7500) {
+			System.out.println("체력포션류 입니다.");
+			
+		}else if(jobcode <= 8000) {
+			System.out.println("마나포션류 입니다.");
+			
+		}else {
+			System.out.println("강화석류 입니다.");
+			
+		}
+		setTransactionResult(transaction);
+		} catch (Exception e) {
+				e.printStackTrace();
+			}
+		return mav;
 	}
 
 	/**
