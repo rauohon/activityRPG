@@ -73,10 +73,12 @@ public interface IMBatisDao {
 	public int setEquipItemUpdate(Map<String, String> map);						// 착용 아이템 사용
 	
 	public int setAfterItemUse(Map<String, String> map);						// 소모 아이템 사용후 1개 감소 시키기
+
+	public int setItemApplyStatus(GameBean bean);				// 아이템 사용후 캐릭터 능력치 업데이트
 	
 	public int setItemDisArm(Map<String, String> map);						// 아이템 장착 해제하기
 
-	public int setItemApplyStatus(GameBean bean);				// 아이템 사용후 캐릭터 능력치 업데이트
+	public int setItemDisArmStatus(GameBean bean);				// 아이템 사용후 캐릭터 능력치 업데이트
 	
 	public BoardBean getCharaName(BoardBean bean);		// 캐릭터 이름 불러오기
 	

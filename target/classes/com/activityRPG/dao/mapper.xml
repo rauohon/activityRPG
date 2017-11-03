@@ -179,22 +179,36 @@
 		AND 
 			IV_ITCODE = #{useItem}
 	</update>
-	
-<!-- 	장착 아이템 해제하기 -->
-<update id="setItemDisArm" parameterType="map">
-	UPDATE 
-		EQUIPMENT 
-	<set>
-		<if test="weapon != null">EQ_WEAPON = 0</if>
-		<if test="armor != null">EQ_ARMOR = DEFAULT</if>
-		<if test="glove != null">EQ_GLOVE = DEFAULT</if>
-		<if test="shoe != null">EQ_SHOE = DEFAULT</if>
-		<if test="ring != null">EQ_RING = DEFAULT</if>
-		<if test="necklace != null">EQ_NECKLACE = DEFAULT</if>
-	</set>
-	WHERE 
-		EQ_CHNAME=#{cnName}
-</update>
+
+	<!-- 장착 아이템 해제하기 -->
+	<update id="setItemDisArm" parameterType="map">
+		UPDATE
+			EQUIPMENT
+		<set>
+			<if test="weapon != null">EQ_WEAPON = #{idx}</if>
+			<if test="armor != null">EQ_ARMOR = #{idx}</if>
+			<if test="glove != null">EQ_GLOVE = #{idx}</if>
+			<if test="shoe != null">EQ_SHOE = #{idx}</if>
+			<if test="ring != null">EQ_RING = #{idx}</if>
+			<if test="necklace != null">EQ_NECKLACE = #{idx}</if>
+		</set>
+		WHERE
+			EQ_CHNAME=#{chName}
+	</update>
+
+	<!-- 아이템 해제 후 능력치 적용 -->
+	<update id="setItemDisArmStatus" parameterType="gameBean">
+		UPDATE 
+			USER_CHARACTER
+		<set>
+			<if test="chAttack != 0"> CH_ATTACK = 0 </if>
+			<if test="chDefense != 0"> CH_DEFENSE = CH_DEFENSE - #{chDefense} </if>
+			<if test="chHp != 0"> CH_HP = CH_HP - #{chHp} </if>
+			<if test="chMp != 0"> CH_MP = CH_MP - #{chMp} </if>
+		</set>
+		WHERE 
+			CH_NAME=#{chName}
+	</update>
 
 
 <!-- 길드보드 리스트 가져오기 -->

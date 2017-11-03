@@ -303,6 +303,8 @@ public class GameNomalService {
 				if(enBean.getEnlevel() != 0) {
 					map.put("weaponEn", "+"+String.valueOf(enBean.getEnlevel())+"</h4>");			
 				}
+			}else {
+				map.put("weaponAbility", "0");
 			}
 			if(equipBean.getEqArmor() != 0) {
 				int armorCode = equipBean.getEqArmor();
