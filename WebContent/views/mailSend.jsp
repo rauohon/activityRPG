@@ -16,10 +16,12 @@
 		var form = createForm("mailSendForm", "MailSend", "post");
 
 		//현재 페이지명 저장 hidden개체 생성
-		createObj("hidden", "", "home", "");
+		createObj("hidden", "email", "email", "");
+		createinput("hidden", "id", "${id}");
 
 		//생성 된 폼과 요소 개체간의 연결
 		relationObj("mailSendForm", "email");
+		relationObj("mailSendForm", "id");
 
 		//서버 전송
 		form.submit();
@@ -37,6 +39,7 @@
 					<!-- 이메일 입력(임시비밀번호 보내기) -->
 					<p>
 						<span class="fontawesome-user"></span>
+						<input type="hidden" value="${id }" />
 						<input type="text" name="email" value="Email" onBlur="if(this.value == '') this.value = 'Email'"
 								onFocus="if(this.value == 'Email') this.value = ''" required>
 					</p>

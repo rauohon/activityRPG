@@ -42,6 +42,14 @@
 		</tr>
 	</table>
 	<a href='GuildBoardPage'>길드 게시판 이동</a>
+		<table id="get">
+			<tr>
+				<td><a href="LoginForm">로그인</a></td>
+				<td><a href="JoinForm">회원가입</a></td>
+				<td><a href="IdFind">아이디 찾기</a></td>
+				<td><a href="PwdFind">패스워드 찾기</a></td>
+			</tr>
+		</table>
 	
 	<h2 id="logincheck">${id }님 로그인 된 메인 페이지 입니다.</h2>
 	<table id="nodab">

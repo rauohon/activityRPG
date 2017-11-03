@@ -1,5 +1,6 @@
 package com.activityRPG.services;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -36,6 +37,7 @@ public class MemberManagement extends TranEx {
 	private IMBatisDao dao;
 	@Autowired
 	private JavaMailSenderImpl javaMailSenderImpl;
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 
 	public ModelAndView entrance(int code, Object...object) throws Exception{
 		ModelAndView mav = null;
@@ -75,28 +77,63 @@ public class MemberManagement extends TranEx {
 		case 6:
 			mav = info((MemberBean)object[0]);
 			break;
-		//나의 정보 수정
+			//나의 정보 수정 >> 이름
 		case 7:
-			mav = infoupdate((MemberBean)object[0]);
+			mav = nameupdate((MemberBean)object[0]);
 			break;
-		//(받은)메시지 리스트
+			//나의 정보 수정 >> 이메일
+		case 12:
+			mav = mailupdate((MemberBean)object[0]);
+			break;
+			//나의 정보 수정 >> 핸드폰 번호
+		case 13:
+			mav = phoneupdate((MemberBean)object[0]);
+			break;
+			//나의 정보 수정 버튼
+		case 14:
+			mav = infoupdateName((MemberBean)object[0]);
+			break;
+			//나의 정보 수정 버튼
+		case 15:
+			mav = infoupdatePhone((MemberBean)object[0]);
+			break;
+			//나의 정보 수정 버튼
+		case 16:
+			mav = infoupdateMail((MemberBean)object[0]);
+			break;
+			//(받은)메시지 리스트
 		case 8:
 			mav = getmessagelist((MemberBean)object[0]);
 			break;
-		//메시지 글 쓰기 창
+			//메시지 글 쓰기 창
 		case 9:
 			mav = writingmessage((MemberBean)object[0]);
 			break;
-		//메시지 작성 >> 보내기
+			//메시지 작성 >> 보내기
 		case 10:
 			mav = setmessage((MemberBean)object[0]);
 			break;
-		//(받은)메시지 리스트
+			//(받은)메시지 리스트
 		case 11:
 			mav = sendmessagelist((MemberBean)object[0]);
 			break;
+			//(받은)메시지 삭제
+		case 17:
+			mav = messagedelete((MemberBean)object[0]);
+			break;
+			//(보낸)메시지 삭제
+		case 18:
+			mav = sendMessagedelete((MemberBean)object[0]);
+			break;
+			//패스워드 변경 페이지
+		case 19:
+			mav = passwordChangePage((MemberBean)object[0]);
+			break;
+			//패스워드 변경
+		case 20:
+			mav = changePwd((MemberBean)object[0]);
+			break;
 		}
-	
 		System.out.println(mav.getViewName() + " : 스위치 mav 네임");
 		return mav;
 	}
@@ -104,13 +141,12 @@ public class MemberManagement extends TranEx {
 	//로그인
 	public ModelAndView access(MemberBean mb) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		String message = null;
 		boolean transaction = false;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 
 		System.out.println("service :: login");
-		
+
 		try {
 			if(dao.adminId(mb) != 0) {
 				MemberBean bean = dao.PwdCheck(mb);
@@ -126,6 +162,9 @@ public class MemberManagement extends TranEx {
 						mav.setViewName("adminmain");
 						transaction = true;
 					}
+				}else {
+					mav.setViewName("login");
+					mav.addObject("message", "ADMIN password error");
 				}
 			}else {
 				if(dao.IdCheck(mb) != 0) {
@@ -144,11 +183,11 @@ public class MemberManagement extends TranEx {
 						}
 					}else {
 						mav.setViewName("login");
-						message = "password error";
+						mav.addObject("message", "password error");
 					}
 				}else {
 					mav.setViewName("login");
-					message = "id error";
+					mav.addObject("message", "id error");
 				}
 			}
 		}catch(Exception ex) {
@@ -268,12 +307,14 @@ public class MemberManagement extends TranEx {
 		ModelAndView mav = new ModelAndView();
 
 		System.out.println("service :: pwdFind >> idCheck");
+		//System.out.println(mb.getId());
 		try {
 			if(dao.IdCheck(mb) != 0) {
 
 				mav.addObject("message","존재하는 아이디가 맞습니다. 이메일을 입력해주세요.");
 				System.out.println("아이디 확인");
 				mav.setViewName("mailSend");
+				mav.addObject("id", mb.getId());
 			}else {
 				mav.setViewName("pwdFind");
 				mav.addObject("message", "아이디가 일치하지 않습니다. 다시 입력해주세요.");
@@ -286,21 +327,26 @@ public class MemberManagement extends TranEx {
 	}
 
 	//패스워드 찾기_이메일 발송
-	public ModelAndView mailsend(MemberBean mb) {
+	public ModelAndView mailsend(MemberBean mb) throws Exception {
 		ModelAndView mav = new ModelAndView();
+		Boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 
 		// 일반 텍스트 이메일
 		SimpleMailMessage smm = new SimpleMailMessage();
 
 		String password = UUID.randomUUID().toString().replaceAll("-", "");
 		password = password.substring(0, 10);
-
+		
 		mb.setPwd(password);
 		System.out.println("service :: 패스워드 찾기 >> 이메일 발송하자");
 		try {
 			if(dao.mailcheck(mb) != 0) {
+				System.out.println("들어왔니?");
+				System.out.println(mb.getId());
 				MemberBean id = dao.mailSend(mb);
-				
+
 				System.out.println("이메일 발송 함.");
 				System.out.println("임시 비밀번호 : " + password);
 
@@ -315,6 +361,7 @@ public class MemberManagement extends TranEx {
 
 				mb.setPwd(enc.encode(mb.getPwd()));
 				dao.pwdUpdate(mb);
+				transaction = true;
 			}else {
 				mav.setViewName("mailSend");
 				mav.addObject("message", "이메일이 일치하지 않습니다.");
@@ -323,20 +370,22 @@ public class MemberManagement extends TranEx {
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
+		setTransactionResult(transaction);
 		return mav;
 	}
 
 	//나의 정보
 	public ModelAndView info(MemberBean mb) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		
+
 		System.out.println("service :: 나의 정보");
+		mb.setId(session.getAttribute("id").toString());
 		try {
 			if(dao.IdCheck(mb) != 0) {
-				
+
 				mav.setViewName("info");
 				mav.addObject("userInfo", getInformation(mb));
-				
+
 			}else {
 				mav.setViewName("login");
 				mav.addObject("message", "로그인 후 이용해주세요.");
@@ -353,30 +402,195 @@ public class MemberManagement extends TranEx {
 		sb.append("<table>");
 		sb.append("<tr>");
 		sb.append("<td>" + "이름" + "</td>");
-		sb.append("<td>" + "비밀번호" + "</td>");
 		sb.append("<td>" + "핸드폰 번호" + "</td>");
 		sb.append("<td>" + "이메일" + "</td>");
 		sb.append("</tr>");
 
 		sb.append("<tr>");
-		sb.append("<td>" + bean.getName() + "</td>");
-		sb.append("<td>" + bean.getPwd() + "</td>");
-		sb.append("<td>" + bean.getPhone() + "</td>");
-		sb.append("<td>" + bean.getEmail() + "</td>");
+		sb.append("<td>" + "<button onClick=\"nameUpdate(\'"+ bean.getName() +"\')\">" + bean.getName() + "</button>" + "</td>");
+		sb.append("<td>" + "<button onClick=\"phoneUpdate(\'"+ bean.getPhone() +"\')\">" + bean.getPhone() + "</button>" + "</td>");
+		sb.append("<td>" + "<button onClick=\"mailUpdate(\'"+ bean.getEmail() +"\')\">" + bean.getEmail() + "</button>" + "</td>");
 		sb.append("</tr>");
-		sb.append("<table>");
+		sb.append("</table>");
+		sb.append("<button onClick=\"total(\'activityDayLogForm \', \'ActivityDayLogPage\', \'post\')\" />"+"운동 정보 확인"+"</button>");
+		sb.append("<button onClick=\"total(\'enrollRaspberryPiForm\', \'EnrollRaspberryPiPage\', \'post\')\" />"+"내 운동량 측정 등록하기"+"</button>");
+		sb.append("<button onClick=\"total(\'passwordChangeForm\', \'passwordChangePage\', \'post\')\" />"+"비밀번호 변경"+"</button>");
 		return sb.toString();
 	}
 
-	//나의 정보 수정
-	public ModelAndView infoupdate(MemberBean mb) throws Exception {
+	//패스워드 변경 페이지
+	public ModelAndView passwordChangePage(MemberBean mb) throws Exception {
 		ModelAndView mav = new ModelAndView();
-
-		System.out.println("service :: 나의 정보 수정");
+		System.out.println("service :: 패스워드 변경 페이지");
 		try {
 			if(dao.IdCheck(mb) != 0) {
-				mav.setViewName("infoUpdate");
+				System.out.println("들어왔니");
+				mav.setViewName("passwordChange");
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return mav;
+	}
+
+	//패스워드 변경
+	public ModelAndView changePwd(MemberBean mb) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("패스워드 : " + session.getAttribute("id"));
+		System.out.println("패스워드bean : " + mb.getId());
+		System.out.println("service :: 패스워드 변경");
+		try {
+			if(dao.IdCheck(mb) != 0) {
+				System.out.println("패스워드 변경해주란");
+				mav.setViewName("info");
 				mav.addObject("userInfo", getInformation(mb));
+				
+				mb.setPwd(enc.encode(mb.getPwd()));
+				dao.pwdChange(mb);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return mav;
+	}
+	
+	//나의 정보 수정 >> 이름 변경 페이지
+	public ModelAndView nameupdate(MemberBean mb) throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		System.out.println("service :: 나의 정보 수정 >> 이름");
+		mb.setId(session.getAttribute("id").toString());
+		try {
+			if(dao.IdCheck(mb) != 0) {
+				if(dao.nameUpdate(mb) != 0) {
+					mav.setViewName("info");
+					mav.addObject("userInfo", getNameUpdate(mb));
+				}
+			}else {
+				mav.setViewName("login");
+				mav.addObject("message", "로그인 후 이용해주세요.");
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return mav;
+	}
+	//이름 수정 >> 정보 보여줄 값
+	private String getNameUpdate(MemberBean mb) {
+		StringBuffer sb = new StringBuffer();
+		MemberBean bean = dao.info(mb);
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td>" + "이름" + "</td>");
+		sb.append("<td>" + "핸드폰 번호" + "</td>");
+		sb.append("<td>" + "이메일" + "</td>");
+		sb.append("</tr>");
+		
+		sb.append("<tr>");
+		sb.append("<td>" + "<input type=\'text\' value=\'"+bean.getName()+"\' name=\'name\' />" + "</td>");
+		sb.append("<td>" + bean.getPhone() + "</button>" + "</td>");
+		sb.append("<td>" + bean.getEmail() + "</button>" + "</td>");
+		sb.append("</tr>");
+		sb.append("</table>");
+		sb.append("<button onClick=\'infoUpdateName(\"name\",\""+bean.getId()+"\")\'>" + "정보 수정" + "</button>");
+		return sb.toString();
+	}
+
+	//나의 정보 수정 >> 핸드폰 번호 변경 페이지
+	public ModelAndView phoneupdate(MemberBean mb) throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		System.out.println("service :: 나의 정보 수정 >> 핸드폰 번호");
+		mb.setId(session.getAttribute("id").toString());
+		try {
+			if(dao.IdCheck(mb) != 0) {
+				if(dao.phoneUpdate(mb) != 0) {
+					mav.setViewName("info");
+					mav.addObject("userInfo", getPhoneUpdate(mb));
+				}
+			}else {
+				mav.setViewName("login");
+				mav.addObject("message", "로그인 후 이용해주세요.");
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return mav;
+	}
+	//핸드폰 번호 수정 >> 정보 보여줄 값
+	private String getPhoneUpdate(MemberBean mb) {
+		StringBuffer sb = new StringBuffer();
+		MemberBean bean = dao.info(mb);
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td>" + "이름" + "</td>");
+		sb.append("<td>" + "핸드폰 번호" + "</td>");
+		sb.append("<td>" + "이메일" + "</td>");
+		sb.append("</tr>");
+
+		sb.append("<tr>");
+		sb.append("<td>" + bean.getName() + "</button>" + "</td>");
+		sb.append("<td>" + "<input type=\'text\' value=\'"+bean.getPhone()+"\' name=\'phone\' />" + "</td>");
+		sb.append("<td>" + bean.getEmail() + "</button>" + "</td>");
+		sb.append("</tr>");
+		sb.append("</table>");
+		sb.append("<button onClick=\'infoUpdatePhone(\"phone\",\""+bean.getId()+"\")\'>" + "정보 수정" + "</button>");
+		return sb.toString();
+	}
+
+	//나의 정보 수정 >> 이메일 변경 페이지
+	public ModelAndView mailupdate(MemberBean mb) throws Exception {
+		ModelAndView mav = new ModelAndView();
+
+		System.out.println("service :: 나의 정보 수정 >> 이메일");
+		mb.setId(session.getAttribute("id").toString());
+		try {
+			if(dao.IdCheck(mb) != 0) {
+					mav.setViewName("info");
+					mav.addObject("userInfo", getMailUpdate(mb));
+			}else {
+				mav.setViewName("login");
+				mav.addObject("message", "로그인 후 이용해주세요.");
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return mav;
+	}
+	//이메일 수정 >> 정보 보여줄 값
+	private String getMailUpdate(MemberBean mb) {
+		StringBuffer sb = new StringBuffer();
+		MemberBean bean = dao.info(mb);
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td>" + "이름" + "</td>");
+		sb.append("<td>" + "핸드폰 번호" + "</td>");
+		sb.append("<td>" + "이메일" + "</td>");
+		sb.append("</tr>");
+
+		sb.append("<tr>");
+		sb.append("<td>" + bean.getName() + "</button>" + "</td>");
+		sb.append("<td>" + bean.getPhone() + "</button>" + "</td>");
+		sb.append("<td>" + "<input type=\'text\' value=\'"+bean.getEmail()+"\' name=\'email\' />" + "</td>");
+		sb.append("</tr>");
+		sb.append("</table>");
+		sb.append("<button onClick=\'infoUpdateMail(\"email\",\""+bean.getId()+"\")\'>" + "정보 수정" + "</button>");
+		return sb.toString();
+	}
+	
+	//나의 정보 수정 버튼 >> 이름
+	public ModelAndView infoupdateName(MemberBean mb) { 
+		ModelAndView mav = new ModelAndView();
+		
+		System.out.println("service :: 나의 정보 수정 버튼");
+		try {
+			mb.setId(session.getAttribute("id").toString());
+			if(dao.IdCheck(mb) != 0) {
+				if(dao.nameUpdate(mb) != 0) {
+					mav.setViewName("info");
+					mav.addObject("name", mb.getName());
+					mav.addObject("userInfo", getInformation(mb));
+				}
 			}else {
 				mav.setViewName("login");
 				mav.addObject("message", "로그인 후 이용해주세요.");
@@ -387,6 +601,52 @@ public class MemberManagement extends TranEx {
 		return mav;
 	}
 
+	//나의 정보 수정 버튼 >> 핸드폰 번호
+	public ModelAndView infoupdatePhone(MemberBean mb) { 
+		ModelAndView mav = new ModelAndView();
+
+		System.out.println("service :: 나의 정보 수정 버튼");
+		try {
+			mb.setId(session.getAttribute("id").toString());
+			if(dao.IdCheck(mb) != 0) {
+				if(dao.phoneUpdate(mb) != 0) {
+					mav.setViewName("info");
+					mav.addObject("phone", mb.getPhone());
+					mav.addObject("userInfo", getInformation(mb));
+				}
+			}else {
+				mav.setViewName("login");
+				mav.addObject("message", "로그인 후 이용해주세요.");
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return mav;
+	}
+
+	//나의 정보 수정 버튼 >> 이메일
+	public ModelAndView infoupdateMail(MemberBean mb) { 
+		ModelAndView mav = new ModelAndView();
+
+		System.out.println("service :: 나의 정보 수정 버튼");
+		try {
+			mb.setId(session.getAttribute("id").toString());
+			if(dao.IdCheck(mb) != 0) {
+				if(dao.mailUpdate(mb) != 0) {
+					mav.setViewName("info");
+					mav.addObject("Mail", mb.getEmail());
+					mav.addObject("userInfo", getInformation(mb));
+				}
+			}else {
+				mav.setViewName("login");
+				mav.addObject("message", "로그인 후 이용해주세요.");
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return mav;
+	}
+	
 	//메시지 글 쓰기 창
 	public ModelAndView writingmessage(MemberBean mb) { 
 		ModelAndView mav = new ModelAndView();
@@ -406,6 +666,8 @@ public class MemberManagement extends TranEx {
 	public ModelAndView setmessage(MemberBean mb) {
 		ModelAndView mav = new ModelAndView();
 		boolean transaction = false;
+
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		
 		System.out.println("service :: 메시지 작성한 거 보내기");
 		try {
@@ -413,7 +675,8 @@ public class MemberManagement extends TranEx {
 			if(dao.IdCheck(mb) != 0) {
 				System.out.println(mb.getId());
 				if(dao.writingMessage(mb) != 0) {
-					
+
+					mav.addObject("messagelist", getlist(mb));
 					mav.setViewName("getMessage");
 					transaction = true;
 				}
@@ -428,7 +691,6 @@ public class MemberManagement extends TranEx {
 	//받은 메시지 리스트
 	public ModelAndView getmessagelist(MemberBean mb) {
 		ModelAndView mav = new ModelAndView();
-		StringBuffer sb = new StringBuffer();
 
 		System.out.println("service :: 받은 메시지 리스트");
 		try {
@@ -445,7 +707,7 @@ public class MemberManagement extends TranEx {
 		}
 		return mav;
 	}
-	
+
 	//받은 메시지 리스트 보여줄 값
 	private String getlist(MemberBean mb) {
 		StringBuffer sb = new StringBuffer();
@@ -458,19 +720,44 @@ public class MemberManagement extends TranEx {
 		sb.append("</tr>");
 
 		for(int i=0; i<bean.size(); i++) {
-            sb.append("<tr>");
-            sb.append("<td>" + bean.get(i).getMbid() + "</td>");
-            sb.append("<td>" + bean.get(i).getMsgText() + "</td>");
-            sb.append("<td>" + bean.get(i).getDate() + "</td>");
-            sb.append("</tr>");
-         }
+			sb.append("<tr>");
+			sb.append("<td>" + bean.get(i).getMbid() + "</td>");
+			sb.append("<td>" + bean.get(i).getMsgText() + "</td>");
+			sb.append("<td>" + sdf.format(bean.get(i).getDate()) + "</td>");
+			sb.append("<td>" + "<button onClick=\"messageDelete(\'"+ bean.get(i).getMbid() +"\', \'"+ bean.get(i).getMsgText() +"\')\">" + "삭제" + "</button>" + "</td>");
+			sb.append("</tr>");
+		}
 		return sb.toString();
+	}
+
+	//받은 메시지 삭제
+	public ModelAndView messagedelete(MemberBean mb) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("service :: 받은 메시지 삭제");
+		mb.setId(session.getAttribute("id").toString());
+		try {
+			if(mb.getId().equals(session.getAttribute("id"))) {
+				System.out.println("ddd");
+				System.out.println(mb.getMbid());
+				if(dao.messageDelete(mb) != 0) {
+					System.out.println("eee");
+					mav.addObject("messagelist", getlist(mb));
+					mav.setViewName("getMessage");
+				}
+			}else {
+				mav.addObject("messagelist", getlist(mb));
+				mav.setViewName("getMessage");
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return mav;
 	}
 
 	//보낸 메시지 리스트
 	public ModelAndView sendmessagelist(MemberBean mb) {
 		ModelAndView mav = new ModelAndView();
-		
+
 		System.out.println("service :: 보낸 메시지 리스트");
 		try {
 			if(dao.IdCheck(mb) != 0) {
@@ -485,7 +772,7 @@ public class MemberManagement extends TranEx {
 		}
 		return mav;
 	}
-	
+
 	//보낸 메시지 리스트 보여줄 값
 	private String sendlist(MemberBean mb) {
 		StringBuffer sb = new StringBuffer();
@@ -498,35 +785,36 @@ public class MemberManagement extends TranEx {
 		sb.append("</tr>");
 
 		for(int i=0; i<bean.size(); i++) {
-            sb.append("<tr>");
-            sb.append("<td>" + bean.get(i).getMbid() + "</td>");
-            sb.append("<td>" + bean.get(i).getMsgText() + "</td>");
-            sb.append("<td>" + bean.get(i).getDate() + "</td>");
-            sb.append("</tr>");
-         }
+			sb.append("<tr>");
+			sb.append("<td>" + bean.get(i).getMbid() + "</td>");
+			sb.append("<td>" + bean.get(i).getMsgText() + "</td>");
+			sb.append("<td>" + sdf.format(bean.get(i).getDate()) + "</td>");
+			sb.append("<td>" + "<button onClick=\"sendMessageDelete(\'"+ bean.get(i).getMbid() +"\', \'"+ bean.get(i).getMsgText() +"\')\">" + "삭제" + "</button>" + "</td>");
+			sb.append("</tr>");
+		}
 		return sb.toString();
 	}
 	
-	/*public Map<String, String> idCheck(MemberBean mb) {
-		Map<String, String> json = new HashMap<String, String>();
-		String user = "N";
-		boolean transaction = false;
-
-		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-
-		System.out.println("service :: idCheck");
+	//보낸 메시지 삭제
+	public ModelAndView sendMessagedelete(MemberBean mb) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("service :: 보낸 메시지 삭제");
+		mb.setId(session.getAttribute("id").toString());
 		try {
-			if(dao.IdCheck(mb) == 0) {
-				user = "Y";
-				System.out.println("중복되는 아이디 없음");
-				transaction = true;
+			if(mb.getId().equals(session.getAttribute("id"))) {
+				System.out.println(mb.getMbid());
+				if(dao.sendMessageDelete(mb) != 0) {
+					mav.addObject("messagelist", sendlist(mb));
+					mav.setViewName("sendMessage");
+				}
+			}else {
+				mav.addObject("messagelist", sendlist(mb));
+				mav.setViewName("sendMessage");
 			}
-
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
-		json.put("user", user);
-		setTransactionResult(transaction);
-		return json;
-	}*/
+		return mav;
+	}
+
 }

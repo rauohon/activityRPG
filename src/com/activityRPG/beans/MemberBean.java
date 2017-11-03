@@ -22,6 +22,7 @@ public class MemberBean {
 	private String phone;
 	private String email;
 	private Date date;
+	private String datee;
 	private int type;
 	private String info;
 	private String comment;
@@ -85,6 +86,12 @@ public class MemberBean {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public String getDatee() {
+		return datee;
+	}
+	public void setDatee(String datee) {
+		this.datee = datee;
 	}
 	public int getType() {
 		return type;

@@ -16,11 +16,10 @@
 		var form = createForm("pwdFindForm", "PwdFind", "post");
 
 		//현재 페이지명 저장 hidden개체 생성
-		createObj("hidden", "", "mailSend", "");
-
+		createinput("hidden", "id", "${id}");
+		
 		//생성 된 폼과 요소 개체간의 연결
 		relationObj("pwdFindForm", "id");
-
 		//서버 전송
 		form.submit();
 	}
@@ -40,7 +39,7 @@
 						<input type="text" name="id" value="Id" onBlur="if(this.value == '') this.value = 'Id'"
 								onFocus="if(this.value == 'Id') this.value = ''" required>
 					</p>
-					
+					<input type="hidden" value="${id }" name="id" />
 					<!-- 로그인 버튼 -->
 					<p> <input type="button" value="ID CHECK" onClick="sendData()"> </p> 
 					

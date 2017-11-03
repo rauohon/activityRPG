@@ -43,6 +43,13 @@ public interface IMBatisDao {
 	public int pwdUpdate(MemberBean mb);					//db에 임시비밀번호로 변경
 	
 	public MemberBean info(MemberBean mb);					//나의 정보 페이지에 정보 보여주기
+	public int pwdChange(MemberBean mb);					//패스워드 변경
+	
+	public int nameUpdate (MemberBean mb);					//나의 정보 >> 이름 수정
+	
+	public int phoneUpdate (MemberBean mb);					//나의 정보 >> 핸드폰번호 수정
+	
+	public int mailUpdate (MemberBean mb);					//나의 정보 >> 이메일 수정
 	
 	public int writingMessage(MemberBean mb);				//메시지 보내기
 	
@@ -50,11 +57,13 @@ public interface IMBatisDao {
 	
 	public List<MemberBean> sendMessageList(MemberBean mb);	//보낸 메시지 리스트
 	
+	public int messageDelete(MemberBean mb);				//받은 메시지 삭제
+	
+	public int sendMessageDelete(MemberBean mb);				//보낸 메시지 삭제
+	
 	public int adminId(MemberBean mb);						//관리자 로그인 확인
 	
 	public List<BoardBean> freeBoardList(BoardBean board);	//자유게시판 리스트
-	
-	public List<BoardBean> freeBoardContent(BoardBean board);		//자유게시판 내용 보기
 	
 	public GameBean getCharacterStatus(GameBean bean);	// 캐릭터 능력치 조회
 	
@@ -99,5 +108,15 @@ public interface IMBatisDao {
 	public int setGuildBoardReply(BoardBean bean);					// 길드 보드 댓글 작성하기
 	
 	public int setGuildBoardReplyDelete(BoardBean bean);		// 길드 보드 댓글 삭제하기
+
+	public BoardBean freeBoardContent(BoardBean board);		//자유게시판 내용 보기
+	
+	public int freeIdCheck(BoardBean board);				//자유게시판 글 쓰기 위한 아이디 체크
+	
+	public int freeInsert(BoardBean board);					//자유게시판 글 저장
+	
+	public int freeDelete(BoardBean board);					//자유게시판 글 삭제
+	
+	public int freeUpdate(BoardBean board);					//자유게시판 글 수정
 }
 	

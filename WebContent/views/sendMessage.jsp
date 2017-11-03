@@ -21,6 +21,17 @@ function total(formname, action, method){
 	relationObj("sendmsgForm", "id");
 	form.submit();
 }
+
+function sendMessageDelete(mbid, msgText){
+	alert(mbid);
+	alert(msgText);
+	var form = createForm("sendMessageDeleteForm", "sendMessageDelete", "post");
+	createinput("hidden", "mbid", mbid);
+	createinput("hidden", "msgText", msgText);
+	relationObj("sendMessageDeleteForm", "mbid");
+	relationObj("sendMessageDeleteForm", "msgText");
+	form.submit();
+}
 </script>
 </head>
 <body>
@@ -44,9 +55,6 @@ function total(formname, action, method){
 	</div>
 	<div>
 	${messagelist }
-	</div>
-	<div>
-	<input type="submit" value="삭제">
 	</div>
 </body>
 </html>
