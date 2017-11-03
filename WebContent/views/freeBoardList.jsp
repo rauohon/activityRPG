@@ -4,27 +4,62 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>자유게시판 리스트 페이지</title>
 <script src="js/common.js"></script>
 <script>
-	function viewContents( title/*, date */) {
-		//alert(date);
-		var form = createForm("contentsForm", "freeContent", "post");
+	function total(formname, action, method) {
+		var form = createForm(formname, action, method);
 
-		//createinput("hidden", "title", title);
-		createObj("hidden", "title", "title", "");
-		//createObj("hidden", "date", "date", "");
+		createObj("hidden", "id", "${id}", "");
 
-		relationObj("contentsForm", "title");
-		//relationObj("contentsForm", "date");
-		//relationObj("contentsForm", "date");
+		relationObj("mainForm", "id");
+		relationObj("msgForm", "id");
+		relationObj("freeBoardForm", "id");
+		relationObj("gameForm", "id");
+		form.submit();
+	}
+
+	function total() {
+		var form = createForm('freeBoardInsertForm', 'freeInsertPage', 'post');
+		createObj("hidden", "id", "${id}", "");
+		relationObj("freeBoardInsertForm", "id");
+		form.submit();
+	}
+
+	function viewContents(code) {
+		alert(code);
+		var form = createForm("contentsForm", "freeBoardContent", "post");
+		createinput("hidden", "code", code)
+
+		relationObj("contentsForm", "code");
+		form.submit();
+	}
+
+	function freedelete(code, id) {
+		alert(code);
+		var form = createForm("freeDeleteForm", "freeBoardDelete", "post");
+		createinput("hidden", "code", code)
+		createinput("hidden", "id", id);
+
+		relationObj("freeDeleteForm", "code");
+		relationObj("freeDeleteForm", "id");
 		form.submit();
 	}
 </script>
 </head>
 <body>
+<table id="table">
+			<tr>
+				<td><button onClick="total('mainForm', '/', 'post')" id="bar">MAIN PAGE</button></td>
+				<td><button onClick="total('msgForm', 'getMessageList', 'post')" id="bar">MESSAGE</button></td>
+				<td><button onClick="total('freeBoardForm', 'freeBoard', 'post')" id="bar">BOARD</button></td>
+				<td><button onClick="total('gameForm', 'game', 'post')" id="bar">GAME PLAY</button></td>
+			</tr>
+		</table>
+	</div>
+	</br></br></br>
+	<button id="click" onClick="total()">게시판 글 쓰기</button>
 	${freelist }
-	
-	<!-- <button onClick="viewContents("'bean.get(i).getTitle(), bean.get(i).getDate()")">bean.get(i).getTitle()</button> -->
+	<div>${message }</div>
 </body>
 </html>

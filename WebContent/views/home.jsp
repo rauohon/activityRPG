@@ -48,7 +48,7 @@
 <body onLoad="init()">
 
 	<div id="layer_fixed">
-		<table id="table" cellspacing="0" cellpadding="0">
+		<table id="table">
 			<!-- <tr>
 				<td id="maintext">TEXT-RPG</td>
 			</tr> -->

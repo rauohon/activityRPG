@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.activityRPG.dao.IMBatisDao">
-
 <!-- login >> ID Check -->
 	<select id="IdCheck" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
 		SELECT COUNT(*) FROM MB WHERE MB_ID=#{id}
@@ -31,7 +30,6 @@
 	<insert id="setRaspMem" parameterType="com.activityRPG.beans.ActivityBean">
 		INSERT INTO MEMBER_RASP VALUES(#{riId},#{id},DEFAULT)
 	</insert>
-	
 
 <!-- 아이디찾기  >> 핸드폰번호 확인 -->
 	<select id="idFind" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
@@ -48,27 +46,38 @@
 	
 <!-- 비밀번호찾기  >> 이메일 발송 -->	
 	<select id="mailSend" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
-		SELECT MB_MAIL AS email FROM MB WHERE MB_MAIL=#{email}
+		SELECT MB_MAIL AS email FROM MB WHERE MB_MAIL=#{email} AND MB_ID=#{id}
 	</select>
 	
-<!-- 원래 비밀번호  >> 임시비밀번호 변경  -->	
+<!-- 원래 패스워드 >> 임시패스워드 변경  -->	
 	<insert id="pwdUpdate" parameterType="com.activityRPG.beans.MemberBean">
-		UPDATE MB SET MB_PW=#{pwd} WHERE MB_MAIL=#{email}
+		UPDATE MB SET MB_PW=#{pwd} WHERE MB_ID=#{id}
 	</insert>
 	
 	<!-- 정보 확인 -->
 	<select id="info" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
-		SELECT MB_NAME AS name, MB_PHONE AS phone, MB_MAIL AS email FROM MB WHERE MB_ID=#{id}
+		SELECT MB_NAME AS name, MB_PHONE AS phone, MB_MAIL AS email, MB_PW AS pwd FROM MB WHERE MB_ID=#{id}
 	</select>
 	
-	<!-- 정보 수정 -->
-	<insert id="infoUpdate" parameterType="com.activityRPG.beans.MemberBean">
-		UPDATE MB SET MB_NAME=#{pwd}, MB_NAME=#{pwd}, MB_NAME=#{pwd} WHERE MB_MAIL=#{email}
+	<!-- 패스워드 변경 -->	
+	<insert id="pwdChange" parameterType="com.activityRPG.beans.MemberBean">
+		UPDATE MB SET MB_PW=#{pwd} WHERE MB_ID=#{id}
+	</insert>
+	
+	<!-- 정보 수정 >> 이름, 핸드폰번호, 이메일 -->
+	<insert id="nameUpdate" parameterType="com.activityRPG.beans.MemberBean">
+		UPDATE MB SET MB_NAME=#{name} WHERE MB_ID=#{id}
+	</insert>
+	<insert id="phoneUpdate" parameterType="com.activityRPG.beans.MemberBean">
+		UPDATE MB SET MB_PHONE=#{phone} WHERE MB_ID=#{id}
+	</insert>
+	<insert id="mailUpdate" parameterType="com.activityRPG.beans.MemberBean">
+		UPDATE MB SET MB_MAIL=#{email} WHERE MB_ID=#{id}
 	</insert>
 	
 	<!-- 받은 메시지 리스트 -->
 	<select id="getMessageList" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
-		SELECT MSG_MBID AS mbid, MSG_DATE AS "date", MSG_TEXT AS msgText FROM MSG WHERE MSG_RECID=#{id}
+		SELECT MSG_MBID AS mbid, MSG_DATE AS "date", MSG_TEXT AS msgText FROM MSG WHERE MSG_RECID=#{id}  ORDER BY MSG_DATE DESC
 	</select>
 	
 	<!-- 메시지 작성 -->
@@ -79,8 +88,18 @@
 	
 	<!-- 보낸 메시지 리스트 -->
 	<select id="sendMessageList" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
-		SELECT MSG_RECID AS mbid, MSG_DATE AS "date", MSG_TEXT AS msgText FROM MSG WHERE MSG_MBID=#{id}
+		SELECT MSG_RECID AS mbid, MSG_DATE AS "date", MSG_TEXT AS msgText FROM MSG WHERE MSG_MBID=#{id}  ORDER BY MSG_DATE DESC
 	</select>
+	
+	<!-- 글 삭제 -->
+	<insert id="messageDelete" parameterType="com.activityRPG.beans.MemberBean">
+		DELETE FROM MSG WHERE MSG_MBID=#{mbid} AND MSG_TEXT=#{msgText}
+	</insert>
+	
+	<!-- 보낸 글 삭제 -->
+	<insert id="sendMessageDelete" parameterType="com.activityRPG.beans.MemberBean">
+		DELETE FROM MSG WHERE MSG_RECID=#{mbid} AND MSG_TEXT=#{msgText}
+	</insert>
 	
 	<!-- 관리자 로그인 확인 -->
 	<select id="adminId" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
@@ -89,13 +108,32 @@
 	
 	<!-- 자유게시판 리스트 -->
 	<select id="freeBoardList" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
-		SELECT FB_CODE AS code, FB_TITLE AS title, FB_MBID AS id, FB_DATE AS "date" FROM FB
+		SELECT FB_CODE AS code, FB_TITLE AS title, FB_MBID AS id, FB_DATE AS "date" FROM FB ORDER BY FB_DATE DESC
 	</select>
 	
 	<!-- 자유게시판 내용 보기 -->
 	<select id="freeBoardContent" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
 		<!-- SELECT * FROM FB WHERE FB_TITLE=#{title} AND FB_DATE=#{date} -->
-		SELECT * FROM FB WHERE FB_DATE=#{date}
+		SELECT FB_CODE AS code, FB_MBID AS id, FB_TITLE AS title, FB_CONTENT AS "content", FB_DATE AS "date"
+		FROM FB 
+		WHERE FB_CODE=#{code}<!--  AND FB_DATE=TO_DATE(#{date}, 'YYYY/MM/DD HH24:MI:SS') -->
 	</select>
 	
+	<!-- 자유게시판 글쓰기 >> id check -->
+	<select id="freeIdCheck" parameterType="com.activityRPG.beans.BoardBean" resultType="Integer">
+		SELECT COUNT(*) FROM FB WHERE FB_MBID=#{id}
+	</select>
+	<!-- 글 등록 -->
+	<insert id="freeInsert" parameterType="com.activityRPG.beans.BoardBean">
+		INSERT INTO FB(FB_CODE, FB_MBID, FB_DATE, FB_TITLE, FB_CONTENT, FB_HIT, FB_GROUP, FB_STEP, FB_INDENT)
+		VALUES(SEQ_ID.NEXTVAL, #{id}, DEFAULT, #{title}, #{content}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	<!-- 글 삭제 -->
+	<insert id="freeDelete" parameterType="com.activityRPG.beans.BoardBean">
+		DELETE FROM FB WHERE FB_CODE=#{code}
+	</insert>
+	<!-- 글 수정 -->
+	<insert id="freeUpdate" parameterType="com.activityRPG.beans.BoardBean">
+		UPDATE FB SET FB_TITLE=#{title}, FB_CONTENT=#{content} WHERE FB_CODE=#{code}
+	</insert>
 </mapper>
