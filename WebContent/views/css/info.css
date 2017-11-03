@@ -1,0 +1,41 @@
+body {
+  background: linear-gradient(to right, #2c3338, #475660);
+  color: #fafafa;
+  font: 87.5%/1.5em 'Open Sans', sans-serif;
+  margin: 0;s
+}
+
+#layer_fixed
+{
+    height:50px;
+    width:100%;
+    position:fixed;
+    background-color:#f68a6f;
+}
+
+#bar {
+	background-color: #f68a6f;
+	margin-top: 6px;
+	padding: 5px 30px;
+	padding-top: 10px;
+	border-radius: 5px;
+	border: 1px solid #f68a6f;
+	width: 170px;
+	color:#fff;
+	font-size: 15px;
+}
+
+#bar:hover {
+	background: #f68a6f;
+	border-color: #f68a6f;
+}
+
+td {
+	vertical-align: middle; 
+	padding-left: 20px; 
+	padding-right: 20px;
+}
+
+h3 {
+	padding-left: 15px; 
+}
