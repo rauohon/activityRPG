@@ -43,6 +43,24 @@
 		
 		f.submit();
 	}
+	function itemdisarm(code){
+		var f = $("#fixForm");
+		var i = $("<input />");
+		var chName = $("<input />")
+		f.attr("name", "itemDisArm");
+		f.attr("action","ItemDisArm");
+		f.attr("method","POST");
+		i.attr("name","itcode");
+		chName.attr("name", "chName");
+		i.attr("value",code);
+		chName.attr("value",'${chName}');
+		i.attr("type","hidden");
+		chName.attr("type","hidden");
+		$("#fixForm").append(i);
+		$("#fixForm").append(chName);
+		
+		f.submit();
+	} 
 </script>
 <style>
 	table{
@@ -78,9 +96,6 @@
 						<th>힘</th><td> ${chStr }</td>
 					</tr>
 					<tr>
-						<th>체력</th><td> ${chHp }</td>
-					</tr>
-					<tr>
 						<th>민첩</th><td> ${chDex }</td>
 					</tr>
 					<tr>
@@ -94,7 +109,7 @@
 					</tr>
 				</table>
 			</div>
-			<div style="margin-top: 12px; background-image: url('images/people_Icon.png'); color: white;">
+			<div style="margin-top: 12px; background-image: url('images/people_Icon.png'); color: white; height: 455px;">
 				<br/>
 				<div style='margin-left: 35%; margin-top: 10%;'>
 					<h5>${necklace } ${necklaceEn }</h5>

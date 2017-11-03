@@ -67,6 +67,76 @@ public class GameNomalService {
 
 
 	}
+	
+	/**
+	 * 처리내용 : 아이템 사용여부 판단해서 버튼 만들어서 리턴
+	 * 작성일 : 2017. 11. 3.
+	 * 작성자 : 신태휘
+	 * @Method Name : itemIsUsed
+	 * @return type : String
+	 */
+	private String itemIsUsed(GameBean bean) {
+		String result = "";
+		String disArm = "<input type='button' value='해제하기' onClick='itemdisarm(\""+bean.getItcode() +"\")'";
+		String arm = "<input type='button' value='사용하기' onClick='itemuse(\""+bean.getItcode() +"\")'";
+		Map<String, String> map = new HashMap<String, String>();
+		try {
+			map.put("content",session.getAttribute("chName").toString());
+		} catch (Exception e) {}
+		int jobcode = Integer.parseInt(bean.getItcode());
+		map.put("useItem", bean.getItcode());
+		if(jobcode <= 2000) {
+			map.put("weapon", "무기");
+			if(dao.getIsEquip(map) != 0) {
+				result = disArm;
+			}else {
+				result = arm;
+			}
+		}else if(jobcode <= 3000) {
+			map.put("armor", "갑옷");
+			if(dao.getIsEquip(map) != 0) {
+				result = disArm;
+			}else {
+				result = arm;
+			}
+		}else if(jobcode <= 4000) {
+			map.put("glove", "장갑");
+			if(dao.getIsEquip(map) != 0) {
+				result = disArm;
+			}else {
+				result = arm;
+			}
+		}else if(jobcode <= 5000) {
+			map.put("shoe", "신발");
+			if(dao.getIsEquip(map) != 0) {
+				result = disArm;
+			}else {
+				result = arm;
+			}
+		}else if(jobcode <= 6000) {
+			map.put("ring", "반지");
+			if(dao.getIsEquip(map) != 0) {
+				result = disArm;
+			}else {
+				result = arm;
+			}
+		}else if(jobcode <= 7000) {
+			map.put("necklace", "목걸이");
+			if(dao.getIsEquip(map) != 0) {
+				result = disArm;
+			}else {
+				result = arm;
+			}
+		}else if(jobcode <= 7500) {
+			System.out.println("체력포션류 입니다.");
+			result = arm;
+		}else{
+			System.out.println("마나포션류 입니다.");
+			result = arm;
+		}
+		
+		return result;
+	}
 
 	/**
 	 * 처리내용 : 6. 아이템 정보를 리턴
@@ -85,7 +155,7 @@ public class GameNomalService {
 		sb.append("</td><td>");
 		sb.append(bean.getRequiAbility());
 		sb.append("</td></tr><tr><td colspan=\"3\" style=\"text-align: right;\">");
-		sb.append("<input type='button' value='사용하기' onClick='itemuse(\""+bean.getItcode() +"\")'");
+		sb.append(itemIsUsed(bean));
 		sb.append("</td></tr></table>");
 		mav.addObject("itemInfo", sb.toString());
 		
@@ -218,77 +288,79 @@ public class GameNomalService {
 	private Map<String, String> equipedMap(GameBean bean) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("content",bean.getChName());
-		bean = dao.getEquipList(map);	// 착용 아이템 코드 가져오기
-		int weaponCode = bean.getEqWeapon();
-		int armorCode = bean.getEqArmor();
-		int gloveCode = bean.getEqGlove();
-		int shoeCode = bean.getEqShoe();
-		int ringCode = bean.getEqRing();
-		int necklaceCode = bean.getEqNecklace();
+		GameBean equipBean = new GameBean();
+		GameBean enBean = new GameBean();
+		equipBean = dao.getEquipList(map);	// 착용 아이템 코드 가져오기
 		int armorAbility = 0;
-		
-		if(bean.getEqWeapon() != 0) {
-			map.put("itcode", String.valueOf(weaponCode));			
-			bean = dao.getItemName(map);	// 착용 아이템의 정보 가져오기
-			map.put("weapon", "<h4 onClick=\'startAjax(\""+bean.getItcode()+"\")\'>"+bean.getItname());
-			map.put("weaponAbility", String.valueOf(bean.getAbility()));
-			bean = dao.getEnLevel(map);	// 착용 아이템 강화 레벨 가져오기
-			if(bean.getEnlevel() != 0) {
-				map.put("weaponEn", "+"+String.valueOf(bean.getEnlevel())+"</h4>");			
+		if(equipBean != null) {
+			int weaponCode = equipBean.getEqWeapon();
+			if(equipBean.getEqWeapon() != 0) {
+				map.put("itcode", String.valueOf(weaponCode));			
+				bean = dao.getItemName(map);	// 착용 아이템의 정보 가져오기
+				map.put("weapon", "<h4 onClick=\'startAjax(\""+bean.getItcode()+"\")\'>"+bean.getItname());
+				map.put("weaponAbility", String.valueOf(bean.getAbility()));
+				enBean = dao.getEnLevel(map);	// 착용 아이템 강화 레벨 가져오기
+				if(enBean.getEnlevel() != 0) {
+					map.put("weaponEn", "+"+String.valueOf(enBean.getEnlevel())+"</h4>");			
+				}
 			}
-		}
-		if(armorCode != 0) {
-			map.put("itcode", String.valueOf(armorCode));
-			bean = dao.getItemName(map);	// 착용 아이템의 정보 가져오기
-			map.put("armor", "<h4 onClick=\'startAjax(\""+bean.getItcode()+"\")\'>"+bean.getItname());
-			armorAbility += bean.getAbility();
-			bean = dao.getEnLevel(map);	// 착용 아이템 강화 레벨 가져오기
-			if(bean.getEnlevel() != 0) {
-				map.put("armorEn", "+"+String.valueOf(bean.getEnlevel())+"</h4>");			
+			if(equipBean.getEqArmor() != 0) {
+				int armorCode = equipBean.getEqArmor();
+				map.put("itcode", String.valueOf(armorCode));
+				bean = dao.getItemName(map);	// 착용 아이템의 정보 가져오기
+				map.put("armor", "<h4 onClick=\'startAjax(\""+bean.getItcode()+"\")\'>"+bean.getItname());
+				armorAbility += bean.getAbility();
+				enBean = dao.getEnLevel(map);	// 착용 아이템 강화 레벨 가져오기
+				if(enBean.getEnlevel() != 0) {
+					map.put("armorEn", "+"+String.valueOf(enBean.getEnlevel())+"</h4>");			
+				}
 			}
-		}
-		if( gloveCode != 0) {
-			map.put("itcode", String.valueOf(gloveCode));
-			bean = dao.getItemName(map);	// 착용 아이템의 정보 가져오기
-			map.put("glove", "<h4 onClick=\'startAjax(\""+bean.getItcode()+"\")\'>"+bean.getItname());
-			armorAbility += bean.getAbility();
-			bean = dao.getEnLevel(map);	// 착용 아이템 강화 레벨 가져오기
-			if(bean.getEnlevel() != 0) {
-				map.put("gloveEn", "+"+String.valueOf(bean.getEnlevel())+"</h4>");			
+			if(equipBean.getEqGlove() != 0) {
+				int gloveCode = equipBean.getEqGlove();
+				map.put("itcode", String.valueOf(gloveCode));
+				bean = dao.getItemName(map);	// 착용 아이템의 정보 가져오기
+				map.put("glove", "<h4 onClick=\'startAjax(\""+bean.getItcode()+"\")\'>"+bean.getItname());
+				armorAbility += bean.getAbility();
+				enBean = dao.getEnLevel(map);	// 착용 아이템 강화 레벨 가져오기
+				if(enBean.getEnlevel() != 0) {
+					map.put("gloveEn", "+"+String.valueOf(enBean.getEnlevel())+"</h4>");			
+				}
 			}
-		}
-		if(shoeCode != 0) {
-			map.put("itcode", String.valueOf(shoeCode));
-			bean = dao.getItemName(map);	// 착용 아이템의 정보 가져오기
-			map.put("shoe", "<h4 onClick=\'startAjax(\""+bean.getItcode()+"\")\'>"+bean.getItname());
-			armorAbility += bean.getAbility();
-			bean = dao.getEnLevel(map);	// 착용 아이템 강화 레벨 가져오기
-			if(bean.getEnlevel() != 0) {
-				map.put("shoeEn", "+"+String.valueOf(bean.getEnlevel())+"</h4>");			
+			if(equipBean.getEqShoe() != 0) {
+				int shoeCode = equipBean.getEqShoe();
+				map.put("itcode", String.valueOf(shoeCode));
+				bean = dao.getItemName(map);	// 착용 아이템의 정보 가져오기
+				map.put("shoe", "<h4 onClick=\'startAjax(\""+bean.getItcode()+"\")\'>"+bean.getItname());
+				armorAbility += bean.getAbility();
+				enBean = dao.getEnLevel(map);	// 착용 아이템 강화 레벨 가져오기
+				if(enBean.getEnlevel() != 0) {
+					map.put("shoeEn", "+"+String.valueOf(enBean.getEnlevel())+"</h4>");			
+				}
 			}
-		}
-		if(ringCode != 0) {
-			map.put("itcode", String.valueOf(ringCode));
-			bean = dao.getItemName(map);	// 착용 아이템의 정보 가져오기
-			map.put("ring", "<h4 onClick=\'startAjax(\""+bean.getItcode()+"\")\'>"+bean.getItname());
-			map.put("manaAbility", String.valueOf(bean.getAbility()));
-			bean = dao.getEnLevel(map);	// 착용 아이템 강화 레벨 가져오기
-			if(bean.getEnlevel() != 0) {
-				map.put("ringEn", "+"+String.valueOf(bean.getEnlevel())+"</h4>");			
+			if(equipBean.getEqRing() != 0) {
+				int ringCode = equipBean.getEqRing();
+				map.put("itcode", String.valueOf(ringCode));
+				bean = dao.getItemName(map);	// 착용 아이템의 정보 가져오기
+				map.put("ring", "<h4 onClick=\'startAjax(\""+bean.getItcode()+"\")\'>"+bean.getItname());
+				map.put("manaAbility", String.valueOf(bean.getAbility()));
+				enBean = dao.getEnLevel(map);	// 착용 아이템 강화 레벨 가져오기
+				if(enBean.getEnlevel() != 0) {
+					map.put("ringEn", "+"+String.valueOf(enBean.getEnlevel())+"</h4>");			
+				}
 			}
-		}
-		if(necklaceCode != 0) {
-			map.put("itcode", String.valueOf(necklaceCode));
-			bean = dao.getItemName(map);	// 착용 아이템의 정보 가져오기
-			map.put("necklace", "<h4 onClick=\'startAjax(\""+bean.getItcode()+"\")\'>"+bean.getItname());
-			map.put("hpAbility", String.valueOf(bean.getAbility()));
-			bean = dao.getEnLevel(map);	// 착용 아이템 강화 레벨 가져오기
-			if(bean.getEnlevel() != 0) {
-				map.put("necklaceEn", "+"+String.valueOf(bean.getEnlevel())+"</h4>");			
+			if(equipBean.getEqNecklace() != 0) {
+				int necklaceCode = equipBean.getEqNecklace();
+				map.put("itcode", String.valueOf(necklaceCode));
+				bean = dao.getItemName(map);	// 착용 아이템의 정보 가져오기
+				map.put("necklace", "<h4 onClick=\'startAjax(\""+bean.getItcode()+"\")\'>"+bean.getItname());
+				map.put("hpAbility", String.valueOf(bean.getAbility()));
+				enBean = dao.getEnLevel(map);	// 착용 아이템 강화 레벨 가져오기
+				if(enBean.getEnlevel() != 0) {
+					map.put("necklaceEn", "+"+String.valueOf(enBean.getEnlevel())+"</h4>");			
+				}
 			}
 		}
 		map.put("armorAbility", String.valueOf(armorAbility));
-		
 		return map;
 	}
 
@@ -328,46 +400,45 @@ public class GameNomalService {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView characterInfoPage(GameBean bean) {
-		
 		try {
 			bean.setId(session.getAttribute("id").toString());
+			bean = characterStatus(bean);
+			session.setAttribute("chName", bean.getChName());
+			Map<String, String> map = equipedMap(bean);
+			mav.addObject("chName", bean.getChName());
+			mav.addObject("chLevel", bean.getChLevel());
+			mav.addObject("chExp", bean.getChExp());
+			mav.addObject("chHp", bean.getChHp());
+			mav.addObject("chMp", bean.getChMp());
+			mav.addObject("chStr", bean.getChStr());
+			mav.addObject("chDex", bean.getChDex());
+			mav.addObject("chInt", bean.getChInt());
+			mav.addObject("chAttack", bean.getChAttack());
+			mav.addObject("chDefense", bean.getChDefense());
+			mav.addObject("chGold", bean.getChGold());
+			mav.addObject("weapon",map.get("weapon"));
+			mav.addObject("weaponEn",map.get("weaponEn"));
+			mav.addObject("weaponAbility",map.get("weaponAbility"));
+			mav.addObject("armor",map.get("armor"));
+			mav.addObject("armorEn",map.get("armorEn"));
+			mav.addObject("armorAbility",map.get("armorAbility"));
+			mav.addObject("glove",map.get("glove"));
+			mav.addObject("gloveEn",map.get("gloveEn"));
+			mav.addObject("shoe",map.get("shoe"));
+			mav.addObject("shoeEn",map.get("shoeEn"));
+			mav.addObject("ring",map.get("ring"));
+			mav.addObject("ringEn",map.get("ringEn"));
+			mav.addObject("necklace",map.get("necklace"));
+			mav.addObject("necklaceEn",map.get("necklaceEn"));
+			mav.addObject("weaponItemList", weaponItemList(bean));
+			mav.addObject("armorItemList", armorItemList(bean));
+			mav.addObject("potionItemList", potionItemList(bean));
+			mav.addObject("ehanceItemList", ehanceItemList(bean));
+			mav.addObject("characterImage", characterImage(bean));
+			mav.setViewName("characterInfo");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		bean = characterStatus(bean);
-		Map<String, String> map = equipedMap(bean);
-		mav.addObject("chName", bean.getChName());
-		mav.addObject("chLevel", bean.getChLevel());
-		mav.addObject("chExp", bean.getChExp());
-		mav.addObject("chHp", bean.getChHp());
-		mav.addObject("chMp", bean.getChMp());
-		mav.addObject("chStr", bean.getChStr());
-		mav.addObject("chDex", bean.getChDex());
-		mav.addObject("chInt", bean.getChInt());
-		mav.addObject("chAttack", bean.getChAttack());
-		mav.addObject("chDefense", bean.getChDefense());
-		mav.addObject("chGold", bean.getChGold());
-		mav.addObject("weapon",map.get("weapon"));
-		mav.addObject("weaponEn",map.get("weaponEn"));
-		mav.addObject("weaponAbility",map.get("weaponAbility"));
-		mav.addObject("armor",map.get("armor"));
-		mav.addObject("armorEn",map.get("armorEn"));
-		mav.addObject("armorAbility",map.get("armorAbility"));
-		mav.addObject("glove",map.get("glove"));
-		mav.addObject("gloveEn",map.get("gloveEn"));
-		mav.addObject("shoe",map.get("shoe"));
-		mav.addObject("shoeEn",map.get("shoeEn"));
-		mav.addObject("ring",map.get("ring"));
-		mav.addObject("ringEn",map.get("ringEn"));
-		mav.addObject("necklace",map.get("necklace"));
-		mav.addObject("necklaceEn",map.get("necklaceEn"));
-		mav.addObject("weaponItemList", weaponItemList(bean));
-		mav.addObject("armorItemList", armorItemList(bean));
-		mav.addObject("potionItemList", potionItemList(bean));
-		mav.addObject("ehanceItemList", ehanceItemList(bean));
-		mav.addObject("characterImage", characterImage(bean));
-		mav.setViewName("characterInfo");
-
 		return mav;
 	}
 	

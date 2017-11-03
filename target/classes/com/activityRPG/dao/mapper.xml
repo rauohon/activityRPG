@@ -73,10 +73,10 @@
 
 <!-- 캐릭터 능력치 가져오기 -->
 	<select id="getCharacterStatus" parameterType="gameBean" resultType="gameBean">
-		SELECT CH_NAME as chName, CH_LEVEL as chLevel, CH_EXP as chExp, CH_HP
-		as chHp, CH_MP as chMp,
-		CH_STR as chStr, CH_DEX as chDex, CH_INT as chInt, CH_ATTACK as
-		chAttack,CH_DEFENSE as chDefense,
+		SELECT CH_NAME as chName, CH_LEVEL as chLevel, CH_EXP as chExp, 
+		CH_HP as chHp, CH_MP as chMp, CH_STR as chStr, 
+		CH_DEX as chDex, CH_INT as chInt, CH_ATTACK as chAttack,
+		CH_DEFENSE as chDefense,
 		CH_GOLD as chGold
 		FROM USER_CHARACTER WHERE CH_MBID=#{id}
 	</select>
@@ -123,21 +123,36 @@
 	</select>
 	
 <!-- 아이템 착용전 기착용 여부 확인 -->
-	<select id="getIsEquip"  parameterType="gameBean" resultType="gameBean">
-		SELECT EQ_WEAPON AS ITCODE FROM EQUIPMENT WHERE EQ_CHNAME = #{content}
+	<select id="getIsEquip"  parameterType="gameBean" resultType="Integer">
+		SELECT 
+			COUNT(*) 
+		FROM 
+			EQUIPMENT 
+		<where>
+			EQ_CHNAME = #{content}
+			<if test="weapon != null">AND EQ_WEAPON = #{useItem}</if>
+			<if test="armor != null">AND EQ_ARMOR = #{useItem}</if>
+			<if test="glove != null">AND EQ_GLOVE = #{useItem}</if>
+			<if test="shoe != null">AND EQ_SHOE = #{useItem}</if>
+			<if test="ring != null">AND EQ_RING = #{useItem}</if>
+			<if test="necklace != null">AND EQ_NECKLACE = #{useItem}</if>
+		</where>
 	</select>
 	
 	<!-- 아이템 착용 -->
 		<update id="setEquipItemUpdate" parameterType="map">
 			UPDATE 
 				EQUIPMENT 
-			SET 
-				EQ_WEAPON = #{useItem}
+			<set>
+				<if test="weapon != null">EQ_WEAPON = #{useItem}</if>
+				<if test="armor != null">EQ_ARMOR = #{useItem}</if>
+				<if test="glove != null">EQ_GLOVE = #{useItem}</if>
+				<if test="shoe != null">EQ_SHOE = #{useItem}</if>
+				<if test="ring != null">EQ_RING = #{useItem}</if>
+				<if test="necklace != null">EQ_NECKLACE = #{useItem}</if>
+			</set>				
 			<where>
 				EQ_CHNAME = #{content}
-				<if test="equipItem != 0">
-					AND EQ_WEAPON = #{equipItem}
-				</if>
 			</where>
 		</update>
 	
@@ -152,6 +167,35 @@
 			</set>
 			WHERE CH_NAME=#{chName}
 		</update>
+		
+<!-- 		포션 사용 후 보유량 감소 시키기 -->
+	<update id="setAfterItemUse" parameterType="map">
+		UPDATE 
+			INVENTORY 
+		SET 
+			IV_AMOUNT = IV_AMOUNT - 1 
+		WHERE 
+			IV_CHNAME = #{content}
+		AND 
+			IV_ITCODE = #{useItem}
+	</update>
+	
+<!-- 	장착 아이템 해제하기 -->
+<update id="setItemDisArm" parameterType="map">
+	UPDATE 
+		EQUIPMENT 
+	<set>
+		<if test="weapon != null">EQ_WEAPON = 0</if>
+		<if test="armor != null">EQ_ARMOR = DEFAULT</if>
+		<if test="glove != null">EQ_GLOVE = DEFAULT</if>
+		<if test="shoe != null">EQ_SHOE = DEFAULT</if>
+		<if test="ring != null">EQ_RING = DEFAULT</if>
+		<if test="necklace != null">EQ_NECKLACE = DEFAULT</if>
+	</set>
+	WHERE 
+		EQ_CHNAME=#{cnName}
+</update>
+
 
 <!-- 길드보드 리스트 가져오기 -->
 	<select id="getGuildBoardList" parameterType="boardBean" resultMap="gBoardMap">

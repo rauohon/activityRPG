@@ -197,4 +197,20 @@ public class GameController {
 		
 		return mav;
 	}
+
+	
+	/**
+	 * 처리내용 : 장착된 아이템 해제
+	 * 작성일 : 2017. 11. 3.
+	 * 작성자 : 신태휘
+	 * @Method Name : itemDisArm
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/ItemDisArm", method = RequestMethod.POST)
+	private ModelAndView itemDisArm(@ModelAttribute GameBean gameBean) {
+		
+		mav=gp.entrance(2, gameBean);
+		
+		return mav;
+	}
 }

@@ -33,6 +33,7 @@ public class GamePlayService  extends TranEx {
 	@Autowired
 	private ProjectUtils session;
 	boolean transaction = false;
+	RedirectView rv = null;
 	
 	/**
 	 * 처리내용 : 게임 플레이 서비스 분기
@@ -50,16 +51,73 @@ public class GamePlayService  extends TranEx {
 			case 1:
 				mav = itemUse((GameBean)bean);
 				break;
-		
+			case 2:
+				mav = itemDisArm((GameBean)bean);
+				break;
 		}
 		
 		return mav;
 	}
 	
+	/**
+	 * 처리내용 : 장착된 아이템 해제
+	 * 작성일 : 2017. 11. 3.
+	 * 작성자 : 신태휘
+	 * @Method Name : itemDisArm
+	 * @return type : ModelAndView
+	 */
+	private ModelAndView itemDisArm(GameBean bean) {
+		
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		Map<String, String> map = new HashMap<String, String>();
+		rv = new RedirectView("/CharacterInfo");
+		rv.setExposeModelAttributes(false);
+		mav.setView(rv);
+		int jobcode = Integer.parseInt(bean.getItcode());
+		map.put("chName", bean.getChName());
+		if(jobcode <= 2000) {
+			map.put("weapon", "무기");
+			if(dao.setItemDisArm(map) != 0) {
+				System.out.println("무기해제2");
+				transaction = true;
+			}			
+		}else if(jobcode <= 3000) {
+			System.out.println("갑옷류 입니다.");
+			setEquipment(bean, 1);
+		}else if(jobcode <= 4000) {
+			System.out.println("장갑류 입니다.");
+			setEquipment(bean, 2);
+		}else if(jobcode <= 5000) {
+			System.out.println("신발류 입니다.");
+			setEquipment(bean, 3);
+		}else if(jobcode <= 6000) {
+			System.out.println("반지류 입니다.");
+			setEquipment(bean, 4);
+		}else if(jobcode <= 7000) {
+			System.out.println("목걸이류 입니다.");
+			setEquipment(bean, 5);
+		}else if(jobcode <= 7500) {
+			System.out.println("체력포션류 입니다.");
+			setEquipment(bean, 6);
+		}else{
+			System.out.println("마나포션류 입니다.");
+			setEquipment(bean, 7);
+		}
+		setTransactionResult(transaction);
+		
+		return mav;
+	}
+
+	/**
+	 * 처리내용 : 캐릭터 정보 창에서 아이템 장착/사용을 위한 메소드
+	 * 작성일 : 2017. 11. 3.
+	 * 작성자 : 신태휘
+	 * @Method Name : setEquipment
+	 * @return type : void
+	 */
 	private void setEquipment(GameBean bean, int jobCode) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("content",bean.getChName());
-//		List<GameBean> equipList = dao.getEquipList(map);
 		int requiAbility = 0;			// 장비 필요 능력치
 		int chStatus = 0;						// 캐릭터의 해당 능력치
 		int applyStatus = 0;			// 캐릭터에 적용할 능력치
@@ -79,16 +137,14 @@ public class GamePlayService  extends TranEx {
 			switch(jobCode) {
 				case 0:
 					// 무기 변경
-					if(dao.getIsEquip(map) != null) {
-						System.out.println("착용된 상태라면");
+					map.put("weapon", "무기");
+					if(dao.getIsEquip(map) != 0) {
 						if(dao.setEquipItemUpdate(map) != 0) {
 							bean.setChAttack(applyStatus);
 							bean.setChDefense(0);
 							bean.setChHp(0);
 							bean.setChMp(0);
-							System.out.println("chAttack : " + bean.getChAttack());
 							if(dao.setItemApplyStatus(bean) != 0) {
-								System.out.println("능력치 변경 여부 확인 ㅇㅇ?");
 								transaction = true;
 							}
 						}
@@ -100,8 +156,46 @@ public class GamePlayService  extends TranEx {
 					break;
 				case 1:
 					// 갑옷 변경
-					if(dao.getIsEquip(map) != null) {
-						System.out.println("착용된 상태라면");
+					map.put("armor", "갑옷");
+					if(dao.getIsEquip(map) != 0) {
+						if(dao.setEquipItemUpdate(map) != 0) {
+							bean.setChAttack(0);
+							bean.setChDefense(applyStatus);
+							bean.setChHp(0);
+							bean.setChMp(0);
+							if(dao.setItemApplyStatus(bean) != 0) {
+								transaction = true;
+							}
+						}
+					}else {
+						if(dao.setEquipItemUpdate(map) != 0) {
+							transaction = true;
+						}
+					}
+					break;
+				case 2:
+					// 장갑 변경
+					map.put("glove", "장갑");
+					if(dao.getIsEquip(map) != 0) {
+						if(dao.setEquipItemUpdate(map) != 0) {
+							bean.setChAttack(0);
+							bean.setChDefense(applyStatus);
+							bean.setChHp(0);
+							bean.setChMp(0);
+							if(dao.setItemApplyStatus(bean) != 0) {
+								transaction = true;
+							}
+						}
+					}else {
+						if(dao.setEquipItemUpdate(map) != 0) {
+							transaction = true;
+						}
+					}
+					break;
+				case 3:
+					// 신발 변경
+					map.put("shoe", "신발");
+					if(dao.getIsEquip(map) != 0) {
 						if(dao.setEquipItemUpdate(map) != 0) {
 							bean.setChAttack(0);
 							bean.setChDefense(applyStatus);
@@ -109,13 +203,74 @@ public class GamePlayService  extends TranEx {
 							bean.setChMp(0);
 							System.out.println("chAttack : " + bean.getChAttack());
 							if(dao.setItemApplyStatus(bean) != 0) {
-								System.out.println("능력치 변경 여부 확인 ㅇㅇ?");
 								transaction = true;
 							}
 						}
 					}else {
 						if(dao.setEquipItemUpdate(map) != 0) {
 							transaction = true;
+						}
+					}
+					break;
+				case 4:
+					// 반지 변경
+					map.put("ring", "반지");
+					if(dao.getIsEquip(map) != 0) {
+						if(dao.setEquipItemUpdate(map) != 0) {
+							bean.setChAttack(0);
+							bean.setChDefense(0);
+							bean.setChHp(applyStatus);
+							bean.setChMp(0);
+							if(dao.setItemApplyStatus(bean) != 0) {
+								transaction = true;
+							}
+						}
+					}else {
+						if(dao.setEquipItemUpdate(map) != 0) {
+							transaction = true;
+						}
+					}
+					break;
+				case 5:
+					// 목걸이 변경
+					map.put("necklace", "목걸이");
+					if(dao.getIsEquip(map) != 0) {
+						if(dao.setEquipItemUpdate(map) != 0) {
+							bean.setChAttack(0);
+							bean.setChDefense(0);
+							bean.setChHp(0);
+							bean.setChMp(applyStatus);
+							if(dao.setItemApplyStatus(bean) != 0) {
+								transaction = true;
+							}
+						}
+					}else {
+						if(dao.setEquipItemUpdate(map) != 0) {
+							transaction = true;
+						}
+					}
+					break;
+				case 6:
+					// 체력 포션 사용
+					bean.setChAttack(0);
+					bean.setChDefense(0);
+					bean.setChHp(applyStatus);
+					bean.setChMp(0);
+					if(dao.setItemApplyStatus(bean) != 0) {
+						if(dao.setAfterItemUse(map) != 0) {
+							transaction = true;							
+						}
+					}
+					break;
+				case 7:
+					// 마나 포션 사용
+					bean.setChAttack(0);
+					bean.setChDefense(0);
+					bean.setChHp(0);
+					bean.setChMp(applyStatus);
+					if(dao.setItemApplyStatus(bean) != 0) {
+						if(dao.setAfterItemUse(map) != 0) {
+							transaction = true;							
 						}
 					}
 					break;
@@ -133,15 +288,17 @@ public class GamePlayService  extends TranEx {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView itemUse(GameBean bean) {
-		RedirectView rv = null;
+		
 		rv = new RedirectView("/CharacterInfo");
 		rv.setExposeModelAttributes(false);
 		mav.setView(rv);
-		int jobcode = Integer.parseInt(bean.getItcode());	// 동적 SQL 사용용 잡코드
-		Map<String, String> map = new HashMap<String, String>();
+		int jobcode = Integer.parseInt(bean.getItcode());
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		try {
-		if(jobcode <= 2000) {
+			System.out.println(session.getAttribute("id") + "itemUse");
+		if(jobcode >= 1000) {
+			
+		}else if(jobcode <= 2000) {
 			System.out.println("무기 입니다.");
 			setEquipment(bean, 0);
 		}else if(jobcode <= 3000) {
@@ -149,25 +306,22 @@ public class GamePlayService  extends TranEx {
 			setEquipment(bean, 1);
 		}else if(jobcode <= 4000) {
 			System.out.println("장갑류 입니다.");
-			
+			setEquipment(bean, 2);
 		}else if(jobcode <= 5000) {
 			System.out.println("신발류 입니다.");
-			
+			setEquipment(bean, 3);
 		}else if(jobcode <= 6000) {
 			System.out.println("반지류 입니다.");
-			
+			setEquipment(bean, 4);
 		}else if(jobcode <= 7000) {
 			System.out.println("목걸이류 입니다.");
-			
+			setEquipment(bean, 5);
 		}else if(jobcode <= 7500) {
 			System.out.println("체력포션류 입니다.");
-			
-		}else if(jobcode <= 8000) {
+			setEquipment(bean, 6);
+		}else{
 			System.out.println("마나포션류 입니다.");
-			
-		}else {
-			System.out.println("강화석류 입니다.");
-			
+			setEquipment(bean, 7);
 		}
 		setTransactionResult(transaction);
 		} catch (Exception e) {
