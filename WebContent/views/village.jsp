@@ -81,7 +81,7 @@
 		</div>
 		<div id='teleportWraper' style='margin-left: 40%; padding-left: 20px; margin-top: 5%;'>
 			<div id='charaInfo'>
-					<input type="button" value='캐릭터 정보' onClick="createForm('characterinfo','CharacterInfo','POST')" style='height: 100px; width: 39%;'/>
+					<input type="button" value='캐릭터 정보' onClick="createForm('characterinfo','CharacterInfo','GET')" style='height: 100px; width: 39%;'/>
 					<input type="button" value='퀘스트' style='height: 100px; width: 39%; margin-left: 1%;'/>
 			</div>
 			<div id='go_guild'>

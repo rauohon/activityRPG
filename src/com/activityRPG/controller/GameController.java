@@ -115,7 +115,7 @@ public class GameController {
 	 * @Method Name : characterInfoPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/CharacterInfo", method = RequestMethod.POST)
+	@RequestMapping(value="/CharacterInfo", method = RequestMethod.GET)
 	private ModelAndView characterInfoPage(@ModelAttribute GameBean gameBean) {
 		
 		mav = gn.entrance(5, gameBean);
@@ -190,10 +190,26 @@ public class GameController {
 	 * @Method Name : itemUse
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/ItemUse", method = RequestMethod.GET)
+	@RequestMapping(value="/ItemUse", method = RequestMethod.POST)
 	private ModelAndView itemUse(@ModelAttribute GameBean gameBean) {
 		
 		mav=gp.entrance(1, gameBean);
+		
+		return mav;
+	}
+
+	
+	/**
+	 * 처리내용 : 장착된 아이템 해제
+	 * 작성일 : 2017. 11. 3.
+	 * 작성자 : 신태휘
+	 * @Method Name : itemDisArm
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/ItemDisArm", method = RequestMethod.POST)
+	private ModelAndView itemDisArm(@ModelAttribute GameBean gameBean) {
+		
+		mav=gp.entrance(2, gameBean);
 		
 		return mav;
 	}
