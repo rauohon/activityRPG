@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.activityRPG.services;
 
 import java.util.HashMap;

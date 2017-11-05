@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.activityRPG.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +9,8 @@ import org.springframework.web.socket.WebSocketMessage;
 
 /**
  * @클래스명 : SocketHandlerService
- * @작성자 : 신태휘
  * @작성일 : 2017. 10. 14.
- * @설명 : SocketHandlerService
+ * @설명 : 
  */
 @Service
 public class SocketHandlerService {

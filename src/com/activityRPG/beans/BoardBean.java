@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.activityRPG.beans;
 
 import java.util.Date;
@@ -10,14 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @클래스명 : BoardBean
- * @작성자 : 신태휘
  * @작성일 : 2017. 10. 16.
  * @설명 : 
- * @수정이력 - 수정일, 수정자, 수정내용
  */
 @Alias("boardBean")
 public class BoardBean {
-	
+	/*↓ 신태휘*/
 	private int gbCode;		//길드 게시판 글번호
 	private String id;				//길드 게시판 작성자 아이디
 	private String chName;	//길드 게시판 작성자 이름
@@ -32,7 +27,7 @@ public class BoardBean {
 	private String gbReplyContent ; // 길드 게시판 댓글 달기
 	private int grCode; // 길드 게시판 댓글 번호
 	private MultipartFile gBoardFile;		// 길드 게시판 파일
-
+	/*↑ 신태휘*/
 	public int code;
 	public String title;
 	public String content;

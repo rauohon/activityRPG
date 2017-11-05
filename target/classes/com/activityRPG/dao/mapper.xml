@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.activityRPG.dao.IMBatisDao">
-<!-- login >> ID Check -->
+<!-- ↓ 전지원 -->
+	<!-- login >> ID Check -->
 	<select id="IdCheck" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
 		SELECT COUNT(*) FROM MB WHERE MB_ID=#{id}
 	</select>
-<!-- login >> PWD Check -->
+	<!-- login >> PWD Check -->
 	<select id="PwdCheck" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
 		SELECT MB_PW AS pwd FROM MB WHERE MB_ID=#{id}
 	</select>
 
-<!-- 로그인 상태 저장 -->
+	<!-- 로그인 상태 저장 -->
 	<insert id="AccessHistory" parameterType="com.activityRPG.beans.MemberBean">
 		INSERT INTO AH(AH_MBID, AH_DATE, AH_TYPE) VALUES(#{id}, DEFAULT, #{type})
 	</insert>
 
-<!-- 회원가입 -->
+	<!-- 회원가입 -->
 	<insert id="joinSuccess" parameterType="com.activityRPG.beans.MemberBean">
 		INSERT INTO MB(MB_ID, MB_PW, MB_NAME, MB_BIRTH, MB_AGE, MB_GENDER, MB_PHONE, MB_MAIL, MB_TYPE)
 		VALUES(#{id}, #{pwd}, #{name}, #{birth}, #{age}, #{gender}, #{phone}, #{email}, DEFAULT)
 	</insert>
 
-<!-- 아이디찾기  >> 핸드폰번호 확인 -->
+	<!-- 아이디찾기  >> 핸드폰번호 확인 -->
 	<select id="idFind" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
 		SELECT COUNT(*) FROM MB WHERE MB_PHONE=#{phone}
 	</select>
@@ -29,256 +30,21 @@
 		SELECT MB_ID AS id FROM MB WHERE MB_PHONE=#{phone}
 	</select>
 	
-<!-- 비밀번호찾기  >> 이메일 확인 -->
+	<!-- 비밀번호찾기  >> 이메일 확인 -->
 	<select id="mailcheck" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
 		SELECT COUNT(*) FROM MB WHERE MB_MAIL=#{email}
 	</select>
 	
-<!-- 비밀번호찾기  >> 이메일 발송 -->	
+	<!-- 비밀번호찾기  >> 이메일 발송 -->	
 	<select id="mailSend" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
 		SELECT MB_MAIL AS email FROM MB WHERE MB_MAIL=#{email} AND MB_ID=#{id}
 	</select>
 	
-<!-- 원래 패스워드 >> 임시패스워드 변경  -->	
+	<!-- 원래 패스워드 >> 임시패스워드 변경  -->	
 	<insert id="pwdUpdate" parameterType="com.activityRPG.beans.MemberBean">
 		UPDATE MB SET MB_PW=#{pwd} WHERE MB_ID=#{id}
 	</insert>
 
-<!-- 
-<resultMap type="member" id="joinMap">
-		<result property="id" column="MB_ID" javaType="java.lang.String"/>
-		<result property="pwd" column="MB_PW"  javaType="java.lang.String"/>
-		<result property="name" column="MB_NAME" javaType="java.lang.String"/>
-		<result property="birth" column="MB_BIRTH" javaType="java.lang.String"/>
-		<result property="age" column="MB_AGE" javaType="java.lang.String"/>
-		<result property="gender" column="MB_GENDER" javaType="java.lang.String"/>
-		<result property="phone" column="MB_PHONE" javaType="java.lang.String"/>
-		<result property="email" column="MB_MAIL" javaType="java.lang.String"/>
-	</resultMap> -->
-	
-<!-- 라즈베리파이 등록전 코드 유무 확인 -->
-	<select id='getRaspCheck' parameterType='actBean' resultType='Integer'>
-		SELECT COUNT(*) FROM RASPBERRY_INFO WHERE RI_ID=#{riId}
-	</select>
-	
-<!-- 라즈베리파이 등록 -->
-	<insert id="setRaspMem" parameterType="actBean">
-		INSERT INTO MEMBER_RASP VALUES(#{riId},#{id},DEFAULT)
-	</insert>
-<!-- 캐릭터 이름 가져오기 -->
-	<select id="getCharaName" parameterType="boardBean" resultType="boardBean">
-		SELECT CH_NAME AS chName FROM USER_CHARACTER WHERE CH_MBID=#{id}
-	</select>
-
-<!-- 캐릭터 능력치 가져오기 -->
-	<select id="getCharacterStatus" parameterType="gameBean" resultType="gameBean">
-		SELECT CH_NAME as chName, CH_LEVEL as chLevel, CH_EXP as chExp, 
-		CH_HP as chHp, CH_MP as chMp, CH_STR as chStr, 
-		CH_DEX as chDex, CH_INT as chInt, CH_ATTACK as chAttack,
-		CH_DEFENSE as chDefense,
-		CH_GOLD as chGold
-		FROM USER_CHARACTER WHERE CH_MBID=#{id}
-	</select>
-	
-<!-- 장비한 리스트 가져오기 -->
-	<select id="getEquipList" parameterType="map" resultType="gameBean">
-		SELECT 
-			EQ_WEAPON AS EQWEAPON, EQ_ARMOR AS EQARMOR, EQ_GLOVE AS EQGLOVE, 
-			EQ_SHOE AS EQSHOE, EQ_RING AS EQRING, EQ_NECKLACE AS EQNECKLACE 
-		FROM 
-			EQUIPMENT 
-		WHERE 
-			EQ_CHNAME = #{content}
-	</select>
-	
-<!-- 	장비한 리스트의 아이템 이름 가져오기 -->
-	<select id="getItemName" parameterType="map" resultType="gameBean">
-		SELECT 
-			IT_CODE AS ITCODE, IT_NAME AS ITNAME, IT_REQUIREABILITY AS REQUIABILITY, 
-			IT_ABILITY AS ABILITY FROM ITEM 
-		WHERE 
-			IT_CODE =  #{itcode}
-	</select>
-
-<!-- 장비한 리스트의 강화레벨 가져오기 -->
-	<select id="getEnLevel" parameterType="map" resultType="gameBean">
-		SELECT IV_ENLEVEL as enlevel FROM INVENTORY WHERE IV_ITCODE = #{itcode} AND IV_CHNAME = #{content}
-	</select>
-
-<!-- 소지한 장비 리스트 가져오기 -->
-	<select id="getIvenList" parameterType="map" resultType="gameBean">
-		<![CDATA[SELECT IVITCODE as ITCODE, ITNAME, REQUIRE as  REQUIABILITY, ABILITY, AMOUNT, ENLEVEL, BUYPRICE, SELLPRICE	FROM IVENLIST	WHERE CHNAME=#{content} AND IVITCODE >=#{min} AND IVITCODE <= #{max}]]>
-	</select>
-	
-<!-- 아이템 정보 가져오기 -->
-	<select id="getItemInfo" parameterType="gameBean" resultType="gameBean">
-		SELECT 
-			IT_CODE as ITCODE, IT_NAME AS ITNAME, IT_REQUIREABILITY AS REQUIABILITY, 
-			IT_ABILITY AS ABILITY, IT_BUY AS BUYPRICE, IT_SELL AS SELLPRICE 
-		FROM 
-			ITEM 
-		WHERE 
-			IT_CODE=#{itcode}
-	</select>
-	
-<!-- 아이템 착용전 기착용 여부 확인 -->
-	<select id="getIsEquip"  parameterType="gameBean" resultType="Integer">
-		SELECT 
-			COUNT(*) 
-		FROM 
-			EQUIPMENT 
-		<where>
-			EQ_CHNAME = #{content}
-			<if test="weapon != null">AND EQ_WEAPON = #{useItem}</if>
-			<if test="armor != null">AND EQ_ARMOR = #{useItem}</if>
-			<if test="glove != null">AND EQ_GLOVE = #{useItem}</if>
-			<if test="shoe != null">AND EQ_SHOE = #{useItem}</if>
-			<if test="ring != null">AND EQ_RING = #{useItem}</if>
-			<if test="necklace != null">AND EQ_NECKLACE = #{useItem}</if>
-		</where>
-	</select>
-	
-	<!-- 아이템 착용 -->
-		<update id="setEquipItemUpdate" parameterType="map">
-			UPDATE 
-				EQUIPMENT 
-			<set>
-				<if test="weapon != null">EQ_WEAPON = #{useItem}</if>
-				<if test="armor != null">EQ_ARMOR = #{useItem}</if>
-				<if test="glove != null">EQ_GLOVE = #{useItem}</if>
-				<if test="shoe != null">EQ_SHOE = #{useItem}</if>
-				<if test="ring != null">EQ_RING = #{useItem}</if>
-				<if test="necklace != null">EQ_NECKLACE = #{useItem}</if>
-			</set>				
-			<where>
-				EQ_CHNAME = #{content}
-			</where>
-		</update>
-	
-	<!-- 아이템 착용 후 능력치 적용 -->
-		<update id="setItemApplyStatus" parameterType="gameBean">
-			UPDATE USER_CHARACTER
-			<set>
-				<if test="chAttack != 0"> CH_ATTACK = #{chAttack} </if>
-				<if test="chDefense != 0"> CH_DEFENSE = CH_DEFENSE + #{chDefense} </if>
-				<if test="chHp != 0"> CH_HP = CH_HP + #{chHp} </if>
-				<if test="chMp != 0"> CH_MP = CH_MP + #{chMp} </if>
-			</set>
-			WHERE CH_NAME=#{chName}
-		</update>
-		
-<!-- 		포션 사용 후 보유량 감소 시키기 -->
-	<update id="setAfterItemUse" parameterType="map">
-		UPDATE 
-			INVENTORY 
-		SET 
-			IV_AMOUNT = IV_AMOUNT - 1 
-		WHERE 
-			IV_CHNAME = #{content}
-		AND 
-			IV_ITCODE = #{useItem}
-	</update>
-
-	<!-- 장착 아이템 해제하기 -->
-	<update id="setItemDisArm" parameterType="map">
-		UPDATE
-			EQUIPMENT
-		<set>
-			<if test="weapon != null">EQ_WEAPON = #{idx}</if>
-			<if test="armor != null">EQ_ARMOR = #{idx}</if>
-			<if test="glove != null">EQ_GLOVE = #{idx}</if>
-			<if test="shoe != null">EQ_SHOE = #{idx}</if>
-			<if test="ring != null">EQ_RING = #{idx}</if>
-			<if test="necklace != null">EQ_NECKLACE = #{idx}</if>
-		</set>
-		WHERE
-			EQ_CHNAME=#{chName}
-	</update>
-
-	<!-- 아이템 해제 후 능력치 적용 -->
-	<update id="setItemDisArmStatus" parameterType="gameBean">
-		UPDATE 
-			USER_CHARACTER
-		<set>
-			<if test="chAttack != 0"> CH_ATTACK = 0 </if>
-			<if test="chDefense != 0"> CH_DEFENSE = CH_DEFENSE - #{chDefense} </if>
-			<if test="chHp != 0"> CH_HP = CH_HP - #{chHp} </if>
-			<if test="chMp != 0"> CH_MP = CH_MP - #{chMp} </if>
-		</set>
-		WHERE 
-			CH_NAME=#{chName}
-	</update>
-
-
-<!-- 길드보드 리스트 가져오기 -->
-	<select id="getGuildBoardList" parameterType="boardBean" resultMap="gBoardMap">
-		SELECT * FROM GUILDBOARD
-	</select>
-	
-<!-- 	길드보드 내용 가져오기 -->
-	<select id="getGuildBoardContent" parameterType="boardBean" resultType="boardBean">
-		SELECT GB_CODE AS gbCode,  GB_MBID AS "ID", GB_TITLE AS GBTITLE, 
-		GB_CONTENT AS GBCONTENT, GB_WDATE AS GBWDATE, GB_HIT AS GBHIT, 
-		GB_GROUP AS gbGroup, GB_STEP AS gbStep, GB_INDENT as gbIndent,  
-		GB_MDATE AS gbMdate, GB_NAME AS CHNAME
-		FROM GUILDBOARD WHERE GB_CODE=#{gbCode}
-	</select>
-
-<!-- 	길드보드 조회수 증가하기 -->
-	<update id="setGuildBoardUpHit" parameterType="boardBean">
-		UPDATE GUILDBOARD SET GB_HIT = GB_HIT+1 WHERE GB_CODE=#{gbCode}
-	</update>
-
-<!-- 길드보드 글 작성하기 -->
-	<insert id="setGuildBoardWrite" parameterType="boardBean">
-		INSERT INTO GUILDBOARD (GB_CODE,GB_CONTENT,GB_GROUP,GB_HIT,GB_INDENT,GB_MBID,GB_MDATE,GB_NAME,GB_STEP,GB_TITLE,GB_WDATE)
-	    VALUES(GBOARD_SEQ.nextval,#{gbContent},DEFAULT,DEFAULT,DEFAULT,#{id},null,#{chName},DEFAULT,#{gbTitle},DEFAULT)
-	</insert>
-	
-<!-- 길드보드 글 삭제하기 -->
-<delete id="setGuildBoardRemove" parameterType="boardBean">
-		DELETE FROM GUILDBOARD WHERE GB_CODE = #{gbCode}
-</delete>
-
-<!-- 길드보드 글 삭제하기 -->
-<update id="setGuildBoardModify" parameterType="boardBean">
-		UPDATE GUILDBOARD SET GB_TITLE = #{gbTitle}, GB_CONTENT = #{gbContent}, GB_MDATE = SYSDATE 
-		WHERE GB_CODE = #{gbCode}
-</update>
-
-<!-- 길드보드 댓글 불러오기 -->
-<select id="getGuildBoardReply" parameterType="boardBean" resultType="boardBean">
-	SELECT GR_NAME as chName, GR_CONTENT as gbReplyContent, GR_DATE as  gbWDate,
-	GR_CODE as grCode
-	FROM GBREPLY WHERE GR_BDCODE = #{gbCode}
-</select>
-
-<!-- 길드보드 댓글 달기 -->
-<insert id="setGuildBoardReply" parameterType="boardBean">
-	INSERT INTO GBREPLY (GR_CODE, GR_NAME, GR_BDCODE, GR_DATE, GR_CONTENT) 
-	VALUES (GBREPLY_SEQ.nextval, #{chName}, #{gbCode}, DEFAULT, #{gbReplyContent})
-</insert>
-
-<!-- 길드보드 댓글 삭제 -->
-<delete id="setGuildBoardReplyDelete" parameterType="boardBean">
-		DELETE FROM GBREPLY WHERE GR_CODE = #{grCode}
-</delete>
-
-<!-- 길드보드 리스트 가져오기위한 맵 -->
-	<resultMap type="boardBean" id="gBoardMap">
-		<result property="gbCode" column="GB_CODE" javaType="java.lang.Integer" />
-		<result property="id" column="GB_MBID" javaType="java.lang.String" />
-		<result property="chName" column="GB_NAME" javaType="java.lang.String" />
-		<result property="gbTitle" column="GB_TITLE" javaType="java.lang.String" />
-		<result property="gbContent" column="GB_CONTENT" javaType="java.lang.String" />
-		<result property="gbWDate" column="GB_WDATE" javaType="java.util.Date" />
-		<result property="gbMDate" column="GB_MDATE" javaType="java.util.Date" />
-		<result property="gbHit" column="GB_HIT" javaType="java.lang.Integer" />
-		<result property="gbGroup" column="GB_GROUP" javaType="java.lang.Integer" />
-		<result property="gbStep" column="GB_STEP" javaType="java.lang.Integer" />
-		<result property="gbIndent" column="GB_INDENT" javaType="java.lang.Integer" />
-	</resultMap>
-	
 	<!-- 정보 확인 -->
 	<select id="info" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
 		SELECT MB_NAME AS name, MB_PHONE AS phone, MB_MAIL AS email, MB_PW AS pwd FROM MB WHERE MB_ID=#{id}
@@ -361,4 +127,241 @@
 	<insert id="freeUpdate" parameterType="com.activityRPG.beans.BoardBean">
 		UPDATE FB SET FB_TITLE=#{title}, FB_CONTENT=#{content} WHERE FB_CODE=#{code}
 	</insert>
+<!-- 
+<resultMap type="member" id="joinMap">
+		<result property="id" column="MB_ID" javaType="java.lang.String"/>
+		<result property="pwd" column="MB_PW"  javaType="java.lang.String"/>
+		<result property="name" column="MB_NAME" javaType="java.lang.String"/>
+		<result property="birth" column="MB_BIRTH" javaType="java.lang.String"/>
+		<result property="age" column="MB_AGE" javaType="java.lang.String"/>
+		<result property="gender" column="MB_GENDER" javaType="java.lang.String"/>
+		<result property="phone" column="MB_PHONE" javaType="java.lang.String"/>
+		<result property="email" column="MB_MAIL" javaType="java.lang.String"/>
+	</resultMap> -->
+<!-- ↑ 전지원 -->
+<!-- ↓ 신태휘 -->
+	<!-- 라즈베리파이 등록전 코드 유무 확인 -->
+	<select id='getRaspCheck' parameterType='actBean' resultType='Integer'>
+		SELECT COUNT(*) FROM RASPBERRY_INFO WHERE RI_ID=#{riId}
+	</select>
+	
+	<!-- 라즈베리파이 등록 -->
+	<insert id="setRaspMem" parameterType="actBean">
+		INSERT INTO MEMBER_RASP VALUES(#{riId},#{id},DEFAULT)
+	</insert>
+	
+	<!-- 캐릭터 이름 가져오기 -->
+	<select id="getCharaName" parameterType="boardBean" resultType="boardBean">
+		SELECT CH_NAME AS chName FROM USER_CHARACTER WHERE CH_MBID=#{id}
+	</select>
+
+	<!-- 캐릭터 능력치 가져오기 -->
+	<select id="getCharacterStatus" parameterType="gameBean" resultType="gameBean">
+		SELECT CH_NAME as chName, CH_LEVEL as chLevel, CH_EXP as chExp, 
+		CH_HP as chHp, CH_MP as chMp, CH_STR as chStr, 
+		CH_DEX as chDex, CH_INT as chInt, CH_ATTACK as chAttack,
+		CH_DEFENSE as chDefense,
+		CH_GOLD as chGold
+		FROM USER_CHARACTER WHERE CH_MBID=#{id}
+	</select>
+	
+	<!-- 장비한 리스트 가져오기 -->
+	<select id="getEquipList" parameterType="map" resultType="gameBean">
+		SELECT 
+			EQ_WEAPON AS EQWEAPON, EQ_ARMOR AS EQARMOR, EQ_GLOVE AS EQGLOVE, 
+			EQ_SHOE AS EQSHOE, EQ_RING AS EQRING, EQ_NECKLACE AS EQNECKLACE 
+		FROM 
+			EQUIPMENT 
+		WHERE 
+			EQ_CHNAME = #{content}
+	</select>
+	
+	<!-- 	장비한 리스트의 아이템 이름 가져오기 -->
+	<select id="getItemName" parameterType="map" resultType="gameBean">
+		SELECT 
+			IT_CODE AS ITCODE, IT_NAME AS ITNAME, IT_REQUIREABILITY AS REQUIABILITY, 
+			IT_ABILITY AS ABILITY FROM ITEM 
+		WHERE 
+			IT_CODE =  #{itcode}
+	</select>
+
+	<!-- 장비한 리스트의 강화레벨 가져오기 -->
+	<select id="getEnLevel" parameterType="map" resultType="gameBean">
+		SELECT IV_ENLEVEL as enlevel FROM INVENTORY WHERE IV_ITCODE = #{itcode} AND IV_CHNAME = #{content}
+	</select>
+
+	<!-- 소지한 장비 리스트 가져오기 -->
+	<select id="getIvenList" parameterType="map" resultType="gameBean">
+		<![CDATA[SELECT IVITCODE as ITCODE, ITNAME, REQUIRE as  REQUIABILITY, ABILITY, AMOUNT, ENLEVEL, BUYPRICE, SELLPRICE	FROM IVENLIST	WHERE CHNAME=#{content} AND IVITCODE >=#{min} AND IVITCODE <= #{max}]]>
+	</select>
+	
+	<!-- 아이템 정보 가져오기 -->
+	<select id="getItemInfo" parameterType="gameBean" resultType="gameBean">
+		SELECT 
+			IT_CODE as ITCODE, IT_NAME AS ITNAME, IT_REQUIREABILITY AS REQUIABILITY, 
+			IT_ABILITY AS ABILITY, IT_BUY AS BUYPRICE, IT_SELL AS SELLPRICE 
+		FROM 
+			ITEM 
+		WHERE 
+			IT_CODE=#{itcode}
+	</select>
+	
+	<!-- 아이템 착용전 기착용 여부 확인 -->
+	<select id="getIsEquip"  parameterType="gameBean" resultType="Integer">
+		SELECT 
+			COUNT(*) 
+		FROM 
+			EQUIPMENT 
+		<where>
+			EQ_CHNAME = #{content}
+			<if test="weapon != null">AND EQ_WEAPON = #{useItem}</if>
+			<if test="armor != null">AND EQ_ARMOR = #{useItem}</if>
+			<if test="glove != null">AND EQ_GLOVE = #{useItem}</if>
+			<if test="shoe != null">AND EQ_SHOE = #{useItem}</if>
+			<if test="ring != null">AND EQ_RING = #{useItem}</if>
+			<if test="necklace != null">AND EQ_NECKLACE = #{useItem}</if>
+		</where>
+	</select>
+	
+	<!-- 아이템 착용 -->
+		<update id="setEquipItemUpdate" parameterType="map">
+			UPDATE 
+				EQUIPMENT 
+			<set>
+				<if test="weapon != null">EQ_WEAPON = #{useItem}</if>
+				<if test="armor != null">EQ_ARMOR = #{useItem}</if>
+				<if test="glove != null">EQ_GLOVE = #{useItem}</if>
+				<if test="shoe != null">EQ_SHOE = #{useItem}</if>
+				<if test="ring != null">EQ_RING = #{useItem}</if>
+				<if test="necklace != null">EQ_NECKLACE = #{useItem}</if>
+			</set>				
+			<where>
+				EQ_CHNAME = #{content}
+			</where>
+		</update>
+	
+	<!-- 아이템 착용 후 능력치 적용 -->
+		<update id="setItemApplyStatus" parameterType="gameBean">
+			UPDATE USER_CHARACTER
+			<set>
+				<if test="chAttack != 0"> CH_ATTACK = #{chAttack} </if>
+				<if test="chDefense != 0"> CH_DEFENSE = CH_DEFENSE + #{chDefense} </if>
+				<if test="chHp != 0"> CH_HP = CH_HP + #{chHp} </if>
+				<if test="chMp != 0"> CH_MP = CH_MP + #{chMp} </if>
+			</set>
+			WHERE CH_NAME=#{chName}
+		</update>
+		
+	<!-- 포션 사용 후 보유량 감소 시키기 -->
+	<update id="setAfterItemUse" parameterType="map">
+		UPDATE 
+			INVENTORY 
+		SET 
+			IV_AMOUNT = IV_AMOUNT - 1 
+		WHERE 
+			IV_CHNAME = #{content}
+		AND 
+			IV_ITCODE = #{useItem}
+	</update>
+
+	<!-- 장착 아이템 해제하기 -->
+	<update id="setItemDisArm" parameterType="map">
+		UPDATE
+			EQUIPMENT
+		<set>
+			<if test="weapon != null">EQ_WEAPON = #{idx}</if>
+			<if test="armor != null">EQ_ARMOR = #{idx}</if>
+			<if test="glove != null">EQ_GLOVE = #{idx}</if>
+			<if test="shoe != null">EQ_SHOE = #{idx}</if>
+			<if test="ring != null">EQ_RING = #{idx}</if>
+			<if test="necklace != null">EQ_NECKLACE = #{idx}</if>
+		</set>
+		WHERE
+			EQ_CHNAME=#{chName}
+	</update>
+
+	<!-- 아이템 해제 후 능력치 적용 -->
+	<update id="setItemDisArmStatus" parameterType="gameBean">
+		UPDATE 
+			USER_CHARACTER
+		<set>
+			<if test="chAttack != 0"> CH_ATTACK = 0 </if>
+			<if test="chDefense != 0"> CH_DEFENSE = CH_DEFENSE - #{chDefense} </if>
+			<if test="chHp != 0"> CH_HP = CH_HP - #{chHp} </if>
+			<if test="chMp != 0"> CH_MP = CH_MP - #{chMp} </if>
+		</set>
+		WHERE 
+			CH_NAME=#{chName}
+	</update>
+
+
+	<!-- 길드보드 리스트 가져오기 -->
+	<select id="getGuildBoardList" parameterType="boardBean" resultMap="gBoardMap">
+		SELECT * FROM GUILDBOARD
+	</select>
+	
+	<!-- 	길드보드 내용 가져오기 -->
+	<select id="getGuildBoardContent" parameterType="boardBean" resultType="boardBean">
+		SELECT GB_CODE AS gbCode,  GB_MBID AS "ID", GB_TITLE AS GBTITLE, 
+		GB_CONTENT AS GBCONTENT, GB_WDATE AS GBWDATE, GB_HIT AS GBHIT, 
+		GB_GROUP AS gbGroup, GB_STEP AS gbStep, GB_INDENT as gbIndent,  
+		GB_MDATE AS gbMdate, GB_NAME AS CHNAME
+		FROM GUILDBOARD WHERE GB_CODE=#{gbCode}
+	</select>
+
+	<!-- 길드보드 조회수 증가하기 -->
+	<update id="setGuildBoardUpHit" parameterType="boardBean">
+		UPDATE GUILDBOARD SET GB_HIT = GB_HIT+1 WHERE GB_CODE=#{gbCode}
+	</update>
+
+	<!-- 길드보드 글 작성하기 -->
+	<insert id="setGuildBoardWrite" parameterType="boardBean">
+		INSERT INTO GUILDBOARD (GB_CODE,GB_CONTENT,GB_GROUP,GB_HIT,GB_INDENT,GB_MBID,GB_MDATE,GB_NAME,GB_STEP,GB_TITLE,GB_WDATE)
+	    VALUES(GBOARD_SEQ.nextval,#{gbContent},DEFAULT,DEFAULT,DEFAULT,#{id},null,#{chName},DEFAULT,#{gbTitle},DEFAULT)
+	</insert>
+	
+	<!-- 길드보드 글 삭제하기 -->
+	<delete id="setGuildBoardRemove" parameterType="boardBean">
+			DELETE FROM GUILDBOARD WHERE GB_CODE = #{gbCode}
+	</delete>
+
+	<!-- 길드보드 글 삭제하기 -->
+	<update id="setGuildBoardModify" parameterType="boardBean">
+			UPDATE GUILDBOARD SET GB_TITLE = #{gbTitle}, GB_CONTENT = #{gbContent}, GB_MDATE = SYSDATE 
+			WHERE GB_CODE = #{gbCode}
+	</update>
+
+	<!-- 길드보드 댓글 불러오기 -->
+	<select id="getGuildBoardReply" parameterType="boardBean" resultType="boardBean">
+		SELECT GR_NAME as chName, GR_CONTENT as gbReplyContent, GR_DATE as  gbWDate,
+		GR_CODE as grCode
+		FROM GBREPLY WHERE GR_BDCODE = #{gbCode}
+	</select>
+
+	<!-- 길드보드 댓글 달기 -->
+	<insert id="setGuildBoardReply" parameterType="boardBean">
+		INSERT INTO GBREPLY (GR_CODE, GR_NAME, GR_BDCODE, GR_DATE, GR_CONTENT) 
+		VALUES (GBREPLY_SEQ.nextval, #{chName}, #{gbCode}, DEFAULT, #{gbReplyContent})
+	</insert>
+
+	<!-- 길드보드 댓글 삭제 -->
+	<delete id="setGuildBoardReplyDelete" parameterType="boardBean">
+			DELETE FROM GBREPLY WHERE GR_CODE = #{grCode}
+	</delete>
+
+	<!-- 길드보드 리스트 가져오기위한 맵 -->
+	<resultMap type="boardBean" id="gBoardMap">
+		<result property="gbCode" column="GB_CODE" javaType="java.lang.Integer" />
+		<result property="id" column="GB_MBID" javaType="java.lang.String" />
+		<result property="chName" column="GB_NAME" javaType="java.lang.String" />
+		<result property="gbTitle" column="GB_TITLE" javaType="java.lang.String" />
+		<result property="gbContent" column="GB_CONTENT" javaType="java.lang.String" />
+		<result property="gbWDate" column="GB_WDATE" javaType="java.util.Date" />
+		<result property="gbMDate" column="GB_MDATE" javaType="java.util.Date" />
+		<result property="gbHit" column="GB_HIT" javaType="java.lang.Integer" />
+		<result property="gbGroup" column="GB_GROUP" javaType="java.lang.Integer" />
+		<result property="gbStep" column="GB_STEP" javaType="java.lang.Integer" />
+		<result property="gbIndent" column="GB_INDENT" javaType="java.lang.Integer" />
+	</resultMap>
+<!-- ↑ 신태휘 -->
 </mapper>

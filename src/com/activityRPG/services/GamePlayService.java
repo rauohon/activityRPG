@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.activityRPG.services;
 
 import java.util.HashMap;
@@ -20,10 +17,8 @@ import com.activityRPG.utils.ProjectUtils;
 
 /**
  * @클래스명 : GamePlayService
- * @작성자 : 신태휘
  * @작성일 : 2017. 10. 14.
  * @설명 : 
- * @수정이력 - 수정일, 수정자, 수정내용
  */
 @Service
 public class GamePlayService  extends TranEx {
@@ -38,7 +33,6 @@ public class GamePlayService  extends TranEx {
 	/**
 	 * 처리내용 : 게임 플레이 서비스 분기
 	 * 작성일 : 2017. 10. 23.
-	 * 작성자 : 신태휘
 	 * @Method Name : entrance
 	 * @return type : ModelAndView
 	 */
