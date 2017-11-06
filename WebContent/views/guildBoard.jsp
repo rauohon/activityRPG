@@ -38,7 +38,6 @@ td{
   color: #fff;
   border-bottom: solid 1px rgba(255,255,255,0.1);
 }
-
 </style>
 <script type="text/javascript">
 function createForm(code) {

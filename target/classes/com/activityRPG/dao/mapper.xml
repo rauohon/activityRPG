@@ -649,9 +649,6 @@
 	<update id="myQuestSuccess" parameterType="GameBean">
 		UPDATE MYQUEST SET MQ_SUSSESS = 1 WHERE MQ_CHNAME = #{characterName} AND MQ_QUECODE = #{questCode}
 	</update>
-
-
-
-
 <!-- **************************김훈******************************* -->
+
 </mapper>

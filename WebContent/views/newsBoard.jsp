@@ -121,6 +121,8 @@
 	
 </style>
 <body onload="init()">
+<%@ include file="nav.jsp"%>
+<div id='wraper' style="padding-top:60px; color: white;">
 	${newsBoardList }
 	<div id="pageNum">
 	
@@ -133,6 +135,7 @@
 		</select>
 		<input type="text" name="search" class="textBox"/>
 		<input type="button" value="검색" onClick="search()" class="searchButton"/>
+	</div>
 	</div>
 </body>
 </html>

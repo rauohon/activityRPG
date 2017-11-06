@@ -12,6 +12,16 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Alias("boardBean")
 public class BoardBean {
+	/*↓ 전지원*/
+	public int code;
+	public String title;
+	public String content;
+	public Date date;
+	public int hit;
+	public int group;
+	public int step;
+	public int indent;
+	/*↑ 전지원*/
 	/*↓ 신태휘*/
 	private int gbCode;		//길드 게시판 글번호
 	private String id;				//길드 게시판 작성자 아이디
@@ -39,14 +49,6 @@ public class BoardBean {
 	private int newsBoardStep;			//사용안함
 	private int newsBoardIndent;		//사용안함
 	//******************김훈****************************
-	public int code;
-	public String title;
-	public String content;
-	public Date date;
-	public int hit;
-	public int group;
-	public int step;
-	public int indent;
 	
 	public int getNewsBoardCode() {
 		return newsBoardCode;

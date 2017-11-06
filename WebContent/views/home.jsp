@@ -7,7 +7,6 @@
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <meta charset="UTF-8">
 <title>HomePage</title>
-<script src="js/common.js"></script>
 <script>
  	function init() {
 		var logincheck = document.getElementById("logincheck");
@@ -28,15 +27,6 @@
 			logout.style.display = "none";
 		}
 	}
- 	//*******김훈********
- 	function newsBoardMove(){
-		createForm("newsBoardForm", "NewsBoard", "post");
-		
-		var form = document.getElementsByName("newsBoardForm")[0];
-		
-		form.submit();
-	}
- 	//*********김훈***********
 </script>
 </head>
 <body onLoad="init()">
@@ -50,11 +40,6 @@
 			<td><a href="PwdFind">패스워드 찾기</a></td>
 		</tr>
 	</table>
-	
-	<!-- *************김훈******************** -->
-	<input type="button" value="공지사항 게시판 이동" onClick="newsBoardMove()" />
-	<!-- *************김훈******************** -->
-	
 	<h2 id="logincheck">${id }님 로그인 된 메인 페이지 입니다.</h2>
 	<table id="nodab">
 		<tr>
@@ -62,11 +47,6 @@
 		<td><button onClick="total('accessForm', 'AccessOut', 'post')" id="logout">로그아웃</button></td>
 		</tr>
 	</table>
-	<!-- 나의 정보쪽에서 확인 -->
-<!-- <div id="game">
-		<a href='ActivityDayLogPage'>운동정보 확인(회원)</a>&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href='EnrollRaspberryPiPage'>라즈베리파이 등록</a>
-	 </div> -->
 </div>
 </body>
 </html>
