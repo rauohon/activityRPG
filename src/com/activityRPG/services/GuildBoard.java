@@ -181,13 +181,19 @@ public class GuildBoard extends TranEx  {
 		try {
 			System.out.println("안오냐?");
 			bean.setId(session.getAttribute("id").toString());
+			System.out.println(bean.getGbCode());
+			System.out.println(bean.getGbTitle());
+			System.out.println(bean.getGbContent());
+			System.out.println(dao.setGuildBoardModify(bean));
 			if(dao.setGuildBoardModify(bean) !=0) {
+				System.out.println("보드 수정확인");
 				transaction = true;
 				RedirectView rv = null;
 				rv = new RedirectView("/GuildBoardPage");
 				rv.setExposeModelAttributes(false);
 				mav.setView(rv);
 			}else {
+				System.out.println("보드 수정 실패 확인");
 				mav.addObject("msg","system error");
 				mav.setViewName("guildBoard");
 			}
@@ -213,7 +219,7 @@ public class GuildBoard extends TranEx  {
 		try {
 			map.put("writer", session.getAttribute("chName").toString());
 			map.put("title", bean.getGbTitle());
-			map.put("reply", "-----------------------------");
+			map.put("reply", "-----------------------------\n");
 			map.put("content", bean.getGbContent());
 			map.put("wdate", sdf.format(bean.getGbWDate()));
 			map.put("gbGroup",String.valueOf(bean.getGbGroup()));
@@ -400,7 +406,7 @@ public class GuildBoard extends TranEx  {
 
 		StringBuffer sb = new StringBuffer();
 		List<BoardBean> gBoardList = dao.getGuildBoardList(bean);
-		sb.append("<table><tr><th>글 번호</th><th>작성자</th><th>글 제목</th><th>작성일</th><th>조회수</th></tr>");
+		sb.append("<table><thead><tr><th>글 번호</th><th>작성자</th><th style=\'width: 50%;\'>글 제목</th><th>작성일</th><th>조회수</th></tr></thead><tbody>");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		for(int i=0 ; i< gBoardList.size();i++) {
 			Collections.sort(gBoardList, new Comparator<BoardBean>(){
@@ -413,7 +419,7 @@ public class GuildBoard extends TranEx  {
 			sb.append(gBoardList.get(i).getGbCode());
 			sb.append("</td><td>");
 			sb.append(gBoardList.get(i).getChName());
-			sb.append("</td><td onClick='createForm(\""+ gBoardList.get(i).getGbCode() +"\")'>");
+			sb.append("</td><td onClick='readGboard(\""+ gBoardList.get(i).getGbCode() +"\")'>");
 			sb.append(gBoardList.get(i).getGbTitle());
 			sb.append("</td><td>");
 			sb.append(sdf.format((gBoardList.get(i).getGbWDate())));
@@ -422,7 +428,7 @@ public class GuildBoard extends TranEx  {
 			sb.append("</td></tr>");
 		}
 
-		sb.append("</table>");
+		sb.append("</tbody></table>");
 		return sb.toString();
 	}
 

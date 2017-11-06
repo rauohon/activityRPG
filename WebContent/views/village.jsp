@@ -6,14 +6,28 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/home.css" media="screen" type="text/css" />
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <style type="text/css">
+@import url(https://fonts.googleapis.com/css?family=Raleway:300);
 #chatGuildUserArea {
 	display: none;
 }
+.button {
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.button:hover {
+	border: none;
+	background: #f68a6f;
+}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="js/chat.js"></script>
-<script src="js/common.js"></script>
+<script src="/js/chat.js"></script>
+<script src="/js/common.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var nickName = $("<input />");
@@ -40,7 +54,7 @@
 			;
 		});
 	});
-	function createForm(formName, actionName, method) {
+	function movePage(formName, actionName, method) {
 		var f = $("#fixForm");
 		var i = $("<input />");
 		f.attr("name", formName);
@@ -81,23 +95,21 @@
 		</div>
 		<div id='teleportWraper' style='margin-left: 40%; padding-left: 20px; margin-top: 5%;'>
 			<div id='charaInfo'>
-					<input type="button" value='캐릭터 정보' onClick="createForm('characterinfo','CharacterInfo','GET')" style='height: 100px; width: 39%;'/>
-					<input type="button" value='퀘스트' style='height: 100px; width: 39%; margin-left: 1%;'/>
+					<button class='button' onClick="movePage('characterinfo','CharacterInfo','GET')" style='height: 100px; width: 39%;'>캐릭터 정보</button>
+					<button class='button' style='height: 100px; width: 39%; margin-left: 1%;'>퀘스트</button>
 			</div>
 			<div id='go_guild'>
-				<input type="button" value='길드' style='height: 100px; width: 79.5%; margin-top: 1%;'/>
+				<button class='button' style='height: 100px; width: 79.5%; margin-top: 1%;'>길드</button>
 			</div>
 			<div id='go_dungeon'>
-				<input type="button" value='던전 이동' onClick="createForm('dungeonpage','DungeonPage','POST')" style='height: 100px; width: 79.5%; margin-top: 1%;'/>
+				<button class='button' onClick="movePage('dungeonpage','DungeonPage','POST')" style='height: 100px; width: 79.5%; margin-top: 1%;'>탐험</button>
 			</div>
 			<div id='go_shop'>
-				<input type="button" value='무기 상점' style='height: 100px; width: 18.4%; margin-top: 1%;'/>
-				<input type="button" value='방어구 상점' style='height: 100px; width: 18.3%; margin-left: 10px; margin-top: 1%;'/>
-				<input type="button" value='포션 상점' style='height: 100px; width: 18.3%; margin-left: 10px; margin-top: 1%;'/>
-				<input type="button" value='강화 장점' style='height: 100px; width: 18.4%; margin-left: 10px; margin-top: 1%;'/>
+				<button class='button' style='height: 100px; width: 39%; margin-top: 1%;'>상점</button>
+				<button class='button' style='height: 100px; width: 39%; margin-left: 1%;  margin-top: 1%;'>대장간</button>
 			</div>
 			<div id='go_ranking'>
-				<input type="button" value='랭킹' style='height: 100px; width: 79.5%; margin-top: 1%;'/>
+				<button class='button' style='height: 100px; width: 79.5%; margin-top: 1%;'>랭킹</button>
 			</div>
 				<form id="fixForm"></form>
 		</div>

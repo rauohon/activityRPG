@@ -15,7 +15,7 @@
 			var forms = $("<form />");
 			forms.attr("name", "movement");
 			forms.attr("action", "Movement");
-			forms.attr("method", "get");
+			forms.attr("method", "post");
 			var hiddenBox = $("<input />");
 			hiddenBox.attr("type","hidden");
 			hiddenBox.attr("name","moveValue");

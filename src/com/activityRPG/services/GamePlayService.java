@@ -382,6 +382,7 @@ public class GamePlayService  extends TranEx {
 		int moveValue = Integer.parseInt(bean.getMoveValue());
 		if((random%moveValue) == 0) {
 			System.out.println("일반 전투");
+			// 배틀페이지 이동 RequestMethod = get
 			rv = new RedirectView("/GameForm");
 			rv.setExposeModelAttributes(false);
 			mav.setView(rv);
@@ -395,8 +396,7 @@ public class GamePlayService  extends TranEx {
 			rv = new RedirectView("/GameForm");
 			rv.setExposeModelAttributes(false);
 			mav.setView(rv);
-		}
-		
+		}		
 		return mav;
 	}
 

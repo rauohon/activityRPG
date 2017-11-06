@@ -23,6 +23,16 @@
 		
 		form.submit();
 	}
+	//*******김훈********
+ 	function newsBoardMove(){
+		createForm("newsBoardForm", "NewsBoard", "post");
+		
+		var form = document.getElementsByName("newsBoardForm")[0];
+		
+		form.submit();
+	}
+ 	//*********김훈***********
+	
 </script>
 </head>
 <body>
@@ -44,6 +54,10 @@
 	</br></br></br>
 	
 	<h3>관리자 페이지</h3>
+	
+	<!-- *************김훈******************** -->
+	<input type="button" value="공지사항 게시판 이동" onClick="newsBoardMove()" />
+	<!-- *************김훈******************** -->
 	
 	<button onClick="total('accessForm', 'AccessOut', 'post')">로그아웃</button>
 </body>

@@ -6,26 +6,70 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript">
-function createForm(code) {
-	var f = $("#fixForm");
-	var i = $("<input />");
-	f.attr("name","readgboardpage");
-	f.attr("action","ReadGBoardPage");
-	f.attr("method","GET");
-	i.attr("type","hidden");
-	i.attr("name","gbCode");
-	i.attr("value",code);
-	$("#fixForm").append(i);
-	
-  document.readgboardpage.submit();
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<style>
+table{
+  width:100%;
+  table-layout: fixed;
 }
+thead{
+  background-color: rgba(255,255,255,0.3);
+ }
+tbody{
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+th{
+  padding: 20px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  text-transform: uppercase;
+}
+td{
+  padding: 15px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #fff;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
+}
+.active{
+	background-color: gray;
+}
+</style>
+<script type="text/javascript">
+	function readGboard(code) {
+		var f = $("#fixForm");
+		var i = $("<input />");
+		f.attr("name", "readgboardpage");
+		f.attr("action", "ReadGBoardPage");
+		f.attr("method", "GET");
+		i.attr("type", "hidden");
+		i.attr("name", "gbCode");
+		i.attr("value", code);
+		$("#fixForm").append(i);
+		document.readgboardpage.submit();
+	}
+	$(document).ready(function() {
+		$("tr").hover(function() {
+			$(this).toggleClass( "active" );
+		});
+	});
 </script>
 </head>
 <body>
-<h1>guildBoardPage 입니다.</h1>
-${boards }
-<a href='WriteGBoardPage'>글 작성</a>
-<form id="fixForm"></form>
+<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
+	<a href='WriteGBoardPage'>글 작성</a>
+	<div style="color: white;">
+		${boards }
+	</div>
+	<form id="fixForm"></form>
+</div>
 </body>
 </html>

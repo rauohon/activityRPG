@@ -5,12 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.activityRPG.beans.BoardBean;
-import com.activityRPG.beans.GameBean;
+import com.activityRPG.beans.MemberBean;
 import com.activityRPG.services.GuildBoard;
+import com.activityRPG.services.NewsBoard;
 import com.activityRPG.services.FreeBoard;
 
 /**
@@ -25,6 +25,9 @@ public class BoardController {
 	private GuildBoard gBoard;
 	@Autowired
 	private FreeBoard fb;
+	@Autowired
+	private NewsBoard newsBoard;
+	
 	private ModelAndView mav = new ModelAndView();
 	
 	/**
@@ -112,6 +115,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/ModifyGBoard", method = RequestMethod.POST)
 	private ModelAndView modifyGBoard(@ModelAttribute BoardBean bean) {
+		
 		mav=gBoard.entrance(5, bean);
 		
 		return mav;
@@ -232,4 +236,61 @@ public class BoardController {
 		mav = fb.entrance(7, board);
 		return mav;
 	}
+	
+	//****************김훈********************
+	@RequestMapping(value = "/NewsBoard", method = RequestMethod.POST)
+	public ModelAndView newsBoardMove() {
+		mav = new ModelAndView();
+		mav = newsBoard.entrance(41);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/NewsBoardMakeFormMove", method = RequestMethod.POST)
+	public ModelAndView newsBoardMakeFormMove() {
+		mav.setViewName("newsBoardMakeForm");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/NewsBoardMake", method = RequestMethod.POST)
+	public ModelAndView newsBoardMake(@ModelAttribute BoardBean boardBean, @ModelAttribute MemberBean memberBean) {
+		mav = new ModelAndView();
+		mav = newsBoard.entrance(42, boardBean, memberBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/NewsBoardContentsView", method = RequestMethod.POST)
+	public ModelAndView newsBoardContentsView(@ModelAttribute BoardBean boardBean) {
+		mav = new ModelAndView();
+		mav = newsBoard.entrance(43, boardBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/NewsBoardModifyFormMove", method = RequestMethod.POST)
+	public ModelAndView newsBoardModifyMove(@ModelAttribute BoardBean boardBean) {
+		mav = new ModelAndView();
+		mav = newsBoard.entrance(44, boardBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/NewsBoardModify", method = RequestMethod.POST)
+	public ModelAndView newsBoardModify(@ModelAttribute BoardBean boardBean) {
+		mav = new ModelAndView();
+		mav = newsBoard.entrance(45, boardBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/NewsBoardDelete", method = RequestMethod.POST)
+	public ModelAndView newsBoardDelete(@ModelAttribute BoardBean boardBean) {
+		mav = new ModelAndView();
+		mav = newsBoard.entrance(46, boardBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/Search", method = RequestMethod.POST)
+	public ModelAndView serach(@ModelAttribute BoardBean boardBean) {
+		mav = new ModelAndView();
+		mav = newsBoard.entrance(47, boardBean);
+		return mav;
+	}
+	//****************김훈********************
 }

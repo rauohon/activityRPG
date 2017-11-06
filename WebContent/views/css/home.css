@@ -103,3 +103,35 @@ a {
 a:hover {
   text-decoration: underline;
 }
+#layer_fixed ul
+{
+	list-style:none;
+}
+
+#layer_fixed ul li
+{
+	float:left;
+}
+#layer_fixed ul li ul li
+{
+	float:none;
+}
+#layer_fixed ul ul
+{
+	display:none;
+	display:none;
+	position:absolute;
+	top:100%;
+	left:0;
+	padding:0
+}
+#layer_fixed ul li:hover
+{
+	position:relative;
+	margin:0;
+	padding:0;
+}
+#layer_fixed ul li:hover > ul
+{
+	display:block;
+}
