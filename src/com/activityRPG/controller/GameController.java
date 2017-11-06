@@ -170,7 +170,7 @@ public class GameController {
 	 * @Method Name : movement
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/Movement", method = RequestMethod.GET)
+	@RequestMapping(value="/Movement", method = RequestMethod.POST)
 	private ModelAndView movement(@ModelAttribute GameBean gameBean) {
 		
 		mav=gp.entrance(0, gameBean);
