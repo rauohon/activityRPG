@@ -325,7 +325,7 @@
 			DELETE FROM GUILDBOARD WHERE GB_CODE = #{gbCode}
 	</delete>
 
-	<!-- 길드보드 글 삭제하기 -->
+	<!-- 길드보드 글 수정하기 -->
 	<update id="setGuildBoardModify" parameterType="boardBean">
 			UPDATE GUILDBOARD SET GB_TITLE = #{gbTitle}, GB_CONTENT = #{gbContent}, GB_MDATE = SYSDATE 
 			WHERE GB_CODE = #{gbCode}
