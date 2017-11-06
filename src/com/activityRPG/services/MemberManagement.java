@@ -155,7 +155,10 @@ public class MemberManagement extends TranEx {
 					mb.setType(1);
 					if(dao.AccessHistory(mb) != 0) {
 						System.out.println("로그인 함 :: 1");
-
+						
+						//관리자 확인 후 세션 저장
+						session.setAttribute("userType", dao.userType(mb));
+						
 						session.setAttribute("id", mb.getId());
 						mav.setViewName("adminmain");
 						transaction = true;
@@ -210,6 +213,8 @@ public class MemberManagement extends TranEx {
 				System.out.println("logout successful");
 
 				session.removeAttribute("id");
+				session.removeAttribute("userType");	//로그인 시 세션에 저장한 유저타입 제거
+				session.removeAttribute("characterName");	//세션에 저장된 캐릭터 이름 제거
 				rv = new RedirectView("/");
 				rv.setExposeModelAttributes(false);
 				mav.setView(rv);

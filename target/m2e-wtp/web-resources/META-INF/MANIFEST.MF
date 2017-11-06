@@ -1,9 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
 Built-By: pc
-=======
-Built-By: rnjde
->>>>>>> d27fb983181e05286b2520e0919faf841b7eb5ff
 Build-Jdk: 1.8.0_144
 Created-By: Maven Integration for Eclipse
 
