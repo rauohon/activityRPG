@@ -28,6 +28,15 @@
 			logout.style.display = "none";
 		}
 	}
+ 	//*******김훈********
+ 	function newsBoardMove(){
+		createForm("newsBoardForm", "NewsBoard", "post");
+		
+		var form = document.getElementsByName("newsBoardForm")[0];
+		
+		form.submit();
+	}
+ 	//*********김훈***********
 </script>
 </head>
 <body onLoad="init()">
@@ -41,6 +50,10 @@
 			<td><a href="PwdFind">패스워드 찾기</a></td>
 		</tr>
 	</table>
+	
+	<!-- *************김훈******************** -->
+	<input type="button" value="공지사항 게시판 이동" onClick="newsBoardMove()" />
+	<!-- *************김훈******************** -->
 	
 	<h2 id="logincheck">${id }님 로그인 된 메인 페이지 입니다.</h2>
 	<table id="nodab">

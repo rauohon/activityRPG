@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+table.list {
+    border-collapse: collapse;
+    text-align: left;
+    line-height: 1.5;
+    border-top: 1px solid #ccc;
+    border-left: 3px solid #369;
+  	margin : 20px 10px;
+  	background: url("/images/notice.png") no-repeat center center
+}
+table.list th {
+    width: 147px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: white;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background: linear-gradient(to right, #2c3338, #475660);
+
+}
+table.list td {
+    width: 349px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 10px;
+    vertical-align: top;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+#pageNum{
+	text-align: center;
+}
+.listNum{
+	background-color:white;
+	border:1px none #369;
+}
+#divOption{
+	text-align: center;
+}
+.selectBox{
+	margin-left: 20px;
+	height:25px;
+}
+.textBox{
+	width:500px;
+	height:19px;
+}
+.searchButton{
+	width:70px;
+	height:25px;
+	background-color:#2c3338;
+	color:white;
+	border:1px solid #369;
+	border-radius:5px;
+}
+.writeButton{
+	width:100px;
+	height:25px;
+	background-color:#2c3338;
+	color:white;
+	border:1px solid #369;
+	border-radius:5px;
+}
+
+
+
+
+
