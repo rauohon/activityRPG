@@ -8,9 +8,22 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+<link rel="stylesheet" href="css/passwordChange.css" media="screen" type="text/css" />
 <script src="js/common.js"></script>
-<script src="js/join.js"></script>
+<script src="js/passwordChange.js"></script>
 <script>
+	function infoBack() {
+		var form = createForm("infoBackForm", "infoBack", "post");
+
+		createObj("hidden", "id", "${id}", "");
+
+		relationObj("infoBackForm", "id");
+		form.submit();
+	}
+
 	function change(id, pwd) {
 		var form = createForm("changeForm", "changePwd", "post");
 		createinput("hidden", "id", "${id }");
@@ -23,13 +36,15 @@
 </script>
 </head>
 <body>
-	<div id="pwdChange">
+<%@ include file="nav.jsp"%>
+	<div id="pwdChange" style="padding-top:60px;">
 		<!-- <div class="form-group">
 			<input type="password" name="pw" placeholder="현재 패스워드" />
 		</div> -->
+		
 		<!-- 패스워드 -->
 		<form action="changePwd" method="post">
-		<div class="row" style="width: 1075px;">
+		<div>
 			<!-- 패스워드 입력 -->
 			<div class="form-group col-lg-6">
 				<div class="input-group">
@@ -40,13 +55,14 @@
 			<!-- 패스워드 재입력 -->
 			<div class="form-group col-lg-6">
 				<div class="input-group">
-					<input name="changeSpwd" type="password" class="form-control" placeholder="변경 할 패스워드 재 입력">
+					<input name="changeSpwd" id="spassword" type="password" class="form-control" placeholder="변경 할 패스워드 재 입력">
 				</div>
 				<span class="help-block" id="error"></span>
 			</div>
 		</div>
 		<input type="hidden" value="${id }" />
-		<input type="button" onClick="change()" value="패스워드 변경" />
+		<button onClick="change()">패스워드 변경</button><br>
+		<button onClick="infoBack()">나의 정보로 돌아가기</button>
 		</form>
 	</div>
 </body>

@@ -30,8 +30,9 @@
 </head>
 
 <body>
+<%@ include file="nav.jsp"%>
 	<!-- login -->
-	<div class="container">
+	<div class="container" style="padding-top:60px">
 		<div id="login">
 			<form action="javascript:void(0);" method="get">
 				<fieldset class="clearfix">
@@ -45,15 +46,15 @@
 					</p>
 					
 					<!-- 이메일 보내기 버튼 -->
-					<p> <input type="button" value="EMAIL SEND" onClick="emailSend()"> </p> 
+					<p> <input type="button" id="total" value="EMAIL SEND" onClick="emailSend()"> </p> 
 					
 					<!-- 아이디/패스워드 찾기, 회원가입  -->
 					<p style="padding-left: 90px;">
 						<a href="PwdFind">패스워드 찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="/">메인 페이지</a>
 					</p>
-					
-					</br>${message }
+					</br>
+					<div id="message">${message }</div>
 				</fieldset>
 			</form>
 		</div>

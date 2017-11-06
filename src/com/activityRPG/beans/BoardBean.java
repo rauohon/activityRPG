@@ -28,15 +28,12 @@ public class BoardBean {
 	private int grCode; // 길드 게시판 댓글 번호
 	private MultipartFile gBoardFile;		// 길드 게시판 파일
 	/*↑ 신태휘*/
+	
 	public int code;
 	public String title;
 	public String content;
 	public Date date;
-	public int hit;
-	public int group;
-	public int step;
-	public int indent;
-	
+	public String comment;
 	
 	public int getGbCode() {
 		return gbCode;
@@ -123,29 +120,11 @@ public class BoardBean {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public int getHit() {
-		return hit;
+	public String getComment() {
+		return comment;
 	}
-	public void setHit(int hit) {
-		this.hit = hit;
-	}
-	public int getGroup() {
-		return group;
-	}
-	public void setGroup(int group) {
-		this.group = group;
-	}
-	public int getStep() {
-		return step;
-	}
-	public void setStep(int step) {
-		this.step = step;
-	}
-	public int getIndent() {
-		return indent;
-	}
-	public void setIndent(int indent) {
-		this.indent = indent;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	public String getId() {
 		return id;

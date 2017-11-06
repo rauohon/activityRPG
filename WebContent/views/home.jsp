@@ -31,30 +31,25 @@
 </script>
 </head>
 <body onLoad="init()">
-<%@ include file="nav.jsp"%>
-<div id='wraper' style="padding-top:60px;">
-	<table id="get">
-		<tr>
-			<td><a href="LoginForm">로그인</a></td>
-			<td><a href="JoinForm">회원가입</a></td>
-			<td><a href="IdFind">아이디 찾기</a></td>
-			<td><a href="PwdFind">패스워드 찾기</a></td>
-		</tr>
-	</table>
-	<a href='GuildBoardPage'>길드 게시판 이동</a>
-	
-	<h2 id="logincheck">${id }님 로그인 된 메인 페이지 입니다.</h2>
-	<table id="nodab">
-		<tr>
-		<td><button onClick="total('infoForm', 'Info', 'post')" id="info">나의 정보</button></td>
-		<td><button onClick="total('accessForm', 'AccessOut', 'post')" id="logout">로그아웃</button></td>
-		</tr>
-	</table>
-	<!-- 나의 정보쪽에서 확인 -->
-<!-- <div id="game">
-		<a href='ActivityDayLogPage'>운동정보 확인(회원)</a>&nbsp;&nbsp;&nbsp;&nbsp;
-		<a href='EnrollRaspberryPiPage'>라즈베리파이 등록</a>
-	 </div> -->
-</div>
+	<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
+		<table id="get">
+			<tr>
+				<td><a href="LoginForm">로그인</a></td>
+				<td><a href="JoinForm">회원가입</a></td>
+				<td><a href="IdFind">아이디 찾기</a></td>
+				<td><a href="PwdFind">패스워드 찾기</a></td>
+			</tr>
+		</table>
+		<a href='GuildBoardPage'>길드 게시판 이동</a>
+
+		<h2 id="logincheck">${id }님로그인 된 메인 페이지 입니다.</h2>
+		<table id="nodab">
+			<tr>
+				<td><button onClick="total('infoForm', 'Info', 'post')" id="info">나의 정보</button></td>
+				<td><button onClick="total('accessForm', 'AccessOut', 'post')" id="logout">로그아웃</button></td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>
