@@ -115,6 +115,7 @@ public class BoardController {
 	 */
 	@RequestMapping(value="/ModifyGBoard", method = RequestMethod.POST)
 	private ModelAndView modifyGBoard(@ModelAttribute BoardBean bean) {
+		
 		mav=gBoard.entrance(5, bean);
 		
 		return mav;

@@ -26,7 +26,6 @@ $(function(){
 		var msg = $('#message').val();
 		//메시지 전송
 		websocket.send(jobCode+"," + nick + ":" + msg);
-		alert(msg);
 		//메시지 입력창 초기화
 		$('#message').val('');
 	});

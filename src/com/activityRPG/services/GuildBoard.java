@@ -181,13 +181,19 @@ public class GuildBoard extends TranEx  {
 		try {
 			System.out.println("안오냐?");
 			bean.setId(session.getAttribute("id").toString());
+			System.out.println(bean.getGbCode());
+			System.out.println(bean.getGbTitle());
+			System.out.println(bean.getGbContent());
+			System.out.println(dao.setGuildBoardModify(bean));
 			if(dao.setGuildBoardModify(bean) !=0) {
+				System.out.println("보드 수정확인");
 				transaction = true;
 				RedirectView rv = null;
 				rv = new RedirectView("/GuildBoardPage");
 				rv.setExposeModelAttributes(false);
 				mav.setView(rv);
 			}else {
+				System.out.println("보드 수정 실패 확인");
 				mav.addObject("msg","system error");
 				mav.setViewName("guildBoard");
 			}
@@ -213,7 +219,7 @@ public class GuildBoard extends TranEx  {
 		try {
 			map.put("writer", session.getAttribute("chName").toString());
 			map.put("title", bean.getGbTitle());
-			map.put("reply", "-----------------------------");
+			map.put("reply", "-----------------------------\n");
 			map.put("content", bean.getGbContent());
 			map.put("wdate", sdf.format(bean.getGbWDate()));
 			map.put("gbGroup",String.valueOf(bean.getGbGroup()));
@@ -413,7 +419,7 @@ public class GuildBoard extends TranEx  {
 			sb.append(gBoardList.get(i).getGbCode());
 			sb.append("</td><td>");
 			sb.append(gBoardList.get(i).getChName());
-			sb.append("</td><td onClick='createForm(\""+ gBoardList.get(i).getGbCode() +"\")'>");
+			sb.append("</td><td onClick='readGboard(\""+ gBoardList.get(i).getGbCode() +"\")'>");
 			sb.append(gBoardList.get(i).getGbTitle());
 			sb.append("</td><td>");
 			sb.append(sdf.format((gBoardList.get(i).getGbWDate())));

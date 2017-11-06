@@ -12,7 +12,8 @@ function startc(){
 </script>
 </head>
 <body>
-<h1>writeGBoard Page 입니다.</h1>
+<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
 <form action='${action }' method='GET'>
 <table style='border:1px solid black; width:100%;'>
 <tr>
@@ -44,5 +45,6 @@ function startc(){
 <form action="UploadFileGBoard" method="post" enctype="multipart/form-data">
 	파일 : <input type="file" name="gBoardFile" /> <input type="button" value="제출">
 </form>
+</div>
 </body>
 </html>

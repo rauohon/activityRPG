@@ -109,7 +109,7 @@
 					</tr>
 				</table>
 			</div>
-			<div style="margin-top: 12px; background-image: url('images/people_Icon.png'); color: white; height: 455px;">
+			<div style="margin-top: 12px; background-image: url('images/people_Icon.png'); color: white; height: 455px; width: 520px;">
 				<br/>
 				<div style='margin-left: 35%; margin-top: 10%;'>
 					<h5>${necklace } ${necklaceEn }</h5>

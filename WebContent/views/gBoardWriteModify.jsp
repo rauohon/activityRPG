@@ -13,7 +13,7 @@ function startc(){
 </head>
 <body>
 <h1>writeGBoardModyfy Page 입니다.</h1>
-<form action='${action }' method='GET'>
+<form action='${action }' method='POST'>
 <table style='border:1px solid black; width:100%;'>
 <tr>
 <td>작성자</td>
@@ -42,7 +42,7 @@ ${reply }
 </tr>
 <tr>
 <td colspan="2" style='text-align: right;'>
-<input type='submit' value='작성'/>
+<input type='submit' value='수정'/>
 </td>
 </tr>
 </table>

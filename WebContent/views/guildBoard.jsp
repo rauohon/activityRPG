@@ -38,21 +38,28 @@ td{
   color: #fff;
   border-bottom: solid 1px rgba(255,255,255,0.1);
 }
+.active{
+	background-color: gray;
+}
 </style>
 <script type="text/javascript">
-function createForm(code) {
-	var f = $("#fixForm");
-	var i = $("<input />");
-	f.attr("name","readgboardpage");
-	f.attr("action","ReadGBoardPage");
-	f.attr("method","GET");
-	i.attr("type","hidden");
-	i.attr("name","gbCode");
-	i.attr("value",code);
-	$("#fixForm").append(i);
-	
-  document.readgboardpage.submit();
-}
+	function readGboard(code) {
+		var f = $("#fixForm");
+		var i = $("<input />");
+		f.attr("name", "readgboardpage");
+		f.attr("action", "ReadGBoardPage");
+		f.attr("method", "GET");
+		i.attr("type", "hidden");
+		i.attr("name", "gbCode");
+		i.attr("value", code);
+		$("#fixForm").append(i);
+		document.readgboardpage.submit();
+	}
+	$(document).ready(function() {
+		$("tr").hover(function() {
+			$(this).toggleClass( "active" );
+		});
+	});
 </script>
 </head>
 <body>
