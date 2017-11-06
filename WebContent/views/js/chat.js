@@ -18,12 +18,6 @@ $(function(){
 
 	});			
 
-	//퇴장 버튼을 누를 때 이벤트 처리
-	$('#exitBtn').bind('click', function(){
-		//웹 소켓 연결 해제
-		websocket.close();
-	});
-
 	//채팅 전송 버튼을 누를 때 이벤트 처리
 	$('#sendBtn').bind('click', function(){
 		//nickname 과 message에 입력된 내용을 서버에 전송
@@ -32,7 +26,7 @@ $(function(){
 		var msg = $('#message').val();
 		//메시지 전송
 		websocket.send(jobCode+"," + nick + ":" + msg);
-
+		alert(msg);
 		//메시지 입력창 초기화
 		$('#message').val('');
 	});

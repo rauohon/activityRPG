@@ -41,7 +41,6 @@
 			<td><a href="PwdFind">패스워드 찾기</a></td>
 		</tr>
 	</table>
-	<a href='GuildBoardPage'>길드 게시판 이동</a>
 	
 	<h2 id="logincheck">${id }님 로그인 된 메인 페이지 입니다.</h2>
 	<table id="nodab">

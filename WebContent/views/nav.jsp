@@ -14,17 +14,21 @@ function total(formname, action, method){
 	relationObj("infoForm", "id");
 	relationObj("accessForm", "id");
 	relationObj("characterinfo", "id");
+	relationObj("guildboardpage", "id");
 	form.submit();
 }
 </script>
 <link rel="stylesheet" href="css/home.css" media="screen" type="text/css" />
 <div id="layer_fixed">
-		<table id="table">
-			<tr>
-				<td><button onClick="total('mainForm', '/', 'post')" id="bar">MAIN PAGE</button></td>
-				<td><button onClick="total('msgForm', 'getMessageList', 'post')" id="bar">MESSAGE</button></td>
-				<td><button onClick="total('freeBoardForm', 'freeBoard', 'post')" id="bar">BOARD</button></td>
-				<td><button onClick="total('gameForm', 'GameForm', 'post')" id="bar">GAME PLAY</button></td>
-			</tr>
-		</table>
-	</div>
+	<ul style='text-align: center;'>
+		<li><button onClick="total('mainForm', '/', 'post')" id="bar">MAIN PAGE</button></li>
+		<li><button onClick="total('msgForm', 'getMessageList', 'post')" id="bar">MESSAGE</button></li>
+		<li><button onClick="total('gameForm', 'GameForm', 'post')" id="bar">GAME PLAY</button></li>
+		<li><button id="bar">BOARD</button>
+			<ul>
+				<li><button onClick="total('guildboardpage', 'GuildBoardPage', 'get')" id="bar">길드게시판</button></li>
+				<li><button onClick="total('freeBoardForm', 'freeBoard', 'post')" id="bar">자유게시판</button></li>
+			</ul>
+		</li>
+	</ul>
+</div>

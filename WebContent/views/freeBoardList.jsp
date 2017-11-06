@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>자유게시판 리스트 페이지</title>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="js/common.js"></script>
 <script>
 	function total(formname, action, method) {
@@ -48,18 +50,11 @@
 </script>
 </head>
 <body>
-<table id="table">
-			<tr>
-				<td><button onClick="total('mainForm', '/', 'post')" id="bar">MAIN PAGE</button></td>
-				<td><button onClick="total('msgForm', 'getMessageList', 'post')" id="bar">MESSAGE</button></td>
-				<td><button onClick="total('freeBoardForm', 'freeBoard', 'post')" id="bar">BOARD</button></td>
-				<td><button onClick="total('gameForm', 'game', 'post')" id="bar">GAME PLAY</button></td>
-			</tr>
-		</table>
+<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
+		<button id="click" onClick="total()">게시판 글 쓰기</button>
+		${freelist }
+		<div>${message }</div>
 	</div>
-	</br></br></br>
-	<button id="click" onClick="total()">게시판 글 쓰기</button>
-	${freelist }
-	<div>${message }</div>
 </body>
 </html>

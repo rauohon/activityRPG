@@ -400,7 +400,7 @@ public class GuildBoard extends TranEx  {
 
 		StringBuffer sb = new StringBuffer();
 		List<BoardBean> gBoardList = dao.getGuildBoardList(bean);
-		sb.append("<table><tr><th>글 번호</th><th>작성자</th><th>글 제목</th><th>작성일</th><th>조회수</th></tr>");
+		sb.append("<table><thead><tr><th>글 번호</th><th>작성자</th><th style=\'width: 50%;\'>글 제목</th><th>작성일</th><th>조회수</th></tr></thead><tbody>");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		for(int i=0 ; i< gBoardList.size();i++) {
 			Collections.sort(gBoardList, new Comparator<BoardBean>(){
@@ -422,7 +422,7 @@ public class GuildBoard extends TranEx  {
 			sb.append("</td></tr>");
 		}
 
-		sb.append("</table>");
+		sb.append("</tbody></table>");
 		return sb.toString();
 	}
 
