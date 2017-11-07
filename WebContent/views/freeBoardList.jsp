@@ -40,17 +40,10 @@
 </head>
 <body>
 <%@ include file="nav.jsp"%>
-<<<<<<< HEAD
 	<div style="padding-top:60px;">
 	<button onClick="board()" id="click">게시판 글 쓰기</button>
 	${freelist }
 	<div>${message }</div>
-=======
-	<div id='wraper' style="padding-top: 60px;">
-		<button id="click" onClick="total()">게시판 글 쓰기</button>
-		${freelist }
-		<div>${message }</div>
->>>>>>> 9b69c41296a06ba1f773d84284743e57c39324d8
 	</div>
 </body>
 </html>

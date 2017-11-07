@@ -33,13 +33,8 @@ function messageDelete(mbid, msgText){
 </script>
 </head>
 <body>
-<<<<<<< HEAD
-<%@ include file="nav.jsp"%>
-	<div style="padding-top:60px">
-=======
 	<%@ include file="nav.jsp"%>
 	<div id='wraper' style="padding-top: 60px;">
->>>>>>> 9b69c41296a06ba1f773d84284743e57c39324d8
 	<h3>받은 메시지 함</h3>
 	<input type="hidden" name="id" value="${id }"  />
 	<button id="click" onClick="total('messageForm', 'writingMessage', 'post')">메시지 쓰기</button>
