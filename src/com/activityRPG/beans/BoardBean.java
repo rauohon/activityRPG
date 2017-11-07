@@ -17,11 +17,9 @@ public class BoardBean {
 	public String title;
 	public String content;
 	public Date date;
-	public int hit;
-	public int group;
-	public int step;
-	public int indent;
+	public String comment;
 	/*↑ 전지원*/
+	
 	/*↓ 신태휘*/
 	private int gbCode;		//길드 게시판 글번호
 	private String id;				//길드 게시판 작성자 아이디
@@ -38,14 +36,7 @@ public class BoardBean {
 	private int grCode; // 길드 게시판 댓글 번호
 	private MultipartFile gBoardFile;		// 길드 게시판 파일
 	/*↑ 신태휘*/
-<<<<<<< HEAD
 	
-	public int code;
-	public String title;
-	public String content;
-	public Date date;
-	public String comment;
-=======
 	//******************김훈****************************
 	private int newsBoardCode;			//공지사항 게시판 글 번호
 	private String newsBoardUserId;		//공지사항 게시판 작성자 아이디
@@ -112,10 +103,6 @@ public class BoardBean {
 	public void setNewsBoardIndent(int newsBoardIndent) {
 		this.newsBoardIndent = newsBoardIndent;
 	}
-	
-	
->>>>>>> 9b69c41296a06ba1f773d84284743e57c39324d8
-	
 	public int getGbCode() {
 		return gbCode;
 	}

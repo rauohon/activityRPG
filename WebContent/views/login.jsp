@@ -8,12 +8,13 @@
 <title>MainPage</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.3/svg.js"></script>
 <script src="js/common.js"></script>
-<link rel="stylesheet" href="/css/login.css" media="screen" type="text/css" />
+
 </head>
 
 <body>
 <%@ include file="nav.jsp"%>
 	<!-- login -->
+	<link rel="stylesheet" href="/css/login.css" media="screen" type="text/css" />
 	<div class="container" style="padding-top: 60px">
 		<div id="login">
 

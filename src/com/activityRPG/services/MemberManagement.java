@@ -454,7 +454,8 @@ public class MemberManagement extends TranEx {
 				mav.setViewName("info");
 				mav.addObject("id", mb.getId());
 				mav.addObject("userInfo", getInformation(mb));
-				
+				System.out.println(mb.getPwd());
+				System.out.println(session.getAttribute("pwd"));
 				mb.setPwd(enc.encode(mb.getPwd()));
 				dao.pwdChange(mb);
 			}
