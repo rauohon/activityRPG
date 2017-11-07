@@ -13,10 +13,6 @@ function total(formname, action, method){
 	
 	createObj("hidden", "id", "${id}", "");
 	
-	relationObj("mainForm", "id");
-	relationObj("msgForm", "id");
-	relationObj("boardForm", "id");
-	relationObj("gameForm", "id");
 	relationObj("messageForm", "id");
 	relationObj("sendmsgForm", "id");
 	form.submit();
@@ -35,21 +31,10 @@ function sendMessageDelete(mbid, msgText){
 </script>
 </head>
 <body>
-<div id="layer_fixed">
-		<table cellspacing="0" cellpadding="0">
-			<!-- <tr>
-				<td id="maintext">TEXT-RPG</td>
-			</tr> -->
-			<tr>
-				<td><button onClick="total('mainForm', '/', 'post')" id="bar">MAIN PAGE</button></td>
-				<td><button onClick="total('msgForm', 'getMessageList', 'post')" id="bar">MESSAGE</button></td>
-				<td><button onClick="total('boardForm', 'board', 'post')" id="bar">BOARD</button></td>
-				<td><button onClick="total('gameForm', 'game', 'post')" id="bar">GAME PLAY</button></td>
-			</tr>
-		</table>
-	</div>
-	<div></br></br>
+<%@ include file="nav.jsp"%>
+	<div style="padding-top:60px">
 	<h3>보낸 메시지 함</h3>
+	<input type="hidden" name="id" value="${id }"  />
 	<button id="click" onClick="total('messageForm', 'writingMessage', 'post')">메시지 쓰기</button>
 	<button id="click" onClick="total('sendmsgForm', 'getMessageList', 'post')">받은 메시지</button>
 	</div>

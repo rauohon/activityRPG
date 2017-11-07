@@ -1,6 +1,5 @@
 body {
 	background: linear-gradient(to right, #2c3338, #475660);
-	padding-top: 50px;
 	margin-left: 10px;
 	margin-right: 10px;
 }
@@ -14,6 +13,7 @@ body {
 }
 
 h2 {
+	margin-top: 50px;
 	text-align: center;
 	padding: 18px 0 18px 0;
 	font-size: 1.4em;
@@ -66,9 +66,9 @@ p {
 }
 
 button {
-	margin-top: 15px;
+	margin-top: 5px;
 	/* margin-bottom: 25px; */
-	margin-left: 66.5%;
+	margin-left: 18%;
 	background-color: #f47757;
 	padding: 12px 45px;
 	border-radius: 5px;
@@ -78,10 +78,26 @@ button {
 	cursor: pointer;
 	width: 17.5%;
 	color:#fff;
-	    font-size: 16px;
+	font-size: 16px;
 }
 
 button:hover {
 	background: #f79e87;
 	border-color: #f79e87;
+}
+
+
+#list {
+	margin-top: 5px;
+	margin-left: 66.4%;
+	background-color: #f47757;
+	padding: 12px 45px;
+	border-radius: 5px;
+	border: 1px solid #f47757;
+	transition: 0.5s;
+	display: inline-block;
+	cursor: pointer;
+	width: 17.5%;
+	color:#fff;
+	font-size: 16px;
 }

@@ -165,9 +165,6 @@ $(function()
      },
 
      submitHandler: function(form) {
-    	 
-    	 
-    	 
  		form.submit();
  		alert('ok');
      }

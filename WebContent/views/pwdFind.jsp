@@ -27,8 +27,9 @@
 </head>
 
 <body>
+<%@ include file="nav.jsp"%>
 	<!-- login -->
-	<div class="container">
+	<div class="container" style="padding-top:60px">
 		<div id="login">
 			<form action="javascript:void(0);" method="get">
 				<fieldset class="clearfix">
@@ -41,14 +42,14 @@
 					</p>
 					<input type="hidden" value="${id }" name="id" />
 					<!-- 로그인 버튼 -->
-					<p> <input type="button" value="ID CHECK" onClick="sendData()"> </p> 
+					<p> <input type="button" id="total" value="ID CHECK" onClick="sendData()"> </p> 
 					
 					<!-- 아이디/패스워드 찾기, 회원가입  -->
 					<p style="padding-left: 200px;">
 						<a href="/">메인 페이지</a>
 					</p>
 					
-					${message }
+					<div id="message">${message }</div>
 				</fieldset>
 			</form>
 		</div>

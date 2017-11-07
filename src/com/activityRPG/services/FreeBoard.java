@@ -32,9 +32,8 @@ public class FreeBoard extends TranEx {
 	private IMBatisDao dao;
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 	
-	public ModelAndView entrance(int code, Object...object) throws Exception{
+	public ModelAndView entrance(int code, Object...object) {
 		ModelAndView mav = null;
-		//session.setAttribute("page",((BoardBean)object[0]).getPage());
 		switch(code) {
 		//메인 게시판(자유)
 		case 1:
@@ -70,14 +69,10 @@ public class FreeBoard extends TranEx {
 	}
 
 	//메인 게시판(자유)
-	public ModelAndView freeboard(BoardBean board) throws Exception {
+	public ModelAndView freeboard(BoardBean board) {
 		ModelAndView mav = new ModelAndView();
 
-		System.out.println(session.getAttribute("id"));
-		System.out.println(board.getId());
-		
 		System.out.println("service :: 메인 게시판(자유)");
-		//board.setId(session.getAttribute("id").toString());
 		try {
 			mav.addObject("freelist", freeboardlist(board));
 			mav.setViewName("freeBoardList");
@@ -87,7 +82,7 @@ public class FreeBoard extends TranEx {
 		return mav;
 	}
 	//메인 게시판(자유) >> 리스트 
-	private String freeboardlist(BoardBean board) throws Exception {
+	private String freeboardlist(BoardBean board) {
 		StringBuffer sb = new StringBuffer();
 		List<BoardBean> bean = dao.freeBoardList(board);
 		
@@ -102,22 +97,18 @@ public class FreeBoard extends TranEx {
 		for(int i=0; i<bean.size(); i++) {
 			sb.append("<tr>");
 			sb.append("<td>" + bean.get(i).getCode() + "</td>");
-			sb.append("<td>" + "<button onClick=\"viewContents(\'"+ bean.get(i).getCode() +"\')\" >" + bean.get(i).getTitle() + "</button>" + "</td>");
+			sb.append("<td>" + "<button id=\'title\' onClick=\"viewContents(\'"+ bean.get(i).getCode() +"\')\" >" + bean.get(i).getTitle() + "</button>" + "</td>");
 			sb.append("<td>" + bean.get(i).getId() + "</td>");
 			sb.append("<td>" + sdf.format(bean.get(i).getDate()) + "</td>");
-			sb.append("<td>" + "<button onClick=\"freedelete(\'"+ bean.get(i).getCode() +"\', \'"+bean.get(i).getId()+"\')\">" + "삭제" + "</button>" + "</td>");
+			sb.append("<td>" + "<button id=\'del\' onClick=\"freedelete(\'"+ bean.get(i).getCode() +"\', \'"+bean.get(i).getId()+"\')\">" + "삭제" + "</button>" + "</td>");
 			sb.append("</tr>");
-			sb.append("</br>");
 		}
 		return sb.toString();
 	}
 	
 	//자유게시판 글 내용
-	public ModelAndView freeboardcontent(BoardBean board) throws Exception {
+	public ModelAndView freeboardcontent(BoardBean board) {
 		ModelAndView mav = new ModelAndView();
-
-		System.out.println(session.getAttribute("id"));
-		System.out.println(board.getId());
 
 		System.out.println("service :: 자유게시판 내용 보기");
 		try {
@@ -129,7 +120,7 @@ public class FreeBoard extends TranEx {
 		return mav;
 	}
 	//자유게시판 글 내용
-	private String getfreeboardcontent(BoardBean board) throws Exception {
+	private String getfreeboardcontent(BoardBean board) {
 		StringBuffer sb = new StringBuffer();
 		BoardBean bean = dao.freeBoardContent(board);
 		
@@ -156,21 +147,30 @@ public class FreeBoard extends TranEx {
 		sb.append("<td>" + sdf.format(bean.getDate()) + "</td>");
 		sb.append("</tr>");
 		sb.append("</table>");
-		sb.append("<input type=\"button\" value=\"글 수정하기\" onClick=\"freeUpdate(\'"+bean.getId()+"\',\'"+ bean.getCode() +"\',\'" + bean.getTitle() + "\',\'" + bean.getContent() + "\',\'" + sdf.format(bean.getDate()) +"\')\">");
+		sb.append("<input type=\"button\" id=\'update\' value=\"글 수정하기\" onClick=\"freeUpdate(\'"+bean.getId()+"\',\'"+ bean.getCode() +"\',\'" + bean.getTitle() + "\',\'" + bean.getContent() + "\',\'" + sdf.format(bean.getDate()) +"\')\">");
 		
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td>" + "댓글 달기" + "</td>");
+		sb.append("<td>" + "<input type=\'text\' name=\'comment\' placeholder=\'댓글 달기\' />" + "</td>");
+		sb.append("<td>" + "<input type=\'button\' onClick=\'put()\' />" + "</td>");
+		sb.append("</tr>");
 		return sb.toString();
 	}
 	
 	//자유게시판 글쓰기 페이지
-	public ModelAndView freeboardinsertpage(BoardBean board) throws Exception {
+	public ModelAndView freeboardinsertpage(BoardBean board) {
 		ModelAndView mav = new ModelAndView();
 		
-		System.out.println("service :: 자유게시판 글쓰기 페이지");
-		System.out.println(session.getAttribute("id"));
 		System.out.println(board.getId());
+		System.out.println("service :: 자유게시판 글쓰기 페이지");
 		try {
+			System.out.println(session.getAttribute("id"));
 			if(session.getAttribute("id") != null) {
 				mav.setViewName("freeInserPage");
+			}else {
+				mav.setViewName("login");
+				mav.addObject("message", "로그인 후 이용해 주세요.");
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -179,12 +179,12 @@ public class FreeBoard extends TranEx {
 	}
 	
 	//자유게시판 글 등록
-	public ModelAndView freeboardinsert(BoardBean board) throws Exception {
+	public ModelAndView freeboardinsert(BoardBean board) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("service :: 자유게시판 글 등록하기");
-		session.setAttribute("id", board.getId());
-		System.out.println(session.getAttribute("id"));
+		
 		try {
+			session.setAttribute("id", board.getId());
 			if(session.getAttribute("id") != null) {
 				if(dao.freeInsert(board) != 0) {
 					System.out.println("데이터베이스에 게시글 저장함.");
@@ -199,11 +199,9 @@ public class FreeBoard extends TranEx {
 	}
 	
 	//자유게시판 글 삭제
-	public ModelAndView freeboarddelete(BoardBean board) throws Exception {
+	public ModelAndView freeboarddelete(BoardBean board) {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("service :: 자유게시판 글 삭제");
-		System.out.println(session.getAttribute("id"));
-		System.out.println(board.getId());
 		try {
 			if(board.getId().equals(session.getAttribute("id"))) {
 				if(dao.freeDelete(board) != 0) {
@@ -222,14 +220,10 @@ public class FreeBoard extends TranEx {
 	}
 
 	//자유게시판 글 수정 페이지
-	public ModelAndView freeboardupdate(BoardBean board) throws Exception {
+	public ModelAndView freeboardupdate(BoardBean board) {
 		ModelAndView mav = new ModelAndView();
 		Map<String, String> map = null;
 		System.out.println("service :: 자유게시판 글 수정 페이지");
-		//session.setAttribute("id", board.getId());
-		System.out.println();
-		System.out.println(session.getAttribute("id"));
-		System.out.println(board.getId());
 		try {
 			if(board.getId().equals(session.getAttribute("id"))) {
 				map = new HashMap<String, String>();
@@ -237,7 +231,6 @@ public class FreeBoard extends TranEx {
 				map.put("content", board.getContent());
 				map.put("date", sdf.format(board.getDate()));
 				map.put("id", board.getId());
-				
 				
 				mav.setViewName("freeBoardUpdate");
 				mav.addObject("title", map.get("title"));
@@ -257,10 +250,9 @@ public class FreeBoard extends TranEx {
 	}
 	
 	//자유게시판 글 수정 올리기
-		public ModelAndView freeupdatecheck(BoardBean board) throws Exception {
+		public ModelAndView freeupdatecheck(BoardBean board) {
 			ModelAndView mav = new ModelAndView();
 			System.out.println("service :: 자유게시판 글 수정 올리기");
-			//session.setAttribute("id", board.getId());
 			try {
 				if(board.getId().equals(session.getAttribute("id"))) {
 					if(dao.freeUpdate(board) != 0) {

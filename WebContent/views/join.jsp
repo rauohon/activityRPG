@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>JoinFormPage</title>
-
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.js"></script>
@@ -18,8 +17,7 @@
 		crossorigin="anonymous"></script>
 <script src="js/common.js"></script>
 <script src="js/join.js"></script>
-<link rel="stylesheet" href="css/join.css" media="screen"
-	type="text/css" />
+<link rel="stylesheet" href="css/join.css" media="screen" type="text/css" />
 	
 <script>
  	function btnId(){
@@ -51,7 +49,8 @@
 </head>
 
 <body>
-	<div class="container">
+<%@ include file="nav.jsp"%>
+	<div class="container" style="padding-top:60px">
 		<div class="signup-form-container">
 
 			<!-- form start -->

@@ -15,10 +15,6 @@ function total(formname, action, method){
 	
 	createObj("hidden", "id", "${id}", "");
 	
-	relationObj("mainForm", "id");
-	relationObj("msgForm", "id");
-	relationObj("boardForm", "id");
-	relationObj("gameForm", "id");
 	relationObj("messageForm", "id");
 	relationObj("sendmsgForm", "id");
 	form.submit();
@@ -40,6 +36,7 @@ function messageDelete(mbid, msgText){
 	<%@ include file="nav.jsp"%>
 	<div id='wraper' style="padding-top: 60px;">
 	<h3>받은 메시지 함</h3>
+	<input type="hidden" name="id" value="${id }"  />
 	<button id="click" onClick="total('messageForm', 'writingMessage', 'post')">메시지 쓰기</button>
 	<button id="click" onClick="total('sendmsgForm', 'sendmessage', 'post')">보낸 메시지</button>
 
