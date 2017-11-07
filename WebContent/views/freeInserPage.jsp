@@ -28,7 +28,8 @@ function insert(){
 </script>
 </head>
 <body>
-	<div id="setMessage">
+<%@ include file="nav.jsp"%>
+	<div id="setMessage" style="padding-top:60px">
 		<div class="head">
 			<h2>자유게시판 글 쓰기</h2>
 		</div>

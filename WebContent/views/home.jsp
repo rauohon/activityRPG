@@ -30,6 +30,28 @@
 </script>
 </head>
 <body onLoad="init()">
+<<<<<<< HEAD
+	<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
+		<table id="get">
+			<tr>
+				<td><a href="LoginForm">로그인</a></td>
+				<td><a href="JoinForm">회원가입</a></td>
+				<td><a href="IdFind">아이디 찾기</a></td>
+				<td><a href="PwdFind">패스워드 찾기</a></td>
+			</tr>
+		</table>
+		<a href='GuildBoardPage'>길드 게시판 이동</a>
+
+		<h2 id="logincheck">${id }님로그인 된 메인 페이지 입니다.</h2>
+		<table id="nodab">
+			<tr>
+				<td><button onClick="total('infoForm', 'Info', 'post')" id="info">나의 정보</button></td>
+				<td><button onClick="total('accessForm', 'AccessOut', 'post')" id="logout">로그아웃</button></td>
+			</tr>
+		</table>
+	</div>
+=======
 <%@ include file="nav.jsp"%>
 <div id='wraper' style="padding-top:60px;">
 	<table id="get">
@@ -48,5 +70,6 @@
 		</tr>
 	</table>
 </div>
+>>>>>>> 9b69c41296a06ba1f773d84284743e57c39324d8
 </body>
 </html>

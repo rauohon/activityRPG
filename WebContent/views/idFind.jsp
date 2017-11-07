@@ -28,8 +28,9 @@
 </head>
 
 <body>
+<%@ include file="nav.jsp"%>
 	<!-- login -->
-	<div class="container">
+	<div class="container" style="padding-top:60px">
 		<div id="login">
 			<form action="javascript:void(0);" method="get">
 				<fieldset class="clearfix">
@@ -41,8 +42,8 @@
 								onFocus="if(this.value == 'Phone') this.value = ''" required>
 					</p>
 					
-					<!-- 이메일 확인 버튼 -->
-					<p> <input type="button" value="PHONE CHECK" onClick="idFind()"> </p> 
+					<!-- 핸드폰번호 확인 버튼 -->
+					<p> <input type="button" id="total" value="PHONE CHECK" onClick="idFind()"> </p>
 					
 					<!-- 아이디/패스워드 찾기, 회원가입  -->
 					<p style="padding-left: 90px;">
@@ -50,7 +51,8 @@
 						<a href="/">메인 페이지</a>
 					</p>
 					
-					<br/>${message }
+					<br/>
+					<div id="message">${message }</div>
 				</fieldset>
 			</form>
 		</div>

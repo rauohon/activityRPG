@@ -254,4 +254,12 @@ public class MemberController {
 		mav = mm.entrance(20, member);
 		return mav;
 	}
+	
+	//패스워드 수정 >> 되돌리기
+	@RequestMapping(value="/infoBack", method = RequestMethod.POST)
+	public ModelAndView infoBack(@ModelAttribute MemberBean member) throws Exception {
+		System.out.println("MemberController :: 패스워드 수정 >> 되돌리기");
+		mav = mm.entrance(21, member);
+		return mav;
+	}
 }

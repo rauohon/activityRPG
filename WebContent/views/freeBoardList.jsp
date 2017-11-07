@@ -8,20 +8,9 @@
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="js/common.js"></script>
+<link rel="stylesheet" href="css/freeBoardList.css" media="screen" type="text/css" />
 <script>
-	function total(formname, action, method) {
-		var form = createForm(formname, action, method);
-
-		createObj("hidden", "id", "${id}", "");
-
-		relationObj("mainForm", "id");
-		relationObj("msgForm", "id");
-		relationObj("freeBoardForm", "id");
-		relationObj("gameForm", "id");
-		form.submit();
-	}
-
-	function total() {
+	function board() {
 		var form = createForm('freeBoardInsertForm', 'freeInsertPage', 'post');
 		createObj("hidden", "id", "${id}", "");
 		relationObj("freeBoardInsertForm", "id");
@@ -51,10 +40,10 @@
 </head>
 <body>
 <%@ include file="nav.jsp"%>
-	<div id='wraper' style="padding-top: 60px;">
-		<button id="click" onClick="total()">게시판 글 쓰기</button>
-		${freelist }
-		<div>${message }</div>
+	<div style="padding-top:60px;">
+	<button onClick="board()" id="click">게시판 글 쓰기</button>
+	${freelist }
+	<div>${message }</div>
 	</div>
 </body>
 </html>

@@ -2,7 +2,7 @@
 
 body {
   background: linear-gradient(to right, #2c3338, #475660);
-  color: #fafafa;
+  color: #fff;
   font: 87.5%/1.5em 'Open Sans', sans-serif;
   margin: 0;
 }
@@ -51,4 +51,24 @@ body {
 
 td {
 	padding-right: 50px;
+}
+
+#del {
+	margin-bottom: 10px;
+	margin-left: 2%;
+	width: 72px;
+	height: 24px;
+	background-color: #f47757;
+	padding: 1px 20px;
+	border-radius: 5px;
+	border: 1px solid #f47757;
+	display: inline-block;
+	cursor: pointer;
+	color:#fff;
+	font-size: 12px;
+}
+
+#del:hover {
+	background: #f79e87;
+	border-color: #f79e87;
 }

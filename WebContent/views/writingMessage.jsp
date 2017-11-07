@@ -17,15 +17,19 @@ function message(){
 </script>
 </head>
 <body>
+	<%@ include file="nav.jsp"%>
 	<form id="setMessage" action="setMessage" method="post">
-		<div class="head">
-			<h2>메시지 보내기</h2>
-		</div>
-		<div class="container">
-			<p>보내는 사람 : ${id }</p>
-			<input type="text" id="a" name="mbid" placeholder="받는 사람" /><br />
-			<input type="text" id="b" name="msgText" placeholder="내용" /> <br />
-			<input id="submit" type="submit" value="메시지 보내기 " />
+
+		<div style="padding-top: 60px">
+			<div class="head">
+				<h2>메시지 보내기</h2>
+			</div>
+			<div class="container">
+				<p>보내는 사람 : ${id }</p>
+				<input type="text" id="a" name="mbid" placeholder="받는 사람" /><br />
+				<input type="text" id="b" name="msgText" placeholder="내용" /> <br />
+				<input id="submit" type="submit" value="메시지 보내기 " />
+			</div>
 		</div>
 	</form>
 	<button id="list" onClick="message()">목록</button>

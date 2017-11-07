@@ -13,10 +13,6 @@
 
 		createObj("hidden", "id", "${id}", "");
 
-		relationObj("mainForm", "id");
-		relationObj("msgForm", "id");
-		relationObj("boardForm", "id");
-		relationObj("gameForm", "id");
 		relationObj("activityDayLogForm", "id");
 		relationObj("enrollRaspberryPiForm", "id");
 		relationObj("passwordChangeForm", "id");
@@ -76,18 +72,11 @@
 </script>
 </head>
 <body>
-	<div id="layer_fixed">
-		<table id="table">
-			<tr>
-				<td><button onClick="total('mainForm', '/', 'post')" id="bar">MAIN PAGE</button></td>
-				<td><button onClick="total('msgForm', 'getMessageList', 'post')" id="bar">MESSAGE</button></td>
-				<td><button onClick="total('boardForm', 'board', 'post')" id="bar">BOARD</button></td>
-				<td><button onClick="total('gameForm', 'game', 'post')" id="bar">GAME PLAY</button></td>
-			</tr>
-		</table>
-	</div>
-	</br></br>
+<%@ include file="nav.jsp"%>
+<div style="padding-top:60px">
 	<h3>나의 정보</h3>
+	<input type="hidden" name="id" value="${id }" />
 	${userInfo }
+</div>
 </body>
 </html>
