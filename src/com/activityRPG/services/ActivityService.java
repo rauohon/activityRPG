@@ -1,5 +1,7 @@
 package com.activityRPG.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
@@ -7,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.activityRPG.beans.ActivityBean;
 import com.activityRPG.dao.IMBatisDao;
 import com.activityRPG.utils.ProjectUtils;
+import com.google.gson.Gson;
 
 /**
  * @클래스명 : ActivityService
@@ -451,7 +454,14 @@ public class ActivityService {
 	 */
 	private String todayActivity(ActivityBean bean) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("오늘, 지금의 걸음, 오른 층수가 표시됩니다.");
+		
+		Gson gson = new Gson();
+		
+		List<ActivityBean> step = dao.getTodayStep(bean);
+		
+		sb.append(gson.toJson(step));
+		
+		System.out.println(sb.toString());
 
 		return sb.toString();
 	}
