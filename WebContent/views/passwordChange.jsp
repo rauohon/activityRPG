@@ -11,7 +11,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 		crossorigin="anonymous"></script>
-<link rel="stylesheet" href="css/passwordChange.css" media="screen" type="text/css" />
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="js/common.js"></script>
 <script src="js/passwordChange.js"></script>
 <script>
@@ -37,7 +38,8 @@
 </head>
 <body>
 <%@ include file="nav.jsp"%>
-	<div id="pwdChange" style="padding-top:60px;">
+	<link rel="stylesheet" href="css/passwordChange.css" media="screen" type="text/css" />
+	<div id="pwdChange" style="padding-top:70px;">
 		<!-- <div class="form-group">
 			<input type="password" name="pw" placeholder="현재 패스워드" />
 		</div> -->
@@ -61,8 +63,8 @@
 			</div>
 		</div>
 		<input type="hidden" value="${id }" />
-		<button onClick="change()">패스워드 변경</button><br>
-		<button onClick="infoBack()">나의 정보로 돌아가기</button>
+		<button id="btn" onClick="change()">패스워드 변경</button><br>
+		<button id="btn" onClick="infoBack()">나의 정보로 돌아가기</button>
 		</form>
 	</div>
 </body>
