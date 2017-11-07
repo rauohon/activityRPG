@@ -38,7 +38,7 @@
 </head>
 <body>
 <%@ include file="nav.jsp"%>
-	<div id="pwdChange" style="padding-top:60px;">
+	<div id="pwdChange" style="padding-top:70px;">
 		<!-- <div class="form-group">
 			<input type="password" name="pw" placeholder="현재 패스워드" />
 		</div> -->
@@ -63,8 +63,8 @@
 			</div>
 		</div>
 		<input type="hidden" value="${id }" />
-		<button onClick="change()">패스워드 변경</button><br>
-		<button onClick="infoBack()">나의 정보로 돌아가기</button>
+		<button id="btn" onClick="change()">패스워드 변경</button><br>
+		<button id="btn" onClick="infoBack()">나의 정보로 돌아가기</button>
 		</form>
 	</div>
 </body>
