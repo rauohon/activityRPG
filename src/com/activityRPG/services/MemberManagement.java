@@ -446,21 +446,28 @@ public class MemberManagement extends TranEx {
 	//패스워드 변경
 	public ModelAndView changePwd(MemberBean mb) {
 		ModelAndView mav = new ModelAndView();
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		boolean transaction = false;
 		System.out.println("service :: 패스워드 변경");
+		System.out.println(mb.getPwd() + " :: 패스워드 서비스1");
 		try {
 			mb.setId(session.getAttribute("id").toString());
 			if(dao.IdCheck(mb) != 0) {
-				System.out.println("패스워드 변경해주란");
-				mav.setViewName("info");
-				mav.addObject("id", mb.getId());
-				mav.addObject("userInfo", getInformation(mb));
-				
+				System.out.println(mb.getPwd() + " :: 패스워드 서비스2");
 				mb.setPwd(enc.encode(mb.getPwd()));
-				dao.pwdChange(mb);
+				System.out.println(mb.getPwd() + " :: 패스워드 서비스3");
+				if(dao.pwdChange(mb) != 0) {
+					System.out.println("패스워드 변경 성공");
+					mav.addObject("id", mb.getId());
+					mav.addObject("userInfo", getInformation(mb));				
+					mav.setViewName("info");
+					transaction = true;
+				}
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
+		setTransactionResult(transaction);
 		return mav;
 	}
 	
