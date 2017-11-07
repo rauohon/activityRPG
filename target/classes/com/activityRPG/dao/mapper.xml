@@ -150,6 +150,17 @@
 		INSERT INTO MEMBER_RASP VALUES(#{riId},#{id},DEFAULT)
 	</insert>
 	
+	<select id="getTodayStep" parameterType="actBean" resultType='actBean'>
+		SELECT 
+			SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor 
+		FROM 
+			ACTIVITY 
+		WHERE 
+			AT_LOGDATE BETWEEN TO_DATE('2017/11/07','YYYY/MM/DD') AND TO_DATE('2017/11/07','YYYY/MM/DD')+1
+		AND
+			AT_MRID = 1
+	</select>
+	
 	<!-- 캐릭터 이름 가져오기 -->
 	<select id="getCharaName" parameterType="boardBean" resultType="boardBean">
 		SELECT CH_NAME AS chName FROM USER_CHARACTER WHERE CH_MBID=#{id}

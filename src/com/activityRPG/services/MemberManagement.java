@@ -420,7 +420,7 @@ public class MemberManagement extends TranEx {
 		sb.append("</tr>");
 		sb.append("</table>" + "</br>");
 		sb.append("<button id=\'infocheck\' onClick=\"total(\'activityDayLogForm \', \'ActivityDayLogPage\', \'post\')\" />"+"운동 정보 확인"+"</button>");
-		sb.append("<button id=\'ras\' onClick=\"total(\'enrollRaspberryPiForm\', \'EnrollRaspberryPiPage\', \'post\')\" />"+"내 운동량 측정 등록하기"+"</button>");
+		sb.append("<button id=\'ras\' onClick=\"total(\'enrollRaspberryPiForm\', \'EnrollRaspberryPiPage\', \'post\')\" />"+"라즈베리 파이 등록하기"+"</button>");
 		sb.append("<button id=\'infocheck\' onClick=\"total(\'passwordChangeForm\', \'passwordChangePage\', \'post\')\" />"+"비밀번호 변경"+"</button>");
 		return sb.toString();
 	}
