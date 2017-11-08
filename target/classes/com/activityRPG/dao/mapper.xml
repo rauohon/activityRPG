@@ -433,150 +433,122 @@
 	<!-- **************************김훈******************************* -->
 
 	<!-- 공지사항 리스트 출력 -->
-	<select id="newsBoardList" resultMap="BoardMap">
-		SELECT * FROM NOTICEBOARD
-		ORDER BY NB_CODE DESC
+	<select id="newsBoardList" resultMap="newsBoardMap">
+		SELECT * FROM NOTICEBOARD ORDER BY NB_CODE DESC
 	</select>
-
-	<resultMap type="BoardBean" id="BoardMap">
+	
+	<resultMap type="BoardBean" id="newsBoardMap">
 		<result property="newsBoardCode" column="NB_CODE" javaType="java.lang.Integer" />
 		<result property="newsBoardUserId" column="NB_MBID" javaType="java.lang.String" />
 		<result property="newsBoardTitle" column="NB_TITLE" javaType="java.lang.String" />
-		<result property="newsBoardContents" column="NB_CONTENT"
-			javaType="java.lang.String" />
+		<result property="newsBoardContents" column="NB_CONTENT" javaType="java.lang.String" />
 		<result property="newsBoardDate" column="NB_DATE" javaType="java.util.Date" />
 		<result property="newsBoardHit" column="NB_HIT" javaType="java.lang.Integer" />
 		<result property="newsBoardGroup" column="NB_GROUP" javaType="java.lang.Integer" />
 		<result property="newsBoardStep" column="NB_STEP" javaType="java.lang.Integer" />
 		<result property="newsBoardIndent" column="NB_INDENT" javaType="java.lang.Integer" />
 	</resultMap>
-
+	
 	<!-- 공지사항 작성 -->
 	<insert id="newsBoardMake" parameterType="BoardBean">
-		INSERT INTO NOTICEBOARD
-		VALUES(NOTICEBOARD_SEQ.NEXTVAL, #{newsBoardUserId}, #{newsBoardTitle},
-		#{newsBoardContents}, DEFAULT, 0, 0, 0, 0)
+		INSERT INTO NOTICEBOARD VALUES(NOTICEBOARD_SEQ.NEXTVAL, #{newsBoardUserId}, #{newsBoardTitle}, #{newsBoardContents}, DEFAULT, 0, 0, 0, 0)
 	</insert>
-
+	
 	<!-- 관리자 판단 -->
 	<select id="userType" parameterType="MemberBean" resultType="Integer">
 		SELECT MB_TYPE FROM MEMBER WHERE MB_ID = #{id}
 	</select>
-
+	
 	<!-- 공지사항 게시글 내용 출력 -->
-	<select id="newsBoardContents" parameterType="BoardBean"
-		resultMap="BoardMap">
+	<select id="newsBoardContents" parameterType="BoardBean" resultMap="newsBoardMap">
 		SELECT * FROM NOTICEBOARD WHERE NB_CODE = #{newsBoardCode}
 	</select>
-
+	
 	<!-- 공지사항 게시글 조회수 증가 -->
 	<update id="newsBoardHitUp" parameterType="BoardBean">
-		UPDATE NOTICEBOARD SET
-		NB_HIT = #{newsBoardHit} WHERE NB_CODE = #{newsBoardCode}
+		UPDATE NOTICEBOARD SET NB_HIT = #{newsBoardHit} WHERE NB_CODE = #{newsBoardCode}
 	</update>
-
+	
 	<!-- 공지사항 게시글 수정 -->
 	<update id="newsBoardModify" parameterType="BoardBean">
-		UPDATE NOTICEBOARD
-		SET NB_TITLE = #{newsBoardTitle}, NB_CONTENT = #{newsBoardContents}
-		WHERE NB_CODE = #{newsBoardCode}
+		UPDATE NOTICEBOARD SET NB_TITLE = #{newsBoardTitle}, NB_CONTENT = #{newsBoardContents} WHERE NB_CODE = #{newsBoardCode}
 	</update>
-
+	
 	<!-- 공지사항 게시글 삭제 -->
 	<delete id="newsBoardDelete" parameterType="BoardBean">
-		DELETE FROM
-		NOTICEBOARD WHERE NB_CODE = #{newsBoardCode}
+		DELETE FROM NOTICEBOARD WHERE NB_CODE = #{newsBoardCode}
 	</delete>
-
+	
 	<!-- 공지사항 게시글 작성자 검색 출력 -->
-	<select id="newsBoardSearchId" resultMap="BoardMap">
-		SELECT * FROM
-		NOTICEBOARD WHERE NB_MBID LIKE #{newsBoardUserId} ORDER BY NB_CODE
-		DESC
+	<select id="newsBoardSearchId" resultMap="newsBoardMap">
+		SELECT * FROM NOTICEBOARD WHERE NB_MBID LIKE #{newsBoardUserId} ORDER BY NB_CODE DESC
 	</select>
-
+	
 	<!-- 공지사항 게시글 제목 검색 출력 -->
-	<select id="newsBoardSearchTitle" resultMap="BoardMap">
-		SELECT * FROM
-		NOTICEBOARD WHERE NB_TITLE LIKE #{newsBoardTitle} ORDER BY NB_CODE
-		DESC
+	<select id="newsBoardSearchTitle" resultMap="newsBoardMap">
+		SELECT * FROM NOTICEBOARD WHERE NB_TITLE LIKE #{newsBoardTitle} ORDER BY NB_CODE DESC
 	</select>
-
+	
 	<!-- 캐릭터 유무 검사 -->
-	<select id="characterIdCheck" parameterType="GameBean"
-		resultType="Integer">
-		SELECT COUNT(*) FROM USER_CHARACTER WHERE CH_MBID =
-		#{userId}
+	<select id="characterIdCheck" parameterType="GameBean" resultType="Integer">
+		SELECT COUNT(*) FROM USER_CHARACTER WHERE CH_MBID = #{userId}
 	</select>
-
+	
 	<!-- 캐릭터 성별 확인 -->
 	<select id="characterSex" parameterType="MemberBean" resultType="Integer">
 		SELECT MB_GENDER FROM MEMBER WHERE MB_ID = #{id}
 	</select>
-
+	
 	<!-- 캐릭터 이름 유무 확인 -->
-	<select id="characterNameCkeck" parameterType="GameBean"
-		resultType="Integer">
-		SELECT COUNT(*) FROM USER_CHARACTER WHERE CH_NAME =
-		#{characterName}
+	<select id="characterNameCkeck" parameterType="GameBean" resultType="Integer">
+		SELECT COUNT(*) FROM USER_CHARACTER WHERE CH_NAME = #{characterName}
 	</select>
-
+	
 	<!-- 캐릭터 생성 -->
 	<insert id="characterCreate" parameterType="GameBean">
-		INSERT INTO
-		USER_CHARACTER VALUES(#{characterName}, #{userId}, #{sex}, 1, 0, 100,
-		50, #{str}, #{dex}, #{intelligent}, 0, 0, 10000, NULL, 0)
+		INSERT INTO USER_CHARACTER VALUES(#{characterName}, #{userId}, #{sex}, 1, 0, 100, 50, #{str}, #{dex}, #{intelligent}, 0, 0, 10000, NULL, 0)
 	</insert>
-
+	
 	<!-- 캐릭터 생성시 인벤토리에 강화석(10개) 추가 -->
 	<insert id="inventoryInsertMaterial" parameterType="GameBean">
-		INSERT INTO
-		INVENTORY VALUES(#{characterName}, #{userId}, 8001, 10, 0)
+		INSERT INTO INVENTORY VALUES(#{characterName}, #{userId}, 8001, 10, 0)
 	</insert>
-
+	
+	
 	<!-- 캐릭터 스킬1 생성 -->
 	<insert id="characterSkill1" parameterType="GameBean">
-		INSERT INTO
-		CHARACTER_SKILLS VALUES(#{characterName}, #{userId}, 'k', '발차기', 0, 0)
+		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{userId}, 'k', '발차기', 0, 0)
 	</insert>
-
+	
 	<!-- 캐릭터 스킬2 생성 -->
 	<insert id="characterSkill2" parameterType="GameBean">
-		INSERT INTO
-		CHARACTER_SKILLS VALUES(#{characterName}, #{userId}, 't', '돌려차기', 10,
-		10)
+		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{userId}, 't', '돌려차기', 10, 10)
 	</insert>
-
+	
 	<!-- 캐릭터 스킬3 생성 -->
 	<insert id="characterSkill3" parameterType="GameBean">
-		INSERT INTO
-		CHARACTER_SKILLS VALUES(#{characterName}, #{userId}, 'd', '공중회전킥', 20,
-		20)
+		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{userId}, 'd', '공중회전킥', 20, 20)
 	</insert>
-
+	
 	<!-- 캐릭터 스킬4 생성 -->
 	<insert id="characterSkill4" parameterType="GameBean">
-		INSERT INTO
-		CHARACTER_SKILLS VALUES(#{characterName}, #{userId}, 'r', '뇌광권', 50,
-		50)
+		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{userId}, 'r', '뇌광권', 50, 50)
 	</insert>
-
+	
 	<!-- 캐릭터 이름 가져오기 -->
 	<select id="getCharacterName" parameterType="String" resultType="String">
 		SELECT CH_NAME FROM USER_CHARACTER WHERE CH_MBID = #{userId}
 	</select>
-
+	
 	<!-- 캐릭터 이름에 해당하는 인벤토리 가져오기 -->
 	<select id="getInventory" parameterType="String" resultMap="inventoryMap">
-		SELECT * FROM ITEMINFO WHERE IV_CHNAME = #{characterName} ORDER BY
-		IT_CODE ASC
+		SELECT * FROM ITEMINFO WHERE IV_CHNAME = #{characterName} ORDER BY IT_CODE ASC
 	</select>
-
+	
 	<resultMap type="GameBean" id="inventoryMap">
 		<result property="itemCode" column="IT_CODE" javaType="java.lang.Integer" />
 		<result property="itemName" column="IT_NAME" javaType="java.lang.String" />
-		<result property="requireAbility" column="IT_REQUIREABILITY"
-			javaType="java.lang.Integer" />
+		<result property="requireAbility" column="IT_REQUIREABILITY" javaType="java.lang.Integer" />
 		<result property="upAbility" column="IT_ABILITY" javaType="java.lang.Integer" />
 		<result property="itemBuy" column="IT_BUY" javaType="java.lang.Integer" />
 		<result property="itemSell" column="IT_SELL" javaType="java.lang.Integer" />
@@ -587,72 +559,64 @@
 		<result property="itemAmount" column="IV_AMOUNT" javaType="java.lang.Integer" />
 		<result property="enhanceLevel" column="IV_ENLEVEL" javaType="java.lang.Integer" />
 	</resultMap>
-
+	
 	<!-- 캐릭터 이름과 아이템 코드를 받아 선택한 아이템 정보 가져오기 -->
 	<select id="getChooseItem" parameterType="GameBean" resultMap="inventoryMap">
-		SELECT * FROM ITEMINFO WHERE IV_CHNAME = #{characterName} AND IT_CODE
-		= #{itemCode}
+		SELECT * FROM ITEMINFO WHERE IV_CHNAME = #{characterName} AND IT_CODE = #{itemCode}
 	</select>
-
+	
 	<!-- 강화 레벨에 해당하는 강화석, 확률, 증가량 가져오기 -->
 	<select id="getEnhanceLevel" parameterType="Integer" resultMap="enhanceLevelMap">
 		SELECT * FROM ENHANCE WHERE EN_LEVEL = #{enhanceLevel}
 	</select>
-
+	
 	<resultMap type="GameBean" id="enhanceLevelMap">
 		<result property="enhanceLevel" column="EN_LEVEL" javaType="java.lang.Integer" />
 		<result property="material" column="EN_MATERIAL" javaType="java.lang.Integer" />
 		<result property="enHanceChance" column="EN_CHANCE" javaType="java.lang.Double" />
 		<result property="increase" column="EN_INCREASE" javaType="java.lang.Double" />
 	</resultMap>
-
+	
+	<!-- 강화석 존재 유무 확인 -->
+	<select id="meterialCheck" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM INVENTORY WHERE IV_CHNAME = #{characterName} AND IV_ITCODE = '8001'
+	</select>
+	
 	<!-- 소지한 강화석 개수 가져오기 -->
 	<select id="getMaterial" parameterType="String" resultType="Integer">
-		SELECT IV_AMOUNT FROM INVENTORY WHERE IV_CHNAME = #{characterName} AND
-		IV_ITCODE = '8001'
+		SELECT IV_AMOUNT FROM INVENTORY WHERE IV_CHNAME = #{characterName} AND IV_ITCODE = '8001'
 	</select>
-
+	
 	<!-- 소지한 강화석 - 필요한 강화석 -->
 	<update id="updateMaterial" parameterType="GameBean">
-		UPDATE INVENTORY SET
-		IV_AMOUNT = #{itemAmount} WHERE IV_CHNAME = #{characterName} AND
-		IV_ITCODE = '8001'
+		UPDATE INVENTORY SET IV_AMOUNT = #{itemAmount} WHERE IV_CHNAME = #{characterName} AND IV_ITCODE = '8001'
 	</update>
-
+	
 	<!-- 강화 등급 증가 -->
 	<update id="updateEnhanceLevel" parameterType="GameBean">
-		UPDATE INVENTORY
-		SET IV_ENLEVEL = #{enhanceLevel} WHERE IV_CHNAME = #{characterName}
-		AND IV_ITCODE = #{itemCode}
+		UPDATE INVENTORY SET IV_ENLEVEL = #{enhanceLevel} WHERE IV_CHNAME = #{characterName} AND IV_ITCODE = #{itemCode}
 	</update>
-
+	
 	<!-- 인벤토리 소지한 아이템 개수 가져오기 -->
-	<select id="getInventoryItemAmount" parameterType="GameBean"
-		resultType="Integer">
-		SELECT IV_AMOUNT FROM INVENTORY WHERE IV_CHNAME =
-		#{characterName} AND IV_ITCODE = #{itemCode}
+	<select id="getInventoryItemAmount" parameterType="GameBean" resultType="Integer">
+		SELECT IV_AMOUNT FROM INVENTORY WHERE IV_CHNAME = #{characterName} AND IV_ITCODE = #{itemCode}
 	</select>
-
+	
 	<!-- 소지한 아이템 개수 감소 -->
 	<update id="decreaseItem" parameterType="GameBean">
-		UPDATE INVENTORY SET
-		IV_AMOUNT = #{itemAmount} WHERE IV_CHNAME = #{characterName} AND
-		IV_ITCODE = #{itemCode}
+		UPDATE INVENTORY SET IV_AMOUNT = #{itemAmount} WHERE IV_CHNAME = #{characterName} AND IV_ITCODE = #{itemCode}
 	</update>
-
+	
 	<!-- 소지한 아이템 삭제 -->
 	<delete id="deleteItem" parameterType="GameBean">
-		DELETE FROM INVENTORY
-		WHERE IV_CHNAME = #{characterName} AND IV_ITCODE = #{itemCode}
+		DELETE FROM INVENTORY WHERE IV_CHNAME = #{characterName} AND IV_ITCODE = #{itemCode}
 	</delete>
-
+	
 	<!-- 캐릭터 정보 가져오기 -->
-	<select id="characterInformation" parameterType="String"
-		resultMap="characterMap">
-		SELECT * FROM USER_CHARACTER WHERE CH_NAME =
-		#{characterName}
+	<select id="characterInformation" parameterType="String" resultMap="characterMap">
+		SELECT * FROM USER_CHARACTER WHERE CH_NAME = #{characterName}
 	</select>
-
+	
 	<resultMap type="GameBean" id="characterMap">
 		<result property="characterName" column="CH_NAME" javaType="java.lang.String" />
 		<result property="userId" column="CH_MBID" javaType="java.lang.String" />
@@ -670,13 +634,12 @@
 		<result property="guildCode" column="CH_GUCODE" javaType="java.lang.Integer" />
 		<result property="guildLevelCode" column="CH_GLCODE" javaType="java.lang.String" />
 	</resultMap>
-
+	
 	<!-- 몬스터 정보 가져오기 -->
-	<select id="monsterInformation" parameterType="Integer"
-		resultMap="monsterMap">
+	<select id="monsterInformation" parameterType="Integer" resultMap="monsterMap">
 		SELECT * FROM MONSTER WHERE MO_CODE = #{monsterCode}
 	</select>
-
+	
 	<resultMap type="BattleBean" id="monsterMap">
 		<result property="monsterCode" column="MO_CODE" javaType="java.lang.Integer" />
 		<result property="monsterName" column="MO_NAME" javaType="java.lang.String" />
@@ -688,14 +651,12 @@
 		<result property="getGold" column="MO_GOLD" javaType="java.lang.Integer" />
 		<result property="fieldCode" column="MO_FICODE" javaType="java.lang.Integer" />
 	</resultMap>
-
+	
 	<!-- 캐릭터 스킬 가져오기 -->
-	<select id="characterSkillMenu" parameterType="String"
-		resultMap="characterSkillMap">
-		SELECT * FROM CHARACTER_SKILLS WHERE CS_CHNAME =
-		#{characterName} ORDER BY CS_DAMAGE ASC
+	<select id="characterSkillMenu" parameterType="String" resultMap="characterSkillMap">
+		SELECT * FROM CHARACTER_SKILLS WHERE CS_CHNAME = #{characterName} ORDER BY CS_DAMAGE ASC
 	</select>
-
+	
 	<resultMap type="GameBean" id="characterSkillMap">
 		<result property="characterName" column="CS_CHNAME" javaType="java.lang.String" />
 		<result property="userId" column="CS_CHMBID" javaType="java.lang.String" />
@@ -704,78 +665,63 @@
 		<result property="skillDamage" column="CS_DAMAGE" javaType="java.lang.Integer" />
 		<result property="skillConsume" column="CS_CONSUME" javaType="java.lang.Integer" />
 	</resultMap>
-
+	
 	<!-- 해당 캐릭터가 사용하는 스킬 정보 -->
-	<select id="skillInformation" parameterType="GameBean"
-		resultMap="characterSkillMap">
-		SELECT * FROM CHARACTER_SKILLS WHERE CS_CODE = #{skillCode}
-		AND CS_CHNAME = #{characterName}
+	<select id="skillInformation" parameterType="GameBean" resultMap="characterSkillMap">
+		SELECT * FROM CHARACTER_SKILLS WHERE CS_CODE = #{skillCode} AND CS_CHNAME = #{characterName}
 	</select>
-
+	
 	<!-- 몬스터 스킬 정보 -->
 	<select id="monsterSkill" parameterType="BattleBean" resultMap="monsterSkillMap">
-		SELECT * FROM MONSTER_SKILLS WHERE MS_MOCODE = #{monsterCode} ORDER BY
-		MS_DAMAGE ASC
+		SELECT * FROM MONSTER_SKILLS WHERE MS_MOCODE = #{monsterCode} ORDER BY MS_DAMAGE ASC
 	</select>
-
+	
 	<resultMap type="BattleBean" id="monsterSkillMap">
 		<result property="monsterCode" column="MS_MOCODE" javaType="java.lang.Integer" />
 		<result property="monsterSkill" column="MS_NAME" javaType="java.lang.String" />
 		<result property="monsterDamage" column="MS_DAMAGE" javaType="java.lang.Integer" />
 	</resultMap>
-
+	
 	<!-- 캐릭터 골드 변화 -->
 	<update id="goldChange" parameterType="GameBean">
-		UPDATE USER_CHARACTER SET
-		CH_GOLD = #{gold} WHERE CH_NAME = #{characterName}
+		UPDATE USER_CHARACTER SET CH_GOLD = #{gold} WHERE CH_NAME = #{characterName}
 	</update>
-
+	
 	<!-- 캐릭터 경험치 증가 -->
 	<update id="characterExp" parameterType="GameBean">
-		UPDATE USER_CHARACTER
-		SET CH_EXP = #{exp} WHERE CH_NAME = #{characterName}
+		UPDATE USER_CHARACTER SET CH_EXP = #{exp} WHERE CH_NAME = #{characterName}
 	</update>
-
+	
 	<!-- 인벤토리 아이템 추가 -->
 	<insert id="itemInsert" parameterType="GameBean">
-		INSERT INTO INVENTORY
-		VALUES(#{characterName}, #{userId}, #{itemCode}, 1, 0)
+		INSERT INTO INVENTORY VALUES(#{characterName}, #{userId}, #{itemCode}, 1, 0)
 	</insert>
-
+	
 	<!-- 인벤토리 아이템 개수 업데이트 -->
 	<update id="itemAmountInsert" parameterType="GameBean">
-		UPDATE INVENTORY SET
-		IV_AMOUNT = #{itemAmount} WHERE IV_CHNAME = #{characterName} AND
-		IV_ITCODE = #{itemCode}
+		UPDATE INVENTORY SET IV_AMOUNT = #{itemAmount} WHERE IV_CHNAME = #{characterName} AND IV_ITCODE = #{itemCode}
 	</update>
-
+	
 	<!-- 인벤토리에 아이템 존재 유무 확인 -->
-	<select id="inventoryItemCheck" parameterType="GameBean"
-		resultType="Integer">
-		SELECT COUNT(*) FROM INVENTORY WHERE IV_CHNAME =
-		#{characterName} AND IV_ITCODE = #{itemCode}
+	<select id="inventoryItemCheck" parameterType="GameBean" resultType="Integer">
+		SELECT COUNT(*) FROM INVENTORY WHERE IV_CHNAME = #{characterName} AND IV_ITCODE = #{itemCode}
 	</select>
-
+	
 	<!-- 레벨 업 -->
 	<update id="levelUp" parameterType="GameBean">
-		UPDATE USER_CHARACTER SET
-		CH_LEVEL = #{level}, CH_HP = #{hp}, CH_MP = #{mp}, CH_STR = #{str},
-		CH_DEX = #{dex}, CH_INT = #{intelligent} WHERE CH_NAME =
-		#{characterName}
+		UPDATE USER_CHARACTER SET CH_LEVEL = #{level}, CH_HP = #{hp}, CH_MP = #{mp}, CH_STR = #{str}, CH_DEX = #{dex}, CH_INT = #{intelligent} WHERE CH_NAME = #{characterName}
 	</update>
-
-	<!-- 현재 수락한 퀘스트 -->
+	
+	<!-- 현재 수락한 퀘스트  -->
 	<select id="myQuestCheck" parameterType="GameBean" resultType="Integer">
-		SELECT COUNT(*) FROM MYQUEST WHERE MQ_CHNAME = #{characterName} AND
-		MQ_QUECODE = #{questCode}
+		SELECT COUNT(*) FROM MYQUEST WHERE MQ_CHNAME = #{characterName} AND MQ_QUECODE = #{questCode}
 	</select>
-
+	
 	<!-- 퀘스트 완료 코드 수정 -->
 	<update id="myQuestSuccess" parameterType="GameBean">
-		UPDATE MYQUEST SET
-		MQ_SUSSESS = 1 WHERE MQ_CHNAME = #{characterName} AND MQ_QUECODE =
-		#{questCode}
+		UPDATE MYQUEST SET MQ_SUSSESS = 1 WHERE MQ_CHNAME = #{characterName} AND MQ_QUECODE = #{questCode}
 	</update>
+	
 	<!-- **************************김훈******************************* -->
 
 

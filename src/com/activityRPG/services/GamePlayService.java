@@ -958,9 +958,14 @@ public class GamePlayService  extends TranEx {
 
 				//소지한 아이템 목록
 				StringBuffer sb = new StringBuffer();
+				sb.append("<br/><br/>");
 				for(int i = 0; i < listGameBean.size(); i++) {
 					gameBean = listGameBean.get(i);
-					sb.append("<a onClick=\"choose(\'" + gameBean.getItemCode() + "\', \'"  + gameBean.getEnhanceLevel() +  "\')\">· " + gameBean.getItemName() + " (" + gameBean.getItemAmount() + "개)</a><br/>");
+					if(gameBean.getItemName().equals("0")) {
+						
+					}else {
+						sb.append("<a onClick=\"choose(\'" + gameBean.getItemCode() + "\', \'"  + gameBean.getEnhanceLevel() +  "\')\">· " + gameBean.getItemName() + " (" + gameBean.getItemAmount() + "개)</a><br/>");
+					}
 				}
 				mav.addObject("userInventory", sb.toString());
 			}catch(Exception e) {
@@ -987,14 +992,18 @@ public class GamePlayService  extends TranEx {
 				StringBuffer sb = new StringBuffer();
 				sb.append("<div id=\"currentItemDiv\">");
 				sb.append("<table>");
+				sb.append("<br/>");
 				sb.append("<tr><td id=\"enhanceLevel\" data-db=" + listGameBean.get(0).getEnhanceLevel() + ">· 현재 강화 레벨 : " + listGameBean.get(0).getEnhanceLevel() + "</td></tr>");
 				sb.append("<tr><td id=\"itemCode\" data-db=" + listGameBean.get(0).getItemCode() + ">· 아이템 이름 : " + listGameBean.get(0).getItemName() + "</td></tr>");
 				sb.append("<tr><td id=\"requireAbility\" data-db=" + listGameBean.get(0).getRequireAbility() + ">· 요구 능력치 : " + listGameBean.get(0).getRequireAbility() + "</td></tr>");
 				sb.append("<tr><td id=\"upAbility\" data-db=" + listGameBean.get(0).getUpAbility() + ">· 현재 능력치 : " + format.format(listGameBean.get(0).getUpAbility() * (listEnhanceLevel.get(0).getIncrease() - 0.1)) + "</td></tr>");
 				sb.append("</table>");
+				sb.append("<br/>");
+				sb.append("<button onClick=\"enhance()\" class=\"button\">강화</button>");
 				sb.append("</div>");
 				sb.append("<div id=\"enhanceItemDiv\">");
 				sb.append("<table>");
+				sb.append("<br/>");
 				sb.append("<tr><td id=\"itemAmount\" data-db=" + listGameBean.get(0).getItemAmount() + ">· 증가 강화 레벨 : " + listEnhanceLevel.get(0).getEnhanceLevel() + "</td></tr>");
 				sb.append("<tr><td id=\"material\" data-db=" + listEnhanceLevel.get(0).getMaterial() + ">· 요구 강화석 : " + listEnhanceLevel.get(0).getMaterial() + "개</td></tr>");
 				sb.append("<tr><td id=\"enHanceChance\" data-db=" + listEnhanceLevel.get(0).getEnHanceChance() + ">· 성공 확률 : " + (int)(listEnhanceLevel.get(0).getEnHanceChance() * 100) + "%</td></tr>");
@@ -1020,9 +1029,14 @@ public class GamePlayService  extends TranEx {
 
 				//소지한 아이템 목록
 				StringBuffer sb = new StringBuffer();
+				sb.append("<br/><br/>");
 				for(int i = 0; i < listGameBean.size(); i++) {
 					gameBean = listGameBean.get(i);
-					sb.append("<a onClick=\"choose(\'" + gameBean.getItemCode() + "\', \'"  + gameBean.getEnhanceLevel() +  "\')\">· " + gameBean.getItemName() + " (" + gameBean.getItemAmount() + "개)</a><br/>");
+					if(gameBean.getItemName().equals("0")) {
+						
+					}else {
+						sb.append("<a onClick=\"choose(\'" + gameBean.getItemCode() + "\', \'"  + gameBean.getEnhanceLevel() +  "\')\">· " + gameBean.getItemName() + " (" + gameBean.getItemAmount() + "개)</a><br/>");
+					}
 				}
 				mav.addObject("userInventory", sb.toString());
 			}catch(Exception e) {
