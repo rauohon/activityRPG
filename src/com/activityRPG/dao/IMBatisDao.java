@@ -165,7 +165,7 @@ public interface IMBatisDao {
 	public int characterIdCheck(GameBean gameBean);
 
 	//캐릭터 성별 확인
-	public int characterSex(MemberBean memberBean);
+	public int characterSex(GameBean gameBean);
 
 	//캐릭터 이름 유무 확인
 	public int characterNameCkeck(GameBean gameBean);

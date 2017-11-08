@@ -62,7 +62,7 @@ public class GameNomalService extends TranEx {
 			mav = itemInfo((GameBean)bean);
 			break;
 		case 41: //캐릭터 생성 폼 이동
-			mav = characterCreateFormMove();	
+			mav = characterCreateFormMove((GameBean)bean);	
 			break;
 		case 42: //캐릭터 생성
 			mav = characterCreate((GameBean)bean);	
@@ -522,8 +522,16 @@ public class GameNomalService extends TranEx {
 		// 로그인 여부 확인
 		try {
 			if(session.getAttribute("id") != null) {
-				mav.setViewName("village");
-				session.setAttribute("page", "village");
+				// 로그인 여부 확인
+				if(dao.characterIdCheck(bean) == 1) {
+					// 캐릭터 존재 유무 확인
+					session.setAttribute("characterName", dao.getCharacterName(session.getAttribute("id").toString()));
+					session.setAttribute("page", "village");
+					mav.setViewName("village");
+				}else {
+					mav.addObject("message", "※ 먼저 캐릭터를 생성해 주세요.");
+					mav = characterCreateFormMove(bean);
+				}
 			}else {
 				mav.setViewName("home");
 			}
@@ -564,7 +572,7 @@ public class GameNomalService extends TranEx {
 
 		try {
 			randomAbility(gameBean); //랜덤 능력치 설정
-			gameBean.setSex((int)session.getAttribute("userSex")); //성별을 빈에 저장
+			gameBean.setSex(dao.characterSex(gameBean));
 			gameBean.setUserId((String)session.getAttribute("id"));	//아이디를 빈에 저장
 
 			//트랜잭션 설정 
@@ -599,24 +607,20 @@ public class GameNomalService extends TranEx {
 	}
 
 	//캐릭터 생성 폼 이동
-	private ModelAndView characterCreateFormMove() {
+	private ModelAndView characterCreateFormMove(GameBean bean) {
 		ModelAndView mav = new ModelAndView();
 		try{
-			MemberBean memberBean = new MemberBean();
-			GameBean gameBean = new GameBean();
-			memberBean.setId((String)session.getAttribute("id"));
-			gameBean.setUserId((String)session.getAttribute("id"));
-			if(dao.characterIdCheck(gameBean) == 0) { //캐릭터 유무 확인
+//			if(dao.characterIdCheck(gameBean) == 0) { //캐릭터 유무 확인
 
-				int sex = dao.characterSex(memberBean);
+				int sex = dao.characterSex(bean);
 
 				session.setAttribute("userSex", sex); //세션에 유저의 성별 저장
 
 				mav.setViewName("characterCreateForm");
-			}else {
-				mav.setViewName("home");
-				mav.addObject("message","이미 캐릭터가 존재합니다. 게임시작 버튼을 눌러주세요.");
-			}
+//			}else {
+//				mav.setViewName("home");
+//				mav.addObject("message","이미 캐릭터가 존재합니다. 게임시작 버튼을 눌러주세요.");
+//			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

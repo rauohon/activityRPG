@@ -228,14 +228,6 @@ public class GameController {
 			return mav;
 		}
 		
-		//게임 시작
-		@RequestMapping(value="/GameStart", method = RequestMethod.POST)
-		private ModelAndView gameStart(@ModelAttribute GameBean gameBean) {
-			mav = new ModelAndView();
-			mav = gp.entrance(41, gameBean);
-			return mav;
-		}
-		
 		//강화 상점 이동
 		@RequestMapping(value="/EnhanceShop", method = RequestMethod.GET)
 		private ModelAndView enhanceShopEnter(@ModelAttribute GameBean gameBean) {
