@@ -377,11 +377,7 @@
 <!-- ↑ 신태휘 -->
 
 <!-- **************************김훈******************************* -->
-	<!-- 아이디 체크(중복) -->
-	<select id="userIdCheck" parameterType="MemberBean" resultType="Integer">
-		SELECT COUNT(*) FROM MEMBER WHERE MB_ID=#{userId}
-	</select>
-	
+
 	<!-- 공지사항 리스트 출력 -->
 	<select id="newsBoardList" resultMap="BoardMap">
 		SELECT * FROM NOTICEBOARD ORDER BY NB_CODE DESC
@@ -446,7 +442,7 @@
 	
 	<!-- 캐릭터 성별 확인 -->
 	<select id="characterSex" parameterType="MemberBean" resultType="Integer">
-		SELECT MB_GENDER FROM MEMBER WHERE MB_ID = #{userId}
+		SELECT MB_GENDER FROM MEMBER WHERE MB_ID = #{id}
 	</select>
 	
 	<!-- 캐릭터 이름 유무 확인 -->
@@ -457,6 +453,11 @@
 	<!-- 캐릭터 생성 -->
 	<insert id="characterCreate" parameterType="GameBean">
 		INSERT INTO USER_CHARACTER VALUES(#{characterName}, #{userId}, #{sex}, 1, 0, 100, 50, #{str}, #{dex}, #{intelligent}, 0, 0, 10000, NULL, 0)
+	</insert>
+	
+	<!-- 캐릭터 생성시 인벤토리에 강화석(10개) 추가 -->
+	<insert id="inventoryInsertMaterial" parameterType="GameBean">
+		INSERT INTO INVENTORY VALUES(#{characterName}, #{userId}, 8001, 10, 0)
 	</insert>
 	
 	<!-- 캐릭터 스킬1 생성 -->

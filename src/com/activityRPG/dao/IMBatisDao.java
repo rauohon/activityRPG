@@ -83,7 +83,7 @@ public interface IMBatisDao {
 	public int getRaspCheck(ActivityBean ab);						// 라즈베리파이 코드 유무 확인
 
 	public int setRaspMem(ActivityBean ab);							// 라즈베리파이-회원 연동
-	
+
 	public List<ActivityBean> getTodayStep(ActivityBean ab);		// 오늘 걸음수 가져오기
 
 	public GameBean getItemInfo(GameBean bean);						// 아이템 정보 조회
@@ -121,9 +121,7 @@ public interface IMBatisDao {
 	public int setGuildBoardReplyDelete(BoardBean bean);			// 길드 보드 댓글 삭제하기
 	/*↑ 신태휘*/
 	//************************************김훈**************************************
-	//아이디 체크(중복)
-	public int userIdCheck(MemberBean memberBean);
-
+	
 	//공지사항 리스트 출력
 	public List<BoardBean> newsBoardList();
 
@@ -163,6 +161,9 @@ public interface IMBatisDao {
 	//캐릭터 생성
 	public int characterCreate(GameBean gameBean);
 
+	//캐릭터 생성시 인벤토리에 강화석(10개) 추가
+	public int inventoryInsertMaterial(GameBean gameBean);
+
 	//캐릭터 스킬1 생성
 	public int characterSkill1(GameBean gameBean);
 
@@ -186,6 +187,9 @@ public interface IMBatisDao {
 
 	//강화 레벨에 해당하는 강화석, 확률, 증가량 가져오기
 	public List<GameBean> getEnhanceLevel(int enhanceLevel);
+
+	//강화석 존재 유무 확인
+	public int meterialCheck(String characterName);
 
 	//소지한 강화석 개수 가져오기
 	public int getMaterial(String characterName);
