@@ -14,6 +14,8 @@ public class ActivityBean {
 	private String id;				// 회원 아이디
 	private int step;				// 걸음 수
 	private int floor;				// 오른 층 수
+	private int exp;					// 경험치
+	private String date;			// 날짜
 	
 
 	public String getId() {
@@ -39,6 +41,18 @@ public class ActivityBean {
 	}
 	public void setStep(int step) {
 		this.step = step;
+	}
+	public int getExp() {
+		return exp;
+	}
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
 	}
 	
 	

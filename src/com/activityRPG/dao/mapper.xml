@@ -150,23 +150,81 @@
 		INSERT INTO MEMBER_RASP VALUES(#{riId},#{id},DEFAULT)
 	</insert>
 	
-	<select id="getTodayStep" parameterType="actBean" resultType='actBean'>
+	<!-- 	오늘 활동량 가져오기 -->
+	<select id="getTodayAct" parameterType="actBean" resultType='actBean'>
 		SELECT 
 			SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor 
 		FROM 
 			ACTIVITY 
+		<where>
+				<![CDATA[AT_LOGDATE <= SYSDATE AND AT_LOGDATE > SYSDATE-1		
+			AND
+				AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID = #{id})]]>
+			<if test="exp != null">
+				AND
+					AT_LOG = 1
+			</if>
+		</where>
+	</select>
+<!-- 	AT_LOGDATE <= TO_DATE('2017/11/08','YYYY/MM/DD') AND AT_LOGDATE > TO_DATE('2017/11/07','YYYY/MM/DD') -->
+	<!-- 	어제 활동량 가져오기 -->
+	<select id="getYesterdayAct" parameterType="actBean" resultType='actBean'>
+		<![CDATA[SELECT 
+			SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor 
+		FROM 
+			ACTIVITY 
 		WHERE 
-			AT_LOGDATE BETWEEN TO_DATE('2017/11/07','YYYY/MM/DD') AND TO_DATE('2017/11/07','YYYY/MM/DD')+1
+			AT_LOGDATE <= SYSDATE-1 AND AT_LOGDATE > SYSDATE-2
 		AND
-			AT_MRID = 1
+			AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID = #{id})]]>
 	</select>
 	
-	<!-- 캐릭터 이름 가져오기 -->
+	<!--	경험치 전환 내역 가져오기 -->
+	<select id="getAppliedExp" parameterType="actBean" resultType="actBean">
+		SELECT SUM(AL_EXP) AS exp FROM ACTIVITY_LOG WHERE AL_MBID = #{id}
+	</select>
+	
+	<!--	운동량 경험치로 적용하기 1. 캐릭터 경험치 업데이트-->
+	<update id="setActExp" parameterType="actBean">
+		UPDATE USER_CHARACTER SET CH_EXP = CH_EXP + #{exp} WHERE CH_MBID=#{id}
+	</update>
+	
+	<!--	운동량 경험치로 적용하기 2. 운동량 사용여부 업데이트-->
+	<update id="setActivity" parameterType="actBean">
+		UPDATE
+			ACTIVITY 
+		SET
+			AT_LOG = 0
+		WHERE 
+			AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID = #{id})
+	</update>
+	
+	<!--	운동량 경험치로 적용하기 3. 운동량 사용내역 인서트-->
+	<insert id="setActLog" parameterType="actBean">
+		INSERT INTO ACTIVITY_LOG (AL_CHNAME, AL_MBID, AL_DATE, AL_EXP) 
+		VALUES ((SELECT CH_NAME FROM USER_CHARACTER WHERE CH_MBID = #{id}), #{id}, DEFAULT, #{exp})
+	</insert>
+	
+	<!--	일주일간의 걸음 수 / 층 수 가져 오기 -->
+	<select id="getWeekActivity" parameterType="actBean" resultType="actBean">
+		SELECT
+			SUBSTR(AT_DATE,0,8) as "date", SUM(AT_STEP) AS step, SUM(AT_FLOOR) as floor
+		FROM
+			ACTIVITY
+		WHERE
+			AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID = #{id})
+			AND 
+				AT_DATE >= SYSDATE-7
+		GROUP BY
+			SUBSTR(AT_DATE,0,8)
+	</select>
+	
+	<!--	캐릭터 이름 가져오기 -->
 	<select id="getCharaName" parameterType="boardBean" resultType="boardBean">
 		SELECT CH_NAME AS chName FROM USER_CHARACTER WHERE CH_MBID=#{id}
 	</select>
 
-	<!-- 캐릭터 능력치 가져오기 -->
+	<!--	캐릭터 능력치 가져오기 -->
 	<select id="getCharacterStatus" parameterType="gameBean" resultType="gameBean">
 		SELECT CH_NAME as chName, CH_LEVEL as chLevel, CH_EXP as chExp, 
 		CH_HP as chHp, CH_MP as chMp, CH_STR as chStr, 

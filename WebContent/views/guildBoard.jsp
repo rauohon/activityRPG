@@ -53,7 +53,7 @@ td{
 		i.attr("name", "gbCode");
 		i.attr("value", code);
 		$("#fixForm").append(i);
-		document.readgboardpage.submit();
+		f.submit();
 	}
 	$(document).ready(function() {
 		$("tr").hover(function() {

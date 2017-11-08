@@ -84,7 +84,19 @@ public interface IMBatisDao {
 
 	public int setRaspMem(ActivityBean ab);							// 라즈베리파이-회원 연동
 	
-	public List<ActivityBean> getTodayStep(ActivityBean ab);		// 오늘 걸음수 가져오기
+	public List<ActivityBean> getTodayAct(ActivityBean ab);		// 오늘 걸음수 가져오기
+	
+	public List<ActivityBean> getYesterdayAct(ActivityBean ab);		// 오늘 걸음수 가져오기
+	
+	public ActivityBean getAppliedExp(ActivityBean ab);		// 적용한 경험치 총량 가져오기
+	
+	public int setActExp(ActivityBean ab);											// 운동량 경험치로 적용하기 1. 캐릭터 경험치 업데이트
+	
+	public int setActivity(ActivityBean ab);											// 운동량 경험치로 적용하기 2. 운동량 사용여부 업데이트
+	
+	public int setActLog(ActivityBean ab);											// 운동량 경험치로 적용하기 3. 운동량 사용내역 인서트
+	
+	public List<ActivityBean> getWeekActivity(ActivityBean ab); // 일주일 운동량 가져오기
 
 	public GameBean getItemInfo(GameBean bean);						// 아이템 정보 조회
 
