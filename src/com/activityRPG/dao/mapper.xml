@@ -563,28 +563,28 @@
 	
 	<!-- 캐릭터 생성 -->
 	<insert id="characterCreate" parameterType="GameBean">
-		INSERT INTO USER_CHARACTER VALUES(#{characterName}, #{userId}, #{sex}, 1, 0, 100, 50, #{str}, #{dex}, #{intelligent}, 0, 0, 10000, NULL, 0)
+		INSERT INTO USER_CHARACTER VALUES(#{characterName}, #{id}, #{sex}, 1, 0, 100, 50, #{str}, #{dex}, #{intelligent}, 0, 0, 10000, NULL, 0)
 	</insert>
 	
 	<!-- 캐릭터 생성시 인벤토리에 강화석(10개) 추가 -->
 	<insert id="inventoryInsertMaterial" parameterType="GameBean">
-		INSERT INTO INVENTORY VALUES(#{characterName}, #{userId}, 8001, 10, 0)
+		INSERT INTO INVENTORY VALUES(#{characterName}, #{id}, 8001, 10, 0)
 	</insert>
 	
 	
 	<!-- 캐릭터 스킬1 생성 -->
 	<insert id="characterSkill1" parameterType="GameBean">
-		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{userId}, 'k', '발차기', 0, 0)
+		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{id}, 'k', '발차기', 0, 0)
 	</insert>
 	
 	<!-- 캐릭터 스킬2 생성 -->
 	<insert id="characterSkill2" parameterType="GameBean">
-		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{userId}, 't', '돌려차기', 10, 10)
+		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{id}, 't', '돌려차기', 10, 10)
 	</insert>
 	
 	<!-- 캐릭터 스킬3 생성 -->
 	<insert id="characterSkill3" parameterType="GameBean">
-		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{userId}, 'd', '공중회전킥', 20, 20)
+		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{id}, 'd', '공중회전킥', 20, 20)
 	</insert>
 	
 	<!-- 캐릭터 스킬4 생성 -->

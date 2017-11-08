@@ -572,8 +572,8 @@ public class GameNomalService extends TranEx {
 
 		try {
 			randomAbility(gameBean); //랜덤 능력치 설정
+			gameBean.setId((String)session.getAttribute("id"));	//아이디를 빈에 저장
 			gameBean.setSex(dao.characterSex(gameBean));
-			gameBean.setUserId((String)session.getAttribute("id"));	//아이디를 빈에 저장
 
 			//트랜잭션 설정 
 			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
@@ -611,10 +611,6 @@ public class GameNomalService extends TranEx {
 		ModelAndView mav = new ModelAndView();
 		try{
 //			if(dao.characterIdCheck(gameBean) == 0) { //캐릭터 유무 확인
-
-				int sex = dao.characterSex(bean);
-
-				session.setAttribute("userSex", sex); //세션에 유저의 성별 저장
 
 				mav.setViewName("characterCreateForm");
 //			}else {
