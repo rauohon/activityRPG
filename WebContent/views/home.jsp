@@ -49,9 +49,6 @@
 			</tr>
 		</table>
 		<br/>
-		<div id="gamePlayButton">
-			<input type="button" value="캐릭터 생성" onClick="characterCreateFormMove()" />
-		</div>
 	</div>
 	${message } ${message2 }
 </body>

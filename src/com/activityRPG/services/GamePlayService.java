@@ -62,9 +62,6 @@ public class GamePlayService  extends TranEx {
 			case 2:
 				mav = itemDisArm((GameBean)bean[0]);
 				break;
-			case 41: //게임 시작
-				mav = gameStart();	
-				break;
 			case 42: //강화 상점 이동
 				mav = enhanceShopEnter();
 				break;
@@ -1043,30 +1040,6 @@ public class GamePlayService  extends TranEx {
 				e.printStackTrace();
 			}
 			mav.setViewName("enhanceShop");
-			return mav;
-		}
-
-		//게임 시작
-		private ModelAndView gameStart() {
-			ModelAndView mav = new ModelAndView();
-			try {
-				String userId = (String)session.getAttribute("id");
-				
-				GameBean gameBean = new GameBean();
-				gameBean.setUserId(userId);
-				
-				if(dao.characterIdCheck(gameBean) == 1) {	//캐릭터 아이디 존재
-					//세션에 캐릭터 이름 저장
-					session.setAttribute("characterName", dao.getCharacterName(userId));
-
-					mav.setViewName("village");
-				}else {
-					mav.setViewName("home");
-					mav.addObject("message", "*먼저 캐릭터를 생성해 주세요.");
-				}
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
 			return mav;
 		}
 

@@ -352,27 +352,13 @@ public class ActivityService extends TranEx {
 	}
 
 	/**
-	 * 처리내용 : 2-2 일주일 간의 오른 층수 불러오기
-	 * 작성일 : 2017. 10. 23.
-	 * 작성자 : 신태휘
-	 * @Method Name : activityWeekFloorData
-	 * @return type : String
-	 */
-	private String activityWeekFloorData(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("조회 시점에서 일주일 간의 오른 층수가 json 형태로 전달됩니다.");
-
-		return sb.toString();
-	}
-
-	/**
-	 * 처리내용 : 2-1 일주일 간의 걸음 불러오기
+	 * 처리내용 : 2-1 일주일 간의 걸음 / 층 수 불러오기
 	 * 작성일 : 2017. 10. 23.
 	 * 작성자 : 신태휘
 	 * @Method Name : activityWeekStepData
 	 * @return type : String
 	 */
-	private String activityWeekStepData(ActivityBean bean) {
+	private String activityWeekActData(ActivityBean bean) {
 		String sb = "";
 		
 		Gson gson = new Gson();
@@ -395,8 +381,7 @@ public class ActivityService extends TranEx {
 		
 		try {
 			bean.setId(session.getAttribute("id").toString());
-			mav.addObject("activityWeekStepData",activityWeekStepData(bean));
-			mav.addObject("activityWeekFloorData",activityWeekFloorData(bean));
+			mav.addObject("activityWeekActData",activityWeekActData(bean));
 			mav.addObject("activityWeekExpData",activityWeekExpData(bean));
 			mav.addObject("activityAllData",activityAllData(bean));
 			mav.setViewName("activityWeekLog");

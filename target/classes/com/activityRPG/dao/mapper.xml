@@ -548,11 +548,11 @@
 	
 	<!-- 캐릭터 유무 검사 -->
 	<select id="characterIdCheck" parameterType="GameBean" resultType="Integer">
-		SELECT COUNT(*) FROM USER_CHARACTER WHERE CH_MBID = #{userId}
+		SELECT COUNT(*) FROM USER_CHARACTER WHERE CH_MBID = #{id}
 	</select>
 	
 	<!-- 캐릭터 성별 확인 -->
-	<select id="characterSex" parameterType="MemberBean" resultType="Integer">
+	<select id="characterSex" parameterType="GameBean" resultType="Integer">
 		SELECT MB_GENDER FROM MEMBER WHERE MB_ID = #{id}
 	</select>
 	
