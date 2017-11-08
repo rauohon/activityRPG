@@ -1,5 +1,7 @@
 package com.activityRPG.services;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.activityRPG.beans.ActivityBean;
+import com.activityRPG.beans.BoardBean;
 import com.activityRPG.dao.IMBatisDao;
 import com.activityRPG.dao.TranEx;
 import com.activityRPG.utils.ProjectUtils;
@@ -364,6 +367,13 @@ public class ActivityService extends TranEx {
 		Gson gson = new Gson();
 		
 		List<ActivityBean> acti = dao.getWeekActivity(bean);
+		
+		Collections.sort(acti, new Comparator<ActivityBean>(){
+			@Override
+			public int compare(ActivityBean r2, ActivityBean r1){
+				return r1.getDate().compareTo(r2.getDate());
+			}
+		});
 		
 		sb = gson.toJson(acti);
 
