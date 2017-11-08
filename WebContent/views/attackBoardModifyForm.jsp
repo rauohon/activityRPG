@@ -4,15 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>News Board Modify Form</title>
+<title>Attack Board Modify Form</title>
 </head>
 <script>
-	function newsBoardModify(){
-		newsBoardModifyForm.submit();
+	function attackBoardModify(){
+		attackBoardModifyForm.submit();
 	}
 	
 	function back(){
-		newsBoardContentsForm.submit();
+		attackBoardContentsForm.submit();
 	}
 	
 	//폼 생성
@@ -25,74 +25,67 @@
 	}
 </script>
 <style>
-table.type {
-	background: no-repeat fixed;
-	width: 750px;
-	height: 500px;
-	border: 1px solid #444444;
-	margin: 20px 10px;
-	background: url("/images/notice.png") no-repeat center center;
-}
+	table.type {
+		background: no-repeat fixed;
+    	width: 750px;
+    	height: 500px;
+    	border: 1px solid #444444;
+    	margin : 20px 10px;
+    	background: url("/images/notice.png") no-repeat center center;
+	}
+	table.type th{
+		height:19px;
+    	padding: 10px;
+    	text-align:left;
+    	font-weight: bold;
+    	vertical-align: top;
+    	color: white;
+    	border-bottom: 1px solid #ccc;
+    	background: linear-gradient(to right, #2c3338, #475660);
+	}
+	.titleText{
+		width: 630px;
+	}
+	.buttonDiv1{
+		margin-left: 600px;
+	}
+	.buttonDiv2{
+		margin-left: 680px;
+		margin-top: -25.5px;
+	}
+	.button{
+		width:70px;
+		height:25px;
+		background-color:#2c3338;
+		color:white;
+		border:1px solid #369;
+		border-radius:5px;
+	}
 
-table.type th {
-	height: 19px;
-	padding: 10px;
-	text-align: left;
-	font-weight: bold;
-	vertical-align: top;
-	color: white;
-	border-bottom: 1px solid #ccc;
-	background: linear-gradient(to right, #2c3338, #475660);
-}
-
-.titleText {
-	width: 630px;
-}
-
-.buttonDiv1 {
-	margin-left: 600px;
-}
-
-.buttonDiv2 {
-	margin-left: 680px;
-	margin-top: -25.5px;
-}
-
-.button {
-	width: 70px;
-	height: 25px;
-	background-color: #2c3338;
-	color: white;
-	border: 1px solid #369;
-	border-radius: 5px;
-}
 </style>
 <body>
-	<form name="newsBoardModifyForm" action="NewsBoardModify" method="post">
+	<form name="attackBoardModifyForm" action="AttackBoardModify" method="post">
 		<div>
 			<table class="type">
 				<tr>
-					<th>제목 : <input type="text" name="newsBoardTitle"
-						value="${newsBoardTitle }" class="titleText" /></th>
+					<th>제목 : <input type="text" name="attackBoardTitle" value="${attackBoardTitle }" class="titleText"/></th>
 				</tr>
 				<tr>
-					<td><textarea cols="110" rows="28" name="newsBoardContents">${newsBoardContents }</textarea></td>
+					<td><textarea cols="110" rows="28" name="attackBoardContents" >${attackBoardContents }</textarea></td>
 				</tr>
 			</table>
-			<input type="hidden" name="newsBoardCode" value="${newsBoardCode }" />
-			<input type="hidden" name="newsBoardUserId"
-				value="${newsBoardUserId }" /> <input type="hidden"
-				name="newsBoardHit" value="${newsBoardHit }" />
+			<input type="hidden" name="attackBoardCode" value="${attackBoardCode }" /> 
+			<input type="hidden" name="attackBoardUserId" value="${attackBoardUserId }" /> 
+			<input type="hidden" name="attackBoardHit" value="${attackBoardHit }" />
 		</div>
 		<div class="buttonDiv1">
-			<button onClick="newsBoardModify()" class="button">수정완료</button>
+			<button onClick="attackBoardModify()" class="button">수정완료</button>
 		</div>
-
+		
 	</form>
-	<form name="newsBoardContentsForm" action="NewsBoardContentsView"
-		method="post">
-		<input type="hidden" name="newsBoardCode" value="${newsBoardCode }" />
-		<input type="hidden" name="newsBoardHit" value="${newsBoardHit }" />
+	<form name="attackBoardContentsForm" action="AttackBoardContentsView" method="post">
+		<input type="hidden" name="attackBoardCode" value="${attackBoardCode }" /> 
+		<input type="hidden" name="attackBoardHit" value="${attackBoardHit }" />
 		<div class="buttonDiv2">
 			<button onClick="back()" class="button">뒤로가기</button>
 		</div>
