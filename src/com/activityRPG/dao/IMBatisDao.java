@@ -133,8 +133,6 @@ public interface IMBatisDao {
 	public int setGuildBoardReplyDelete(BoardBean bean);			// 길드 보드 댓글 삭제하기
 	/*↑ 신태휘*/
 	//************************************김훈**************************************
-	//아이디 체크(중복)
-	public int userIdCheck(MemberBean memberBean);
 
 	//공지사항 리스트 출력
 	public List<BoardBean> newsBoardList();
@@ -175,6 +173,9 @@ public interface IMBatisDao {
 	//캐릭터 생성
 	public int characterCreate(GameBean gameBean);
 
+	//캐릭터 생성시 인벤토리에 강화석(10개) 추가
+	public int inventoryInsertMaterial(GameBean gameBean);
+
 	//캐릭터 스킬1 생성
 	public int characterSkill1(GameBean gameBean);
 
@@ -198,6 +199,9 @@ public interface IMBatisDao {
 
 	//강화 레벨에 해당하는 강화석, 확률, 증가량 가져오기
 	public List<GameBean> getEnhanceLevel(int enhanceLevel);
+
+	//강화석 존재 유무 확인
+	public int meterialCheck(String characterName);
 
 	//소지한 강화석 개수 가져오기
 	public int getMaterial(String characterName);
@@ -258,6 +262,46 @@ public interface IMBatisDao {
 
 	//************************************김훈**************************************
 
+	//종
+	//관리자 판단
+	public int type(MemberBean mb); 
+
+	//타입 체크
+	public int TypeCheck(MemberBean mb); 
+
+	//활동 맴버 리스트 출력
+	public List<MemberBean> MemberList(); 
+
+	//정지 맴버 리스트 출력
+	public List<MemberBean> memberList(); 
+
+	//맴버 정지
+	public int userDelete(MemberBean mb); 
+
+	//공략 리스트 출력
+	public List<BoardBean> attackBoardList();
+
+	//공략 작성
+	public int attackBoardMake(BoardBean boardBean);
+
+	//공략 게시글 내용 출력
+	public BoardBean attackBoardContents(BoardBean boardBean);
+
+	//공략 게시글 조회수 증가
+	public int attackBoardHitUp(BoardBean boardBean);
+
+	//공략 게시글 수정
+	public int attackBoardModify(BoardBean boardBean);
+
+	//공략 게시글 삭제
+	public int attackBoardDelete(BoardBean boardBean);
+
+	//공략 게시글 작성자 검색 출력
+	public List<BoardBean> attackBoardSearchId(BoardBean boardBean);
+
+	//공략 게시글 제목 검색 출력
+	public List<BoardBean> attackBoardSearchTitle(BoardBean boardBean);
+	//종
 
 }
 

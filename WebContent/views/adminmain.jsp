@@ -33,7 +33,61 @@
 	}
  	//*********김훈***********
 	
+ 	//종
+	function userDelete(id){
+		createForm("userDeleteForm", "UserDelete", "post");
+		var form = document.getElementsByName("userDeleteForm")[0];
+		
+		var code = document.createElement("input");
+		code.type = "hidden";
+		code.name = "id";
+		code.value = id;
+		
+		form.appendChild(code);
+		form.submit();
+	}
+	function attackBoardMove(){
+		createForm("attackBoardForm", "AttackBoard", "post");
+		
+		var form = document.getElementsByName("attackBoardForm")[0];
+		
+		form.submit();
+	}
+	
+	//종
 </script>
+<style>
+#user {
+	color: white;
+}
+.see{
+	text-align:center;
+}
+#submit {
+	margin-left:0px;
+	width:100px;
+}
+#uid {
+	background-color: #f68a6f;
+	padding: 5px 30px;
+	padding-top: 10px;
+	border-radius: 5px;
+	border: 1px solid #f68a6f;
+	width: 170px; 
+	color:#fff;
+	font-size: 15px;
+}
+.idcs {
+	background-color: #f68a6f;
+	padding: 5px 30px;
+	padding-top: 10px;
+	border-radius: 5px;
+	border: 1px solid #f68a6f;
+	width: 170px; 
+	color:#fff;
+	font-size: 15px;
+}
+</style>
 </head>
 <body>
 	<div id="layer_fixed">
@@ -53,12 +107,16 @@
 	</div>
 	</br></br></br>
 	
-	<h3>관리자 페이지</h3>
+	<h3 id="user">관리자 페이지</h3>
 	
 	<!-- *************김훈******************** -->
 	<input type="button" value="공지사항 게시판 이동" onClick="newsBoardMove()" />
 	<!-- *************김훈******************** -->
-	
-	<button onClick="total('accessForm', 'AccessOut', 'post')">로그아웃</button>
+	<!-- 종 -->
+	<div>
+		${MemberList }
+	</div>
+	<!-- 종 -->
+	<button id="submit" onClick="total('accessForm', 'AccessOut', 'post')">로그아웃</button>
 </body>
 </html>
