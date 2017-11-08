@@ -31,12 +31,20 @@ public class AdminController {
 		mav = am.entrance(1, member);
 		return mav;
 	}
-	
+
 	//관리자 메인 게시판(자유)
 	@RequestMapping(value="/adminFreeBoard", method = RequestMethod.POST)
 	public ModelAndView adminFreeBoard(@ModelAttribute MemberBean member) throws Exception {
 		System.out.println("MemberController :: 관리자 메인 게시판(자유)");
 		mav = am.entrance(2, member);
+		return mav;
+	}
+
+	//회원 정지
+	@RequestMapping(value = "/UserDelete", method = RequestMethod.POST)
+	public ModelAndView userDelete(@ModelAttribute MemberBean member) throws Exception {
+		mav = new ModelAndView();
+		mav = am.entrance(3, member);
 		return mav;
 	}
 }

@@ -61,6 +61,14 @@
 		form.submit();
 	}
 	//**************************김훈****************************
+	
+	function attackBoardMove(){
+		createForm("attackBoardForm", "AttackBoard", "post");
+		
+		var form = document.getElementsByName("attackBoardForm")[0];
+		
+		form.submit();
+	}
 </script>
 </head>
 <body onLoad="init()">

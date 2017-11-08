@@ -121,7 +121,7 @@ public interface IMBatisDao {
 	public int setGuildBoardReplyDelete(BoardBean bean);			// 길드 보드 댓글 삭제하기
 	/*↑ 신태휘*/
 	//************************************김훈**************************************
-	
+
 	//공지사항 리스트 출력
 	public List<BoardBean> newsBoardList();
 
@@ -250,6 +250,46 @@ public interface IMBatisDao {
 
 	//************************************김훈**************************************
 
+	//종
+	//관리자 판단
+	public int type(MemberBean mb); 
+
+	//타입 체크
+	public int TypeCheck(MemberBean mb); 
+
+	//활동 맴버 리스트 출력
+	public List<MemberBean> MemberList(); 
+
+	//정지 맴버 리스트 출력
+	public List<MemberBean> memberList(); 
+
+	//맴버 정지
+	public int userDelete(MemberBean mb); 
+
+	//공략 리스트 출력
+	public List<BoardBean> attackBoardList();
+
+	//공략 작성
+	public int attackBoardMake(BoardBean boardBean);
+
+	//공략 게시글 내용 출력
+	public BoardBean attackBoardContents(BoardBean boardBean);
+
+	//공략 게시글 조회수 증가
+	public int attackBoardHitUp(BoardBean boardBean);
+
+	//공략 게시글 수정
+	public int attackBoardModify(BoardBean boardBean);
+
+	//공략 게시글 삭제
+	public int attackBoardDelete(BoardBean boardBean);
+
+	//공략 게시글 작성자 검색 출력
+	public List<BoardBean> attackBoardSearchId(BoardBean boardBean);
+
+	//공략 게시글 제목 검색 출력
+	public List<BoardBean> attackBoardSearchTitle(BoardBean boardBean);
+	//종
 
 }
 
