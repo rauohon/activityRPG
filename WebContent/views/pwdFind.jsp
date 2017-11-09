@@ -8,8 +8,6 @@
 <title>MainPage</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.3/svg.js"></script>
 <script src="js/common.js"></script>
-<link rel="stylesheet" href="css/login.css" media="screen" type="text/css" />
-
 <script>
 	function sendData() {
 		//폼 생성 요청
@@ -28,6 +26,7 @@
 
 <body>
 <%@ include file="nav.jsp"%>
+<link rel="stylesheet" href="css/login.css" media="screen" type="text/css" />
 	<!-- login -->
 	<div class="container" style="padding-top:60px">
 		<div id="login">

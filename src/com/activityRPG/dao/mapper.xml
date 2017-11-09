@@ -106,38 +106,47 @@
 	<select id="freeBoardContent" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
 		<!-- SELECT * FROM FB WHERE FB_TITLE=#{title} AND FB_DATE=#{date} -->
 		SELECT FB_CODE AS code, FB_MBID AS id, FB_TITLE AS title, FB_CONTENT AS "content", FB_DATE AS "date"
-		FROM FB 
-		WHERE FB_CODE=#{code}
+		FROM FB WHERE FB_CODE=#{code}
 	</select>
 	
-	<!-- 자유게시판 글쓰기 >> id check -->
-	<select id="freeIdCheck" parameterType="com.activityRPG.beans.BoardBean" resultType="Integer">
-		SELECT COUNT(*) FROM FB WHERE FB_MBID=#{id}
-	</select>
 	<!-- 글 등록 -->
 	<insert id="freeInsert" parameterType="com.activityRPG.beans.BoardBean">
 		INSERT INTO FB(FB_CODE, FB_MBID, FB_DATE, FB_TITLE, FB_CONTENT, FB_HIT, FB_GROUP, FB_STEP, FB_INDENT)
-		VALUES(SEQ_ID.NEXTVAL, #{id}, DEFAULT, #{title}, #{content}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+		VALUES(FB_NUM.NEXTVAL, #{id}, DEFAULT, #{title}, #{content}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
 	</insert>
+	
 	<!-- 글 삭제 -->
 	<insert id="freeDelete" parameterType="com.activityRPG.beans.BoardBean">
 		DELETE FROM FB WHERE FB_CODE=#{code}
 	</insert>
+	
 	<!-- 글 수정 -->
 	<insert id="freeUpdate" parameterType="com.activityRPG.beans.BoardBean">
 		UPDATE FB SET FB_TITLE=#{title}, FB_CONTENT=#{content} WHERE FB_CODE=#{code}
 	</insert>
-<!-- 
-<resultMap type="member" id="joinMap">
-		<result property="id" column="MB_ID" javaType="java.lang.String"/>
-		<result property="pwd" column="MB_PW"  javaType="java.lang.String"/>
-		<result property="name" column="MB_NAME" javaType="java.lang.String"/>
-		<result property="birth" column="MB_BIRTH" javaType="java.lang.String"/>
-		<result property="age" column="MB_AGE" javaType="java.lang.String"/>
-		<result property="gender" column="MB_GENDER" javaType="java.lang.String"/>
-		<result property="phone" column="MB_PHONE" javaType="java.lang.String"/>
-		<result property="email" column="MB_MAIL" javaType="java.lang.String"/>
-	</resultMap> -->
+	
+	<!-- 자유게시판 댓글 등록 -->
+	<insert id="freeComment" parameterType="com.activityRPG.beans.BoardBean">
+		INSERT INTO FR(FR_CODE, FR_BDCODE, FR_DATE, FR_MBID, FR_COMMENT)
+		VALUES(FR_NUM.NEXTVAL, #{code}, DEFAULT, #{id}, #{comment})
+	</insert>
+	
+	<!-- 자유게시판 댓글 띄워주기 -->
+	<select id="getfreeComment" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
+		SELECT FR_CODE AS frcode, FR_MBID AS id, FR_COMMENT AS "comment", FR_DATE AS "date"
+		FROM FR WHERE FR_BDCODE=#{code} ORDER BY FR_DATE DESC
+	</select>
+	
+	<!-- 자유게시판 글 제목 조회 -->
+	<select id="freeTitlefine" parameterType="com.activityRPG.beans.BoardBean" resultType="Integer">
+		SELECT COUNT(*) FROM FB WHERE FB_TITLE=#{text} OR FB_MBID=#{text}
+	</select>
+	
+	<!-- 자유게시판 글 제목 조회 보여주기 -->
+	<select id="freeTitleComment" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
+		SELECT FB_CODE AS code, FB_TITLE AS title, FB_MBID AS id, FB_DATE AS "date"
+		FROM FB WHERE FB_TITLE=#{text} OR FB_MBID=#{text} ORDER BY FB_DATE DESC
+	</select>
 <!-- ↑ 전지원 -->
 <!-- ↓ 신태휘 -->
 	<!-- 라즈베리파이 등록전 코드 유무 확인 -->

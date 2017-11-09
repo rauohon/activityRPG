@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-<link rel="stylesheet" href="css/getMessage.css" media="screen" type="text/css" />
 <script src="js/common.js"></script>
 <script>
 function total(formname, action, method){
@@ -30,12 +29,17 @@ function messageDelete(mbid, msgText){
 	relationObj("messageDeleteForm", "msgText");
 	form.submit();
 }
+
+function fine(){
+	
+}
 </script>
 </head>
 <body>
 	<%@ include file="nav.jsp"%>
+<link rel="stylesheet" href="css/getMessage.css" media="screen" type="text/css" />
 	<div id='wraper' style="padding-top: 60px;">
-	<h3>받은 메시지 함</h3>
+	<p>받은 메시지 함</p>
 	<input type="hidden" name="id" value="${id }"  />
 	<button id="click" onClick="total('messageForm', 'writingMessage', 'post')">메시지 쓰기</button>
 	<button id="click" onClick="total('sendmsgForm', 'sendmessage', 'post')">보낸 메시지</button>

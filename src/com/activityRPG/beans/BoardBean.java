@@ -13,11 +13,15 @@ import org.springframework.web.multipart.MultipartFile;
 @Alias("boardBean")
 public class BoardBean {
 	/*↓ 전지원*/
-	public int code;
-	public String title;
-	public String content;
-	public Date date;
-	public String comment;
+	//     String id		//자유 게시글 작성자
+	public int code;		//자유 게시글 번호
+	public String title;	//자유 게시글 제목
+	public String content;	//자유 게시글 내용
+	public Date date;		//자유게시판, 댓글 날짜
+	public String comment;	//자유 게시판 댓글 내용
+	public String type;		//자유 게시판 검색
+	public int frcode;		//자유 게시판 댓글 번호
+	public String text;		//자유 게시판 검색 내용
 	/*↑ 전지원*/
 	
 	/*↓ 신태휘*/
@@ -199,6 +203,24 @@ public class BoardBean {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
+	public int getFrcode() {
+		return frcode;
+	}
+	public void setFrcode(int frcode) {
+		this.frcode = frcode;
 	}
 	public String getGbReplyContent() {
 		return gbReplyContent;

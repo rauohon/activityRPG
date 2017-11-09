@@ -25,7 +25,7 @@
 		form.submit();
 	}
 
-	function change(id, pwd) {
+	function change() {
 		var form = createForm("changeForm", "changePwd", "post");
 		createinput("hidden", "id", "${id }");
 		createinput("hidden", "pwd", pwd);
