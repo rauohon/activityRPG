@@ -29,6 +29,14 @@
 			boy.alt = "남자 사진입니다.";
 			boy.title = "남자 사진";
 		}
+			var userType = "${userType}";
+			if(userType==2){
+				 $("#nomar_user").css("display","none");
+				 $("#admin_user").css("display","");
+			}else{
+				$("#nomar_user").css("display","");
+				$("#admin_user").css("display","none");
+			}
 	}
 	
 	function characterCreate(){
@@ -46,9 +54,7 @@
 			form.appendChild(characterName);
 			form.submit();
 		}
-	}
-	
-	
+	}	
 	//폼 생성
 	function createForm(formName, action, method){
 		var form = document.createElement("form");
@@ -59,6 +65,8 @@
 	}
 </script>
 <body onload="init()">
+<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
 	<div id="particles">
   		<div id="intro">
 			<img id="boy" />
@@ -69,6 +77,7 @@
 			
 			<font color="red" size=2>${message }</font>
   		</div>
+	</div>
 	</div>
 </body>
 </html>

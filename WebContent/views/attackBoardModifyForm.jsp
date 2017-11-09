@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Attack Board Modify Form</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 </head>
@@ -25,6 +26,18 @@
 		form.method = method;
 		document.body.appendChild(form);
 	}
+</script>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
 </script>
 <style>
 	table.type {
@@ -65,7 +78,7 @@
 	}
 
 </style>
-<body>
+<body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
 	<div id='wraper' style="padding-top: 60px;">
 		<form name="attackBoardModifyForm" action="AttackBoardModify" method="post">

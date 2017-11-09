@@ -63,7 +63,22 @@
 	}
 
 </style>
-<body>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
+</script>
+</head>
+<body onLoad='init()'>
+<%@ include file="nav.jsp"%>
+<div id='wraper' style="padding-top: 60px;">
 	<form name="newsBoardModifyForm" action="NewsBoardModify" method="post">
 		<div>
 			<table class="type">
@@ -90,5 +105,6 @@
 			<button onClick="back()" class="button">뒤로가기</button>
 		</div>
 	</form>
+	</div>
 </body>
 </html>

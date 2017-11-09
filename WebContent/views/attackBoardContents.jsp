@@ -8,8 +8,7 @@
 </head>
 <link rel="stylesheet" type="text/css"
 	href="/css/attackBoardContents.css" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script>
@@ -23,6 +22,13 @@
 			
 			var attackdelete = document.getElementsByName("attackBoardDelete")[0];
 			attackdelete.setAttribute("type", "button");
+		}
+		if(userType==2){
+			 $("#nomar_user").css("display","none");
+			 $("#admin_user").css("display","");
+		}else{
+			$("#nomar_user").css("display","");
+			$("#admin_user").css("display","none");
 		}
 	}
 	
