@@ -79,7 +79,7 @@ public class MemberManagement extends TranEx {
 		case 7:
 			mav = nameupdate((MemberBean)object[0]);
 			break;
-			//나의 정보 수정 >> 이메일
+			//나의 정보 수정 >> 메일
 		case 12:
 			mav = mailupdate((MemberBean)object[0]);
 			break;
@@ -87,15 +87,15 @@ public class MemberManagement extends TranEx {
 		case 13:
 			mav = phoneupdate((MemberBean)object[0]);
 			break;
-			//나의 정보 수정 버튼
+			//나의 정보 수정 버튼 >> 이름
 		case 14:
 			mav = infoupdateName((MemberBean)object[0]);
 			break;
-			//나의 정보 수정 버튼
+			//나의 정보 수정 버튼 >> 핸드폰 번호
 		case 15:
 			mav = infoupdatePhone((MemberBean)object[0]);
 			break;
-			//나의 정보 수정 버튼
+			//나의 정보 수정 버튼 >> 메일
 		case 16:
 			mav = infoupdateMail((MemberBean)object[0]);
 			break;
@@ -477,7 +477,6 @@ public class MemberManagement extends TranEx {
 			mb.setId(session.getAttribute("id").toString());
 			if(dao.IdCheck(mb) != 0) {
 				System.out.println("들어왔니");
-				mav.addObject("id", mb.getId());
 				mav.setViewName("passwordChange");
 			}
 		}catch(Exception ex) {
@@ -750,14 +749,13 @@ public class MemberManagement extends TranEx {
 	}
 
 	//받은 메시지 리스트
-	public ModelAndView getmessagelist(MemberBean mb) {
+	public ModelAndView getmessagelist(MemberBean mb) throws Exception {
 		ModelAndView mav = new ModelAndView();
 
 		System.out.println("service :: 받은 메시지 리스트");
 		try {
 			mb.setId(session.getAttribute("id").toString());
 			if(dao.IdCheck(mb) != 0) {
-				mb.setId(session.getAttribute("id").toString());
 				mav.addObject("id", mb.getId());
 				mav.addObject("messagelist", getlist(mb));
 				mav.setViewName("getMessage");
@@ -777,9 +775,9 @@ public class MemberManagement extends TranEx {
 		List<MemberBean> bean = dao.getMessageList(mb);
 		sb.append("<table>");
 		sb.append("<tr>");
-		sb.append("<td>" + "보낸 사람" + "</td>");
-		sb.append("<td>" + "내용" + "</td>");
-		sb.append("<td>" + "날짜" + "</td>");
+		sb.append("<th>" + "보낸 사람" + "</th>");
+		sb.append("<th>" + "내용" + "</th>");
+		sb.append("<th>" + "날짜" + "</th>");
 		sb.append("</tr>");
 
 		for(int i=0; i<bean.size(); i++) {
@@ -825,7 +823,6 @@ public class MemberManagement extends TranEx {
 		try {
 			mb.setId(session.getAttribute("id").toString());
 			if(dao.IdCheck(mb) != 0) {
-				mb.setId(session.getAttribute("id").toString());
 				mav.addObject("id", mb.getId());
 				mav.addObject("messagelist", sendlist(mb));
 				mav.setViewName("sendMessage");

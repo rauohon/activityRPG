@@ -8,8 +8,11 @@
 <title>MainPage</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.3/svg.js"></script>
 <script src="js/common.js"></script>
+<<<<<<< HEAD
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+=======
+>>>>>>> bb592ed5151f79b7027ace2bf34935be1eacea43
 <script>
 	function sendData() {
 		//폼 생성 요청
@@ -37,8 +40,14 @@ function init(){
 }
 </script>
 </head>
+<<<<<<< HEAD
 <body onLoad='init()'>
 <%@ include file="nav.jsp"%>	
+=======
+
+<body>
+<%@ include file="nav.jsp"%>
+>>>>>>> bb592ed5151f79b7027ace2bf34935be1eacea43
 <link rel="stylesheet" href="css/login.css" media="screen" type="text/css" />
 	<!-- login -->
 	<div class="container" style="padding-top:60px">
