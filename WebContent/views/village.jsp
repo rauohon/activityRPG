@@ -76,8 +76,20 @@
 		form.submit();
 	}
 </script>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
+</script>
 </head>
-<body>
+<body onLoad='init()'>
 <%@ include file="nav.jsp"%>
 	<div id='wraper' style="padding-top: 60px;">
 		<div id='chatArea' style="width:30%; float: left; height: 60%; margin-left: 80px;">

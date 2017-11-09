@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Enhance Shop</title>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 </head>
 <link rel="stylesheet" type="text/css" href="/css/enhanceShop.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -48,19 +50,32 @@
 		}
 	}
 </script>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
+</script>
 <style>
 	
 </style>
-<body>
-	<h1>강화 상점</h1>
-	<div id="message">
-		${message }
-	</div>
-	<div id="itemInformationDiv">
-		
-	</div>
-	<div id="inventoryDiv">
-		${userInventory }
+<body onLoad='init()'>
+	<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
+		<div id="message">
+			${message }
+		</div>
+		<div id="itemInformationDiv">			
+		</div>
+		<div id="inventoryDiv">
+			${userInventory }
+		</div>
 	</div>
 </body>
 </html>

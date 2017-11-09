@@ -9,54 +9,23 @@
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="js/common.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-	function total(formname, action, method) {
-		var form = createForm(formname, action, method);
-
-		createObj("hidden", "id", "${id}", "");
-
-		relationObj("adminMainForm", "id");
-		relationObj("", "id");
-		relationObj("", "id");
-		relationObj("", "id");
-		relationObj("boardForm", "id");
-		relationObj("activityLogForm", "id");
-		relationObj("accessForm", "id");
-		
-		form.submit();
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 var input = document.createElement("input");
+		 input.type = "button";
+		 input.value = "게시글 작성";
+		 input.setAttribute("onClick", "newsBoardMakeFormMove()");
+		 input.setAttribute("class", "writeButton");
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
 	}
-	//*******김훈********
- 	function newsBoardMove(){
-		createForm("newsBoardForm", "NewsBoard", "post");
-		
-		var form = document.getElementsByName("newsBoardForm")[0];
-		
-		form.submit();
-	}
- 	//*********김훈***********
-	
- 	//종
-	function userDelete(id){
-		createForm("userDeleteForm", "UserDelete", "post");
-		var form = document.getElementsByName("userDeleteForm")[0];
-		
-		var code = document.createElement("input");
-		code.type = "hidden";
-		code.name = "id";
-		code.value = id;
-		
-		form.appendChild(code);
-		form.submit();
-	}
-	function attackBoardMove(){
-		createForm("attackBoardForm", "AttackBoard", "post");
-		
-		var form = document.getElementsByName("attackBoardForm")[0];
-		
-		form.submit();
-	}
-	
-	//종
+}
 </script>
 <style>
 #user {
@@ -91,14 +60,9 @@
 }
 </style>
 </head>
-<body>
-	<%@ include file="navAdmin.jsp"%>
+<body onLoad=init()>
+	<%@ include file="nav.jsp"%>
 	<div style="padding-top: 70px;padding-left: 50px;">	
-	<h3 id="user">관리자 페이지</h3>
-	
-	<!-- *************김훈******************** -->
-	<input type="button" value="공지사항 게시판 이동" onClick="newsBoardMove()" />
-	<!-- *************김훈******************** -->
 	<!-- 종 -->
 	<div>
 		${MemberList }

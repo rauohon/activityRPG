@@ -5,9 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Attack Board Make Form</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 </head>
 <link rel="stylesheet" type="text/css" href="/css/attackBoardMakeForm.css"/>
 <script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
 	function attackBoardMake(){
 		AttackBoardMakeForm.submit();
 	}
@@ -26,12 +40,12 @@
 		document.body.appendChild(form);
 	}
 </script>
-<style>
-</style>
-<body>
-	<form name="AttackBoardMakeForm" action="AttackBoardMake" method="post">
+<body onLoad='init()'>
+	<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
+		<form name="AttackBoardMakeForm" action="AttackBoardMake" method="post">
 		<div>
-		<h1>공략게시판</h1>
+			<h1>공략게시판</h1>
 			<table class="type">
 				<tr>
 					<th>제목 : <input type="text" name="attackBoardTitle" class="titleText"/></th>
@@ -46,6 +60,7 @@
 				<input type="button" onClick="back()" value="목록" class="button"/>
 			</div>
 		</div>
-	</form>
-</body>
+		</form>
+	</div>
+	</body>
 </html>
