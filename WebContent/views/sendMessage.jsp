@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/getMessage.css" media="screen" type="text/css" />
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="js/common.js"></script>
@@ -47,8 +46,9 @@ function init(){
 </head>
 <body onLoad='init()'>
 <%@ include file="nav.jsp"%>
+<link rel="stylesheet" href="css/getMessage.css" media="screen" type="text/css" />
 	<div style="padding-top:60px">
-	<h3>보낸 메시지 함</h3>
+	<p>보낸 메시지 함</p>
 	<input type="hidden" name="id" value="${id }"  />
 	<button id="click" onClick="total('messageForm', 'writingMessage', 'post')">메시지 쓰기</button>
 	<button id="click" onClick="total('sendmsgForm', 'getMessageList', 'post')">받은 메시지</button>

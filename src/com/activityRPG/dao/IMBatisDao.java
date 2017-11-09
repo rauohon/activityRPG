@@ -61,14 +61,21 @@ public interface IMBatisDao {
 
 	public BoardBean freeBoardContent(BoardBean board);				//자유게시판 내용 보기
 
-	public int freeIdCheck(BoardBean board);						//자유게시판 글 쓰기 위한 아이디 체크
-
 	public int freeInsert(BoardBean board);							//자유게시판 글 저장
 
 	public int freeDelete(BoardBean board);							//자유게시판 글 삭제
 
 	public int freeUpdate(BoardBean board);							//자유게시판 글 수정
+	
+	public int freeComment(BoardBean board);						//자유게시판 댓글 달기
+	
+	public List<BoardBean> getfreeComment(BoardBean board);			//자유게시판 댓글 보기
 
+	public int freeTitlefine(BoardBean board);						//자유게시판 글 타이틀 조회
+	
+	public List<BoardBean> freeTitleComment(BoardBean board);		//자유게시판 글 타이틀 조회
+	/*↑ 전지원*/
+	/*↓ 신태휘*/
 	public GameBean getCharacterStatus(GameBean bean);				// 캐릭터 능력치 조회
 
 	public GameBean getEquipList(Map<String, String> map);			// 캐릭터 장비 조회
@@ -78,8 +85,7 @@ public interface IMBatisDao {
 	public GameBean getEnLevel(Map<String, String> map);			// 캐릭터 장비 강화 레벨 조회
 
 	public List<GameBean> getIvenList(Map<String, String> map);		// 캐릭터 소지품 조회
-	/*↑ 전지원*/
-	/*↓ 신태휘*/
+
 	public int getRaspCheck(ActivityBean ab);						// 라즈베리파이 코드 유무 확인
 
 	public int setRaspMem(ActivityBean ab);							// 라즈베리파이-회원 연동

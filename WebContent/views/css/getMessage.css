@@ -15,6 +15,14 @@ body {
     background-color:#f68a6f;
 }
 
+p {
+	margin-bottom: 20px;
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+/* getMessage */
 #click {
 	margin-bottom: 20px;
 	margin-left: 2%;

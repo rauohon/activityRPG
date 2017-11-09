@@ -28,6 +28,35 @@
 		relationObj("freeUpageForm", "date");
 		form.submit();
 	}
+	
+	function freeUpdateBack(id, code, title, date){
+		var form = createForm("freeUpageBackForm", "freeBoard", "post");
+		
+		createinput("hidden", "id", id);
+		createinput("hidden", "code", code);
+		createinput("hidden", "title", title);
+		createinput("hidden", "date", date);
+		
+		relationObj("freeUpageBackForm", "id");
+		relationObj("freeUpageBackForm", "code");
+		relationObj("freeUpageBackForm", "title");
+		relationObj("freeUpageBackForm", "date");
+		form.submit();
+	}
+	
+	function freeComment(code){
+		var form = createForm("freeCommentForm", "freeComment", "post");
+		
+		createinput("hidden", "id", "${id}");
+		createinput("hidden", "code", code);
+		createinput("hidden", "comment", comment);
+		
+		relationObj("freeCommentForm", "id");
+		relationObj("freeCommentForm", "code");
+		relationObj("freeCommentForm", "comment");
+		
+		form.submit();
+	}
 </script>
 <script>
 function init(){
@@ -44,10 +73,12 @@ function init(){
 </head>
 <body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
-	<div style="padding-top:60px">
-		<h2>자유게시판 글 상세보기</h2>
+	<div class="contents">
+	<div style="padding-top: 90px">
 		${freecontent }
+		${freecomment }
 		${message }
+	</div>
 	</div>
 </body>
 </html>

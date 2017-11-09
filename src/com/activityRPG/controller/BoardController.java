@@ -191,8 +191,7 @@ public class BoardController {
 		mav = fb.entrance(1, board);
 		return mav;
 	}
-
-	//회원 메인 게시판(자유)
+	
 	@RequestMapping(value="/freeBoardContent", method = RequestMethod.POST)
 	public ModelAndView freeBoardContent(@ModelAttribute BoardBean board) throws Exception {
 		System.out.println("MemberController :: 자유 게시판 내용 보기");
@@ -239,7 +238,31 @@ public class BoardController {
 		mav = fb.entrance(7, board);
 		return mav;
 	}
-
+	
+	//자유게시판 댓글 달기
+	@RequestMapping(value="/freeComment", method = RequestMethod.POST)
+	public ModelAndView freeComment(@ModelAttribute BoardBean board) throws Exception {
+		System.out.println("MemberController :: 자유 게시판 댓글 달기");
+		mav = fb.entrance(8, board);
+		return mav;
+	}
+	
+	//자유게시판 글 제목 찾기
+	@RequestMapping(value="/freeTitleFine", method = RequestMethod.POST)
+	public ModelAndView freeTitleFine(@ModelAttribute BoardBean board) throws Exception {
+		System.out.println("MemberController :: 자유 게시판 글 제목 찾기");
+		mav = fb.entrance(9, board);
+		return mav;
+	}
+	
+/*	@RequestMapping(value="/listCmt", method={RequestMethod.GET, RequestMethod.POST})
+    public String listCmt(String no, ModelMap map) {
+          List listCmt = dao.getListCmt(no);
+          map.put("listCmt", listCmt);
+          return "reboard/listCmt";
+    }
+	*/
+	
 	//****************김훈********************
 	@RequestMapping(value = "/NewsBoard", method = RequestMethod.POST)
 	public ModelAndView newsBoardMove() {
