@@ -10,6 +10,8 @@
 	href="/css/attackBoardContents.css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script>
 	function init(){
 		var userType = "${userType}";
@@ -67,14 +69,17 @@
 <style>
 </style>
 <body onload="init()">
-	<div id="contentsDiv">${attackBoardContentsView }</div>
-	<div id="buttonDiv">
-		<input type="hidden" name="attackBoardModifyFormMove" value="수정"
-			onClick="attackBoardModifyFormMove(${attackBoardCode})"
-			class="button" /> <input type="hidden" name="attackBoardDelete"
-			value="삭제" onClick="attackBoardDelete(${attackBoardCode})"
-			class="button" />
-		<button onClick="back()" class="button">목록</button>
+<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
+		<div id="contentsDiv">${attackBoardContentsView }</div>
+		<div id="buttonDiv">
+			<input type="hidden" name="attackBoardModifyFormMove" value="수정"
+				onClick="attackBoardModifyFormMove(${attackBoardCode})"
+				class="button" /> <input type="hidden" name="attackBoardDelete"
+				value="삭제" onClick="attackBoardDelete(${attackBoardCode})"
+				class="button" />
+			<button onClick="back()" class="button">목록</button>
+		</div>
 	</div>
 </body>
 </html>

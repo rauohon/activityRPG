@@ -93,6 +93,7 @@ public class ActivityService extends TranEx {
 						mav.addObject("yesterdayActivity",yesterDayStepData(bean));
 						mav.setViewName("activityDayLog");
 						// transaction = true;
+						// 시연때는 true 해제
 					}
 				}
 			}
@@ -335,7 +336,13 @@ public class ActivityService extends TranEx {
 	 */
 	private String activityAllData(ActivityBean bean) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("전체 걸음/오른 층수/전환한 경험치 내역이 전달됩니다.");
+		sb.append("전체 걸음/오른 층수/전환한 경험치 내역입니다.");
+		sb.append("<br/>");
+		List<ActivityBean> acti = dao.getActivityAllData(bean);
+		List<ActivityBean> acti2 = dao.getAppliedAllData(bean);
+		sb.append("<h1 style=\'margin-top:2%;\'>" + acti.get(0).getStep() + " : 지금까지 이만큼 걸으셨어요.</h1>");
+		sb.append("<h1 style=\'margin-top:2%;\'>" + acti.get(0).getFloor() + " : 지금까지 이만큼 계단으로 오르내리셨어요.</h1>");
+		sb.append("<h1 style=\'margin-top:2%;\'>" +acti2.get(0).getExp()+ " : 지금까지 이만큼 경험치로 전환 하셨어요.</h1>");
 
 		return sb.toString();
 	}
@@ -348,10 +355,21 @@ public class ActivityService extends TranEx {
 	 * @return type : String
 	 */
 	private String activityWeekExpData(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("조회 시점에서 일주일 간의 경험치 전환 내역이 json 형태로 전달됩니다.");
-
-		return sb.toString();
+		String sb = "";
+		
+		Gson gson = new Gson();
+		
+		List<ActivityBean> acti = dao.getWeekAppliedExp(bean);
+		
+		Collections.sort(acti, new Comparator<ActivityBean>(){
+			@Override
+			public int compare(ActivityBean r2, ActivityBean r1){
+				return r1.getDate().compareTo(r2.getDate());
+			}
+		});
+		sb = gson.toJson(acti);
+		
+		return sb;
 	}
 
 	/**
@@ -452,8 +470,8 @@ public class ActivityService extends TranEx {
 		int step = acti.get(0).getStep();
 		int applicableExp = (floor * 100) + (step / 10);
 		
-		sb.append(String.valueOf(applicableExp) + " 을(를) 경험치 전환이 가능 합니다. \t");
-		sb.append("<button onClick='setexp(\""+ applicableExp + "\")'>경험치로 바꾸기</button>");
+		sb.append(String.valueOf(applicableExp) + " 을(를) 경험치 전환이 가능 합니다. <br>");
+		sb.append("<button class=\'button\' onClick='setexp(\""+ applicableExp + "\")' style=\'height: 35px; width: 10%; margin-top:2%\'>경험치로 바꾸기</button>");
 		
 		return sb.toString();
 	}
@@ -472,7 +490,6 @@ public class ActivityService extends TranEx {
 		
 		List<ActivityBean> acti = dao.getTodayAct(bean);
 		sb = gson.toJson(acti);
-		System.out.println(sb);
 	
 		return sb;
 	}

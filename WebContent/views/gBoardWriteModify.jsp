@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script>
 function startc(){
 	alert('ddd');
@@ -12,7 +14,8 @@ function startc(){
 </script>
 </head>
 <body>
-<h1>writeGBoardModyfy Page 입니다.</h1>
+<%@ include file="nav.jsp"%>
+<div id='wraper' style="padding-top: 60px;">
 <form action='${action }' method='POST'>
 <table style='border:1px solid black; width:100%;'>
 <tr>
@@ -48,6 +51,6 @@ ${reply }
 </table>
 </form>
 
-
+</div>
 </body>
 </html>

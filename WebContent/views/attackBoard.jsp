@@ -11,6 +11,8 @@
 <link rel="stylesheet" type="text/css" href="/css/attackBoard.css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script>
 	function init(){
 		var userType = "${userType}";
@@ -133,15 +135,18 @@ table.list td {
 }
 </style>
 <body onload="init()">
-	${attackBoardList }
-	<div id="pageNum"></div>
-	<br />
-	<div id="divOption">
-		<select id="option" class="selectBox">
-			<option value="attackBoardTitle">제목</option>
-			<option value="attackBoardUserId">작성자</option>
-		</select> <input type="text" name="search" class="textBox" /> <input
-			type="button" value="검색" onClick="search()" class="searchButton" />
+<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
+		${attackBoardList }
+		<div id="pageNum"></div>
+		<br />
+		<div id="divOption">
+			<select id="option" class="selectBox">
+				<option value="attackBoardTitle">제목</option>
+				<option value="attackBoardUserId">작성자</option>
+			</select> <input type="text" name="search" class="textBox" /> <input
+				type="button" value="검색" onClick="search()" class="searchButton" />
+		</div>
 	</div>
 </body>
 </html>

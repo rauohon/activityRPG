@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Attack Board Modify Form</title>
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 </head>
 <script>
 	function attackBoardModify(){
@@ -64,31 +66,34 @@
 
 </style>
 <body>
-	<form name="attackBoardModifyForm" action="AttackBoardModify" method="post">
-		<div>
-			<table class="type">
-				<tr>
-					<th>제목 : <input type="text" name="attackBoardTitle" value="${attackBoardTitle }" class="titleText"/></th>
-				</tr>
-				<tr>
-					<td><textarea cols="110" rows="28" name="attackBoardContents" >${attackBoardContents }</textarea></td>
-				</tr>
-			</table>
+	<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
+		<form name="attackBoardModifyForm" action="AttackBoardModify" method="post">
+			<div>
+				<table class="type">
+					<tr>
+						<th>제목 : <input type="text" name="attackBoardTitle" value="${attackBoardTitle }" class="titleText"/></th>
+					</tr>
+					<tr>
+						<td><textarea cols="110" rows="28" name="attackBoardContents" >${attackBoardContents }</textarea></td>
+					</tr>
+				</table>
+				<input type="hidden" name="attackBoardCode" value="${attackBoardCode }" /> 
+				<input type="hidden" name="attackBoardUserId" value="${attackBoardUserId }" /> 
+				<input type="hidden" name="attackBoardHit" value="${attackBoardHit }" />
+			</div>
+			<div class="buttonDiv1">
+				<button onClick="attackBoardModify()" class="button">수정완료</button>
+			</div>
+			
+		</form>
+		<form name="attackBoardContentsForm" action="AttackBoardContentsView" method="post">
 			<input type="hidden" name="attackBoardCode" value="${attackBoardCode }" /> 
-			<input type="hidden" name="attackBoardUserId" value="${attackBoardUserId }" /> 
 			<input type="hidden" name="attackBoardHit" value="${attackBoardHit }" />
-		</div>
-		<div class="buttonDiv1">
-			<button onClick="attackBoardModify()" class="button">수정완료</button>
-		</div>
-		
-	</form>
-	<form name="attackBoardContentsForm" action="AttackBoardContentsView" method="post">
-		<input type="hidden" name="attackBoardCode" value="${attackBoardCode }" /> 
-		<input type="hidden" name="attackBoardHit" value="${attackBoardHit }" />
-		<div class="buttonDiv2">
-			<button onClick="back()" class="button">뒤로가기</button>
-		</div>
-	</form>
+			<div class="buttonDiv2">
+				<button onClick="back()" class="button">뒤로가기</button>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

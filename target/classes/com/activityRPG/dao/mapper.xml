@@ -254,6 +254,21 @@
 			SUBSTR(AT_DATE,0,8)
 	</select>
 	
+	<!-- 일주일간의 경험치 전환량 가져오기 -->
+	<select id="getWeekAppliedExp" parameterType="actBean" resultType="actBean">
+		SELECT SUBSTR(AL_DATE,0,8) AS "date", AL_EXP AS "exp" FROM ACTIVITY_LOG WHERE AL_MBID = #{id}
+	</select>
+	
+	<!-- 전체 활동량 가져오기 -->
+	<select id="getActivityAllData" parameterType="actBean" resultType="actBean">
+		SELECT SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor FROM ACTIVITY WHERE AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID=#{id})
+	</select>
+	
+	<!-- 전체 경험치 전환량 가져오기 -->
+	<select id="getAppliedAllData" parameterType="actBean" resultType="actBean">
+		SELECT SUM(AL_EXP) AS "exp" FROM ACTIVITY_LOG WHERE AL_MBID = #{id}
+	</select>
+	
 	<!-- 캐릭터 이름 가져오기 -->
 	<select id="getCharaName" parameterType="boardBean" resultType="boardBean">
 		SELECT CH_NAME AS chName FROM USER_CHARACTER WHERE CH_MBID=#{id}

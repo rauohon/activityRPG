@@ -98,6 +98,12 @@ public interface IMBatisDao {
 	
 	public List<ActivityBean> getWeekActivity(ActivityBean ab); // 일주일 운동량 가져오기
 
+	public List<ActivityBean> getWeekAppliedExp(ActivityBean ab);	// 일주일 경험치 전환 내역 불러오기
+	
+	public List<ActivityBean> getActivityAllData(ActivityBean ab);	// 전체 활동량 내역 불러오기
+	
+	public List<ActivityBean> getAppliedAllData(ActivityBean ab);	// 전체 경험치 내역 불러오기
+	
 	public GameBean getItemInfo(GameBean bean);						// 아이템 정보 조회
 
 	public int getIsEquip(Map<String, String> map);					// 착용 아이템 사용전 기 착용여부 확인
