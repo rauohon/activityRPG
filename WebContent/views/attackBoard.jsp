@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ page import="com.activityRPG.utils.ProjectUtils"%>
+    pageEncoding="UTF-8"%>
+<%@ page import="com.activityRPG.utils.ProjectUtils" %>
 <%! ProjectUtils pju; %>
 <!DOCTYPE html>
 <html>
@@ -8,11 +8,8 @@
 <meta charset="UTF-8">
 <title>Attack Board</title>
 </head>
-<link rel="stylesheet" type="text/css" href="/css/attackBoard.css" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css"
-   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<link rel="stylesheet" type="text/css" href="/css/attackBoard.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	function init(){
 		var userType = "${userType}";
@@ -118,35 +115,20 @@
 	}
 </script>
 <style>
-.divClass {
-	display: none;
-}
-
-div#div0 {
-	display: block;
-}
-
-body {
-	background-color: #2c3338;
-}
-
-table.list td {
-	color: white;
-}
 </style>
 <body onload="init()">
-<%@ include file="nav.jsp"%>
-	<div id='wraper' style="padding-top: 60px;">
-		${attackBoardList }
-		<div id="pageNum"></div>
-		<br />
-		<div id="divOption">
-			<select id="option" class="selectBox">
-				<option value="attackBoardTitle">제목</option>
-				<option value="attackBoardUserId">작성자</option>
-			</select> <input type="text" name="search" class="textBox" /> <input
-				type="button" value="검색" onClick="search()" class="searchButton" />
-		</div>
+	${attackBoardList }
+	<div id="pageNum">
+	
+	</div>
+	<br/>
+	<div id="divOption">
+		<select id="option" class="selectBox">
+			<option value="attackBoardTitle">제목</option>
+			<option value="attackBoardUserId">작성자</option>
+		</select>
+		<input type="text" name="search" class="textBox"/>
+		<input type="button" value="검색" onClick="search()" class="searchButton"/>
 	</div>
 </body>
 </html>

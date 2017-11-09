@@ -65,6 +65,7 @@ public class AttackBoard extends TranEx {
 					int z = 0;
 					for(int i = 0 ; i <= listBoardBean.size()/15; i++) {
 						sb.append("<div id=div" + i + " class=divClass>");
+						sb.append("<h1>공략게시판</h1>");
 						sb.append("<table class=\"list\">");
 						sb.append("<tr>");
 						sb.append("<th>글번호</th>");
@@ -98,6 +99,7 @@ public class AttackBoard extends TranEx {
 					int z = 0;
 					for(int i = 0 ; i <= listBoardBean.size()/15; i++) {
 						sb.append("<div id=div" + i + " class=divClass>");
+						sb.append("<h1>공략게시판</h1>");
 						sb.append("<table class=\"list\">");
 						sb.append("<tr>");
 						sb.append("<th>글번호</th>");
@@ -210,9 +212,10 @@ public class AttackBoard extends TranEx {
 			transaction = true;
 			setTransactionResult(transaction);
 
-
 			boardBean = dao.attackBoardContents(boardBean);
+					
 			StringBuffer sb = new StringBuffer();
+			sb.append("<h1>공략게시판</h1>");
 			sb.append("<table class=\"type\">");
 			sb.append("<tr>");
 			sb.append("<th class=\"code\">" + boardBean.getAttackBoardCode() + "</th>");
@@ -232,6 +235,7 @@ public class AttackBoard extends TranEx {
 			
 			mav.addObject("attackBoardContentsView", sb.toString());
 			mav.addObject("attackBoardCode", boardBean.getAttackBoardCode());
+			mav.addObject("AttackBoardUserId", boardBean.getAttackBoardUserId());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -277,6 +281,7 @@ public class AttackBoard extends TranEx {
 			int z = 0;
 			for(int i = 0 ; i <= listBoardBean.size()/15; i++) {
 				sb.append("<div id=div" + i + " class=divClass>");
+				sb.append("<h1>공략게시판</h1>");
 				sb.append("<table class=\"list\">");
 				sb.append("<tr>");
 				sb.append("<th>글번호</th>");
