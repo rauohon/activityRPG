@@ -61,7 +61,7 @@ public class ActivityController {
 	 * @Method Name : adminActivityLogPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/AdminActivityLogPage", method = RequestMethod.GET)
+	@RequestMapping(value="/AdminActivityLogPage", method = RequestMethod.POST)
 	private ModelAndView adminActivityLogPage(@ModelAttribute ActivityBean bean) {
 		
 		mav = as.entrance(3, bean);

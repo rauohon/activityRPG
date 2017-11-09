@@ -67,6 +67,34 @@
 			$("#chart").append(${todayActivity}[0].step + " / " + ${yesterdayActivity}[0].step + "\t");
 			$("#chart").append(${todayActivity}[0].floor + " / " + ${yesterdayActivity}[0].floor);
 		var ctx = document.getElementById('myChart1').getContext('2d');
+		var stepChartOption = {
+				legend:{
+					labels:{
+						fontColor:"white"
+					}
+				},
+				  scales: {
+						xAxes:[{
+							ticks:{
+								fontColor:"white",
+								fontSize:20
+							}
+						}],
+				    yAxes: [{
+				      gridLines: {
+				    	zeroLineColor: "white",
+				        display: true,
+				        color:"white"
+				      },
+				      ticks: {
+				    	  	fontColor:"white",
+					        min: 0,
+					        max: 16000,
+					        stepSize: 2000
+					      }
+				    }],
+				  }
+				};
 		var chart = new Chart(ctx, {
 		    // The type of chart we want to create
 		    type: 'bar',
@@ -75,23 +103,49 @@
 		        labels: ["걸음 수"],
 		        datasets: [{
 		            label: "오늘",
-		            backgroundColor: 'rgba(255, 99, 132,0.5)',
-		            borderColor: 'rgb(54, 162, 235, 0.2)',
+		            backgroundColor: 'rgba(255, 99, 132,1)',
+		            borderColor: 'rgb(54, 162, 235, 1)',
 		            borderWidth: 1,
 		            data: [${todayActivity}[0].step]
 		        },{
 		            label: "어제",
-		            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+		            backgroundColor: 'rgba(54, 162, 235, 1)',
 		            borderColor: 'rgb(255, 99, 132)',
 		            borderWidth: 1,
 		            data: [${yesterdayActivity}[0].step]
 		        }]
 		    },
 		    // Configuration options go here
-		    options: {
-		    }
+		    options: stepChartOption
 		});
 		var ctx = document.getElementById('myChart2').getContext('2d');
+		var floorChartOption = {legend:{
+			labels:{
+				fontColor:"white"
+			}
+		},
+				  scales: {
+					xAxes:[{
+						ticks:{
+							fontColor:"white",
+							fontSize:20
+						}
+					}],
+				    yAxes: [{
+				      gridLines: {
+				    	zeroLineColor: "white",
+				        display: true,
+				        color:"white"
+				      },
+				      ticks: {
+			    	  		fontColor:"white",
+					        min: 0,
+					        max: 20,
+					        stepSize: 5
+					      }
+				    }],
+				  }
+				};
 		var chart = new Chart(ctx, {
 		    // The type of chart we want to create
 		    type: 'bar',
@@ -100,20 +154,20 @@
 		        labels: ["계단 사용 층 수"],
 		        datasets: [{
 		            label: "오늘",
-		            backgroundColor: 'rgba(255, 99, 132,0.5)',
-		            borderColor: 'rgb(54, 162, 235, 0.2)',
+		            backgroundColor: 'rgba(255, 99, 132,1)',
+		            borderColor: 'rgb(54, 162, 235, 1)',
 		            borderWidth: 1,
 		            data: [${todayActivity}[0].floor]
 		        },{
 		            label: "어제",
-		            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+		            backgroundColor: 'rgba(54, 162, 235, 1)',
 		            borderColor: 'rgb(255, 99, 132)',
 		            borderWidth: 1,
 		            data: [${yesterdayActivity}[0].floor]
 		        }]
 		    },
 		    // Configuration options go here
-		    options: {}
+		    options: floorChartOption
 		});
 		</script>
 		</div>

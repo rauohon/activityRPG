@@ -208,6 +208,17 @@
 			</if>
 		</where>
 	</select>
+	<!-- 	전환 가능한 경험치 가져오기 -->
+	<select id="getAvailableAct" parameterType="actBean" resultType='actBean'>
+		SELECT 
+			SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor 
+		FROM 
+			ACTIVITY 
+		WHERE
+			AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID = #{id})
+		AND
+					AT_LOG = 1		
+	</select>
 <!-- 	AT_LOGDATE <= TO_DATE('2017/11/08','YYYY/MM/DD') AND AT_LOGDATE > TO_DATE('2017/11/07','YYYY/MM/DD') -->
 	<!-- 	어제 활동량 가져오기 -->
 	<select id="getYesterdayAct" parameterType="actBean" resultType='actBean'>
@@ -221,9 +232,14 @@
 			AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID = #{id})]]>
 	</select>
 	
-	<!--	경험치 전환 내역 가져오기 -->
-	<select id="getAppliedExp" parameterType="actBean" resultType="actBean">
-		SELECT SUM(AL_EXP) AS exp FROM ACTIVITY_LOG WHERE AL_MBID = #{id}
+	<!-- 경험치 전환 내역 합 가져오기 -->
+	<select id="getAppliedSumExp" parameterType="actBean" resultType="actBean">
+		SELECT SUM(AL_EXP) AS exp FROM ACTIVITY_LOG WHERE AL_MBID = #{id} 
+	</select>
+	
+	<!-- 일주일 경험치 전환 내역 가져오기 -->
+	<select id="getAppliedWeekExp" parameterType="actBean" resultType="actBean">
+		SELECT SUBSTR(AL_DATE,0,8) AS "date", AL_EXP AS "exp" FROM ACTIVITY_LOG WHERE AL_MBID = #{id} AND AL_DATE >= SYSDATE-7
 	</select>
 	
 	<!--	운동량 경험치로 적용하기 1. 캐릭터 경험치 업데이트-->
@@ -263,7 +279,7 @@
 	
 	<!-- 일주일간의 경험치 전환량 가져오기 -->
 	<select id="getWeekAppliedExp" parameterType="actBean" resultType="actBean">
-		SELECT SUBSTR(AL_DATE,0,8) AS "date", AL_EXP AS "exp" FROM ACTIVITY_LOG WHERE AL_MBID = #{id}
+		<![CDATA[SELECT SUM(AL_EXP) AS "exp" FROM ACTIVITY_LOG WHERE AL_MBID = #{id} AND AL_DATE >= SYSDATE-7]]>
 	</select>
 	
 	<!-- 전체 활동량 가져오기 -->

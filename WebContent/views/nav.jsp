@@ -76,7 +76,7 @@ function total(formname, action, method){
 					<li><input type="button" value="공략 게시판" onClick="attackBoardMove()" id="bar" /></li>
 				</ul>
 			</li>
-			<li><button onClick="total('activityLogForm', 'ActivityDayLogPage', 'post')" id="bar">운동 정보 확인</button></li>
+			<li><button onClick="total('adminactivitylogpage', 'AdminActivityLogPage', 'post')" id="bar">운동 정보 확인</button></li>
 		</ul>
 	</div>
 </div>

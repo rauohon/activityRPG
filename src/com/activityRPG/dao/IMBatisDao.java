@@ -94,7 +94,11 @@ public interface IMBatisDao {
 	
 	public List<ActivityBean> getYesterdayAct(ActivityBean ab);		// 오늘 걸음수 가져오기
 	
-	public ActivityBean getAppliedExp(ActivityBean ab);		// 적용한 경험치 총량 가져오기
+	public List<ActivityBean> getAvailableAct(ActivityBean ab);		// 오늘 걸음수 가져오기
+	
+	public ActivityBean getAppliedWeekSumExp(ActivityBean ab);		// 적용한 경험치 총량 가져오기
+	
+	public List<ActivityBean> getAppliedWeekExp(ActivityBean ab);		// 적용한 경험치 일주일 가져오기
 	
 	public int setActExp(ActivityBean ab);											// 운동량 경험치로 적용하기 1. 캐릭터 경험치 업데이트
 	
@@ -104,7 +108,7 @@ public interface IMBatisDao {
 	
 	public List<ActivityBean> getWeekActivity(ActivityBean ab); // 일주일 운동량 가져오기
 
-	public List<ActivityBean> getWeekAppliedExp(ActivityBean ab);	// 일주일 경험치 전환 내역 불러오기
+	public ActivityBean getWeekAppliedExp(ActivityBean ab);	// 일주일 경험치 전환 내역 불러오기
 	
 	public List<ActivityBean> getActivityAllData(ActivityBean ab);	// 전체 활동량 내역 불러오기
 	

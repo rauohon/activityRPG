@@ -359,7 +359,7 @@ public class ActivityService extends TranEx {
 		
 		Gson gson = new Gson();
 		
-		List<ActivityBean> acti = dao.getWeekAppliedExp(bean);
+		List<ActivityBean> acti = dao.getAppliedWeekExp(bean);
 		
 		Collections.sort(acti, new Comparator<ActivityBean>(){
 			@Override
@@ -368,6 +368,8 @@ public class ActivityService extends TranEx {
 			}
 		});
 		sb = gson.toJson(acti);
+		
+		System.out.println(sb);
 		
 		return sb;
 	}
@@ -438,7 +440,7 @@ public class ActivityService extends TranEx {
 	}
 
 	/**
-	 * 처리내용 : 1-3 전환 했던 경험치 총량 불러오기
+	 * 처리내용 : 1-3 전환 했던 경험치 일주일량 불러오기
 	 * 작성일 : 2017. 10. 23.
 	 * 작성자 : 신태휘
 	 * @Method Name : appliedExpIndi
@@ -448,7 +450,7 @@ public class ActivityService extends TranEx {
 		String sb = "";
 			
 			bean.setExp(1);
-			bean = dao.getAppliedExp(bean);
+			bean = dao.getWeekAppliedExp(bean);
 			
 			sb = String.valueOf(bean.getExp());			
 
@@ -464,7 +466,7 @@ public class ActivityService extends TranEx {
 	 */
 	private String applicableExp(ActivityBean bean) {
 		StringBuffer sb = new StringBuffer();
-		List<ActivityBean> acti  = dao.getTodayAct(bean);
+		List<ActivityBean> acti  = dao.getAvailableAct(bean);
 		
 		int floor = acti.get(0).getFloor();
 		int step = acti.get(0).getStep();
