@@ -35,6 +35,18 @@ function init(){
 		$("#nomar_user").css("display","");
 		$("#admin_user").css("display","none");
 	}
+	
+	var listSize = ${listSize };
+	for(var i = 0; i <= listSize/15; i++){
+		var input = document.createElement("input");
+		input.type = "button";
+		input.value = "[" + (i + 1) + "]";
+		input.setAttribute("class", "listNum");
+		input.setAttribute("onClick", "listPrint("+ i +")");
+	
+		document.getElementById("pageNum").appendChild(input);
+	}
+	
 }
 //공략 작성 폼으로 이동
 function attackBoardMakeFormMove(){

@@ -12,48 +12,49 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-function init(){
-	var logincheck = document.getElementById("logincheck");
-	var get = document.getElementById("get");
-	var info = document.getElementById("info");
-	var logout = document.getElementById("logout");
-	var userType = "${userType}";
-	if(userType==2){
-		 var input = document.createElement("input");
-		 input.type = "button";
-		 input.value = "게시글 작성";
-		 input.setAttribute("onClick", "newsBoardMakeFormMove()");
-		 input.setAttribute("class", "writeButton");
-		 $("#nomar_user").css("display","none");
-		 $("#admin_user").css("display","");
-		 document.getElementById("divOption").appendChild(input);
-	}else{
-		$("#nomar_user").css("display","");
-		$("#admin_user").css("display","none");
-	}
-	var i;
-	var listSize = ${listSize };
-	for(i = 0; i <= listSize/15; i++){
-		var input = document.createElement("input");
-		input.type = "button";
-		input.value = "[" + (i + 1) + "]";
-		input.setAttribute("class", "listNum");
-		input.setAttribute("onClick", "listPrint("+ i +")");
-		
-		document.getElementById("pageNum").appendChild(input);
-	}
-	$(function() {	//마우스 오버 시 밑줄 처리
-		var i;
-		var listSize = ${listSize };
-		for(i = 0; i < listSize; i++){
-			$("#underline" + i).hover(function() {
-				$(this).css("text-decoration", "underline")
-			}, function(){
-				$(this).css("text-decoration", "none")
-			})
+	function init(){
+		var logincheck = document.getElementById("logincheck");
+		var get = document.getElementById("get");
+		var info = document.getElementById("info");
+		var logout = document.getElementById("logout");
+		var userType = "${userType}";
+	
+		if(userType==2){
+			 var input = document.createElement("input");
+			 input.type = "button";
+			 input.value = "게시글 작성";
+			 input.setAttribute("onClick", "newsBoardMakeFormMove()");
+			 input.setAttribute("class", "writeButton");
+			 $("#nomar_user").css("display","none");
+			 $("#admin_user").css("display","");
+			 document.getElementById("divOption").appendChild(input);
+		}else{
+			$("#nomar_user").css("display","");
+			$("#admin_user").css("display","none");
 		}
-	});
-}
+	
+		var listSize = ${listSize };
+		for(var i = 0; i <= listSize/15; i++){
+			var input = document.createElement("input");
+			input.type = "button";
+			input.value = "[" + (i + 1) + "]";
+			input.setAttribute("class", "listNum");
+			input.setAttribute("onClick", "listPrint("+ i +")");
+		
+			document.getElementById("pageNum").appendChild(input);
+		}
+	
+		$(function() {	//마우스 오버 시 밑줄 처리
+			var listSize = ${listSize };
+			for(var i = 0; i < listSize; i++){
+				$("#underline" + i).hover(function() {
+					$(this).css("text-decoration", "underline")
+				}, function(){
+					$(this).css("text-decoration", "none")
+				})
+			}
+		});
+	}
 	//공지사항 작성 폼으로 이동
 	function newsBoardMakeFormMove(){
 		createForm("newsBoardMakeFormMoveForm", "NewsBoardMakeFormMove", "post");
@@ -107,11 +108,10 @@ function init(){
 	
 	//리스트 출력
 	function listPrint(listNum){
-		var divBlock = document.getElementById("div"+listNum);
+	var divBlock = document.getElementById("div"+listNum);
 		divBlock.style.display = "block";
-		var i;
 		var listSize = ${listSize };
-		for(i = 0; i <= listSize/15; i++){
+		for(var i = 0; i <= listSize/15; i++){
 			if(i != listNum){
 				var divNone = document.getElementById("div"+i);
 				divNone.style.display = "none";
