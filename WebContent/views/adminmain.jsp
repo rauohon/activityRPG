@@ -13,12 +13,11 @@
 
 		createObj("hidden", "id", "${id}", "");
 
-		relationObj("adminMainForm", "id");
-		relationObj("", "id");
-		relationObj("", "id");
-		relationObj("", "id");
-		relationObj("boardForm", "id");
-		relationObj("activityLogForm", "id");
+		var form = document.getElementsByName("adminMainForm")[0];
+		var form = document.getElementsByName("eventBoardForm")[0];
+		var form = document.getElementsByName("QuestionBoardForm")[0];
+		relationObj("freeBoardForm", "id");
+		var form = document.getElementsByName("activityLogForm")[0];
 		relationObj("accessForm", "id");
 		
 		form.submit();
@@ -43,22 +42,20 @@
 			</tr> -->
 			<tr>
 				<td><button onClick="total('adminMainForm', 'adminMain', 'post')" id="bar">MAIN PAGE</button></td>
-				<td><button onClick="total('', '', 'post')" id="bar">공지사항 관리</button></td>
-				<td><button onClick="total('', '', 'post')" id="bar">이벤트 관리</button></td>
-				<td><button onClick="total('', '', 'post')" id="bar">1대1문의 관리</button></td>
-				<td><button onClick="total('boardForm', 'adminFreeBoard', 'post')" id="bar">게시판 관리</button></td>
+				<!-- *************김훈******************** -->
+				<td><button onClick="newsBoardMove()" id="bar">공지사항 관리</button></td>
+				<!-- *************김훈******************** -->
+				<td><button onClick="total('eventBoardForm', 'eventBoard', 'post')" id="bar">이벤트 관리</button></td>
+				<td><button onClick="total('QuestionBoardForm', 'QuestionBoard', 'post')" id="bar">1대1문의 관리</button></td>
+				<td><button onClick="total('freeBoardForm', 'freeBoard', 'post')" id="bar">게시판 관리</button></td>
 				<td><button onClick="total('activityLogForm', 'ActivityDayLogPage', 'post')" id="bar">운동 정보 확인</button></td>
 			</tr>
 		</table>
 	</div>
 	</br></br></br>
 	
-	<h3>관리자 페이지</h3>
+	<h3>로그인 된 관리자 페이지 입니다.</h3>
 	
-	<!-- *************김훈******************** -->
-	<input type="button" value="공지사항 게시판 이동" onClick="newsBoardMove()" />
-	<!-- *************김훈******************** -->
-	
-	<button onClick="total('accessForm', 'AccessOut', 'post')">로그아웃</button>
+	<button id="logout" onClick="total('accessForm', 'AccessOut', 'post')">로그아웃</button>
 </body>
 </html>
