@@ -86,7 +86,9 @@ public interface IMBatisDao {
 
 	public List<GameBean> getIvenList(Map<String, String> map);		// 캐릭터 소지품 조회
 
-	public int getRaspCheck(ActivityBean ab);						// 라즈베리파이 코드 유무 확인
+	public int getRaspCodeCheck(ActivityBean ab);						// 라즈베리파이 코드 유무 확인
+	
+	public int getIsRaspCheck(ActivityBean ab);
 
 	public int setRaspMem(ActivityBean ab);							// 라즈베리파이-회원 연동
 	

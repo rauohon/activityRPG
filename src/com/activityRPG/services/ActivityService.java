@@ -111,7 +111,7 @@ public class ActivityService extends TranEx {
 
 		//라즈베리파이 등록하기
 		try {
-		if(dao.getRaspCheck(bean) != 0) {
+		if(dao.getRaspCodeCheck(bean) != 0) {
 			if(dao.setRaspMem(bean) != 0) {
 				mav.addObject("msg", "system error");
 				mav.setViewName("home");
@@ -501,11 +501,17 @@ public class ActivityService extends TranEx {
 		try {
 			if(session.getAttribute("id") != null) {
 				bean.setId(session.getAttribute("id").toString());
-				mav.addObject("todayActivity",todayActivity(bean));
-				mav.addObject("applicableExp",applicableExp(bean));
-				mav.addObject("appliedExpIndi",appliedExpIndi(bean));
-				mav.addObject("yesterdayActivity",yesterDayStepData(bean));
-				mav.setViewName("activityDayLog");
+				if(dao.getIsRaspCheck(bean) != 0) {
+					bean.setId(session.getAttribute("id").toString());
+					mav.addObject("todayActivity",todayActivity(bean));
+					mav.addObject("applicableExp",applicableExp(bean));
+					mav.addObject("appliedExpIndi",appliedExpIndi(bean));
+					mav.addObject("yesterdayActivity",yesterDayStepData(bean));
+					mav.setViewName("activityDayLog");
+				}else{
+					mav.addObject("msg", "라즈베리의 코드를 등록해주세요");
+					mav=enrollRaspberryPiPage(bean);
+				}
 			}else {
 				mav.setViewName("home");
 			}

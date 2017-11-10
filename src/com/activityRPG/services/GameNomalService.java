@@ -611,7 +611,7 @@ public class GameNomalService extends TranEx {
 		ModelAndView mav = new ModelAndView();
 		try{
 //			if(dao.characterIdCheck(gameBean) == 0) { //캐릭터 유무 확인
-
+				mav.addObject("userSex",bean.getSex());
 				mav.setViewName("characterCreateForm");
 //			}else {
 //				mav.setViewName("home");

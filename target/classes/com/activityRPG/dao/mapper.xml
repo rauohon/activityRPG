@@ -182,8 +182,13 @@
 <!-- ↑ 전지원 -->
 <!-- ↓ 신태휘 -->
 	<!-- 라즈베리파이 등록전 코드 유무 확인 -->
-	<select id='getRaspCheck' parameterType='actBean' resultType='Integer'>
+	<select id='getRaspCodeCheck' parameterType='actBean' resultType='Integer'>
 		SELECT COUNT(*) FROM RASPBERRY_INFO WHERE RI_ID=#{riId}
+	</select>
+	
+	<!-- 라즈베리파이 등록여부 확인 -->
+	<select id="getIsRaspCheck" parameterType='actBean' resultType='Integer'>
+		SELECT COUNT(*) FROM MEMBER_RASP WHERE MR_MBID=#{id}
 	</select>
 
 	<!-- 라즈베리파이 등록 -->
