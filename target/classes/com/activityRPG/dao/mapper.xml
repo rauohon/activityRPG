@@ -297,6 +297,24 @@
 		SELECT SUM(AL_EXP) AS "exp" FROM ACTIVITY_LOG WHERE AL_MBID = #{id}
 	</select>
 	
+	<!-- 회원 전체 일일 평균 걸음/오른 층 불러오기 -->
+	<select id="getAvgActivityAllUser" parameterType="actBean" resultType="actBean">
+		SELECT 
+			AVG(step) AS step, AVG(floor) AS floor 
+		FROM 
+			(SELECT 
+				SUM(AT_STEP)AS step, SUM(AT_FLOOR) AS floor 
+				FROM 
+					ACTIVITY 
+				GROUP BY SUBSTR(AT_DATE,0,8)) 
+			ACTIVITY
+	</select>
+	
+	<!-- 회원 전체 누적 걸음 / 층 수 불러오기 -->
+	<select id="getActivityAllUser" parameterType="actBean" resultType="actBean">
+		 SELECT SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor FROM ACTIVITY
+	</select>
+	
 	<!-- 캐릭터 이름 가져오기 -->
 	<select id="getCharaName" parameterType="boardBean" resultType="boardBean">
 		SELECT CH_NAME AS chName FROM USER_CHARACTER WHERE CH_MBID=#{id}
@@ -853,7 +871,7 @@
 	<!-- 활동맴버리스트 -->
 	<select id="MemberList" resultMap="MemberMap">
 		SELECT * FROM MEMBER WHERE
-		MB_TYPE = 0 ORDER BY MB_ID DESC
+		MB_TYPE = 1 ORDER BY MB_ID DESC
 	</select>
 
 	<!-- 회원 정지 -->

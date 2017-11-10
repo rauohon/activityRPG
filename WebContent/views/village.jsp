@@ -21,7 +21,7 @@
 	text-transform: uppercase;
 }
 .button:hover {
-	border: none;
+	border: 3px solid #f68a6f;
 	background: #f68a6f;
 }
 </style>

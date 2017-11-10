@@ -88,7 +88,7 @@ public interface IMBatisDao {
 
 	public int getRaspCodeCheck(ActivityBean ab);						// 라즈베리파이 코드 유무 확인
 	
-	public int getIsRaspCheck(ActivityBean ab);
+	public int getIsRaspCheck(ActivityBean ab);					// 라즈베리파이 연동 여부 확인
 
 	public int setRaspMem(ActivityBean ab);							// 라즈베리파이-회원 연동
 	
@@ -115,6 +115,10 @@ public interface IMBatisDao {
 	public List<ActivityBean> getActivityAllData(ActivityBean ab);	// 전체 활동량 내역 불러오기
 	
 	public List<ActivityBean> getAppliedAllData(ActivityBean ab);	// 전체 경험치 내역 불러오기
+	
+	public List<ActivityBean> getAvgActivityAllUser(ActivityBean ab); // 회원 전체 일일 평균 걸음/오른 층 불러오기
+	
+	public List<ActivityBean> getActivityAllUser(ActivityBean ab); // 회원 전체 걸음/오른 층 불러오기
 	
 	public GameBean getItemInfo(GameBean bean);						// 아이템 정보 조회
 

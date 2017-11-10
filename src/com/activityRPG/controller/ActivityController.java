@@ -76,7 +76,7 @@ public class ActivityController {
 	 * @Method Name : AdminActivityAgeLogPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/AdminActivityAgeLogPage", method = RequestMethod.GET)
+	@RequestMapping(value="/AdminActivityAgeLogPage", method = RequestMethod.POST)
 	private ModelAndView adminActivityAgeLogPage(@ModelAttribute ActivityBean bean) {
 		
 		mav = as.entrance(4, bean);
@@ -91,7 +91,7 @@ public class ActivityController {
 	 * @Method Name : AdminActivitySexLogPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/AdminActivitySexLogPage", method = RequestMethod.GET)
+	@RequestMapping(value="/AdminActivitySexLogPage", method = RequestMethod.POST)
 	private ModelAndView adminActivitySexLogPage(@ModelAttribute ActivityBean bean) {
 		
 		mav = as.entrance(5, bean);		

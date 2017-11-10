@@ -150,29 +150,15 @@ public class ActivityService extends TranEx {
 		}
 		return mav;
 	}
-
+	
 	/**
-	 * 처리내용 : 5-2 성별 기준 하루 누적 오른 층 수 불러오기
-	 * 작성일 : 2017. 10. 24.
+	 * 처리내용 :  5-1 성별 기준 하루 누적 걸음 수 불러오기
+	 * 작성일 : 2017. 11. 10.
 	 * 작성자 : 신태휘
-	 * @Method Name : sexFloorDay
+	 * @Method Name : sexActivityDay
 	 * @return type : String
 	 */
-	private String sexFloorDay(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("성별 기준 하루 누적 걸음 수가 json 형태로 전달됩니다.");
-
-		return sb.toString();
-	}
-
-	/**
-	 * 처리내용 : 5-1 성별 기준 하루 누적 걸음 수 불러오기
-	 * 작성일 : 2017. 10. 24.
-	 * 작성자 : 신태휘
-	 * @Method Name : sexStepDay
-	 * @return type : String
-	 */
-	private String sexStepDay(ActivityBean bean) {
+	private String sexActivityDay(ActivityBean bean) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("성별 기준 하루 누적 걸음 수가 json 형태로 전달됩니다.");
 
@@ -188,36 +174,22 @@ public class ActivityService extends TranEx {
 	 */
 	private ModelAndView adminActivitySexLogPage(ActivityBean bean) {
 
-		mav.addObject("sexStepDay",sexStepDay(bean));
-		mav.addObject("sexFloorDay",sexFloorDay(bean));
+		mav.addObject("sexActivityDay",sexActivityDay(bean));
 
-		mav.setViewName("adminActivitySexLogPage");
+		mav.setViewName("adminActivitySexLog");
 
 		return mav;
 	}
 
+	
 	/**
-	 * 처리내용 : 4-2 회원 전체 누적 오른 층 수 불러오기
-	 * 작성일 : 2017. 10. 24.
+	 * 처리내용 : 4-1 회원 연령별 누적 걸음 수 불러오기
+	 * 작성일 : 2017. 11. 10.
 	 * 작성자 : 신태휘
-	 * @Method Name : ageFloorDay
+	 * @Method Name : ageActivityDay
 	 * @return type : String
 	 */
-	private String ageFloorDay(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("회원 전체 누적 오른 층 수가 json 형태로 전달됩니다.");
-
-		return sb.toString();
-	}
-
-	/**
-	 * 처리내용 : 4-1 회원 전체 누적 걸음 수 불러오기
-	 * 작성일 : 2017. 10. 24.
-	 * 작성자 : 신태휘
-	 * @Method Name : floorAllUser
-	 * @return type : String
-	 */
-	private String ageStepDay(ActivityBean bean) {
+	private String ageActivityDay(ActivityBean bean) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("회원 전체 누적 오른 층 수가 json 형태로 전달됩니다.");
 
@@ -233,68 +205,53 @@ public class ActivityService extends TranEx {
 	 */
 	private ModelAndView adminActivityAgeLogPage(ActivityBean bean) {
 
-		mav.addObject("ageStepDay",ageStepDay(bean));
-		mav.addObject("ageFloorDay",ageFloorDay(bean));
+		mav.addObject("ageActivityDay",ageActivityDay(bean));
 
 		mav.setViewName("adminActivityAgeLog");
 
 		return mav;
 	}
-
+	
 	/**
-	 * 처리내용 : 3-4 회원 전체 누적 오른 층 수 불러오기
-	 * 작성일 : 2017. 10. 23.
+	 * 처리내용 : 3-2 회원 전체 걸음 / 층 수 불러오기
+	 * 작성일 : 2017. 11. 10.
 	 * 작성자 : 신태휘
-	 * @Method Name : floorAllUser
+	 * @Method Name : activityAllUser
 	 * @return type : String
 	 */
-	private String floorAllUser(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("회원 전체 누적 오른 층 수가 json 형태로 전달됩니다.");
+	private String activityAllUser(ActivityBean bean) {
+		String sb = "";
+		
+		List<ActivityBean> acti = dao.getActivityAllUser(bean);
+		
+		Gson gson = new Gson();
+		
+		sb = gson.toJson(acti);
+		
+		System.out.println(sb);
 
-		return sb.toString();
+		return sb;
 	}
 
 	/**
-	 * 처리내용 : 3-3 회원 전체 누적 걸음 수 불러오기
-	 * 작성일 : 2017. 10. 23.
-	 * 작성자 : 신태휘
-	 * @Method Name : stepAllUser
-	 * @return type : String
-	 */
-	private String stepAllUser(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("회원 전체 누적 걸음 수가 json 형태로 전달됩니다.");
-
-		return sb.toString();
-	}
-
-	/**
-	 * 처리내용 : 3-2 회원 전체 일일 평균 오른 층 수 불러오기
-	 * 작성일 : 2017. 10. 23.
-	 * 작성자 : 신태휘
-	 * @Method Name : avgFloorAllUse
-	 * @return type : String
-	 */
-	private String avgFloorAllUse(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("회원 전체 일일 평균 오른 층 수가 json 형태로 전달됩니다.");
-
-		return sb.toString();
-	}
-
-	/**
-	 * 처리내용 : 3-1 회원 전체 일일 평균 걸음 불러오기
+	 * 처리내용 : 3-1 회원 전체 일일 평균 걸음 / 층 수 불러오기
 	 * 작성일 : 2017. 10. 23.
 	 * 작성자 : 신태휘
 	 * @Method Name : avgStepAllUser
 	 * @return type : String
 	 */
-	private String avgStepAllUser(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("회원 전체 일일 평균 걸음이 json 형태로 전달됩니다.");
+	private String avgActAllUser(ActivityBean bean) {
+		String sb = "";
+		
+		List<ActivityBean> acti = dao.getAvgActivityAllUser(bean);
+		
+		Gson gson = new Gson();
+		
+		sb = gson.toJson(acti);
+		
+		System.out.println(sb);
 
-		return sb.toString();
+		return sb;
 	}
 
 	/**
@@ -307,10 +264,8 @@ public class ActivityService extends TranEx {
 	private ModelAndView adminActivityLogPage(ActivityBean bean) {
 		try {
 		if(session.getAttribute("id") != null) {
-			mav.addObject("avgStepAllUser",avgStepAllUser(bean));
-			mav.addObject("avgFloorAllUse",avgFloorAllUse(bean));
-			mav.addObject("stepAllUser",stepAllUser(bean));
-			mav.addObject("floorAllUser",floorAllUser(bean));
+			mav.addObject("avgActivityAllUser",avgActAllUser(bean));
+			mav.addObject("activityAllUser",activityAllUser(bean));
 	
 			mav.setViewName("adminActivityLog");
 		}else {
@@ -338,7 +293,9 @@ public class ActivityService extends TranEx {
 		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " + acti.get(0).getStep() + " : 지금까지 이만큼 걸으셨어요.</h1>");
 		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " + acti.get(0).getFloor() + " : 지금까지 이만큼 계단으로 오르내리셨어요.</h1>");
 		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " +acti2.get(0).getExp()+ " : 지금까지 이만큼 경험치로 전환 하셨어요.</h1>");
-
+		sb.append("<div id=\'showDetail\' style=\'display:none;\'>"+ acti.get(0).getStep()*0.0007 +" km 정도를 걸으셨어요!<br>"
+				+ ((Math.round(acti.get(0).getFloor()*100d))/100d)*2.45 +" m 정도를 오르셨어요!</div>");
+		
 		return sb.toString();
 	}
 

@@ -6,11 +6,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.act{
-	border: 1px solid white;
+.act{	
+	border: 3px solid #fff;
+	border-radius: 5px;
 	margin-left: 52%;
 	margin-right: 15%;
 	padding:2%;
+}
+.active{
+	display: "";
+}
+.act:hover{
+	border: 3px solid #f68a6f;
+	background: #f68a6f;	
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -25,6 +33,16 @@ function init(){
 		$("#admin_user").css("display","none");
 	}
 }
+$(document).ready(function() {
+	$("h1").on({
+		mouseenter: function(){
+			$("#showDetail").css({"display":"block", "border":"3px solid #fff", "border-radius": "5px", "margin-top":"2%" , "margin-left": "52%","margin-right": "15%", "padding":"2%"});
+		},
+		mouseleave: function(){
+			$("#showDetail").css("display","none");
+		}
+	});
+});
 </script>
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
