@@ -45,6 +45,14 @@ function total(formname, action, method){
 		form.submit();
 	}
 	//**************************김종인****************************
+	//한광수
+	function reportBoardMove(){
+		createForm("reportBoardForm", "ReportBoard", "post");
+	
+		var form = document.getElementsByName("reportBoardForm")[0];
+		form.submit();
+	}
+	//한광수
 </script>
 <link rel="stylesheet" href="css/home.css" media="screen" type="text/css" />
 <div id="layer_fixed">
@@ -59,6 +67,7 @@ function total(formname, action, method){
 					<li><button onClick="total('freeBoardForm', 'freeBoard', 'post')" id="bar">자유게시판</button></li>
 					<li><input type="button" value="공지사항 게시판" onClick="newsBoardMove()"  id="bar" /></li>
 					<li><input type="button" value="공략 게시판" onClick="attackBoardMove()" id="bar" /></li>
+					<li><input type="button" value="신고 게시판" onClick="reportBoardMove()" id="bar" /></li>
 				</ul>
 			</li>
 		</ul>

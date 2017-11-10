@@ -1,0 +1,286 @@
+@charset "UTF-8";
+
+body {
+	background: linear-gradient(to right, #2c3338, #475660);
+	
+}
+
+
+
+
+
+
+HTML, BODY {
+
+  height: 100%;
+
+  }
+
+
+
+$colors: #360745, #D61C59, #E7D84B, #EFEAC5, #1B8798;
+
+
+
+BODY {
+
+  background: hsl(200,70,11);
+
+  background-size: .12em 100%;
+
+
+}
+
+
+
+.text--line {
+
+  font-size: .5em;
+
+  }
+
+
+
+svg {
+
+  position: absolute;
+
+  width: 100%;
+
+  height: 100%;
+
+  }
+
+
+
+$max: 5;
+
+$stroke-step: 7%; 
+
+.text-copy {
+
+  fill: none;
+
+  stroke: white;
+
+  stroke-dasharray: $stroke-step $stroke-step * ($max - 1);
+
+  stroke-width: 3px;
+
+  
+
+  animation: stroke-offset 9s infinite linear;
+
+  
+
+  @for $item from 1 through $max {
+
+    $stroke-color: nth($colors, $item);
+
+    
+
+    &:nth-child(#{$item}) {
+
+      stroke: $stroke-color;
+
+      stroke-dashoffset: $stroke-step * $item;
+
+      }
+
+    }
+
+  }
+
+
+
+@keyframes stroke-offset {
+
+  50% {
+
+    stroke-dashoffset: $stroke-step * $max;  
+
+    stroke-dasharray: 0 $stroke-step * $max*2.5;
+
+  }
+
+}
+	.boardClass table {
+	width:100%;
+	margin:15px 0
+	}
+	.boardClass th {
+	background-color:#1E90FF;
+	color:#FFFFFF
+	}
+	.boardClass,.boardClass th,.boardClass td
+	{
+	font-size:0.99em;
+	text-align:center;
+	padding:4px;
+	border:1px solid #dddddd;
+	border-collapse:collapse
+	}
+	.boardClass tr:nth-child(odd){
+	background-color:#b4dafe;
+	}
+	.boardClass tr:nth-child(even){
+	background-color:#fdfdfd;
+	}
+	#number{
+		width: 135px;
+		height: 50px;
+		position: relation;
+		font-size:0.99em;
+	}
+	#subject {
+		width: 603px;
+		height: 50px;
+		position: relation;
+		font-size:0.99em;
+	}
+	#editor{
+		width: 124px;
+		height: 50px;
+		position: relation;
+		font-size:0.99em;
+	}
+	#report{
+		width: 232px;
+		height: 50px;
+		position: relation;
+		font-size:0.99em;
+	}
+	#hit{
+		width: 99px;
+		height: 50px;
+		position: relation;
+		font-size:0.99em;
+	}
+	#subject1 {
+		width: 500px;
+		height: 37px;
+		position: relation;
+		font-size:0.94em;
+	}
+	#editor1{
+		width: 100px;
+		height: 37px;
+		position: relation;
+		font-size:0.94em;
+	}
+	#report1{
+		width: 100px;
+		height: 37px;
+		position: relation;
+		font-size:0.94em;
+	}
+	#hit1{
+		width: 50px;
+		height: 37px;
+		position: relation;
+		font-size:0.94em;
+	}
+	HTML, BODY {
+
+ 	 height: 100%;
+
+  	}
+  	
+  	#divOption{
+   	text-align: center;
+	}
+	.textbox{
+		width:600px;
+	}
+	.see{
+		background-size: cover;
+  		background-repeat: no-repeat;
+ 		font-family: Arial, sans-serif;
+  	    font-weight: bold;
+  	    font-size: 14px;
+	}
+	.search{
+		background-size: cover;
+   		 background-repeat: no-repeat;
+  		 font-family: Arial, sans-serif;
+   		 font-weight: bold;
+  		 font-size: 14px;
+	}
+	#option{
+		background-color:silver;
+	}
+	.listNum{
+		text-align: center;
+		background-color:silver;
+	}
+	
+	@charset "UTF-8";
+
+#contentsDiv{
+	
+}
+table.type {
+	background: linear-gradient(to right, #D4D4D4, #050099);
+    width: 1180px;
+    height: 860px;
+    border: 1px solid #444444;
+    margin : 20px 10px;
+}
+table.type th{
+	height:19px;
+    padding: 10px;
+    font-size:40px;
+    font-weight: bold;
+    vertical-align: top;
+    color: white;
+    border-bottom: 1px solid #ccc;
+    background: linear-gradient(to right, #36589C, #D7FF6C);
+}
+th.code{
+	width: 200px;
+}
+th.title{
+	width: 147px;
+	text-align:left;
+}
+table.type td{
+	padding: 10px;
+	
+}
+td.id{
+	height:12px;
+	font-size:18px;
+	font-weight: bold;
+    border-bottom: 1px dotted #ccc;
+}
+td.date{
+	height:12px;
+	font-size:16px;
+	font-weight: bold;
+	text-align:right;
+    border-bottom: 1px dotted #ccc;
+}
+td.hit{
+	height:12px;
+	font-size:16px;
+	font-weight: bold;
+	text-align:right;
+    border-bottom: 1px dotted #ccc;
+}
+td.contents{
+	word-break:break-all;
+}
+#buttonDiv{
+	margin-left: 880px;
+}
+.button{
+	width:70px;
+	height:25px;
+	background-color:#CDCDCD;
+	color:#1312FF;
+	border:2px solid #369;
+	border-radius:5px;
+}
+	
+
+background: url(data:image/svg+xml,https%3A//codepen.io/yoksel/pen/XJbzrO);

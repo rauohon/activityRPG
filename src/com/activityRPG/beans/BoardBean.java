@@ -64,9 +64,77 @@ public class BoardBean {
 	private int attackBoardStep;			//사용안함
 	private int attackBoardIndent;		//사용안함
 	//종
+	//*****************한광수******************************
+	private int reportBoardCode;
+	private String reportBoardUserId;
+	private String reportBoardTitle;
+	private String reportBoardContents;
+	private Date reportBoardDate;
+	private int reportBoardHit;
+	private int reportBoardGroup;
+	private int reportBoardStep;
+	private int reportBoardIndent;
+	//*****************한광수*******************************
+	
+	
+	
 
 	public int getNewsBoardCode() {
 		return newsBoardCode;
+	}
+	public int getReportBoardCode() {
+		return reportBoardCode;
+	}
+	public void setReportBoardCode(int reportBoardCode) {
+		this.reportBoardCode = reportBoardCode;
+	}
+	public String getReportBoardUserId() {
+		return reportBoardUserId;
+	}
+	public void setReportBoardUserId(String reportBoardUserId) {
+		this.reportBoardUserId = reportBoardUserId;
+	}
+	public String getReportBoardTitle() {
+		return reportBoardTitle;
+	}
+	public void setReportBoardTitle(String reportBoardTitle) {
+		this.reportBoardTitle = reportBoardTitle;
+	}
+	public String getReportBoardContents() {
+		return reportBoardContents;
+	}
+	public void setReportBoardContents(String reportBoardContents) {
+		this.reportBoardContents = reportBoardContents;
+	}
+	public Date getReportBoardDate() {
+		return reportBoardDate;
+	}
+	public void setReportBoardDate(Date reportBoardDate) {
+		this.reportBoardDate = reportBoardDate;
+	}
+	public int getReportBoardHit() {
+		return reportBoardHit;
+	}
+	public void setReportBoardHit(int reportBoardHit) {
+		this.reportBoardHit = reportBoardHit;
+	}
+	public int getReportBoardGroup() {
+		return reportBoardGroup;
+	}
+	public void setReportBoardGroup(int reportBoardGroup) {
+		this.reportBoardGroup = reportBoardGroup;
+	}
+	public int getReportBoardStep() {
+		return reportBoardStep;
+	}
+	public void setReportBoardStep(int reportBoardStep) {
+		this.reportBoardStep = reportBoardStep;
+	}
+	public int getReportBoardIndent() {
+		return reportBoardIndent;
+	}
+	public void setReportBoardIndent(int reportBoardIndent) {
+		this.reportBoardIndent = reportBoardIndent;
 	}
 	public int getAttackBoardCode() {
 		return attackBoardCode;

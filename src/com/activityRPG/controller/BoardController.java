@@ -11,6 +11,7 @@ import com.activityRPG.beans.BoardBean;
 import com.activityRPG.beans.MemberBean;
 import com.activityRPG.services.GuildBoard;
 import com.activityRPG.services.NewsBoard;
+import com.activityRPG.services.ReportBoard;
 import com.activityRPG.services.AttackBoard;
 import com.activityRPG.services.FreeBoard;
 
@@ -30,6 +31,8 @@ public class BoardController {
 	private NewsBoard newsBoard;
 	@Autowired
 	private AttackBoard attackBoard;
+	@Autowired
+	private ReportBoard reportBoard;
 
 	private ModelAndView mav = new ModelAndView();
 
@@ -377,4 +380,60 @@ public class BoardController {
 	}
 
 	//종
+	//한광수
+	@RequestMapping(value = "/ReportBoard", method = RequestMethod.POST)
+	public ModelAndView reportBoardMove() {
+		mav = new ModelAndView();
+		mav = reportBoard.entrance(1);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/ReportBoardMakeFormMove", method = RequestMethod.POST)
+	public ModelAndView reportBoardMakeFormMove() {
+		mav.setViewName("reportBoardMakeForm");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/ReportBoardMake", method = RequestMethod.POST)
+	public ModelAndView reportBoardMake(@ModelAttribute BoardBean boardBean, @ModelAttribute MemberBean memberBean) {
+		mav = new ModelAndView();
+		mav = reportBoard.entrance(2, boardBean, memberBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/ReportBoardContentsView", method = RequestMethod.POST)
+	public ModelAndView reportBoardContentsView(@ModelAttribute BoardBean boardBean) {
+		mav = new ModelAndView();
+		mav = reportBoard.entrance(3, boardBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/ReportBoardModifyFormMove", method = RequestMethod.POST)
+	public ModelAndView reportBoardModifyMove(@ModelAttribute BoardBean boardBean) {
+		mav = new ModelAndView();
+		mav = reportBoard.entrance(4, boardBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/ReportBoardModify", method = RequestMethod.POST)
+	public ModelAndView reportBoardModify(@ModelAttribute BoardBean boardBean) {
+		mav = new ModelAndView();
+		mav = reportBoard.entrance(5, boardBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/ReportBoardDelete", method = RequestMethod.POST)
+	public ModelAndView reportBoardDelete(@ModelAttribute BoardBean boardBean) {
+		mav = new ModelAndView();
+		mav = reportBoard.entrance(6, boardBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/ReportSearch", method = RequestMethod.POST)
+	public ModelAndView reportserach(@ModelAttribute BoardBean boardBean) {
+		mav = new ModelAndView();
+		mav = reportBoard.entrance(7, boardBean);
+		return mav;
+	}
+	//한광수
 }
