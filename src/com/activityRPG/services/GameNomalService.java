@@ -519,12 +519,11 @@ public class GameNomalService extends TranEx {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView villagePage(GameBean bean) {
-		// 로그인 여부 확인
+		
 		try {
-			if(session.getAttribute("id") != null) {
-				// 로그인 여부 확인
-				if(dao.characterIdCheck(bean) == 1) {
-					// 캐릭터 존재 유무 확인
+			if(session.getAttribute("id") != null) { // 로그인 여부 확인
+				bean.setId(session.getAttribute("id").toString());
+				if(dao.characterIdCheck(bean) == 1) { // 캐릭터 존재 유무 확인
 					session.setAttribute("characterName", dao.getCharacterName(session.getAttribute("id").toString()));
 					session.setAttribute("page", "village");
 					mav.setViewName("village");
@@ -597,7 +596,7 @@ public class GameNomalService extends TranEx {
 					mav.addObject("message", "*캐릭터 생성에 실패했습니다. 잠시 후 다시 시도해 주세요");
 				}
 			}else {	//해당 캐릭터 이름 이미 존재
-				mav.setViewName("characterCreateForm");
+				mav = characterCreateFormMove(gameBean);
 				mav.addObject("message", "*캐릭터 이름이 이미 존재합니다.");
 			}			
 		}catch(Exception e) {
@@ -607,11 +606,11 @@ public class GameNomalService extends TranEx {
 	}
 
 	//캐릭터 생성 폼 이동
-	private ModelAndView characterCreateFormMove(GameBean bean) {
+	private ModelAndView characterCreateFormMove(GameBean gameBean) {
 		ModelAndView mav = new ModelAndView();
 		try{
 //			if(dao.characterIdCheck(gameBean) == 0) { //캐릭터 유무 확인
-				mav.addObject("userSex",bean.getSex());
+				mav.addObject("userSex", gameBean.getSex());
 				mav.setViewName("characterCreateForm");
 //			}else {
 //				mav.setViewName("home");

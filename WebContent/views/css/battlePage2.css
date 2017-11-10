@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+body {
+	background-image: url("/images/frame2.jpg");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	text-align:center;
+}
+
+#box1 {
+	background-image: url("/images/frame2.jpg");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	width: 950px;
+	height: 600px;
+	position: absolute;
+	top: 50px;
+	left: 160px;
+}
+
+#box2 {
+	background-image: url("/images/frame2.jpg");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	width: 930px;
+	height: 170px;
+	padding: 10px;
+	position: absolute;
+	top: 670px;
+	left: 160px;
+	
+}
+
+a{
+	color:#E4E4E4;
+	font-size:40px;	
+	font-family: 'Spectral SC', serif;
+}
+
+button{
+	background:linear-gradient(to right, #AF4848, #420100);
+	border:1px solid #635400;
+	border-radius:5px;
+	color:#E4E4E4;
+	font-size:30px;
+	width:200px;
+	height:70px;
+	margin-left:10px;
+	margin-top:5px;
+	font-family: 'Spectral SC', serif;
+	
+}
+
+button:hover{
+	border-color:#f47757;
+	color:#f47757;
+}

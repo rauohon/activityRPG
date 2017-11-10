@@ -38,6 +38,30 @@ function init(){
 		$("#nomar_user").css("display","");
 		$("#admin_user").css("display","none");
 	}
+	
+	//************************김훈***************************
+	var getExp = "${getExp}";
+	var getGold = "${getGold}";
+	var getItem = "${getItem}";
+	var getLevel = "${characterLevel}";
+	var monsterName = "${monsterName}";
+	var monsterCode = "${monsterCode}";
+		
+	if(monsterName != ""){
+		alert(monsterName + "을 쓰러뜨렸습니다.");
+	}
+	if(getExp != "" && getGold != ""){
+		alert("당신은 " + getExp + "의 경험치를 획득하셨습니다.");
+		alert("당신은 " + getGold + "골드를 획득하셨습니다.");
+	}
+	if(getExp >= 100 && getExp < 200){
+		alert("축하합니다! 레벨이 " + getLevel + "로 증가했습니다.");
+		alert("새로운 스킬 뇌광권을 습득하셨습니다.");
+	}
+	if(getItem != ""){
+		alert(getItem);
+	}
+	//************************김훈***************************
 }
 </script>
 </head>
