@@ -275,7 +275,7 @@ public class NewsBoard extends TranEx {
 			listBoardBean = dao.newsBoardList();
 			int z = 0;
 			for(int i = 0 ; i <= listBoardBean.size()/15; i++) {
-				sb.append("<div id=div" + i + " class=divClass>");
+				sb.append("<div id=\"div" + i + "\" class=\"divClass\">");
 				sb.append("<table class=\"list\">");
 				sb.append("<tr>");
 				sb.append("<th>글번호</th>");

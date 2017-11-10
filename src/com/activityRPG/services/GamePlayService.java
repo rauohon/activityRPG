@@ -43,6 +43,9 @@ public class GamePlayService  extends TranEx {
 	private int changeMonsterHp; //몬스터의 Hp 변화
 	private String monsterSkillName; //몬스터가 사용한 스킬 이름
 	private int monsterDamage; //몬스터가 준 피해
+	private int beforeHp; //그래프를 위한 캐릭터 체력
+	private int beforeMp; //그래프를 위한 캐릭터 마력
+	private int beforeMonsterHp; //그래프를 위한 몬스터 체력
 	//************************김훈**********************
 	/**
 	 * 처리내용 : 게임 플레이 서비스 분기
@@ -419,17 +422,17 @@ public class GamePlayService  extends TranEx {
 		if((random%moveValue) == 0) {
 			System.out.println("일반 전투");
 			// 배틀페이지 이동 RequestMethod = get
-			rv = new RedirectView("/GameForm");
+			rv = new RedirectView("/BattlePage");
 			rv.setExposeModelAttributes(false);
 			mav.setView(rv);
 		}else if((random%moveValue) == 2) {
 			System.out.println("보스 스테이지");
-			rv = new RedirectView("/GameForm");
+			rv = new RedirectView("/BattlePage");
 			rv.setExposeModelAttributes(false);
 			mav.setView(rv);
 		}else {
 			System.out.println("보물");
-			rv = new RedirectView("/GameForm");
+			rv = new RedirectView("/BattlePage2");
 			rv.setExposeModelAttributes(false);
 			mav.setView(rv);
 		}		
@@ -446,7 +449,7 @@ public class GamePlayService  extends TranEx {
 				
 				GameBean gameBean = new GameBean();
 				gameBean.setCharacterName((String)session.getAttribute("characterName"));
-				gameBean.setUserId((String)session.getAttribute("userId"));
+				gameBean.setUserId((String)session.getAttribute("id"));
 				gameBean.setItemCode(1001); //아이템 코드(단검)
 				
 				//트랜젝션 설정
@@ -625,6 +628,12 @@ public class GamePlayService  extends TranEx {
 			ModelAndView mav = new ModelAndView();
 			String viewPage = "battlePage";	//뷰 페이지
 			try {
+				//그래프를 위한 변경 전 내용 저장
+				beforeHp = gameBean.getHp();
+				beforeMp = gameBean.getMp();
+				beforeMonsterHp = battleBean.getMonsterHp();
+				
+				
 				//체력 확인
 				if(gameBean.getHp() <= 0) {	//유저의 체력이 0 이하
 					viewPage = characterDown(gameBean); //캐릭터 다운
@@ -728,6 +737,12 @@ public class GamePlayService  extends TranEx {
 						}
 					}
 				}
+				
+				//그래프를 위한 내용 전달
+				mav.addObject("beforeHp", beforeHp);
+				mav.addObject("beforeMp", beforeMp);
+				mav.addObject("beforeMonsterHp", beforeMonsterHp);
+				
 
 				//사용자에게 보여줄 정보
 				mav.addObject("characterSkillName", characterSkillName);	//사용한 스킬 이름
