@@ -47,6 +47,17 @@ function init(){
 		document.getElementById("pageNum").appendChild(input);
 	}
 	
+	$(function() {	//마우스 오버 시 밑줄 처리
+		var listSize = ${listSize };
+		for(var i = 0; i < listSize; i++){
+			$("#underline" + i).hover(function() {
+				$(this).css("text-decoration", "underline")
+			}, function(){
+				$(this).css("text-decoration", "none")
+			})
+		}
+	});
+	
 }
 //공략 작성 폼으로 이동
 function attackBoardMakeFormMove(){
