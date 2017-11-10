@@ -41,6 +41,18 @@ td{
 .active{
 	background-color: gray;
 }
+.pageNum{
+	margin-left: 40%;
+	margin-top: 2%;
+}
+.pageNum button{
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	margin: 1%;
+	width: 5%;
+}
+
 </style>
 <script type="text/javascript">
 	function readGboard(code) {
@@ -69,6 +81,18 @@ td{
 			$("#nomar_user").css("display","");
 			$("#admin_user").css("display","none");
 		}
+	}
+	function guildboardpage2(code){
+		var f = $("#fixForm");
+		var i = $("<input />");
+		f.attr("name", "guildboardpage");
+		f.attr("action", "GuildBoardPage");
+		f.attr("method", "GET");
+		i.attr("type", "hidden");
+		i.attr("name", "gbStep");
+		i.attr("value", code);
+		$("#fixForm").append(i);
+		f.submit();
 	}
 </script>
 </head>

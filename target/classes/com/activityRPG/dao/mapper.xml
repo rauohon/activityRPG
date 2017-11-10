@@ -316,7 +316,7 @@
 	</select>
 	
 	<!-- 캐릭터 이름 가져오기 -->
-	<select id="getCharaName" parameterType="boardBean" resultType="boardBean">
+	<select id="getCharaName" parameterType="boardBean" resultType="String">
 		SELECT CH_NAME AS chName FROM USER_CHARACTER WHERE CH_MBID=#{id}
 	</select>
 
@@ -465,11 +465,22 @@
 		CH_NAME=#{chName}
 	</update>
 
-
 	<!-- 길드보드 리스트 가져오기 -->
 	<select id="getGuildBoardList" parameterType="boardBean"
 		resultMap="gBoardMap">
-		SELECT * FROM GUILDBOARD
+		<![CDATA[SELECT gb_code, gb_mbid, gb_title, gb_wdate, gb_hit, gb_name
+		FROM
+    		(SELECT rownum as rnum, gb_code, gb_mbid, gb_title, gb_wdate, gb_hit, gb_name
+    		FROM 
+       			 (SELECT gb_code, gb_mbid, gb_title, gb_wdate, gb_hit, gb_name
+        		FROM GUILDBOARD ORDER BY GB_WDATE DESC)
+    		GUILDBOARD)
+		WHERE rnum <= #{gbIndent} and rnum >= #{gbStep}]]>
+	</select>
+	
+	<!-- 길드보드 총 게시글 수 가져오기 -->
+	<select id="getGuildBoardCount" parameterType="boardBean" resultType="Integer">
+		SELECT COUNT(*) GB_CODE FROM GUILDBOARD
 	</select>
 
 	<!-- 길드보드 내용 가져오기 -->
@@ -482,7 +493,7 @@
 		GB_MDATE AS gbMdate, GB_NAME AS CHNAME
 		FROM GUILDBOARD WHERE GB_CODE=#{gbCode}
 	</select>
-
+	
 	<!-- 길드보드 조회수 증가하기 -->
 	<update id="setGuildBoardUpHit" parameterType="boardBean">
 		UPDATE GUILDBOARD
