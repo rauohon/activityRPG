@@ -873,11 +873,23 @@
 		SELECT * FROM MEMBER WHERE
 		MB_TYPE = 1 ORDER BY MB_ID DESC
 	</select>
+	
+	<!-- jiwon -->
+	<!-- 정지 된 멤버 리스트 -->
+	<select id="MemberBrackList" resultMap="MemberMap">
+		SELECT * FROM MEMBER WHERE MB_TYPE = 3 ORDER BY MB_ID DESC
+	</select>
 
+	<!-- jiwon -->
 	<!-- 회원 정지 -->
 	<update id="userDelete" parameterType="MemberBean">
-		UPDATE MEMBER SET MB_TYPE
-		= 3 WHERE MB_ID = #{id}
+		UPDATE MEMBER SET MB_TYPE=3 WHERE MB_ID = #{id} AND MB_TYPE=1
+	</update>
+	
+	<!-- jiwon -->
+	<!-- 회원 복귀 -->
+	<update id="userRestart" parameterType="MemberBean">
+		UPDATE MEMBER SET MB_TYPE=1 WHERE MB_ID = #{id} AND MB_TYPE=3
 	</update>
 
 	<!-- 공략 리스트 출력 -->

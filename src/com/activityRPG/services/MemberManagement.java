@@ -154,7 +154,7 @@ public class MemberManagement extends TranEx {
 		try {
 			//종
 			if(dao.TypeCheck(mb) == 0) {
-				//종
+				//종 end
 				if(dao.adminId(mb) != 0) {
 					MemberBean bean = dao.PwdCheck(mb);
 					if(enc.matches(mb.getPwd(), bean.getPwd())) {

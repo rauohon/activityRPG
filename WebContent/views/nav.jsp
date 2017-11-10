@@ -18,7 +18,16 @@ function total(formname, action, method){
 	relationObj("guildboardpage", "id");
 	form.submit();
 }
-//**************************김훈****************************
+	
+	//회원 관리
+	function userCheck() {
+		createForm("userCheckForm", "userCheck", "post");
+
+		var form = document.getElementsByName("userCheckForm")[0];
+
+		form.submit();
+	}
+	//**************************김훈****************************
 	function newsBoardMove() {
 		createForm("newsBoardForm", "NewsBoard", "post");
 
@@ -28,7 +37,7 @@ function total(formname, action, method){
 	}
 
 	function characterCreateFormMove() {
-		
+
 		createForm("characterCreateForm", "CharacterCreateFormMove", "post");
 
 		var form = document.getElementsByName("characterCreateForm")[0];
@@ -75,6 +84,7 @@ function total(formname, action, method){
 	<div id='admin_user'>
 		<ul style='text-align: center;'>
 			<li><button onClick="total('mainForm', 'adminMain', 'post')" id="bar">MAIN PAGE</button></li>
+			<li><input type="button" value="회원 관리" onClick="userCheck()"  id="bar" /></li>
 			<li><input type="button" value="공지사항 관리" onClick="newsBoardMove()"  id="bar" /></li>
 			<li><button onClick="total('', '', 'post')" id="bar">이벤트 관리</button></li>
 			<li><button onClick="total('', '', 'post')" id="bar">1대1문의 관리</button></li>
