@@ -86,6 +86,31 @@ public class GameBean {
 	private String storeName;		//상점 이름
 	private int questCode;			//퀘스트 코드
 	//*****************************김훈********************************
+	//****************************한광수*******************************
+	private String questContents;		//퀘스트 보상텍스트
+	private String questTitle;			//퀘스트 타이틀텍스트
+	private String lvCode;			
+	private String guild;				//길드존재여부
+	private String guildUserCode;		//길드유저코드
+	private int myquestCode;			//내 퀘스트 코드
+	private String sussess;				//퀘스트 성공 여부
+	private int questPrizeCode;			//퀘스트보상코드
+	private int questExp;				//퀘스트 경험치
+	private int questGold;				//퀘스트보상골드
+	private int questItemCode;			//퀘스트아이템코드
+	private int updateGold;				//업데이트골드
+	private int updateExp;				//업데이트경험치
+	private String rankingName;			//랭킹 이름
+	private int rankingExp;				//랭킹 경험치
+	private int rankingLevel;			//랭킹 레벨
+	private int rankingStr;				//랭킹 힘
+	private int rankingDex;				//랭킹 민
+	private int rankingInt;				//랭킹 지
+	private int guildPreNum;			//길드 현재인원
+	private int guildMenLevel;			//길드마스터확인
+	private String userGuildLevel;		//유저길드 레벨
+	private int userGuildCode;			//유저 길드 코드
+	//****************************한광수*******************************
 	
 	
 	
@@ -93,6 +118,190 @@ public class GameBean {
 	
 	public int getRequiAbility() {
 		return requiAbility;
+	}
+
+	public String getQuestContents() {
+		return questContents;
+	}
+
+	public void setQuestContents(String questContents) {
+		this.questContents = questContents;
+	}
+
+	public String getQuestTitle() {
+		return questTitle;
+	}
+
+	public void setQuestTitle(String questTitle) {
+		this.questTitle = questTitle;
+	}
+
+	public String getLvCode() {
+		return lvCode;
+	}
+
+	public void setLvCode(String lvCode) {
+		this.lvCode = lvCode;
+	}
+
+	public String getGuild() {
+		return guild;
+	}
+
+	public void setGuild(String guild) {
+		this.guild = guild;
+	}
+
+	public String getGuildUserCode() {
+		return guildUserCode;
+	}
+
+	public void setGuildUserCode(String guildUserCode) {
+		this.guildUserCode = guildUserCode;
+	}
+
+	public int getMyquestCode() {
+		return myquestCode;
+	}
+
+	public void setMyquestCode(int myquestCode) {
+		this.myquestCode = myquestCode;
+	}
+
+	public String getSussess() {
+		return sussess;
+	}
+
+	public void setSussess(String sussess) {
+		this.sussess = sussess;
+	}
+
+	public int getQuestPrizeCode() {
+		return questPrizeCode;
+	}
+
+	public void setQuestPrizeCode(int questPrizeCode) {
+		this.questPrizeCode = questPrizeCode;
+	}
+
+	public int getQuestExp() {
+		return questExp;
+	}
+
+	public void setQuestExp(int questExp) {
+		this.questExp = questExp;
+	}
+
+	public int getQuestGold() {
+		return questGold;
+	}
+
+	public void setQuestGold(int questGold) {
+		this.questGold = questGold;
+	}
+
+	public int getQuestItemCode() {
+		return questItemCode;
+	}
+
+	public void setQuestItemCode(int questItemCode) {
+		this.questItemCode = questItemCode;
+	}
+
+	public int getUpdateGold() {
+		return updateGold;
+	}
+
+	public void setUpdateGold(int updateGold) {
+		this.updateGold = updateGold;
+	}
+
+	public int getUpdateExp() {
+		return updateExp;
+	}
+
+	public void setUpdateExp(int updateExp) {
+		this.updateExp = updateExp;
+	}
+
+	public String getRankingName() {
+		return rankingName;
+	}
+
+	public void setRankingName(String rankingName) {
+		this.rankingName = rankingName;
+	}
+
+	public int getRankingExp() {
+		return rankingExp;
+	}
+
+	public void setRankingExp(int rankingExp) {
+		this.rankingExp = rankingExp;
+	}
+
+	public int getRankingLevel() {
+		return rankingLevel;
+	}
+
+	public void setRankingLevel(int rankingLevel) {
+		this.rankingLevel = rankingLevel;
+	}
+
+	public int getRankingStr() {
+		return rankingStr;
+	}
+
+	public void setRankingStr(int rankingStr) {
+		this.rankingStr = rankingStr;
+	}
+
+	public int getRankingDex() {
+		return rankingDex;
+	}
+
+	public void setRankingDex(int rankingDex) {
+		this.rankingDex = rankingDex;
+	}
+
+	public int getRankingInt() {
+		return rankingInt;
+	}
+
+	public void setRankingInt(int rankingInt) {
+		this.rankingInt = rankingInt;
+	}
+
+	public int getGuildPreNum() {
+		return guildPreNum;
+	}
+
+	public void setGuildPreNum(int guildPreNum) {
+		this.guildPreNum = guildPreNum;
+	}
+
+	public int getGuildMenLevel() {
+		return guildMenLevel;
+	}
+
+	public void setGuildMenLevel(int guildMenLevel) {
+		this.guildMenLevel = guildMenLevel;
+	}
+
+	public String getUserGuildLevel() {
+		return userGuildLevel;
+	}
+
+	public void setUserGuildLevel(String userGuildLevel) {
+		this.userGuildLevel = userGuildLevel;
+	}
+
+	public int getUserGuildCode() {
+		return userGuildCode;
+	}
+
+	public void setUserGuildCode(int userGuildCode) {
+		this.userGuildCode = userGuildCode;
 	}
 
 	public String getCharacterName() {

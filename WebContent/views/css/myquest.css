@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+
+	body{
+		background-image:url("/images/quest.jpg");
+		background-repeat:no-repeat;
+		background-size:100% 100%;
+		overflow:hidden;
+		/* background-attachment:fixed; */
+	}
+	.quest1{
+		background-image:url("/images/scroll.png");
+		background-repeat:no-repeat;
+		background-size:30% 200%;
+	}
+	#quest2{
+		margin-left:50px;
+	}
+	td.questCodeCss{
+		font-size:50px;
+	}

@@ -22,6 +22,7 @@ public class ActivityController {
 	
 	@Autowired
 	private ActivityService as;
+	
 	private ModelAndView mav = new ModelAndView();
 	
 	/**

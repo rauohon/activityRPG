@@ -933,4 +933,184 @@
 	</select>
 
 	<!-- 종 -->
+	
+	<!-- 한광수 -->
+	<select id="reportBoardList" resultMap="reportBoardMap">
+		SELECT * FROM REPORTBOARD ORDER BY RB_CODE DESC
+	</select>
+	
+	<resultMap type="BoardBean" id="reportBoardMap">
+		<result property="reportBoardCode" column="RB_CODE" javaType="java.lang.Integer" />
+		<result property="reportBoardUserId" column="RB_MBID" javaType="java.lang.String" />
+		<result property="reportBoardTitle" column="RB_TITLE" javaType="java.lang.String" />
+		<result property="reportBoardContents" column="RB_CONTENT" javaType="java.lang.String" />
+		<result property="reportBoardDate" column="RB_DATE" javaType="java.util.Date" />
+		<result property="reportBoardHit" column="RB_HIT" javaType="java.lang.Integer" />
+		<result property="reportBoardGroup" column="RB_GROUP" javaType="java.lang.Integer" />
+		<result property="reportBoardStep" column="RB_STEP" javaType="java.lang.Integer" />
+		<result property="reportBoardIndent" column="RB_INDENT" javaType="java.lang.Integer" />
+	</resultMap>
+	
+	<insert id="reportBoardMake" parameterType="BoardBean">
+		INSERT INTO REPORTBOARD VALUES(REPORTBOARD_SEQ.NEXTVAL, #{reportBoardTitle}, #{reportBoardContents}, DEFAULT, 0, 0, 0, 0 ,#{reportBoardUserId})
+	</insert>
+
+	
+	<select id="reportBoardContents" parameterType="BoardBean" resultMap="reportBoardMap">
+		SELECT * FROM REPORTBOARD WHERE RB_CODE = #{reportBoardCode}
+	</select>
+	
+	<update id="reportBoardHitUp" parameterType="BoardBean">
+		UPDATE REPORTBOARD SET RB_HIT = #{reportBoardHit} WHERE RB_CODE = #{reportBoardCode}
+	</update>
+	
+	<update id="reportBoardModify" parameterType="BoardBean">
+		UPDATE REPORTBOARD SET RB_TITLE = #{reportBoardTitle}, RB_CONTENT = #{reportBoardContents} WHERE RB_CODE = #{reportBoardCode}
+	</update>
+	
+	<delete id="reportBoardDelete" parameterType="BoardBean">
+		DELETE FROM REPORTBOARD WHERE RB_CODE = #{reportBoardCode} 
+	</delete>
+	
+	<select id="reportBoardSearchId" resultMap="reportBoardMap">
+		SELECT * FROM REPORTBOARD WHERE RB_MBID LIKE #{reportBoardUserId} ORDER BY RB_CODE DESC
+	</select>
+	
+	<select id="reportBoardSearchTitle" resultMap="reportBoardMap">
+		SELECT * FROM REPORTBOARD WHERE RB_TITLE LIKE #{reportBoardTitle} ORDER BY RB_CODE DESC
+	</select>
+	<resultMap type="GameBean" id="GameMap">
+		<result property="questCode" column="QUE_CODE" javaType="java.lang.Integer" />
+		<result property="questTitle" column="QUE_TITLE" javaType="java.lang.String" />
+		<result property="questContents" column="QUE_CONTENT" javaType="java.lang.String" />
+		<result property="myquestCode" column="MQ_CODE" javaType="java.lang.Integer" />
+		<result property="characterName" column="MQ_CHNAME" javaType="java.lang.String" />
+		<result property="userId" column="MQ_MBID" javaType="java.lang.String" />
+		<result property="sussess" column="MQ_SUSSESS" javaType="java.lang.String" />
+		
+	</resultMap>
+	<select id="questList" resultMap="GameMap">
+		SELECT * FROM QUEST ORDER BY QUE_CODE
+	</select>
+	<select id="characterName" parameterType="GameBean" resultType="String">
+		SELECT CH_NAME FROM USER_CHARACTER WHERE CH_MBID = #{userId}
+	</select>
+	<insert id="questAdded" parameterType="GameBean">
+		INSERT INTO MYQUEST VALUES(#{userId}, #{myquestCode}, #{characterName}, 0)
+	</insert>
+	<select id="myQuestList" parameterType="GameBean" resultMap="myQuestMap">
+		SELECT MQ_QUECODE, MQ_CHMBID, MQ_CHNAME, MQ_SUSSESS, QUE_TITLE, QUE_CONTENT FROM MYQUESTVIEW where MQ_CHNAME = #{characterName} ORDER BY QUE_CODE
+	</select>
+	<resultMap type="GameBean" id="myQuestMap">
+		<result property="userId" column="MQ_CHMBID" javaType="java.lang.String" />
+		<result property="characterName" column="MQ_CHNAME" javaType="java.lang.String" />
+		<result property="sussess" column="MQ_SUSSESS" javaType="java.lang.String" />
+		<result property="questTitle" column="QUE_TITLE" javaType="java.lang.String" />
+		<result property="questContents" column="QUE_CONTENT" javaType="java.lang.String" />
+		<result property="myquestCode" column="MQ_QUECODE" javaType="java.lang.Integer" />
+	</resultMap>
+	<delete id="questCheck" parameterType="GameBean">
+		DELETE FROM MYQUEST WHERE MQ_QUECODE = #{myquestCode} 
+	</delete>
+	<select id ="userGold" parameterType="GameBean" resultType="Integer">
+		SELECT CH_GOLD FROM USER_CHARACTER WHERE CH_NAME = #{characterName} 
+	</select>
+	<select id ="questExp" parameterType="GameBean" resultType="Integer">
+		SELECT QUP_EXP FROM QUESTPRIZE WHERE QUP_QUECODE = #{questPrizeCode}
+	</select>
+	<select id ="questGold" parameterType="GameBean" resultType="Integer">
+		SELECT QUP_GOLD FROM QUESTPRIZE WHERE QUP_QUECODE = #{questPrizeCode}
+	</select>
+	
+	<select id ="questPizCode" parameterType="GameBean" resultType="String">
+		SELECT * FROM QUESTPRIZE where QUP_QUECODE = #{myquestCode}
+	</select>
+	
+	<select id ="userExp" parameterType="GameBean" resultType="Integer">
+		SELECT CH_EXP FROM USER_CHARACTER WHERE CH_NAME = #{characterName}
+	</select>
+	
+	<update id ="updateGold" parameterType="GameBean">
+		UPDATE USER_CHARACTER SET CH_GOLD = #{updateGold} WHERE CH_NAME = #{characterName}
+	</update>
+	
+	<update id="updateExp" parameterType="GameBean">
+		UPDATE USER_CHARACTER SET CH_EXP = #{updateExp} WHERE CH_NAME = #{characterName}
+	</update>
+	
+	<select id ="questCodeCheck" parameterType="GameBean" resultType="Integer">
+		SELECT COUNT(*) FROM MYQUEST WHERE MQ_QUECODE = #{myquestCode}
+	</select>
+	
+	<resultMap type="GameBean" id="rankingMap">
+		<result property="rankingName" column="CH_NAME" javaType="java.lang.String" />
+		<result property="rankingLevel" column="CH_LEVEL" javaType="java.lang.Integer" />
+		<result property="rankingExp" column="CH_EXP" javaType="java.lang.Integer" />
+		<result property="rankingStr" column="CH_STR" javaType="java.lang.Integer" />
+		<result property="rankingDex" column="CH_DEX" javaType="java.lang.Integer" />
+		<result property="rankingInt" column="CH_INT" javaType="java.lang.Integer" />
+	</resultMap>
+	
+	<select id="rankingListView" resultMap="rankingMap">
+		SELECT CH_NAME,CH_LEVEL,CH_EXP,CH_STR,CH_DEX,CH_INT FROM USER_CHARACTER ORDER BY CH_EXP DESC
+	</select>
+	
+	<resultMap type="GameBean" id="guildMap">
+		<result property="guildCode" column="GU_CODE" javaType="java.lang.Integer" />
+		<result property="guildName" column="GU_NAME" javaType="java.lang.String" />
+		<result property="guildTotalNum" column="GU_TOTALNUM" javaType="java.lang.Integer" />
+		<result property="guildMenLevel" column="GU_GLCODE" javaType="java.lang.Integer" />
+		<result property="guildPreNum" column="GU_PRENUM" javaType="java.lang.Integer" />
+	</resultMap>
+	
+	<select id="guildList" resultMap="guildMap">
+		SELECT GU_NAME, GU_TOTALNUM, GU_PRENUM FROM GUILD ORDER BY GU_CODE DESC
+	</select>
+	
+	<insert id="guildCreate" parameterType="GameBean">
+		INSERT INTO GUILD VALUES(GUILD_SEQ.NEXTVAL, #{guildName}, 50 , '1', 1)
+	</insert>
+
+	<update id="userGuildupdate" parameterType="GameBean">
+		UPDATE USER_CHARACTER SET CH_GUCODE = #{guildCode}, CH_GLCODE = '1' WHERE CH_NAME = #{characterName}
+	</update>
+	
+	<select id="userGuildCheck" parameterType="GameBean" resultType="String">
+		SELECT CH_GLCODE FROM USER_CHARACTER WHERE CH_NAME= #{characterName}
+	</select>
+	
+	<select id="guildNameCheck" parameterType="GameBean" resultType="Integer">
+		SELECT COUNT(*) FROM GUILD WHERE GU_NAME = #{guildName}
+	</select>
+	
+	<select id="guildCodeGet" parameterType="GameBean" resultType="Integer">
+		SELECT GU_CODE FROM GUILD WHERE GU_NAME = #{guildName}
+	</select>
+	
+	<update id="guildDec" parameterType="GameBean">
+		UPDATE USER_CHARACTER SET CH_GOLD = #{updateGold} WHERE CH_NAME = #{characterName}
+	</update>
+	
+	<update id="userGuildJoin" parameterType="GameBean">
+		UPDATE USER_CHARACTER SET CH_GUCODE = #{guildCode}, CH_GLCODE = '2' WHERE CH_NAME = #{characterName}
+	</update>
+	
+	<!-- 길드 탈퇴 -->
+	<update id="guildOut" parameterType="GameBean">
+		UPDATE USER_CHARACTER SET CH_GUCODE = null, CH_GLCODE = 0 WHERE CH_NAME = #{characterName}
+	</update>
+	<resultMap type="GameBean" id="guildMemberListMap">
+		<result property="guildName" column="GU_NAME" javaType="java.lang.String" />
+		<result property="characterName" column="CH_NAME" javaType="java.lang.String" />
+		<result property="level" column="CH_LEVEL" javaType="java.lang.Integer" />
+		<result property="guildMenLevel" column="CH_GLCODE" javaType="java.lang.Integer" />
+	</resultMap>
+	<select id="guildMemberListView" parameterType="GameBean" resultMap="guildMemberListMap">
+		SELECT GU_NAME, CH_NAME, CH_LEVEL, CH_GLCODE FROM GUILDMEMBERLIST WHERE GU_CODE= #{guildCode} ORDER BY CH_GLCODE 
+	</select>
+	<select id="guildlevelNameView"	parameterType="GameBean" resultType="String">
+		SELECT GL_NAME FROM GUILDLEVEL WHERE GL_CODE = #{guildMenLevel}
+	</select>
+	<!-- 한광수 -->
+	
 </mapper>

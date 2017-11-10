@@ -66,13 +66,13 @@ public interface IMBatisDao {
 	public int freeDelete(BoardBean board);							//자유게시판 글 삭제
 
 	public int freeUpdate(BoardBean board);							//자유게시판 글 수정
-	
+
 	public int freeComment(BoardBean board);						//자유게시판 댓글 달기
-	
+
 	public List<BoardBean> getfreeComment(BoardBean board);			//자유게시판 댓글 보기
 
 	public int freeTitlefine(BoardBean board);						//자유게시판 글 타이틀 조회
-	
+
 	public List<BoardBean> freeTitleComment(BoardBean board);		//자유게시판 글 타이틀 조회
 	/*↑ 전지원*/
 	/*↓ 신태휘*/
@@ -87,35 +87,35 @@ public interface IMBatisDao {
 	public List<GameBean> getIvenList(Map<String, String> map);		// 캐릭터 소지품 조회
 
 	public int getRaspCodeCheck(ActivityBean ab);						// 라즈베리파이 코드 유무 확인
-	
+
 	public int getIsRaspCheck(ActivityBean ab);
 
 	public int setRaspMem(ActivityBean ab);							// 라즈베리파이-회원 연동
-	
+
 	public List<ActivityBean> getTodayAct(ActivityBean ab);		// 오늘 걸음수 가져오기
-	
+
 	public List<ActivityBean> getYesterdayAct(ActivityBean ab);		// 오늘 걸음수 가져오기
-	
+
 	public List<ActivityBean> getAvailableAct(ActivityBean ab);		// 오늘 걸음수 가져오기
-	
+
 	public ActivityBean getAppliedWeekSumExp(ActivityBean ab);		// 적용한 경험치 총량 가져오기
-	
+
 	public List<ActivityBean> getAppliedWeekExp(ActivityBean ab);		// 적용한 경험치 일주일 가져오기
-	
+
 	public int setActExp(ActivityBean ab);											// 운동량 경험치로 적용하기 1. 캐릭터 경험치 업데이트
-	
+
 	public int setActivity(ActivityBean ab);											// 운동량 경험치로 적용하기 2. 운동량 사용여부 업데이트
-	
+
 	public int setActLog(ActivityBean ab);											// 운동량 경험치로 적용하기 3. 운동량 사용내역 인서트
-	
+
 	public List<ActivityBean> getWeekActivity(ActivityBean ab); // 일주일 운동량 가져오기
 
 	public ActivityBean getWeekAppliedExp(ActivityBean ab);	// 일주일 경험치 전환 내역 불러오기
-	
+
 	public List<ActivityBean> getActivityAllData(ActivityBean ab);	// 전체 활동량 내역 불러오기
-	
+
 	public List<ActivityBean> getAppliedAllData(ActivityBean ab);	// 전체 경험치 내역 불러오기
-	
+
 	public GameBean getItemInfo(GameBean bean);						// 아이템 정보 조회
 
 	public int getIsEquip(Map<String, String> map);					// 착용 아이템 사용전 기 착용여부 확인
@@ -320,6 +320,80 @@ public interface IMBatisDao {
 	//공략 게시글 제목 검색 출력
 	public List<BoardBean> attackBoardSearchTitle(BoardBean boardBean);
 	//종
+
+	//한광수
+	//퀘스트 완료
+	public int questCheck(GameBean gameBean);
+	//퀘스트 목록
+	public List<GameBean> questList();
+	//내 퀘스트 목록
+	public List<GameBean> myQuestList(GameBean gameBean);
+	//내 퀘스트 확인
+	public List<GameBean> myQuestListCheck(GameBean gameBean);
+	//퀘스트 받기
+	public int questAdded(GameBean gameBean);
+	//유저골드 확인
+	public int userGold(GameBean gameBean);
+	//유저 경험치 확인
+	public int userExp(GameBean gameBean);
+	//퀘스트 경험치
+	public int questExp(GameBean gameBean);
+	//퀘스트 골드
+	public int questGold(GameBean gameBean);
+	//퀘스트 경험치업데이트
+	public int updateExp(GameBean gameBean); 
+	//퀘스트 골드업데이트
+	public int updateGold(GameBean gameBean);
+	//퀘스트 코드
+	public int questPizCode(GameBean gameBean);
+	//길드 리스트 출력
+	public List<GameBean> guildList();
+	//길드 이름 확인
+	public int guildNameCheck(GameBean gameBean);
+	//길드 코드 가져오기
+	public int guildCodeGet(GameBean gameBean);
+	//길드 생성
+	public int guildCreate(GameBean gameBean);
+	//유저길드 추가
+	public int userGuildupdate(GameBean gameBean);
+	//캐릭터의 길드 유무확인
+	public String userGuildCheck(GameBean gameBean);
+	//캐릭터의 길드생성 골드 감소
+	public int guildDec(GameBean gameBean);
+	//일반유저 길드가입
+	public int userGuildJoin(GameBean gameBean);
+	//길드 탈퇴
+	public int guildOut(GameBean gameBean);
+	//길드 코드로 길드멤버리스트 출력
+	public List<GameBean> guildMemberListView(GameBean gameBean);
+	//길드레벨코드로 길드장길드원 확인
+	public String guildlevelNameView();
+
+	//랭킹 리스트 출력
+	public List<GameBean> rankingListView();
+	//아이디 체크(중복)
+	public int userIdCheck(MemberBean member);
+	//패스워드 추출
+	public String getUserPwd(MemberBean member);
+	//공지사항 리스트 출력
+	public List<BoardBean> reportBoardList();
+	//공지사항 작성
+	public int reportBoardMake(BoardBean boardBean);
+	//공지사항 게시글 내용 출력
+	public BoardBean reportBoardContents(BoardBean boardBean);
+	//공지사항 게시글 조회수 증가
+	public int reportBoardHitUp(BoardBean boardBean);
+	//공지사항 게시글 수정
+	public int reportBoardModify(BoardBean boardBean);
+	//공지사항 게시글 삭제
+	public int reportBoardDelete(BoardBean boardBean);
+	//공지사항 게시글 작성자 검색 출력
+	public List<BoardBean> reportBoardSearchId(BoardBean boardBean);
+	//공지사항 게시글 제목 검색 출력
+	public List<BoardBean> reportBoardSearchTitle(BoardBean boardBean);
+	//퀘스트 코드 확인
+	public int questCodeCheck(GameBean gameBean);
+	//한광수
 
 }
 

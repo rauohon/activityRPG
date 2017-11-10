@@ -12,6 +12,7 @@ import com.activityRPG.beans.BattleBean;
 import com.activityRPG.beans.GameBean;
 import com.activityRPG.services.GameNomalService;
 import com.activityRPG.services.GamePlayService;
+import com.activityRPG.services.QuestService;
 import com.activityRPG.utils.ProjectUtils;
 import com.google.gson.Gson;
 
@@ -27,6 +28,8 @@ public class GameController {
 	private GameNomalService gn;
 	@Autowired
 	private GamePlayService gp;
+	@Autowired
+	private QuestService questService;
 	
 	private ModelAndView mav = new ModelAndView();
 	
@@ -300,4 +303,102 @@ public class GameController {
 			return mav;
 		}
 	//*******************************김훈******************************
+	//*****************************한광수******************************
+		
+		//전체 퀘스트  리스트
+		@RequestMapping(value="/QuestAll", method = RequestMethod.POST)
+		private ModelAndView questAll() {
+			
+			mav = new ModelAndView();
+			mav = questService.entrance(61);
+			return mav;
+		}
+		//퀘스트 받기
+		@RequestMapping(value="/QuestAdd", method = RequestMethod.POST)
+		private ModelAndView questAdd(@ModelAttribute GameBean gameBean) {
+			
+			mav = new ModelAndView();
+			mav = questService.entrance(62, gameBean);
+			return mav;
+		}
+		//내퀘스트 완료
+		@RequestMapping(value="/QuestCheck", method = RequestMethod.POST)
+		private ModelAndView questCheck(@ModelAttribute GameBean gameBean) {
+			
+			mav = new ModelAndView();
+			mav = questService.entrance(63, gameBean);
+			return mav;
+		}
+		//퀘스트 보상
+		@RequestMapping(value="/QuestPresent", method = RequestMethod.POST)
+		private ModelAndView questPresent(@ModelAttribute GameBean gameBean) {
+			
+			mav = new ModelAndView();
+			mav = questService.entrance(64, gameBean);
+			return mav;
+		}
+		//내 퀘스트 리스트
+		@RequestMapping(value="/MyQuestList", method = RequestMethod.POST)
+		private ModelAndView myQuestList() {
+			
+			mav = new ModelAndView();
+			mav = questService.entrance(65);
+			return mav;
+		}
+		//랭킹 
+		@RequestMapping(value="/Ranking", method = RequestMethod.POST)
+		private ModelAndView ranking(@ModelAttribute GameBean gameBean) {
+			
+			mav = new ModelAndView();
+			mav = gn.entrance(66, gameBean);
+			return mav;
+		}
+		//길드목록
+		@RequestMapping(value="/Guild", method = RequestMethod.POST)
+		private ModelAndView guild(@ModelAttribute GameBean gameBean) {
+			
+			mav = new ModelAndView();
+			mav = gn.entrance(67, gameBean);
+			return mav;
+		}
+		//길드생성이동
+		@RequestMapping(value="/GuildCreateFormMove", method = RequestMethod.POST)
+		private ModelAndView guildCreateFormMove() {
+			
+			mav = new ModelAndView();
+			mav.setViewName("guildCreate");
+			return mav;
+		}
+		//길드 생성
+		@RequestMapping(value="/GuildCreate", method = RequestMethod.POST)
+		private ModelAndView guildCreate(@ModelAttribute GameBean gameBean) {
+			
+			mav = new ModelAndView();
+			mav = gn.entrance(68, gameBean);
+			return mav;
+		}
+		//길드가입
+		@RequestMapping(value="/GuildJoinMove", method = RequestMethod.POST)
+		private ModelAndView guildJoinMove(@ModelAttribute GameBean gameBean) {
+			
+			mav = new ModelAndView();
+			mav = gn.entrance(69, gameBean);
+			return mav;
+		}
+		
+		//길드 탈퇴
+		@RequestMapping(value="/GuildOut", method = RequestMethod.POST)
+		private ModelAndView guildOut(@ModelAttribute GameBean gameBean) {
+			mav = new ModelAndView();
+			mav = gn.entrance(70, gameBean);
+			return mav;
+		}
+		//길드 멤버 리스트 출력
+		@RequestMapping(value="/GuildMemberMove", method = RequestMethod.POST)
+		private ModelAndView guildMemberMove(@ModelAttribute GameBean gameBean) {
+			mav = new ModelAndView();
+			mav = gn.entrance(71, gameBean);
+			return mav;
+		}
+		//**********************************한광수*****************
 }
