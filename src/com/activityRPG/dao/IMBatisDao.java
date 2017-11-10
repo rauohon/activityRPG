@@ -290,11 +290,16 @@ public interface IMBatisDao {
 	//활동 맴버 리스트 출력
 	public List<MemberBean> MemberList(); 
 
-	//정지 맴버 리스트 출력
-	public List<MemberBean> memberList(); 
+	//jiwon
+	//정지 된 멤버 리스트 출력
+	public List<MemberBean> MemberBrackList(); 
 
 	//맴버 정지
 	public int userDelete(MemberBean mb); 
+	
+	//jiwon
+	//맴버 복귀
+	public int userRestart(MemberBean mb); 
 
 	//공략 리스트 출력
 	public List<BoardBean> attackBoardList();

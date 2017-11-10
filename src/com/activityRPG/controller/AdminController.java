@@ -32,19 +32,35 @@ public class AdminController {
 		return mav;
 	}
 
-	//관리자 메인 게시판(자유)
-	@RequestMapping(value="/adminFreeBoard", method = RequestMethod.POST)
-	public ModelAndView adminFreeBoard(@ModelAttribute MemberBean member) throws Exception {
-		System.out.println("MemberController :: 관리자 메인 게시판(자유)");
+	//회원 관리 페이지 >> 타입 1
+	@RequestMapping(value = "/userCheck", method = RequestMethod.POST)
+	public ModelAndView userCheck(@ModelAttribute MemberBean member) throws Exception {
+		System.out.println("AdminController :: 회원 관리 페이지");
 		mav = am.entrance(2, member);
 		return mav;
 	}
-
-	//회원 정지
+	
+	//회원 정지 버튼 눌렀을 때
 	@RequestMapping(value = "/UserDelete", method = RequestMethod.POST)
 	public ModelAndView userDelete(@ModelAttribute MemberBean member) throws Exception {
-		mav = new ModelAndView();
+		System.out.println("AdminController :: 회원 정지 버튼 눌렀을 때");
 		mav = am.entrance(3, member);
+		return mav;
+	}
+	
+	//회원 관리 페이지 >> 타입3
+	@RequestMapping(value = "/stopList", method = RequestMethod.POST)
+	public ModelAndView stopList(@ModelAttribute MemberBean member) throws Exception {
+		System.out.println("AdminController :: 회원 관리 페이지 >> 타입3");
+		mav = am.entrance(4, member);
+		return mav;
+	}
+	
+	//회원 복귀 버튼 눌렀을 때
+	@RequestMapping(value = "/userRestart", method = RequestMethod.POST)
+	public ModelAndView userRestart(@ModelAttribute MemberBean member) throws Exception {
+		System.out.println("AdminController :: 회원 관리 페이지 >> 타입3");
+		mav = am.entrance(5, member);
 		return mav;
 	}
 }

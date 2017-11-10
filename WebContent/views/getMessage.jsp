@@ -50,6 +50,7 @@ function init(){
 </head>
 <body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
+	<div class="contents">
 	<link rel="stylesheet" href="css/getMessage.css" media="screen" type="text/css" />
 	<div id='wraper' style="padding-top: 60px;">
 		<p>받은 메시지 함</p>
