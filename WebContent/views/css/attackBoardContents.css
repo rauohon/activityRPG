@@ -1,9 +1,5 @@
 @charset "UTF-8";
 
-body {
-	background-color: #2c3338;
-}
-
 table.type {
 	background: no-repeat fixed;
 	width: 750px;
