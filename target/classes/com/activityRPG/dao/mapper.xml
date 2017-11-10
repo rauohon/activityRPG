@@ -266,15 +266,15 @@
 	<!--	일주일간의 걸음 수 / 층 수 가져 오기 -->
 	<select id="getWeekActivity" parameterType="actBean" resultType="actBean">
 		SELECT
-			SUBSTR(AT_DATE,0,8) as "date", SUM(AT_STEP) AS step, SUM(AT_FLOOR) as floor
+			SUBSTR(AT_LOGDATE,0,8) as "date", SUM(AT_STEP) AS step, SUM(AT_FLOOR) as floor
 		FROM
 			ACTIVITY
 		WHERE
 			AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID = #{id})
 			AND 
-				AT_DATE >= SYSDATE-7
+				AT_LOGDATE >= SYSDATE-7
 		GROUP BY
-			SUBSTR(AT_DATE,0,8)
+			SUBSTR(AT_LOGDATE,0,8)
 	</select>
 	
 	<!-- 일주일간의 경험치 전환량 가져오기 -->

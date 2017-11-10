@@ -82,11 +82,9 @@ public class ActivityService extends TranEx {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		try {
 			bean.setId(session.getAttribute("id").toString());
-			System.out.println(bean.getExp() + " :: exp");
 			if(dao.setActExp(bean) != 0) {
 				if(dao.setActivity(bean) != 0) {
 					if(dao.setActLog(bean) != 0) {
-						System.out.println("경험치 전환 success");
 						mav.addObject("todayActivity",todayActivity(bean));
 						mav.addObject("applicableExp",applicableExp(bean));
 						mav.addObject("appliedExpIndi",appliedExpIndi(bean));
@@ -114,9 +112,7 @@ public class ActivityService extends TranEx {
 		//라즈베리파이 등록하기
 		try {
 		if(dao.getRaspCheck(bean) != 0) {
-			System.out.println("조회 성공");
 			if(dao.setRaspMem(bean) != 0) {
-				System.out.println("등록 성공");
 				mav.addObject("msg", "system error");
 				mav.setViewName("home");
 			}else {
@@ -326,7 +322,6 @@ public class ActivityService extends TranEx {
 		return mav;
 	}
 
-
 	/**
 	 * 처리내용 : 2-4 전체 걸음/오른 층수/전환한 경험치 내역 불러오기
 	 * 작성일 : 2017. 10. 23.
@@ -340,9 +335,9 @@ public class ActivityService extends TranEx {
 		sb.append("<br/>");
 		List<ActivityBean> acti = dao.getActivityAllData(bean);
 		List<ActivityBean> acti2 = dao.getAppliedAllData(bean);
-		sb.append("<h1 style=\'margin-top:2%;\'>" + acti.get(0).getStep() + " : 지금까지 이만큼 걸으셨어요.</h1>");
-		sb.append("<h1 style=\'margin-top:2%;\'>" + acti.get(0).getFloor() + " : 지금까지 이만큼 계단으로 오르내리셨어요.</h1>");
-		sb.append("<h1 style=\'margin-top:2%;\'>" +acti2.get(0).getExp()+ " : 지금까지 이만큼 경험치로 전환 하셨어요.</h1>");
+		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " + acti.get(0).getStep() + " : 지금까지 이만큼 걸으셨어요.</h1>");
+		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " + acti.get(0).getFloor() + " : 지금까지 이만큼 계단으로 오르내리셨어요.</h1>");
+		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " +acti2.get(0).getExp()+ " : 지금까지 이만큼 경험치로 전환 하셨어요.</h1>");
 
 		return sb.toString();
 	}
@@ -368,9 +363,7 @@ public class ActivityService extends TranEx {
 			}
 		});
 		sb = gson.toJson(acti);
-		
-		System.out.println(sb);
-		
+				
 		return sb;
 	}
 
