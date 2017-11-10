@@ -116,7 +116,7 @@ function init(){
 		<div id='teleportWraper' style='margin-left: 40%; padding-left: 20px; margin-top: 5%;'>
 			<div id='charaInfo'>
 					<button class='button' onClick="movePage('characterinfo','CharacterInfo','GET')" style='height: 100px; width: 39%;'>캐릭터 정보</button>
-					<button class='button' style='height: 100px; width: 39%; margin-left: 1%;'>퀘스트</button>
+					<button class='button' onClick="movePage('questall','QuestAll','POST')"  style='height: 100px; width: 39%; margin-left: 1%;'>퀘스트</button>
 			</div>
 			<div id='go_guild'>
 				<button class='button' style='height: 100px; width: 79.5%; margin-top: 1%;'>길드</button>

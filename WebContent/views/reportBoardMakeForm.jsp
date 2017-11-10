@@ -3,8 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/css/reportBoard.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/reportBoard.css"/>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <meta charset="UTF-8">
 <title>Report Board Make Form</title>
 </head>
@@ -55,7 +57,22 @@
 		margin-left: 900px;
 	}
 </style>
-<body>
+<script type="text/javascript">
+	function init(){
+		var userType = "${userType}";
+		if(userType==2){
+			 $("#nomar_user").css("display","none");
+			 $("#admin_user").css("display","");
+		}else{
+			$("#nomar_user").css("display","");
+			$("#admin_user").css("display","none");
+		}
+	}
+</script>
+</head>
+<body onLoad='init()'>
+<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
 	<form name="ReportBoardMakeForm" action="ReportBoardMake" method="post">
 		<div class="allmake">
 			제목 : <input class="subjectbox" type="text" name="reportBoardTitle"/><br/>
@@ -68,6 +85,6 @@
 			</div>
 		</div>
 	</form>
-	
+	</div>
 </body>
 </html>

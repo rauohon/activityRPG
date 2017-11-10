@@ -83,14 +83,10 @@ function total(formname, action, method){
 					<li><button onClick="total('guildboardpage', 'GuildBoardPage', 'get')" id="bar">길드게시판</button></li>
 					<li><button onClick="total('freeBoardForm', 'freeBoard', 'post')" id="bar">자유게시판</button></li>
 					<li><input type="button" value="공략 게시판" onClick="attackBoardMove()" id="bar" /></li>
+					<li><input type="button" value="신고 게시판" onClick="reportBoardMove()" id="bar" /></li>
 				</ul>
 			</li>
-			<li><button id="bar">운동 정보 확인</button>
-				<ul>
-					<li><button onClick="total('adminactivitylogpage','AdminActivityLogPage','post')" id="bar">일반 통계</button></li>
-					<li><button onClick="total('adminactivityagelogpage','AdminActivityAgeLogPage','post')" id="bar">연령 기준 조회</button></li>
-					<li><button onClick="total('adminactivitysexlogpage','AdminActivitySexLogPage','post')" id="bar">성별 기준 조회</button></li>
-				</ul>
+			<li><button onClick="total('adminactivitylogpage','AdminActivityLogPage','post')" id="bar">운동 통계 정보</button>
 			</li>
 		</ul>
 	</div>

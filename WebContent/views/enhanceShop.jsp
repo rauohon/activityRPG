@@ -67,6 +67,14 @@ function init(){
 </style>
 <body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
+	<style>				
+		body {
+			background-image: url("/images/enhance2.png");
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+		}
+	</style>
 	<div id='wraper' style="padding-top: 60px;">
 		<div id="message">
 			${message }

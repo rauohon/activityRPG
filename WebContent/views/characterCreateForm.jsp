@@ -4,13 +4,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Character Create Form</title>
-</head>
+
 <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> <!-- 움직이는 배경을 위함 -->
 <link rel="stylesheet" href="/css/createCharacterForm.css" /> <!-- 움직이는 배경을 위함 -->
 <script src="/js/jquery.particleground.js"></script>	<!-- 움직이는 배경을 위함 -->
 <script src="/js/jquery.particleground2.js"></script>	<!-- 움직이는 배경을 위함 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> <!-- alert창 변경 -->
+<title>Character Create Form</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script>
 	function init(){
 		var sex = ${userSex };
@@ -28,6 +32,14 @@
 			boy.height = 600;
 			boy.alt = "남자 사진입니다.";
 			boy.title = "남자 사진";
+		}
+		var userType = "${userType}";
+		if(userType==2){
+			 $("#nomar_user").css("display","none");
+			 $("#admin_user").css("display","");
+		}else{
+			$("#nomar_user").css("display","");
+			$("#admin_user").css("display","none");
 		}
 	}
 	
@@ -56,17 +68,19 @@
 		document.body.appendChild(form);
 	}
 </script>
-<body onload="init()">
+<body onLoad='init()'>
+	<%@ include file="nav.jsp"%>
 	<div id="particles">
+	<div id='wraper' style="padding-top: 60px;">	
   		<div id="intro">
 			<img id="boy" />
 			<img id="girl" />
 			<br/>
 			<a>이름  </a><input type="text" name="characterName" maxlength="6" size="25"/>
-			<button onClick="characterCreate()" class="btn">생성</button><br/>
-			
+			<button onClick="characterCreate()" class="btn">생성</button><br/>			
 			<font color="red" size=2>${message }</font>
   		</div>
+	</div>
 	</div>
 </body>
 </html>

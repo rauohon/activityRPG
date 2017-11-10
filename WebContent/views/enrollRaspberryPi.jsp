@@ -77,7 +77,7 @@ function init(){
 </head>
 <body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
-		<div id='wraper' style="padding-top: 60px;">
+		<div id='wraper' style="padding-top: 20%; padding-left: 35%;">
 			<form action="EnrollRaspberry" method='get' class='go-right'>
 				${id }님!! 반갑습니다.<br/>
 				<p>${msg }</p>
@@ -85,7 +85,7 @@ function init(){
 				<input type='text' id='rpCode' name='riId' style="font-size: 20px;" />
 				<label for="name">라즈베리파이에 쓰여있는 코드를 입력하세요.</label>
 				<input type='hidden' name='id' value='${id }' />
-				<input type='submit' value='제출' style="width: 60%"/>
+				<input type='submit' value='제출' style="width: 58%"/>
 				</div>
 			</form>
 		</div>

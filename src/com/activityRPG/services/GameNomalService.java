@@ -27,6 +27,8 @@ public class GameNomalService extends TranEx {
 	private IMBatisDao dao;
 	@Autowired
 	private ProjectUtils session;
+	@Autowired
+	private GamePlayService gp;
 
 	ModelAndView mav = new ModelAndView();
 	/**
@@ -569,9 +571,13 @@ public class GameNomalService extends TranEx {
 		String callPage = null;
 		try {
 			if(session.getAttribute("page") != null) {
-				callPage = session.getAttribute("page").toString();
-				mav.setViewName(callPage);
-				session.removeAttribute("page");
+				if(session.getAttribute("page").toString().equals("battlePage")) {
+					mav = gp.entrance(45, bean);
+				}else {
+					callPage = session.getAttribute("page").toString();
+					mav.setViewName(callPage);
+					session.removeAttribute("page");
+				}
 			}else {
 				mav.setViewName("village");
 			}

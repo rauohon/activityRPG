@@ -7,6 +7,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Report Board Contents</title>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 </head>
 <script>
 	function init(){
@@ -18,8 +20,12 @@
 			
 				var attackdelete = document.getElementsByName("reportBoardDelete")[0];
 				attackdelete.setAttribute("type", "button");
+		}else if(userType==2){
+			 $("#nomar_user").css("display","none");
+			 $("#admin_user").css("display","");
 		}else{
-			
+			$("#nomar_user").css("display","");
+			$("#admin_user").css("display","none");
 		}
 	}else{
 		
@@ -78,8 +84,9 @@
 	}
 	
 </style>
-
-<body onload="init()">
+<body onLoad='init()'>
+<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
 	<div id="contentsDiv">
 		${reportBoardContentsView }
 	</div>
@@ -87,6 +94,7 @@
 		<input type="hidden" name="reportBoardModifyFormMove" value="수정" onClick="reportBoardModifyFormMove(${reportBoardCode})" class="button"/>
 		<input type="hidden" name="reportBoardDelete" value="삭제" onClick="reportBoardDelete(${reportBoardCode})" class="button"/>
 		<button onClick="back()" class="button">뒤로가기</button>
+	</div>
 	</div>
 </body>
 </html>

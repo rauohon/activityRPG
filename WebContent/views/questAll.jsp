@@ -6,6 +6,8 @@
 <head>
 <link rel="stylesheet" type="text/css" href="/css/backGround.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -47,13 +49,7 @@ var myquestCode = null;
 	}
 </script>
 <style>
-	body{
-		background-image:url("/images/quest.jpg");
-		background-repeat:no-repeat;
-		background-size:100% 100%;
-		overflow:hidden;
-		/* background-attachment:fixed; */
-	}
+
 	.quest1{
 		width:600px;
 		height:560px;
@@ -90,12 +86,35 @@ var myquestCode = null;
 		background: linear-gradient(to right, #578100, #B1DB4E);
 	}
 </style>
-<body>
+<script>
+	function init(){
+		var userType = "${userType}";
+		if(userType==2){
+			 $("#nomar_user").css("display","none");
+			 $("#admin_user").css("display","");
+		}else{
+			$("#nomar_user").css("display","");
+			$("#admin_user").css("display","none");
+		}
+	}
+</script>
+<body onLoad='init()'>
+	<%@ include file="nav.jsp"%>
+	<style>
+		body{
+		background-image:url("/images/quest.jpg");
+		background-repeat:no-repeat;
+		background-size:100% 100%;
+		overflow:hidden;
+		/* background-attachment:fixed; */
+	}
+	</style>
+	<div id='wraper' style="padding-top: 60px;">	
 	<div class="quest1">
-		<div>
+		<div style='color: white;'>
 			<h1>전체 퀘스트 목록</h1>
 		</div>
-		<div>
+		<div style="margin-top: 6%;">
 			${questList }
 		</div>
 		<div class="questAllButton">
@@ -104,6 +123,7 @@ var myquestCode = null;
 		<div class="messageBox">
 		${message }
 		</div>
+	</div>
 	</div>
 </body>
 </html>

@@ -5,6 +5,8 @@
 <head>
 <link rel="stylesheet" type="text/css" href="/css/reportBoard.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <meta charset="UTF-8">
 <title>Report Board Modify Form</title>
 </head>
@@ -58,7 +60,21 @@
 		color:white;
 	}
 </style>
-<body>
+<script>
+	function init(){
+		var userType = "${userType}";
+		if(userType==2){
+			 $("#nomar_user").css("display","none");
+			 $("#admin_user").css("display","");
+		}else{
+			$("#nomar_user").css("display","");
+			$("#admin_user").css("display","none");
+		}
+	}
+</script>
+<body onLoad='init()'>
+<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
 	<form name="reportBoardModifyForm" action="ReportBoardModify" method="post">
 		<div class="box4">
 			<input type="hidden" name="reportBoardCode" value="${reportBoardCode }" /> 
@@ -76,6 +92,6 @@
 		<button class="button" onClick="back()">뒤로가기</button>
 		</div>
 	</form>
-	
+	</div>
 </body>
 </html>

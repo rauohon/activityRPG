@@ -56,6 +56,7 @@ public class GamePlayService  extends TranEx {
 	public ModelAndView entrance(int i, Object... bean) {
 		
 		switch(i) {
+			
 			case 0:
 				mav = movement((GameBean)bean[0]);
 				break;
@@ -843,7 +844,7 @@ public class GamePlayService  extends TranEx {
 			List<BattleBean> monsterInformation = null;
 			try {
 				String characterName = (String)session.getAttribute("characterName");
-
+				session.setAttribute("page", "battlePage");
 				//캐릭터 정보 가져오기
 				characterInformation = dao.characterInformation(characterName);
 

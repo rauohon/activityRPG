@@ -1,12 +1,5 @@
 @charset "UTF-8";
 
-body {
-	background-image: url("/images/enhance2.png");
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-}
-
 h1 {
 	color: #C9AE00;
 	text-align: center;

@@ -6,6 +6,8 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/css/reportBoard.css"/>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Report Board</title>
@@ -13,13 +15,21 @@
 <script>
 	var userType = ${userType };
 	function init(){
-			 var input = document.createElement("input");
-			 input.type = "button";
-			 input.value = "게시글 작성";
-			 input.setAttribute("onClick", "reportBoardMakeFormMove()");
-			 input.setAttribute("class", "see");
-			 
-			 document.getElementById("divOption").appendChild(input);
+		var userType = "${userType}";
+		if(userType==2){
+			 $("#nomar_user").css("display","none");
+			 $("#admin_user").css("display","");
+		}else{
+			$("#nomar_user").css("display","");
+			$("#admin_user").css("display","none");
+		}
+		 var input = document.createElement("input");
+		 input.type = "button";
+		 input.value = "게시글 작성";
+		 input.setAttribute("onClick", "reportBoardMakeFormMove()");
+		 input.setAttribute("class", "see");
+		 
+		 document.getElementById("divOption").appendChild(input);
 		var i;
 		var listSize = ${listSize };
 		for(i = 0; i <= listSize; i++){
@@ -110,7 +120,9 @@
 		outline:none;
 	}
 </style>
-<body onload="init()">
+<body onLoad='init()'>
+<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
 	<div>
 		${reportBoardList }
 	</div>
@@ -123,6 +135,6 @@
 		<input class="textbox" type="text" name="search"/>
 		<input class="search" type="button" value="검색" onClick="search()" />
 	</div>
-	<br/>
+	</div>
 </body>
 </html>
