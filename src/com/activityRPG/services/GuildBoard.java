@@ -403,18 +403,28 @@ public class GuildBoard extends TranEx  {
 	 * @return type : String
 	 */
 	private String guildBoardList(BoardBean bean) {
-
+		System.out.println(bean.getGbStep() + "if문 진입전");
 		StringBuffer sb = new StringBuffer();
+		if(bean.getGbStep() <= 1) {
+			System.out.println("오버라이트 확인");
+			bean.setGbStep(1);
+			bean.setGbIndent(10);
+		}else if(bean.getGbStep() == 2){
+			bean.setGbStep(11);
+			bean.setGbIndent(20);
+		}
+		System.out.println(bean.getGbStep() + " :: 까꿍");
 		List<BoardBean> gBoardList = dao.getGuildBoardList(bean);
 		sb.append("<table><thead><tr><th>글 번호</th><th>작성자</th><th style=\'width: 50%;\'>글 제목</th><th>작성일</th><th>조회수</th></tr></thead><tbody>");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		int totalCount = dao.getGuildBoardCount(bean);
+		int countList = 10;
+		int totalPage = totalCount / countList;
+		if(totalPage / countList >0) {
+			totalPage++;
+		}
+		
 		for(int i=0 ; i< gBoardList.size();i++) {
-			Collections.sort(gBoardList, new Comparator<BoardBean>(){
-				@Override
-				public int compare(BoardBean r2, BoardBean r1){
-					return r1.getGbWDate().compareTo(r2.getGbWDate());
-				}
-			});
 			sb.append("<tr><td>");
 			sb.append(gBoardList.get(i).getGbCode());
 			sb.append("</td><td>");
@@ -429,6 +439,11 @@ public class GuildBoard extends TranEx  {
 		}
 
 		sb.append("</tbody></table>");
+		sb.append("<div class=\'pageNum\'>");
+		for(int i=1 ; i<=totalPage ; i++) {
+			sb.append("<button onClick=\"guildboardpage2(\'"+ i +"\')\">"+ i +"</button>");
+		}
+		sb.append("</div>");
 		return sb.toString();
 	}
 
@@ -443,7 +458,8 @@ public class GuildBoard extends TranEx  {
 		try {
 			if(session.getAttribute("id") != null) {
 				bean.setId(session.getAttribute("id").toString());
-				bean = dao.getCharaName(bean);
+				bean.setChName(dao.getCharaName(bean));
+				System.out.println(bean.getGbStep() + "모델엔뷰");
 				session.setAttribute("chName", bean.getChName());
 				mav.addObject("boards", guildBoardList(bean));
 				mav.setViewName("guildBoard");
