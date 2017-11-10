@@ -251,6 +251,7 @@ public class MemberController {
 	@RequestMapping(value="/changePwd", method = RequestMethod.POST)
 	public ModelAndView changePwd(@ModelAttribute MemberBean member) throws Exception {
 		System.out.println("MemberController :: 패스워드 변경");
+		System.out.println(member.getPwd() + " :: 패스워드 컨트롤러");
 		mav = mm.entrance(20, member);
 		return mav;
 	}

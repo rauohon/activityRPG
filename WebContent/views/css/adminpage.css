@@ -40,4 +40,18 @@ h3 {
     width: 90px;
     color: #fff;
     font-size: 12px;
+#user {
+	color: white;
+}
+
+#submit {
+	font-size: 1em;
+	padding: 15px 10px 10px;
+	border: 1px solid #cecece;
+	background: #3b4148;
+	color: #fafafa;
+	border-radius: 5px;
+	box-sizing: border-box;
+	width: 50%;
+	margin-left: 42.5%;
 }

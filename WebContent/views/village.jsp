@@ -67,9 +67,29 @@
 
 		f.submit();
 	}
+	
+	
+	
+	function EnhanceShopMove(){
+		createForm("EnhanceShopMoveForm", "EnhanceShop", "get");
+		var form = document.getElementsByName("EnhanceShopMoveForm")[0];
+		form.submit();
+	}
+</script>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
 </script>
 </head>
-<body>
+<body onLoad='init()'>
 <%@ include file="nav.jsp"%>
 	<div id='wraper' style="padding-top: 60px;">
 		<div id='chatArea' style="width:30%; float: left; height: 60%; margin-left: 80px;">
@@ -106,7 +126,7 @@
 			</div>
 			<div id='go_shop'>
 				<button class='button' style='height: 100px; width: 39%; margin-top: 1%;'>상점</button>
-				<button class='button' style='height: 100px; width: 39%; margin-left: 1%;  margin-top: 1%;'>대장간</button>
+				<button onClick="EnhanceShopMove()" class='button' style='height: 100px; width: 39%; margin-left: 1%;  margin-top: 1%;'>대장간</button>
 			</div>
 			<div id='go_ranking'>
 				<button class='button' style='height: 100px; width: 79.5%; margin-top: 1%;'>랭킹</button>

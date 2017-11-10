@@ -144,58 +144,99 @@ public class MemberManagement extends TranEx {
 	public ModelAndView access(MemberBean mb) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		boolean transaction = false;
+		List<MemberBean> ListMemberBean = null;//종
+		String MemberList = null;//종
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 
 		System.out.println("service :: login");
 
 		try {
-			if(dao.adminId(mb) != 0) {
-				MemberBean bean = dao.PwdCheck(mb);
-				if(enc.matches(mb.getPwd(), bean.getPwd())) {
-					System.out.println("admin login successful");
-
-					//로그인 한 상태 저장
-					mb.setType(1);
-					if(dao.AccessHistory(mb) != 0) {
-						System.out.println("로그인 함 :: 1");
-						
-						//관리자 확인 후 세션 저장
-						session.setAttribute("userType", dao.userType(mb));
-						
-						session.setAttribute("id", mb.getId());
-						mav.setViewName("adminmain");
-						transaction = true;
-					}
-				}else {
-					mav.setViewName("login");
-					mav.addObject("message", "ADMIN password error");
-				}
-			}else {
-				if(dao.IdCheck(mb) != 0) {
+			//종
+			if(dao.TypeCheck(mb) == 0) {
+				//종
+				if(dao.adminId(mb) != 0) {
 					MemberBean bean = dao.PwdCheck(mb);
 					if(enc.matches(mb.getPwd(), bean.getPwd())) {
-						System.out.println("login successful");
+						System.out.println("admin login successful");
 
 						//로그인 한 상태 저장
 						mb.setType(1);
 						if(dao.AccessHistory(mb) != 0) {
-							System.out.println("로그인 함 :: 1");
+							System.out.println("로그인 함 :: 2");
 
 							session.setAttribute("id", mb.getId());
-							mav.setViewName("home");
+							session.setAttribute("userType", dao.userType(mb));
+							System.out.println(dao.userType(mb));
+							//종
+							StringBuffer sb = new StringBuffer();
+							ListMemberBean = dao.MemberList();
+
+							int z = 0;
+							for(int i = 0 ; i <= ListMemberBean.size()/15; i++) {
+								sb.append("<table border=1>");
+								sb.append("<tr>");
+								sb.append("<th id=\"uid\">아이디</th>");
+								sb.append("<th id=\"bar\">회원활동</th>");
+								sb.append("</tr>");
+								for(int j = 0 + z; j < 15*(i+1); j++) {
+									if(j < ListMemberBean.size()) {
+										mb = ListMemberBean.get(j);
+										sb.append("<tr>");
+										sb.append("<td id=\"user\">" + mb.getId() + "</td>");
+										sb.append("<td class=\"see\">" + "<input id=\"submit\" type=\"button\" value=\"정지\" onClick=\"userDelete(\'" + mb.getId() + "\')\" />" + "</td>");
+										sb.append("</tr>");
+									}else {
+										break;
+									}
+									z = j + 1;
+								}
+								sb.append("</table>");
+							}
+							MemberList = sb.toString();
+							mav.addObject("listSize", ListMemberBean.size()/15);
+							mav.addObject("MemberList", MemberList);
+							mav.addObject("type", session.getAttribute("type"));
+							//종
+							mav.setViewName("adminmain");
 							transaction = true;
 						}
 					}else {
 						mav.setViewName("login");
-						mav.addObject("message", "password error");
-						mav.addObject("id", mb.getId());
+						mav.addObject("message", "ADMIN password error");
 					}
 				}else {
-					mav.setViewName("login");
-					mav.addObject("message", "id error");
+					if(dao.IdCheck(mb) != 0) {
+						MemberBean bean = dao.PwdCheck(mb);
+						if(enc.matches(mb.getPwd(), bean.getPwd())) {
+							System.out.println("login successful");
+
+							//로그인 한 상태 저장
+							mb.setType(1);
+							if(dao.AccessHistory(mb) != 0) {
+								System.out.println("로그인 함 :: 1");
+
+								session.setAttribute("userType", dao.userType(mb));
+								session.setAttribute("id", mb.getId());
+								mav.setViewName("home");
+								transaction = true;
+							}
+						}else {
+							mav.setViewName("login");
+							mav.addObject("message", "아이디와 비밀번호를 다시확인해주세요");
+						}
+					}else {
+						mav.setViewName("login");
+						mav.addObject("message", "아이디와 비밀번호를 다시확인해주세요");
+					}
 				}
+				//종
+			}else {
+				mav.setViewName("login");
+				mav.addObject("message", "정지된 회원입니다.");
+
 			}
+			//종
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
@@ -220,6 +261,8 @@ public class MemberManagement extends TranEx {
 				session.removeAttribute("id");
 				session.removeAttribute("userType");	//로그인 시 세션에 저장한 유저타입 제거
 				session.removeAttribute("characterName");	//세션에 저장된 캐릭터 이름 제거
+				session.removeAttribute("userSex");	//세션에 저장된 유저 성별 제거
+
 				rv = new RedirectView("/");
 				rv.setExposeModelAttributes(false);
 				mav.setView(rv);
@@ -346,7 +389,7 @@ public class MemberManagement extends TranEx {
 
 		String password = UUID.randomUUID().toString().replaceAll("-", "");
 		password = password.substring(0, 10);
-		
+
 		mb.setPwd(password);
 		System.out.println("service :: 패스워드 찾기 >> 이메일 발송하자");
 		try {
@@ -420,7 +463,7 @@ public class MemberManagement extends TranEx {
 		sb.append("</tr>");
 		sb.append("</table>" + "</br>");
 		sb.append("<button id=\'infocheck\' onClick=\"total(\'activityDayLogForm \', \'ActivityDayLogPage\', \'post\')\" />"+"운동 정보 확인"+"</button>");
-		sb.append("<button id=\'ras\' onClick=\"total(\'enrollRaspberryPiForm\', \'EnrollRaspberryPiPage\', \'post\')\" />"+"내 운동량 측정 등록하기"+"</button>");
+		sb.append("<button id=\'ras\' onClick=\"total(\'enrollRaspberryPiForm\', \'EnrollRaspberryPiPage\', \'post\')\" />"+"라즈베리 파이 등록하기"+"</button>");
 		sb.append("<button id=\'infocheck\' onClick=\"total(\'passwordChangeForm\', \'passwordChangePage\', \'post\')\" />"+"비밀번호 변경"+"</button>");
 		return sb.toString();
 	}
@@ -445,24 +488,31 @@ public class MemberManagement extends TranEx {
 	//패스워드 변경
 	public ModelAndView changePwd(MemberBean mb) {
 		ModelAndView mav = new ModelAndView();
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		boolean transaction = false;
 		System.out.println("service :: 패스워드 변경");
+		System.out.println(mb.getPwd() + " :: 패스워드 서비스1");
 		try {
 			mb.setId(session.getAttribute("id").toString());
 			if(dao.IdCheck(mb) != 0) {
-				System.out.println("패스워드 변경해주란");
-				mav.setViewName("info");
-				mav.addObject("id", mb.getId());
-				mav.addObject("userInfo", getInformation(mb));
-				System.out.println(mb.getPwd());
+				System.out.println(mb.getPwd() + " :: 패스워드 서비스2");
 				mb.setPwd(enc.encode(mb.getPwd()));
-				dao.pwdChange(mb);
+				System.out.println(mb.getPwd() + " :: 패스워드 서비스3");
+				if(dao.pwdChange(mb) != 0) {
+					System.out.println("패스워드 변경 성공");
+					mav.addObject("id", mb.getId());
+					mav.addObject("userInfo", getInformation(mb));				
+					mav.setViewName("info");
+					transaction = true;
+				}
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();
 		}
+		setTransactionResult(transaction);
 		return mav;
 	}
-	
+
 	//나의 정보 수정 >> 이름 변경 페이지
 	public ModelAndView nameupdate(MemberBean mb) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -494,7 +544,7 @@ public class MemberManagement extends TranEx {
 		sb.append("<td>" + "핸드폰 번호" + "</td>");
 		sb.append("<td>" + "이메일" + "</td>");
 		sb.append("</tr>");
-		
+
 		sb.append("<tr>");
 		sb.append("<td>" + "<input type=\'text\' value=\'"+bean.getName()+"\' name=\'name\' />" + "</td>");
 		sb.append("<td>" + bean.getPhone() + "</button>" + "</td>");
@@ -555,8 +605,8 @@ public class MemberManagement extends TranEx {
 		mb.setId(session.getAttribute("id").toString());
 		try {
 			if(dao.IdCheck(mb) != 0) {
-					mav.setViewName("info");
-					mav.addObject("userInfo", getMailUpdate(mb));
+				mav.setViewName("info");
+				mav.addObject("userInfo", getMailUpdate(mb));
 			}else {
 				mav.setViewName("login");
 				mav.addObject("message", "로그인 후 이용해주세요.");
@@ -586,11 +636,11 @@ public class MemberManagement extends TranEx {
 		sb.append("<button id=\'infocheck\' onClick=\'infoUpdateMail(\"email\",\""+bean.getId()+"\")\'>" + "정보 수정" + "</button>");
 		return sb.toString();
 	}
-	
+
 	//나의 정보 수정 버튼 >> 이름
 	public ModelAndView infoupdateName(MemberBean mb) { 
 		ModelAndView mav = new ModelAndView();
-		
+
 		System.out.println("service :: 나의 정보 수정 버튼");
 		try {
 			mb.setId(session.getAttribute("id").toString());
@@ -655,7 +705,7 @@ public class MemberManagement extends TranEx {
 		}
 		return mav;
 	}
-	
+
 	//메시지 글 쓰기 창
 	public ModelAndView writingmessage(MemberBean mb) { 
 		ModelAndView mav = new ModelAndView();
@@ -678,7 +728,7 @@ public class MemberManagement extends TranEx {
 		boolean transaction = false;
 
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-		
+
 		System.out.println("service :: 메시지 작성한 거 보내기");
 		try {
 			mb.setId(session.getAttribute("id").toString());
@@ -806,7 +856,7 @@ public class MemberManagement extends TranEx {
 		}
 		return sb.toString();
 	}
-	
+
 	//보낸 메시지 삭제
 	public ModelAndView sendMessagedelete(MemberBean mb) {
 		ModelAndView mav = new ModelAndView();
@@ -837,7 +887,7 @@ public class MemberManagement extends TranEx {
 			mb.setId(session.getAttribute("id").toString());
 			if(mb.getId().equals(session.getAttribute("id"))) {
 				mav.addObject("id", mb.getId());
-					mav.setViewName("info");
+				mav.setViewName("info");
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();

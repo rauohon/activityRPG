@@ -53,16 +53,26 @@ td{
 		i.attr("name", "gbCode");
 		i.attr("value", code);
 		$("#fixForm").append(i);
-		document.readgboardpage.submit();
+		f.submit();
 	}
 	$(document).ready(function() {
 		$("tr").hover(function() {
 			$(this).toggleClass( "active" );
 		});
 	});
+	function init(){
+		var userType = "${userType}";
+		if(userType==2){
+			 $("#nomar_user").css("display","none");
+			 $("#admin_user").css("display","");
+		}else{
+			$("#nomar_user").css("display","");
+			$("#admin_user").css("display","none");
+		}
+	}
 </script>
 </head>
-<body>
+<body onLoad='init()'>
 <%@ include file="nav.jsp"%>
 	<div id='wraper' style="padding-top: 60px;">
 	<a href='WriteGBoardPage'>글 작성</a>

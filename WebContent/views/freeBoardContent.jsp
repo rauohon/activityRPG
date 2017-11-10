@@ -8,6 +8,7 @@
 <script src="js/common.js"></script>
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="css/freeBoardList.css" media="screen" type="text/css" />
 <script>
 	function freeUpdate(id, code, title, content, date){
@@ -57,8 +58,20 @@
 		form.submit();
 	}
 </script>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
+</script>
 </head>
-<body>
+<body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
 	<div class="contents">
 	<div style="padding-top: 90px">

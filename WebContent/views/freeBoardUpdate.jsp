@@ -7,6 +7,7 @@
 <title>freeBoardUpdate</title>
 <script src="js/common.js"></script>
 <link rel="stylesheet" href="css/freeBoardList.css" media="screen" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 	function freeSuccess(){
 		var form = createForm("freeUpageForm", "freeUpdateCheck", "post");
@@ -22,8 +23,20 @@
 		form.submit();
 	}
 </script>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
+</script>
 </head>
-<body>
+<body onLoad='init()'>
 <%@ include file="nav.jsp"%>
 <div style="padding-top:60px">
 	<input type="hidden" name="id" value="${id }"/>

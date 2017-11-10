@@ -3,13 +3,17 @@ package com.activityRPG.services;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.activityRPG.beans.GameBean;
+import com.activityRPG.beans.MemberBean;
 import com.activityRPG.dao.IMBatisDao;
+import com.activityRPG.dao.TranEx;
 import com.activityRPG.utils.ProjectUtils;
 
 /**
@@ -18,13 +22,13 @@ import com.activityRPG.utils.ProjectUtils;
  * @설명 : 
  */
 @Service
-public class GameNomalService {
-	ModelAndView mav = new ModelAndView();
+public class GameNomalService extends TranEx {
 	@Autowired
 	private IMBatisDao dao;
 	@Autowired
 	private ProjectUtils session;
-	
+
+	ModelAndView mav = new ModelAndView();
 	/**
 	 * 처리내용 : 게임 일반 서비스 분기
 	 * 작성일 : 2017. 10. 21.
@@ -57,14 +61,18 @@ public class GameNomalService {
 		case 6:
 			mav = itemInfo((GameBean)bean);
 			break;
+		case 41: //캐릭터 생성 폼 이동
+			mav = characterCreateFormMove((GameBean)bean);	
+			break;
+		case 42: //캐릭터 생성
+			mav = characterCreate((GameBean)bean);	
+			break;
 		}
-
 
 		return mav;
 
-
 	}
-	
+
 	/**
 	 * 처리내용 : 아이템 사용여부 판단해서 버튼 만들어서 리턴
 	 * 작성일 : 2017. 11. 3.
@@ -131,7 +139,7 @@ public class GameNomalService {
 			System.out.println("마나포션류 입니다.");
 			result = arm;
 		}
-		
+
 		return result;
 	}
 
@@ -155,9 +163,9 @@ public class GameNomalService {
 		sb.append(itemIsUsed(bean));
 		sb.append("</td></tr></table>");
 		mav.addObject("itemInfo", sb.toString());
-		
+
 		mav.setViewName("itemInfo");
-		
+
 		return mav;
 	}
 
@@ -376,7 +384,7 @@ public class GameNomalService {
 
 		return bean;
 	}
-	
+
 	/**
 	 * 처리내용 : 5-0 캐릭터의 이미지를 불러와 출력
 	 * 작성일 : 2017. 10. 23.
@@ -440,7 +448,7 @@ public class GameNomalService {
 		}
 		return mav;
 	}
-	
+
 	/**
 	 * 처리내용 : 던전의 이미지를 가지고 와서 출력
 	 * 작성일 : 2017. 10. 23.
@@ -449,7 +457,7 @@ public class GameNomalService {
 	 * @return type : String
 	 */
 	private String dungeonImage(GameBean bean) {
-		
+
 		return "던전 image가 출력됩니다.";
 	}
 
@@ -461,7 +469,7 @@ public class GameNomalService {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView dungeonPage(GameBean bean) {
-		
+
 		mav.addObject("dungeonImage", dungeonImage(bean));
 		mav.setViewName("dungeon");
 		try {
@@ -514,8 +522,16 @@ public class GameNomalService {
 		// 로그인 여부 확인
 		try {
 			if(session.getAttribute("id") != null) {
-				mav.setViewName("village");
-				session.setAttribute("page", "village");
+				// 로그인 여부 확인
+				if(dao.characterIdCheck(bean) == 1) {
+					// 캐릭터 존재 유무 확인
+					session.setAttribute("characterName", dao.getCharacterName(session.getAttribute("id").toString()));
+					session.setAttribute("page", "village");
+					mav.setViewName("village");
+				}else {
+					mav.addObject("message", "※ 먼저 캐릭터를 생성해 주세요.");
+					mav = characterCreateFormMove(bean);
+				}
 			}else {
 				mav.setViewName("home");
 			}
@@ -548,4 +564,72 @@ public class GameNomalService {
 		return mav;
 	}
 
+
+	//***************************김훈*********************************
+	//캐릭터 생성
+	private ModelAndView characterCreate(GameBean gameBean) {
+		ModelAndView mav = new ModelAndView();
+
+		try {
+			randomAbility(gameBean); //랜덤 능력치 설정
+			gameBean.setId((String)session.getAttribute("id"));	//아이디를 빈에 저장
+			gameBean.setSex(dao.characterSex(gameBean));
+
+			//트랜잭션 설정 
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+
+			if(dao.characterNameCkeck(gameBean) == 0) {	//캐릭터 이름 확인
+				if(dao.characterCreate(gameBean) == 1) { //캐릭터 생성 성공
+					if(dao.inventoryInsertMaterial(gameBean) == 1) { //인벤토리에 강화석 추가
+						if(dao.characterSkill1(gameBean) == 1) { //캐릭터 스킬1 생성
+							if(dao.characterSkill2(gameBean) == 1){ //캐릭터 스킬2 생성
+								if(dao.characterSkill3(gameBean) == 1) { //캐릭터 스킬3 생성
+									mav.setViewName("home");
+									mav.addObject("message", "*캐릭터를 생성했습니다. 게임시작 버튼을 눌러주세요.");
+									//트랜잭션 커밋
+									setTransactionResult(true);
+								}
+							}
+						}
+					}
+				}else {	//캐릭터 생성 실패
+					mav.setViewName("home");
+					mav.addObject("message", "*캐릭터 생성에 실패했습니다. 잠시 후 다시 시도해 주세요");
+				}
+			}else {	//해당 캐릭터 이름 이미 존재
+				mav.setViewName("characterCreateForm");
+				mav.addObject("message", "*캐릭터 이름이 이미 존재합니다.");
+			}			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+	//캐릭터 생성 폼 이동
+	private ModelAndView characterCreateFormMove(GameBean bean) {
+		ModelAndView mav = new ModelAndView();
+		try{
+//			if(dao.characterIdCheck(gameBean) == 0) { //캐릭터 유무 확인
+				mav.addObject("userSex",bean.getSex());
+				mav.setViewName("characterCreateForm");
+//			}else {
+//				mav.setViewName("home");
+//				mav.addObject("message","이미 캐릭터가 존재합니다. 게임시작 버튼을 눌러주세요.");
+//			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+	//랜덤 능력치 설정
+	private void randomAbility(GameBean gameBean) {
+		Random randomAbility = new Random();
+
+		gameBean.setStr((randomAbility.nextInt(10) + 1));
+		gameBean.setDex((randomAbility.nextInt(10) + 1)); 
+		gameBean.setIntelligent((randomAbility.nextInt(10) + 1)); 
+	}
+	//******************************김훈******************************************
 }

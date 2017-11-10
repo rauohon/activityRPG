@@ -23,7 +23,7 @@ public class BoardBean {
 	public int frcode;		//자유 게시판 댓글 번호
 	public String text;		//자유 게시판 검색 내용
 	/*↑ 전지원*/
-	
+
 	/*↓ 신태휘*/
 	private int gbCode;		//길드 게시판 글번호
 	private String id;				//길드 게시판 작성자 아이디
@@ -40,7 +40,7 @@ public class BoardBean {
 	private int grCode; // 길드 게시판 댓글 번호
 	private MultipartFile gBoardFile;		// 길드 게시판 파일
 	/*↑ 신태휘*/
-	
+
 	//******************김훈****************************
 	private int newsBoardCode;			//공지사항 게시판 글 번호
 	private String newsBoardUserId;		//공지사항 게시판 작성자 아이디
@@ -52,9 +52,75 @@ public class BoardBean {
 	private int newsBoardStep;			//사용안함
 	private int newsBoardIndent;		//사용안함
 	//******************김훈****************************
-	
+
+	//종
+	private int attackBoardCode;			//공략 게시판 글 번호
+	private String attackBoardUserId;		//공략 게시판 작성자 아이디
+	private String attackBoardTitle;		//공략 게시판 제목
+	private String attackBoardContents;	//공략 게시판 내용
+	private Date attackBoardDate;			//공략 게시판 작성 날짜
+	private int attackBoardHit;			//공략 게시판 조회 수
+	private int attackBoardGroup;			//사용안함
+	private int attackBoardStep;			//사용안함
+	private int attackBoardIndent;		//사용안함
+	//종
+
 	public int getNewsBoardCode() {
 		return newsBoardCode;
+	}
+	public int getAttackBoardCode() {
+		return attackBoardCode;
+	}
+	public void setAttackBoardCode(int attackBoardCode) {
+		this.attackBoardCode = attackBoardCode;
+	}
+	public String getAttackBoardUserId() {
+		return attackBoardUserId;
+	}
+	public void setAttackBoardUserId(String attackBoardUserId) {
+		this.attackBoardUserId = attackBoardUserId;
+	}
+	public String getAttackBoardTitle() {
+		return attackBoardTitle;
+	}
+	public void setAttackBoardTitle(String attackBoardTitle) {
+		this.attackBoardTitle = attackBoardTitle;
+	}
+	public String getAttackBoardContents() {
+		return attackBoardContents;
+	}
+	public void setAttackBoardContents(String attackBoardContents) {
+		this.attackBoardContents = attackBoardContents;
+	}
+	public Date getAttackBoardDate() {
+		return attackBoardDate;
+	}
+	public void setAttackBoardDate(Date attackBoardDate) {
+		this.attackBoardDate = attackBoardDate;
+	}
+	public int getAttackBoardHit() {
+		return attackBoardHit;
+	}
+	public void setAttackBoardHit(int attackBoardHit) {
+		this.attackBoardHit = attackBoardHit;
+	}
+	public int getAttackBoardGroup() {
+		return attackBoardGroup;
+	}
+	public void setAttackBoardGroup(int attackBoardGroup) {
+		this.attackBoardGroup = attackBoardGroup;
+	}
+	public int getAttackBoardStep() {
+		return attackBoardStep;
+	}
+	public void setAttackBoardStep(int attackBoardStep) {
+		this.attackBoardStep = attackBoardStep;
+	}
+	public int getAttackBoardIndent() {
+		return attackBoardIndent;
+	}
+	public void setAttackBoardIndent(int attackBoardIndent) {
+		this.attackBoardIndent = attackBoardIndent;
 	}
 	public void setNewsBoardCode(int newsBoardCode) {
 		this.newsBoardCode = newsBoardCode;
@@ -167,7 +233,7 @@ public class BoardBean {
 	public void setGbIndent(int gbIndent) {
 		this.gbIndent = gbIndent;
 	}
-	
+
 	public int getCode() {
 		return code;
 	}

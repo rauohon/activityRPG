@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.activityRPG.beans.BattleBean;
 import com.activityRPG.beans.GameBean;
 import com.activityRPG.services.GameNomalService;
 import com.activityRPG.services.GamePlayService;
@@ -26,6 +27,7 @@ public class GameController {
 	private GameNomalService gn;
 	@Autowired
 	private GamePlayService gp;
+	
 	private ModelAndView mav = new ModelAndView();
 	
 	/**
@@ -208,4 +210,94 @@ public class GameController {
 		
 		return mav;
 	}
+	
+	//*******************************김훈******************************
+	//캐릭터 생성 폼 이동
+		@RequestMapping(value="/CharacterCreateFormMove", method = RequestMethod.POST)
+		private ModelAndView characterCreateFormMove(@ModelAttribute GameBean gameBean) {
+			mav = new ModelAndView();
+			mav = gn.entrance(41, gameBean);
+			return mav;
+		}
+		
+		//캐릭터 생성
+		@RequestMapping(value="/CharacterCreate", method = RequestMethod.POST)
+		private ModelAndView characterCreate(@ModelAttribute GameBean gameBean) {
+			mav = new ModelAndView();
+			mav = gn.entrance(42, gameBean);
+			return mav;
+		}
+		
+		//강화 상점 이동
+		@RequestMapping(value="/EnhanceShop", method = RequestMethod.GET)
+		private ModelAndView enhanceShopEnter(@ModelAttribute GameBean gameBean) {
+			mav = new ModelAndView();
+			mav = gp.entrance(42, gameBean);
+			return mav;
+		}
+		
+		//아이템 정보
+		@RequestMapping(value="/ItemInformation", method = RequestMethod.POST, produces="application/text; charset=UTF-8")
+		private ModelAndView getItemInformation(@ModelAttribute GameBean gameBean) {
+			mav = new ModelAndView();
+			mav = gp.entrance(43, gameBean);
+			return mav;
+		}
+		
+		//강화 시작
+		@RequestMapping(value="/Enhance", method = RequestMethod.POST)
+		private ModelAndView enhance(@ModelAttribute GameBean gameBean) {
+			mav = new ModelAndView();
+			mav = gp.entrance(44, gameBean);
+			return mav;
+		}
+		
+		//전투 페이지 이동
+		@RequestMapping(value="/BattlePage", method = RequestMethod.GET)
+		private ModelAndView battlePage(@ModelAttribute GameBean gameBean) {
+			mav = new ModelAndView();
+			mav = gp.entrance(45, gameBean);
+			return mav;
+		}
+		
+		//스킬 목록 보기
+		@RequestMapping(value="/SkillMenu", method = RequestMethod.POST, produces="application/text; charset=UTF-8")
+		private ModelAndView skillMenu(@ModelAttribute GameBean gameBean, @ModelAttribute BattleBean battleBean) {
+			mav = new ModelAndView();
+			mav = gp.entrance(46, gameBean, battleBean);
+			return mav;
+		}
+		
+		//스킬 사용
+		@RequestMapping(value="/UseSkill", method = RequestMethod.POST)
+		private ModelAndView useSkill(@ModelAttribute GameBean gameBean, @ModelAttribute BattleBean battleBean) {
+			mav = new ModelAndView();
+			mav = gp.entrance(47, gameBean, battleBean);
+			return mav;
+		}
+		
+		//전투에서 도망
+		@RequestMapping(value="/Run", method = RequestMethod.POST)
+		private ModelAndView run() {
+			mav = new ModelAndView();
+			mav.setViewName("dungeon");
+			return mav;
+		}
+		
+		//전투 페이지2 이동
+		@RequestMapping(value="/BattlePage2", method = RequestMethod.GET)
+		private ModelAndView battlePage2() {
+			mav = new ModelAndView();
+			mav.setViewName("battlePage2");
+			return mav;
+		}
+		
+		//상자 열기
+		@RequestMapping(value="/BoxOpen", method = RequestMethod.POST)
+		private ModelAndView boxOpen() {
+			mav = new ModelAndView();
+			mav = gp.entrance(48);
+			return mav;
+		}
+	//*******************************김훈******************************
 }

@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="js/common.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 function total(formname, action, method){
 	var form = createForm(formname, action, method);
@@ -30,8 +31,20 @@ function sendMessageDelete(mbid, msgText){
 	form.submit();
 }
 </script>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
+</script>
 </head>
-<body>
+<body onLoad='init()'>
 <%@ include file="nav.jsp"%>
 <link rel="stylesheet" href="css/getMessage.css" media="screen" type="text/css" />
 	<div style="padding-top:60px">

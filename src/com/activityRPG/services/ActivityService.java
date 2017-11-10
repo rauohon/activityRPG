@@ -1,12 +1,20 @@
 package com.activityRPG.services;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.activityRPG.beans.ActivityBean;
+import com.activityRPG.beans.BoardBean;
 import com.activityRPG.dao.IMBatisDao;
+import com.activityRPG.dao.TranEx;
 import com.activityRPG.utils.ProjectUtils;
+import com.google.gson.Gson;
 
 /**
  * @클래스명 : ActivityService
@@ -15,12 +23,13 @@ import com.activityRPG.utils.ProjectUtils;
  * @설명 : 
  */
 @Service
-public class ActivityService {
+public class ActivityService extends TranEx {
 	ModelAndView mav = new ModelAndView();
 	@Autowired
 	private IMBatisDao dao;
 	@Autowired
 	private ProjectUtils session;
+	boolean transaction = false;
 
 	/**
 	 * 처리내용 : 운동 서비스 분기
@@ -53,6 +62,9 @@ public class ActivityService {
 		case 7:
 			mav = enrollRaspberryPi((ActivityBean)bean);
 			break;
+		case 8:
+			mav = setExp((ActivityBean)bean);
+			break;
 
 		}
 
@@ -60,7 +72,36 @@ public class ActivityService {
 	}
 
 	/**
-	 * 처리내용 : EnrollRaspberryPi 출력
+	 * 처리내용 : 8. 운동량 경험치로 전환 하기
+	 * 작성일 : 2017. 11. 8.
+	 * 작성자 : 신태휘
+	 * @Method Name : setExp
+	 * @return type : ModelAndView
+	 */
+	private ModelAndView setExp(ActivityBean bean) {
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+		try {
+			bean.setId(session.getAttribute("id").toString());
+			if(dao.setActExp(bean) != 0) {
+				if(dao.setActivity(bean) != 0) {
+					if(dao.setActLog(bean) != 0) {
+						mav.addObject("todayActivity",todayActivity(bean));
+						mav.addObject("applicableExp",applicableExp(bean));
+						mav.addObject("appliedExpIndi",appliedExpIndi(bean));
+						mav.addObject("yesterdayActivity",yesterDayStepData(bean));
+						mav.setViewName("activityDayLog");
+						// transaction = true;
+						// 시연때는 true 해제
+					}
+				}
+			}
+		} catch (Exception e) {}
+		setTransactionResult(transaction);
+		return mav;
+	}
+
+	/**
+	 * 처리내용 : 라즈베리파이 등록하기
 	 * 작성일 : 2017. 10. 24.
 	 * 작성자 : 신태휘
 	 * @Method Name : EnrollRaspberryPi
@@ -70,10 +111,8 @@ public class ActivityService {
 
 		//라즈베리파이 등록하기
 		try {
-		if(dao.getRaspCheck(bean) != 0) {
-			System.out.println("조회 성공");
+		if(dao.getRaspCodeCheck(bean) != 0) {
 			if(dao.setRaspMem(bean) != 0) {
-				System.out.println("등록 성공");
 				mav.addObject("msg", "system error");
 				mav.setViewName("home");
 			}else {
@@ -283,7 +322,6 @@ public class ActivityService {
 		return mav;
 	}
 
-
 	/**
 	 * 처리내용 : 2-4 전체 걸음/오른 층수/전환한 경험치 내역 불러오기
 	 * 작성일 : 2017. 10. 23.
@@ -293,7 +331,13 @@ public class ActivityService {
 	 */
 	private String activityAllData(ActivityBean bean) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("전체 걸음/오른 층수/전환한 경험치 내역이 전달됩니다.");
+		sb.append("전체 걸음/오른 층수/전환한 경험치 내역입니다.");
+		sb.append("<br/>");
+		List<ActivityBean> acti = dao.getActivityAllData(bean);
+		List<ActivityBean> acti2 = dao.getAppliedAllData(bean);
+		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " + acti.get(0).getStep() + " : 지금까지 이만큼 걸으셨어요.</h1>");
+		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " + acti.get(0).getFloor() + " : 지금까지 이만큼 계단으로 오르내리셨어요.</h1>");
+		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " +acti2.get(0).getExp()+ " : 지금까지 이만큼 경험치로 전환 하셨어요.</h1>");
 
 		return sb.toString();
 	}
@@ -306,38 +350,47 @@ public class ActivityService {
 	 * @return type : String
 	 */
 	private String activityWeekExpData(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("조회 시점에서 일주일 간의 경험치 전환 내역이 json 형태로 전달됩니다.");
-
-		return sb.toString();
+		String sb = "";
+		
+		Gson gson = new Gson();
+		
+		List<ActivityBean> acti = dao.getAppliedWeekExp(bean);
+		
+		Collections.sort(acti, new Comparator<ActivityBean>(){
+			@Override
+			public int compare(ActivityBean r2, ActivityBean r1){
+				return r1.getDate().compareTo(r2.getDate());
+			}
+		});
+		sb = gson.toJson(acti);
+				
+		return sb;
 	}
 
 	/**
-	 * 처리내용 : 2-2 일주일 간의 오른 층수 불러오기
-	 * 작성일 : 2017. 10. 23.
-	 * 작성자 : 신태휘
-	 * @Method Name : activityWeekFloorData
-	 * @return type : String
-	 */
-	private String activityWeekFloorData(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("조회 시점에서 일주일 간의 오른 층수가 json 형태로 전달됩니다.");
-
-		return sb.toString();
-	}
-
-	/**
-	 * 처리내용 : 2-1 일주일 간의 걸음 불러오기
+	 * 처리내용 : 2-1 일주일 간의 걸음 / 층 수 불러오기
 	 * 작성일 : 2017. 10. 23.
 	 * 작성자 : 신태휘
 	 * @Method Name : activityWeekStepData
 	 * @return type : String
 	 */
-	private String activityWeekStepData(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("조회 시점에서 일주일 간의 걸음이 json 형태로 전달됩니다.");
+	private String activityWeekActData(ActivityBean bean) {
+		String sb = "";
+		
+		Gson gson = new Gson();
+		
+		List<ActivityBean> acti = dao.getWeekActivity(bean);
+		
+		Collections.sort(acti, new Comparator<ActivityBean>(){
+			@Override
+			public int compare(ActivityBean r2, ActivityBean r1){
+				return r1.getDate().compareTo(r2.getDate());
+			}
+		});
+		
+		sb = gson.toJson(acti);
 
-		return sb.toString();
+		return sb;
 	}
 
 	/**
@@ -348,84 +401,53 @@ public class ActivityService {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView activityWeekLogPage(ActivityBean bean) {
-
-		mav.addObject("activityWeekStepData",activityWeekStepData(bean));
-		mav.addObject("activityWeekFloorData",activityWeekFloorData(bean));
-		mav.addObject("activityWeekExpData",activityWeekExpData(bean));
-		mav.addObject("activityAllData",activityAllData(bean));
-		mav.setViewName("activityWeekLog");
+		
+		try {
+			bean.setId(session.getAttribute("id").toString());
+			mav.addObject("activityWeekActData",activityWeekActData(bean));
+			mav.addObject("activityWeekExpData",activityWeekExpData(bean));
+			mav.addObject("activityAllData",activityAllData(bean));
+			mav.setViewName("activityWeekLog");
+		}catch(Exception e) {e.printStackTrace();}
 
 		return mav;
 	}
 
 	/**
-	 * 처리내용 : 1-5-4 어제 오른 층 수 불러오기
+	 * 처리내용 : 1-4 어제 오른 층 수 / 걸음 수 불러오기
 	 * 작성일 : 2017. 10. 23.
 	 * 작성자 : 신태휘
-	 * @Method Name : encourageYesterFloorData
+	 * @Method Name : yesterDayStepData
 	 * @return type : String
 	 */
-	private String encourageYesterFloorData(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("어제, 지금 오른 층수가 json 형태로 전달됩니다.");
-
-		return sb.toString();
+	private String yesterDayStepData(ActivityBean bean) {
+		String sb = "";
+		
+		Gson gson = new Gson();
+		
+		List<ActivityBean> acti = dao.getYesterdayAct(bean);
+		
+		sb = gson.toJson(acti);
+	
+		return sb;
 	}
 
 	/**
-	 * 처리내용 : 1-5-3 어제 오른 층 수 불러오기
-	 * 작성일 : 2017. 10. 23.
-	 * 작성자 : 신태휘
-	 * @Method Name : encourageYesterStepData
-	 * @return type : String
-	 */
-	private String encourageYesterStepData(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("어제, 지금의 걸음이 json 형태로 전달됩니다.");
-
-		return sb.toString();
-	}
-
-	/**
-	 * 처리내용 : 1-5-2 오늘, 조회 시점의 오른 층 수 불러오기
-	 * 작성일 : 2017. 10. 23.
-	 * 작성자 : 신태휘
-	 * @Method Name : encourageTodayFloorData
-	 * @return type : String
-	 */
-	private String encourageTodayFloorData(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("오늘, 지금의 걸음이 json 형태로 전달됩니다.");
-
-		return sb.toString();
-	}
-
-	/**
-	 * 처리내용 : 1-5-1 오늘, 조회 시점의 걸음 수 불러오기
-	 * 작성일 : 2017. 10. 23.
-	 * 작성자 : 신태휘
-	 * @Method Name : encourageTodayStepData
-	 * @return type : String
-	 */
-	private String encourageTodayStepData(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("오늘, 지금의 걸음이 json 형태로 전달됩니다.");
-
-		return sb.toString();
-	}
-
-	/**
-	 * 처리내용 : 1-3 전환 했던 경험치 총량 불러오기
+	 * 처리내용 : 1-3 전환 했던 경험치 일주일량 불러오기
 	 * 작성일 : 2017. 10. 23.
 	 * 작성자 : 신태휘
 	 * @Method Name : appliedExpIndi
 	 * @return type : String
 	 */
 	private String appliedExpIndi(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("지금까지 전환했던 경험치의 총량 입니다.");
+		String sb = "";
+			
+			bean.setExp(1);
+			bean = dao.getWeekAppliedExp(bean);
+			
+			sb = String.valueOf(bean.getExp());			
 
-		return sb.toString();
+		return sb;
 	}
 
 	/**
@@ -437,8 +459,15 @@ public class ActivityService {
 	 */
 	private String applicableExp(ActivityBean bean) {
 		StringBuffer sb = new StringBuffer();
-		sb.append("전환/획득 가능한 경험치가 출력됩니다..");
-
+		List<ActivityBean> acti  = dao.getAvailableAct(bean);
+		
+		int floor = acti.get(0).getFloor();
+		int step = acti.get(0).getStep();
+		int applicableExp = (floor * 100) + (step / 10);
+		
+		sb.append(String.valueOf(applicableExp) + " 을(를) 경험치 전환이 가능 합니다. <br>");
+		sb.append("<button class=\'button\' onClick='setexp(\""+ applicableExp + "\")' style=\'height: 35px; width: 10%; margin-top:2%\'>경험치로 바꾸기</button>");
+		
 		return sb.toString();
 	}
 
@@ -450,10 +479,14 @@ public class ActivityService {
 	 * @return type : String
 	 */
 	private String todayActivity(ActivityBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("오늘, 지금의 걸음, 오른 층수가 표시됩니다.");
-
-		return sb.toString();
+		String sb = "";
+		
+		Gson gson = new Gson();
+		
+		List<ActivityBean> acti = dao.getTodayAct(bean);
+		sb = gson.toJson(acti);
+	
+		return sb;
 	}
 
 	/**
@@ -467,23 +500,24 @@ public class ActivityService {
 		
 		try {
 			if(session.getAttribute("id") != null) {
-			mav.addObject("todayActivity",todayActivity(bean));
-			mav.addObject("applicableExp",applicableExp(bean));
-			mav.addObject("appliedExpIndi",appliedExpIndi(bean));
-			mav.addObject("encourageTodayStepData",encourageTodayStepData(bean));
-			mav.addObject("encourageTodayFloorData",encourageTodayFloorData(bean));
-			mav.addObject("encourageYesterStepData",encourageYesterStepData(bean));
-			mav.addObject("encourageYesterFloorData",encourageYesterFloorData(bean));
-			mav.setViewName("activityDayLog");
+				bean.setId(session.getAttribute("id").toString());
+				if(dao.getIsRaspCheck(bean) != 0) {
+					bean.setId(session.getAttribute("id").toString());
+					mav.addObject("todayActivity",todayActivity(bean));
+					mav.addObject("applicableExp",applicableExp(bean));
+					mav.addObject("appliedExpIndi",appliedExpIndi(bean));
+					mav.addObject("yesterdayActivity",yesterDayStepData(bean));
+					mav.setViewName("activityDayLog");
+				}else{
+					mav.addObject("msg", "라즈베리의 코드를 등록해주세요");
+					mav=enrollRaspberryPiPage(bean);
+				}
 			}else {
 				mav.setViewName("home");
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return mav;
 	}
-
-
 }

@@ -5,14 +5,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 function startc(){
 	alert('ddd');
 }
 </script>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
+</script>
 </head>
-<body>
-<h1>writeGBoardModyfy Page 입니다.</h1>
+<body onLoad='init()'>
+<%@ include file="nav.jsp"%>
+<div id='wraper' style="padding-top: 60px;">
 <form action='${action }' method='POST'>
 <table style='border:1px solid black; width:100%;'>
 <tr>
@@ -48,6 +64,6 @@ ${reply }
 </table>
 </form>
 
-
+</div>
 </body>
 </html>

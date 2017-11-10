@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>News Board Contents</title>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 </head>
 <link rel="stylesheet" type="text/css" href="/css/newsBoardContents.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -12,11 +14,17 @@
 	function init(){
 		var userType = "${userType}";
 		if(userType==2){
-			var modify = document.getElementsByName("newsBoardModifyFormMove")[0];
-			modify.setAttribute("type", "button");
-			
-			var newsdelete = document.getElementsByName("newsBoardDelete")[0];
-			newsdelete.setAttribute("type", "button");
+			 var input = document.createElement("input");
+			 input.type = "button";
+			 input.value = "게시글 작성";
+			 input.setAttribute("onClick", "newsBoardMakeFormMove()");
+			 input.setAttribute("class", "writeButton");
+			 $("#nomar_user").css("display","none");
+			 $("#admin_user").css("display","");
+			 document.getElementById("divOption").appendChild(input);
+		}else{
+			$("#nomar_user").css("display","");
+			$("#admin_user").css("display","none");
 		}
 	}
 	
@@ -64,6 +72,8 @@
   
 </style>
 <body onload="init()">
+<%@ include file="nav.jsp"%>
+<div id='wraper' style="padding-top: 60px;">
 	<div id="contentsDiv">
 		${newsBoardContentsView }
 	</div>
@@ -71,6 +81,7 @@
 		<input type="hidden" name="newsBoardModifyFormMove" value="수정" onClick="newsBoardModifyFormMove(${newsBoardCode})" class="button"/>
 		<input type="hidden" name="newsBoardDelete" value="삭제" onClick="newsBoardDelete(${newsBoardCode})" class="button"/>
 		<button onClick="back()" class="button">목록</button>
+	</div>
 	</div>
 </body>
 </html>
