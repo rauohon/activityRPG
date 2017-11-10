@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <link rel="stylesheet" type="text/css" href="/css/backGround.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="UTF-8">
@@ -48,13 +50,6 @@ var SuccessCheck = null;
 	
 </script>
 <style>
-	body{
-		background-image:url("/images/quest.jpg");
-		background-repeat:no-repeat;
-		background-size:100% 100%;
-		overflow:hidden;
-		/* background-attachment:fixed; */
-	}
 	.quest1{
 		width:800px;
 		height:400px;
@@ -84,8 +79,31 @@ var SuccessCheck = null;
 		background: linear-gradient(to right, #2c3338, #475660);
 	}
 </style>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
+</script>
 </head>
-<body>
+<body onLoad='init()'>
+	<%@ include file="nav.jsp"%>
+	<style>	
+	body{
+		background-image:url("/images/quest.jpg");
+		background-repeat:no-repeat;
+		background-size:100% 100%;
+		overflow:hidden;
+		/* background-attachment:fixed; */
+	}
+	</style>
+	<div id='wraper' style="padding-top: 60px;">
 	<div>
 	<h1>퀘스트 목록</h1>
 	</div>
@@ -97,6 +115,6 @@ var SuccessCheck = null;
 		<input class="buttons" type="button" value="퀘스트 받기 창으로 이동" onClick="questAll()" />
 	</div>
 	</div>
-	
+	</div>
 </body>
 </html>
