@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>News Board Make Form</title>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 </head>
 <script>
 	function newsBoardMake(){
@@ -60,7 +62,23 @@
 	}
 	
 </style>
-<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
+</script>
+</head>
+<body onLoad='init()'>
+<%@ include file="nav.jsp"%>
+<div id='wraper' style="padding-top: 60px;">
 	<form name="NewsBoardMakeForm" action="NewsBoardMake" method="post">
 		<div>
 			<table class="type">
@@ -78,5 +96,6 @@
 			</div>
 		</div>
 	</form>
+	</div>
 </body>
 </html>

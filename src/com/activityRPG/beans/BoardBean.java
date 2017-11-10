@@ -13,16 +13,17 @@ import org.springframework.web.multipart.MultipartFile;
 @Alias("boardBean")
 public class BoardBean {
 	/*↓ 전지원*/
-	public int code;
-	public String title;
-	public String content;
-	public Date date;
-	public int hit;
-	public int group;
-	public int step;
-	public int indent;
-	private String comment;
+	//     String id		//자유 게시글 작성자
+	public int code;		//자유 게시글 번호
+	public String title;	//자유 게시글 제목
+	public String content;	//자유 게시글 내용
+	public Date date;		//자유게시판, 댓글 날짜
+	public String comment;	//자유 게시판 댓글 내용
+	public String type;		//자유 게시판 검색
+	public int frcode;		//자유 게시판 댓글 번호
+	public String text;		//자유 게시판 검색 내용
 	/*↑ 전지원*/
+
 	/*↓ 신태휘*/
 	private int gbCode;		//길드 게시판 글번호
 	private String id;				//길드 게시판 작성자 아이디
@@ -39,6 +40,7 @@ public class BoardBean {
 	private int grCode; // 길드 게시판 댓글 번호
 	private MultipartFile gBoardFile;		// 길드 게시판 파일
 	/*↑ 신태휘*/
+
 	//******************김훈****************************
 	private int newsBoardCode;			//공지사항 게시판 글 번호
 	private String newsBoardUserId;		//공지사항 게시판 작성자 아이디
@@ -50,9 +52,143 @@ public class BoardBean {
 	private int newsBoardStep;			//사용안함
 	private int newsBoardIndent;		//사용안함
 	//******************김훈****************************
+
+	//종
+	private int attackBoardCode;			//공략 게시판 글 번호
+	private String attackBoardUserId;		//공략 게시판 작성자 아이디
+	private String attackBoardTitle;		//공략 게시판 제목
+	private String attackBoardContents;	//공략 게시판 내용
+	private Date attackBoardDate;			//공략 게시판 작성 날짜
+	private int attackBoardHit;			//공략 게시판 조회 수
+	private int attackBoardGroup;			//사용안함
+	private int attackBoardStep;			//사용안함
+	private int attackBoardIndent;		//사용안함
+	//종
+	//*****************한광수******************************
+	private int reportBoardCode;
+	private String reportBoardUserId;
+	private String reportBoardTitle;
+	private String reportBoardContents;
+	private Date reportBoardDate;
+	private int reportBoardHit;
+	private int reportBoardGroup;
+	private int reportBoardStep;
+	private int reportBoardIndent;
+	//*****************한광수*******************************
 	
+	
+	
+
 	public int getNewsBoardCode() {
 		return newsBoardCode;
+	}
+	public int getReportBoardCode() {
+		return reportBoardCode;
+	}
+	public void setReportBoardCode(int reportBoardCode) {
+		this.reportBoardCode = reportBoardCode;
+	}
+	public String getReportBoardUserId() {
+		return reportBoardUserId;
+	}
+	public void setReportBoardUserId(String reportBoardUserId) {
+		this.reportBoardUserId = reportBoardUserId;
+	}
+	public String getReportBoardTitle() {
+		return reportBoardTitle;
+	}
+	public void setReportBoardTitle(String reportBoardTitle) {
+		this.reportBoardTitle = reportBoardTitle;
+	}
+	public String getReportBoardContents() {
+		return reportBoardContents;
+	}
+	public void setReportBoardContents(String reportBoardContents) {
+		this.reportBoardContents = reportBoardContents;
+	}
+	public Date getReportBoardDate() {
+		return reportBoardDate;
+	}
+	public void setReportBoardDate(Date reportBoardDate) {
+		this.reportBoardDate = reportBoardDate;
+	}
+	public int getReportBoardHit() {
+		return reportBoardHit;
+	}
+	public void setReportBoardHit(int reportBoardHit) {
+		this.reportBoardHit = reportBoardHit;
+	}
+	public int getReportBoardGroup() {
+		return reportBoardGroup;
+	}
+	public void setReportBoardGroup(int reportBoardGroup) {
+		this.reportBoardGroup = reportBoardGroup;
+	}
+	public int getReportBoardStep() {
+		return reportBoardStep;
+	}
+	public void setReportBoardStep(int reportBoardStep) {
+		this.reportBoardStep = reportBoardStep;
+	}
+	public int getReportBoardIndent() {
+		return reportBoardIndent;
+	}
+	public void setReportBoardIndent(int reportBoardIndent) {
+		this.reportBoardIndent = reportBoardIndent;
+	}
+	public int getAttackBoardCode() {
+		return attackBoardCode;
+	}
+	public void setAttackBoardCode(int attackBoardCode) {
+		this.attackBoardCode = attackBoardCode;
+	}
+	public String getAttackBoardUserId() {
+		return attackBoardUserId;
+	}
+	public void setAttackBoardUserId(String attackBoardUserId) {
+		this.attackBoardUserId = attackBoardUserId;
+	}
+	public String getAttackBoardTitle() {
+		return attackBoardTitle;
+	}
+	public void setAttackBoardTitle(String attackBoardTitle) {
+		this.attackBoardTitle = attackBoardTitle;
+	}
+	public String getAttackBoardContents() {
+		return attackBoardContents;
+	}
+	public void setAttackBoardContents(String attackBoardContents) {
+		this.attackBoardContents = attackBoardContents;
+	}
+	public Date getAttackBoardDate() {
+		return attackBoardDate;
+	}
+	public void setAttackBoardDate(Date attackBoardDate) {
+		this.attackBoardDate = attackBoardDate;
+	}
+	public int getAttackBoardHit() {
+		return attackBoardHit;
+	}
+	public void setAttackBoardHit(int attackBoardHit) {
+		this.attackBoardHit = attackBoardHit;
+	}
+	public int getAttackBoardGroup() {
+		return attackBoardGroup;
+	}
+	public void setAttackBoardGroup(int attackBoardGroup) {
+		this.attackBoardGroup = attackBoardGroup;
+	}
+	public int getAttackBoardStep() {
+		return attackBoardStep;
+	}
+	public void setAttackBoardStep(int attackBoardStep) {
+		this.attackBoardStep = attackBoardStep;
+	}
+	public int getAttackBoardIndent() {
+		return attackBoardIndent;
+	}
+	public void setAttackBoardIndent(int attackBoardIndent) {
+		this.attackBoardIndent = attackBoardIndent;
 	}
 	public void setNewsBoardCode(int newsBoardCode) {
 		this.newsBoardCode = newsBoardCode;
@@ -105,7 +241,6 @@ public class BoardBean {
 	public void setNewsBoardIndent(int newsBoardIndent) {
 		this.newsBoardIndent = newsBoardIndent;
 	}
-	
 	public int getGbCode() {
 		return gbCode;
 	}
@@ -166,7 +301,7 @@ public class BoardBean {
 	public void setGbIndent(int gbIndent) {
 		this.gbIndent = gbIndent;
 	}
-	
+
 	public int getCode() {
 		return code;
 	}
@@ -202,6 +337,24 @@ public class BoardBean {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
+	public int getFrcode() {
+		return frcode;
+	}
+	public void setFrcode(int frcode) {
+		this.frcode = frcode;
 	}
 	public String getGbReplyContent() {
 		return gbReplyContent;

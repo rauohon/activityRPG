@@ -19,19 +19,23 @@ h2 {
 	font-size: 1.4em;
 }
  
+/* freeBourdInsert, writingMessage */
 .container {
 	max-width: 80%;
 	margin: 0 auto;
 }
 
+/* freeBourdInsert, writingMessage */
 #a {
 	margin-top: 10px
 }
 
+/* freeBourdInsert, writingMessage */
 #b {
 	height: 300px;
 }
 
+/* freeBourdInsert, writingMessage */
 #submit {
 	font-size: 1em;
 	padding: 15px 10px 10px;
@@ -42,6 +46,22 @@ h2 {
 	box-sizing: border-box;
 	width: 50%;
 	margin-left: 42.5%;
+}
+
+/* freeBourdInsert, writingMessage */
+#list {
+	margin-top: 5px;
+	margin-left: 66.4%;
+	background-color: #f47757;
+	padding: 12px 45px;
+	border-radius: 5px;
+	border: 1px solid #f47757;
+	transition: 0.5s;
+	display: inline-block;
+	cursor: pointer;
+	width: 17.5%;
+	color:#fff;
+	font-size: 16px;
 }
 
 input {
@@ -65,39 +85,14 @@ p {
 	margin-left: 7.5%
 }
 
-button {
-	margin-top: 5px;
-	/* margin-bottom: 25px; */
-	margin-left: 18%;
-	background-color: #f47757;
-	padding: 12px 45px;
-	border-radius: 5px;
-	border: 1px solid #f47757;
-	transition: 0.5s;
-	display: inline-block;
-	cursor: pointer;
-	width: 17.5%;
-	color:#fff;
-	font-size: 16px;
-}
-
-button:hover {
-	background: #f79e87;
-	border-color: #f79e87;
-}
-
-
-#list {
-	margin-top: 5px;
-	margin-left: 66.4%;
-	background-color: #f47757;
-	padding: 12px 45px;
-	border-radius: 5px;
-	border: 1px solid #f47757;
-	transition: 0.5s;
-	display: inline-block;
-	cursor: pointer;
-	width: 17.5%;
-	color:#fff;
-	font-size: 16px;
+textarea {
+	font-size: 1em;
+    padding: 15px 10px 10px;
+    border: 1px solid #cecece;
+    background: #3b4148;
+    color: #fafafa;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: 85%;
+    margin-left: 7.5%;
 }

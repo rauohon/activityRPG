@@ -64,13 +64,25 @@
 		f.submit();
 	} 
 </script>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
+</script>
 <style>
 	table{
 	           text-align: center;
 	}
 </style>
 </head>
-<body>
+<body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
 	<div id='wraper' style="padding-top: 60px;">
 		<div id='charaInfo' style='float: left; width:40%; margin-left: 2%; margin-right: 2%;'>

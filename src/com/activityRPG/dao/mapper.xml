@@ -1,154 +1,319 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.activityRPG.dao.IMBatisDao">
-<!-- ↓ 전지원 -->
+	<!-- ↓ 전지원 -->
 	<!-- login >> ID Check -->
-	<select id="IdCheck" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
+	<select id="IdCheck" parameterType="com.activityRPG.beans.MemberBean"
+		resultType="Integer">
 		SELECT COUNT(*) FROM MB WHERE MB_ID=#{id}
 	</select>
 	<!-- login >> PWD Check -->
-	<select id="PwdCheck" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
+	<select id="PwdCheck" parameterType="com.activityRPG.beans.MemberBean"
+		resultType="com.activityRPG.beans.MemberBean">
 		SELECT MB_PW AS pwd FROM MB WHERE MB_ID=#{id}
 	</select>
 
 	<!-- 로그인 상태 저장 -->
 	<insert id="AccessHistory" parameterType="com.activityRPG.beans.MemberBean">
-		INSERT INTO AH(AH_MBID, AH_DATE, AH_TYPE) VALUES(#{id}, DEFAULT, #{type})
+		INSERT INTO AH(AH_MBID,
+		AH_DATE, AH_TYPE) VALUES(#{id}, DEFAULT, #{type})
 	</insert>
 
 	<!-- 회원가입 -->
 	<insert id="joinSuccess" parameterType="com.activityRPG.beans.MemberBean">
-		INSERT INTO MB(MB_ID, MB_PW, MB_NAME, MB_BIRTH, MB_AGE, MB_GENDER, MB_PHONE, MB_MAIL, MB_TYPE)
-		VALUES(#{id}, #{pwd}, #{name}, #{birth}, #{age}, #{gender}, #{phone}, #{email}, DEFAULT)
+		INSERT INTO MB(MB_ID,
+		MB_PW, MB_NAME, MB_BIRTH, MB_AGE, MB_GENDER, MB_PHONE, MB_MAIL,
+		MB_TYPE)
+		VALUES(#{id}, #{pwd}, #{name}, #{birth}, #{age}, #{gender},
+		#{phone}, #{email}, DEFAULT)
 	</insert>
 
-	<!-- 아이디찾기  >> 핸드폰번호 확인 -->
-	<select id="idFind" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
+	<!-- 아이디찾기 >> 핸드폰번호 확인 -->
+	<select id="idFind" parameterType="com.activityRPG.beans.MemberBean"
+		resultType="Integer">
 		SELECT COUNT(*) FROM MB WHERE MB_PHONE=#{phone}
 	</select>
-	<select id="idSend" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
+	<select id="idSend" parameterType="com.activityRPG.beans.MemberBean"
+		resultType="com.activityRPG.beans.MemberBean">
 		SELECT MB_ID AS id FROM MB WHERE MB_PHONE=#{phone}
 	</select>
-	
-	<!-- 비밀번호찾기  >> 이메일 확인 -->
-	<select id="mailcheck" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
+
+	<!-- 비밀번호찾기 >> 이메일 확인 -->
+	<select id="mailcheck" parameterType="com.activityRPG.beans.MemberBean"
+		resultType="Integer">
 		SELECT COUNT(*) FROM MB WHERE MB_MAIL=#{email}
 	</select>
-	
-	<!-- 비밀번호찾기  >> 이메일 발송 -->	
-	<select id="mailSend" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
-		SELECT MB_MAIL AS email FROM MB WHERE MB_MAIL=#{email} AND MB_ID=#{id}
+
+	<!-- 비밀번호찾기 >> 이메일 발송 -->
+	<select id="mailSend" parameterType="com.activityRPG.beans.MemberBean"
+		resultType="com.activityRPG.beans.MemberBean">
+		SELECT MB_MAIL AS email FROM MB WHERE MB_MAIL=#{email} AND
+		MB_ID=#{id}
 	</select>
-	
-	<!-- 원래 패스워드 >> 임시패스워드 변경  -->	
+
+	<!-- 원래 패스워드 >> 임시패스워드 변경 -->
 	<insert id="pwdUpdate" parameterType="com.activityRPG.beans.MemberBean">
-		UPDATE MB SET MB_PW=#{pwd} WHERE MB_ID=#{id}
+		UPDATE MB SET MB_PW=#{pwd}
+		WHERE MB_ID=#{id}
 	</insert>
 
 	<!-- 정보 확인 -->
-	<select id="info" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
-		SELECT MB_NAME AS name, MB_PHONE AS phone, MB_MAIL AS email, MB_PW AS pwd FROM MB WHERE MB_ID=#{id}
+	<select id="info" parameterType="com.activityRPG.beans.MemberBean"
+		resultType="com.activityRPG.beans.MemberBean">
+		SELECT MB_NAME AS name, MB_PHONE AS phone, MB_MAIL AS
+		email, MB_PW AS pwd FROM MB WHERE MB_ID=#{id}
 	</select>
-	
-	<!-- 패스워드 변경 -->	
+
+	<!-- 패스워드 변경 -->
 	<insert id="pwdChange" parameterType="com.activityRPG.beans.MemberBean">
-		UPDATE MB SET MB_PW=#{pwd} WHERE MB_ID=#{id}
+		UPDATE MB SET MB_PW=#{pwd}
+		WHERE MB_ID=#{id}
 	</insert>
-	
+
 	<!-- 정보 수정 >> 이름, 핸드폰번호, 이메일 -->
 	<insert id="nameUpdate" parameterType="com.activityRPG.beans.MemberBean">
-		UPDATE MB SET MB_NAME=#{name} WHERE MB_ID=#{id}
+		UPDATE MB SET
+		MB_NAME=#{name} WHERE MB_ID=#{id}
 	</insert>
 	<insert id="phoneUpdate" parameterType="com.activityRPG.beans.MemberBean">
-		UPDATE MB SET MB_PHONE=#{phone} WHERE MB_ID=#{id}
+		UPDATE MB SET
+		MB_PHONE=#{phone} WHERE MB_ID=#{id}
 	</insert>
 	<insert id="mailUpdate" parameterType="com.activityRPG.beans.MemberBean">
-		UPDATE MB SET MB_MAIL=#{email} WHERE MB_ID=#{id}
+		UPDATE MB SET
+		MB_MAIL=#{email} WHERE MB_ID=#{id}
 	</insert>
-	
+
 	<!-- 받은 메시지 리스트 -->
-	<select id="getMessageList" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
-		SELECT MSG_MBID AS mbid, MSG_DATE AS "date", MSG_TEXT AS msgText FROM MSG WHERE MSG_RECID=#{id}  ORDER BY MSG_DATE DESC
+	<select id="getMessageList" parameterType="com.activityRPG.beans.MemberBean"
+		resultType="com.activityRPG.beans.MemberBean">
+		SELECT MSG_MBID AS mbid, MSG_DATE AS "date", MSG_TEXT AS
+		msgText FROM MSG WHERE MSG_RECID=#{id} ORDER BY MSG_DATE DESC
 	</select>
-	
+
 	<!-- 메시지 작성 -->
 	<insert id="writingMessage" parameterType="com.activityRPG.beans.MemberBean">
-		INSERT INTO MSG(MSG_MBID, MSG_DATE, MSG_RECID, MSG_TEXT)
-		VALUES(#{id}, DEFAULT, #{mbid}, #{msgText})
+		INSERT INTO
+		MSG(MSG_MBID, MSG_DATE, MSG_RECID, MSG_TEXT)
+		VALUES(#{id}, DEFAULT,
+		#{mbid}, #{msgText})
 	</insert>
-	
+
 	<!-- 보낸 메시지 리스트 -->
-	<select id="sendMessageList" parameterType="com.activityRPG.beans.MemberBean" resultType="com.activityRPG.beans.MemberBean">
-		SELECT MSG_RECID AS mbid, MSG_DATE AS "date", MSG_TEXT AS msgText FROM MSG WHERE MSG_MBID=#{id}  ORDER BY MSG_DATE DESC
+	<select id="sendMessageList" parameterType="com.activityRPG.beans.MemberBean"
+		resultType="com.activityRPG.beans.MemberBean">
+		SELECT MSG_RECID AS mbid, MSG_DATE AS "date", MSG_TEXT AS
+		msgText FROM MSG WHERE MSG_MBID=#{id} ORDER BY MSG_DATE DESC
 	</select>
-	
+
 	<!-- 글 삭제 -->
 	<insert id="messageDelete" parameterType="com.activityRPG.beans.MemberBean">
-		DELETE FROM MSG WHERE MSG_MBID=#{mbid} AND MSG_TEXT=#{msgText}
+		DELETE FROM MSG WHERE
+		MSG_MBID=#{mbid} AND MSG_TEXT=#{msgText}
 	</insert>
-	
+
 	<!-- 보낸 글 삭제 -->
 	<insert id="sendMessageDelete" parameterType="com.activityRPG.beans.MemberBean">
-		DELETE FROM MSG WHERE MSG_RECID=#{mbid} AND MSG_TEXT=#{msgText}
+		DELETE FROM MSG
+		WHERE MSG_RECID=#{mbid} AND MSG_TEXT=#{msgText}
 	</insert>
-	
+
 	<!-- 관리자 로그인 확인 -->
-	<select id="adminId" parameterType="com.activityRPG.beans.MemberBean" resultType="Integer">
+	<select id="adminId" parameterType="com.activityRPG.beans.MemberBean"
+		resultType="Integer">
 		SELECT COUNT(*) FROM MB WHERE MB_TYPE=2 AND MB_ID=#{id}
 	</select>
-	
+
 	<!-- 자유게시판 리스트 -->
-	<select id="freeBoardList" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
-		SELECT FB_CODE AS code, FB_TITLE AS title, FB_MBID AS id, FB_DATE AS "date" FROM FB ORDER BY FB_DATE DESC
+	<select id="freeBoardList" parameterType="com.activityRPG.beans.BoardBean"
+		resultType="com.activityRPG.beans.BoardBean">
+		SELECT FB_CODE AS code, FB_TITLE AS title, FB_MBID AS id,
+		FB_DATE AS "date" FROM FB ORDER BY FB_DATE DESC
 	</select>
-	
+
 	<!-- 자유게시판 내용 보기 -->
-	<select id="freeBoardContent" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
+	<select id="freeBoardContent" parameterType="com.activityRPG.beans.BoardBean"
+		resultType="com.activityRPG.beans.BoardBean">
 		<!-- SELECT * FROM FB WHERE FB_TITLE=#{title} AND FB_DATE=#{date} -->
 		SELECT FB_CODE AS code, FB_MBID AS id, FB_TITLE AS title, FB_CONTENT AS "content", FB_DATE AS "date"
-		FROM FB 
-		WHERE FB_CODE=#{code}
+		FROM FB WHERE FB_CODE=#{code}
 	</select>
 	
-	<!-- 자유게시판 글쓰기 >> id check -->
-	<select id="freeIdCheck" parameterType="com.activityRPG.beans.BoardBean" resultType="Integer">
-		SELECT COUNT(*) FROM FB WHERE FB_MBID=#{id}
-	</select>
 	<!-- 글 등록 -->
 	<insert id="freeInsert" parameterType="com.activityRPG.beans.BoardBean">
 		INSERT INTO FB(FB_CODE, FB_MBID, FB_DATE, FB_TITLE, FB_CONTENT, FB_HIT, FB_GROUP, FB_STEP, FB_INDENT)
-		VALUES(SEQ_ID.NEXTVAL, #{id}, DEFAULT, #{title}, #{content}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+		VALUES(FB_NUM.NEXTVAL, #{id}, DEFAULT, #{title}, #{content}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
 	</insert>
+	
 	<!-- 글 삭제 -->
 	<insert id="freeDelete" parameterType="com.activityRPG.beans.BoardBean">
-		DELETE FROM FB WHERE FB_CODE=#{code}
+		DELETE FROM FB WHERE
+		FB_CODE=#{code}
 	</insert>
+	
 	<!-- 글 수정 -->
 	<insert id="freeUpdate" parameterType="com.activityRPG.beans.BoardBean">
-		UPDATE FB SET FB_TITLE=#{title}, FB_CONTENT=#{content} WHERE FB_CODE=#{code}
+		UPDATE FB SET
+		FB_TITLE=#{title}, FB_CONTENT=#{content} WHERE FB_CODE=#{code}
 	</insert>
-<!-- 
-<resultMap type="member" id="joinMap">
-		<result property="id" column="MB_ID" javaType="java.lang.String"/>
-		<result property="pwd" column="MB_PW"  javaType="java.lang.String"/>
-		<result property="name" column="MB_NAME" javaType="java.lang.String"/>
-		<result property="birth" column="MB_BIRTH" javaType="java.lang.String"/>
-		<result property="age" column="MB_AGE" javaType="java.lang.String"/>
-		<result property="gender" column="MB_GENDER" javaType="java.lang.String"/>
-		<result property="phone" column="MB_PHONE" javaType="java.lang.String"/>
-		<result property="email" column="MB_MAIL" javaType="java.lang.String"/>
-	</resultMap> -->
+	
+	<!-- 자유게시판 댓글 등록 -->
+	<insert id="freeComment" parameterType="com.activityRPG.beans.BoardBean">
+		INSERT INTO FR(FR_CODE, FR_BDCODE, FR_DATE, FR_MBID, FR_COMMENT)
+		VALUES(FR_NUM.NEXTVAL, #{code}, DEFAULT, #{id}, #{comment})
+	</insert>
+	
+	<!-- 자유게시판 댓글 띄워주기 -->
+	<select id="getfreeComment" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
+		SELECT FR_CODE AS frcode, FR_MBID AS id, FR_COMMENT AS "comment", FR_DATE AS "date"
+		FROM FR WHERE FR_BDCODE=#{code} ORDER BY FR_DATE DESC
+	</select>
+	
+	<!-- 자유게시판 글 제목 조회 -->
+	<select id="freeTitlefine" parameterType="com.activityRPG.beans.BoardBean" resultType="Integer">
+		SELECT COUNT(*) FROM FB WHERE FB_TITLE=#{text} OR FB_MBID=#{text}
+	</select>
+	
+	<!-- 자유게시판 글 제목 조회 보여주기 -->
+	<select id="freeTitleComment" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
+		SELECT FB_CODE AS code, FB_TITLE AS title, FB_MBID AS id, FB_DATE AS "date"
+		FROM FB WHERE FB_TITLE=#{text} OR FB_MBID=#{text} ORDER BY FB_DATE DESC
+	</select>
 <!-- ↑ 전지원 -->
 <!-- ↓ 신태휘 -->
 	<!-- 라즈베리파이 등록전 코드 유무 확인 -->
-	<select id='getRaspCheck' parameterType='actBean' resultType='Integer'>
+	<select id='getRaspCodeCheck' parameterType='actBean' resultType='Integer'>
 		SELECT COUNT(*) FROM RASPBERRY_INFO WHERE RI_ID=#{riId}
 	</select>
 	
+	<!-- 라즈베리파이 등록여부 확인 -->
+	<select id="getIsRaspCheck" parameterType='actBean' resultType='Integer'>
+		SELECT COUNT(*) FROM MEMBER_RASP WHERE MR_MBID=#{id}
+	</select>
+
 	<!-- 라즈베리파이 등록 -->
 	<insert id="setRaspMem" parameterType="actBean">
-		INSERT INTO MEMBER_RASP VALUES(#{riId},#{id},DEFAULT)
+		INSERT INTO MEMBER_RASP
+		VALUES(#{riId},#{id},DEFAULT)
 	</insert>
+	
+	<!-- 	오늘 활동량 가져오기 -->
+	<select id="getTodayAct" parameterType="actBean" resultType='actBean'>
+		SELECT 
+			SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor 
+		FROM 
+			ACTIVITY 
+		<where>
+				<![CDATA[AT_LOGDATE <= SYSDATE AND AT_LOGDATE > SYSDATE-1		
+			AND
+				AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID = #{id})]]>
+			<if test="exp != null">
+				AND
+					AT_LOG = 1
+			</if>
+		</where>
+	</select>
+	<!-- 	전환 가능한 경험치 가져오기 -->
+	<select id="getAvailableAct" parameterType="actBean" resultType='actBean'>
+		SELECT 
+			SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor 
+		FROM 
+			ACTIVITY 
+		WHERE
+			AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID = #{id})
+		AND
+					AT_LOG = 1		
+	</select>
+<!-- 	AT_LOGDATE <= TO_DATE('2017/11/08','YYYY/MM/DD') AND AT_LOGDATE > TO_DATE('2017/11/07','YYYY/MM/DD') -->
+	<!-- 	어제 활동량 가져오기 -->
+	<select id="getYesterdayAct" parameterType="actBean" resultType='actBean'>
+		<![CDATA[SELECT 
+			SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor 
+		FROM 
+			ACTIVITY 
+		WHERE 
+			AT_LOGDATE <= SYSDATE-1 AND AT_LOGDATE > SYSDATE-2
+		AND
+			AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID = #{id})]]>
+	</select>
+	
+	<!-- 경험치 전환 내역 합 가져오기 -->
+	<select id="getAppliedSumExp" parameterType="actBean" resultType="actBean">
+		SELECT SUM(AL_EXP) AS exp FROM ACTIVITY_LOG WHERE AL_MBID = #{id} 
+	</select>
+	
+	<!-- 일주일 경험치 전환 내역 가져오기 -->
+	<select id="getAppliedWeekExp" parameterType="actBean" resultType="actBean">
+		SELECT SUBSTR(AL_DATE,0,8) AS "date", AL_EXP AS "exp" FROM ACTIVITY_LOG WHERE AL_MBID = #{id} AND AL_DATE >= SYSDATE-7
+	</select>
+	
+	<!--	운동량 경험치로 적용하기 1. 캐릭터 경험치 업데이트-->
+	<update id="setActExp" parameterType="actBean">
+		UPDATE USER_CHARACTER SET CH_EXP = CH_EXP + #{exp} WHERE CH_MBID=#{id}
+	</update>
+	
+	<!--	운동량 경험치로 적용하기 2. 운동량 사용여부 업데이트-->
+	<update id="setActivity" parameterType="actBean">
+		UPDATE
+			ACTIVITY 
+		SET
+			AT_LOG = 0
+		WHERE 
+			AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID = #{id})
+	</update>
+	
+	<!--	운동량 경험치로 적용하기 3. 운동량 사용내역 인서트-->
+	<insert id="setActLog" parameterType="actBean">
+		INSERT INTO ACTIVITY_LOG (AL_CHNAME, AL_MBID, AL_DATE, AL_EXP) 
+		VALUES ((SELECT CH_NAME FROM USER_CHARACTER WHERE CH_MBID = #{id}), #{id}, DEFAULT, #{exp})
+	</insert>
+	
+	<!--	일주일간의 걸음 수 / 층 수 가져 오기 -->
+	<select id="getWeekActivity" parameterType="actBean" resultType="actBean">
+		SELECT
+			SUBSTR(AT_LOGDATE,0,8) as "date", SUM(AT_STEP) AS step, SUM(AT_FLOOR) as floor
+		FROM
+			ACTIVITY
+		WHERE
+			AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID = #{id})
+			AND 
+				AT_LOGDATE >= SYSDATE-7
+		GROUP BY
+			SUBSTR(AT_LOGDATE,0,8)
+	</select>
+	
+	<!-- 일주일간의 경험치 전환량 가져오기 -->
+	<select id="getWeekAppliedExp" parameterType="actBean" resultType="actBean">
+		<![CDATA[SELECT SUM(AL_EXP) AS "exp" FROM ACTIVITY_LOG WHERE AL_MBID = #{id} AND AL_DATE >= SYSDATE-7]]>
+	</select>
+	
+	<!-- 전체 활동량 가져오기 -->
+	<select id="getActivityAllData" parameterType="actBean" resultType="actBean">
+		SELECT SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor FROM ACTIVITY WHERE AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID=#{id})
+	</select>
+	
+	<!-- 전체 경험치 전환량 가져오기 -->
+	<select id="getAppliedAllData" parameterType="actBean" resultType="actBean">
+		SELECT SUM(AL_EXP) AS "exp" FROM ACTIVITY_LOG WHERE AL_MBID = #{id}
+	</select>
+	
+	<!-- 회원 전체 일일 평균 걸음/오른 층 불러오기 -->
+	<select id="getAvgActivityAllUser" parameterType="actBean" resultType="actBean">
+		SELECT 
+			AVG(step) AS step, AVG(floor) AS floor 
+		FROM 
+			(SELECT 
+				SUM(AT_STEP)AS step, SUM(AT_FLOOR) AS floor 
+				FROM 
+					ACTIVITY 
+				GROUP BY SUBSTR(AT_DATE,0,8)) 
+			ACTIVITY
+	</select>
+	
+	<!-- 회원 전체 누적 걸음 / 층 수 불러오기 -->
+	<select id="getActivityAllUser" parameterType="actBean" resultType="actBean">
+		 SELECT SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor FROM ACTIVITY
+	</select>
 	
 	<!-- 캐릭터 이름 가져오기 -->
 	<select id="getCharaName" parameterType="boardBean" resultType="boardBean">
@@ -156,62 +321,68 @@
 	</select>
 
 	<!-- 캐릭터 능력치 가져오기 -->
-	<select id="getCharacterStatus" parameterType="gameBean" resultType="gameBean">
-		SELECT CH_NAME as chName, CH_LEVEL as chLevel, CH_EXP as chExp, 
-		CH_HP as chHp, CH_MP as chMp, CH_STR as chStr, 
+	<select id="getCharacterStatus" parameterType="gameBean"
+		resultType="gameBean">
+		SELECT CH_NAME as chName, CH_LEVEL as chLevel, CH_EXP as
+		chExp,
+		CH_HP as chHp, CH_MP as chMp, CH_STR as chStr,
 		CH_DEX as chDex, CH_INT as chInt, CH_ATTACK as chAttack,
-		CH_DEFENSE as chDefense,
+		CH_DEFENSE as
+		chDefense,
 		CH_GOLD as chGold
 		FROM USER_CHARACTER WHERE CH_MBID=#{id}
 	</select>
-	
+
 	<!-- 장비한 리스트 가져오기 -->
 	<select id="getEquipList" parameterType="map" resultType="gameBean">
-		SELECT 
-			EQ_WEAPON AS EQWEAPON, EQ_ARMOR AS EQARMOR, EQ_GLOVE AS EQGLOVE, 
-			EQ_SHOE AS EQSHOE, EQ_RING AS EQRING, EQ_NECKLACE AS EQNECKLACE 
-		FROM 
-			EQUIPMENT 
-		WHERE 
-			EQ_CHNAME = #{content}
+		SELECT
+		EQ_WEAPON AS EQWEAPON, EQ_ARMOR AS EQARMOR, EQ_GLOVE AS EQGLOVE,
+		EQ_SHOE AS EQSHOE, EQ_RING AS EQRING, EQ_NECKLACE AS EQNECKLACE
+		FROM
+		EQUIPMENT
+		WHERE
+		EQ_CHNAME = #{content}
 	</select>
-	
-	<!-- 	장비한 리스트의 아이템 이름 가져오기 -->
+
+	<!-- 장비한 리스트의 아이템 이름 가져오기 -->
 	<select id="getItemName" parameterType="map" resultType="gameBean">
-		SELECT 
-			IT_CODE AS ITCODE, IT_NAME AS ITNAME, IT_REQUIREABILITY AS REQUIABILITY, 
-			IT_ABILITY AS ABILITY FROM ITEM 
-		WHERE 
-			IT_CODE =  #{itcode}
+		SELECT
+		IT_CODE AS ITCODE, IT_NAME AS ITNAME, IT_REQUIREABILITY AS
+		REQUIABILITY,
+		IT_ABILITY AS ABILITY FROM ITEM
+		WHERE
+		IT_CODE = #{itcode}
 	</select>
 
 	<!-- 장비한 리스트의 강화레벨 가져오기 -->
 	<select id="getEnLevel" parameterType="map" resultType="gameBean">
-		SELECT IV_ENLEVEL as enlevel FROM INVENTORY WHERE IV_ITCODE = #{itcode} AND IV_CHNAME = #{content}
+		SELECT
+		IV_ENLEVEL as enlevel FROM INVENTORY WHERE IV_ITCODE = #{itcode} AND
+		IV_CHNAME = #{content}
 	</select>
 
 	<!-- 소지한 장비 리스트 가져오기 -->
 	<select id="getIvenList" parameterType="map" resultType="gameBean">
 		<![CDATA[SELECT IVITCODE as ITCODE, ITNAME, REQUIRE as  REQUIABILITY, ABILITY, AMOUNT, ENLEVEL, BUYPRICE, SELLPRICE	FROM IVENLIST	WHERE CHNAME=#{content} AND IVITCODE >=#{min} AND IVITCODE <= #{max}]]>
 	</select>
-	
+
 	<!-- 아이템 정보 가져오기 -->
 	<select id="getItemInfo" parameterType="gameBean" resultType="gameBean">
-		SELECT 
-			IT_CODE as ITCODE, IT_NAME AS ITNAME, IT_REQUIREABILITY AS REQUIABILITY, 
-			IT_ABILITY AS ABILITY, IT_BUY AS BUYPRICE, IT_SELL AS SELLPRICE 
-		FROM 
-			ITEM 
-		WHERE 
-			IT_CODE=#{itcode}
+		SELECT
+		IT_CODE as ITCODE, IT_NAME AS ITNAME, IT_REQUIREABILITY AS REQUIABILITY,
+		IT_ABILITY AS ABILITY, IT_BUY AS BUYPRICE, IT_SELL AS SELLPRICE
+		FROM
+		ITEM
+		WHERE
+		IT_CODE=#{itcode}
 	</select>
-	
+
 	<!-- 아이템 착용전 기착용 여부 확인 -->
-	<select id="getIsEquip"  parameterType="gameBean" resultType="Integer">
-		SELECT 
-			COUNT(*) 
-		FROM 
-			EQUIPMENT 
+	<select id="getIsEquip" parameterType="gameBean" resultType="Integer">
+		SELECT
+		COUNT(*)
+		FROM
+		EQUIPMENT
 		<where>
 			EQ_CHNAME = #{content}
 			<if test="weapon != null">AND EQ_WEAPON = #{useItem}</if>
@@ -222,52 +393,52 @@
 			<if test="necklace != null">AND EQ_NECKLACE = #{useItem}</if>
 		</where>
 	</select>
-	
+
 	<!-- 아이템 착용 -->
-		<update id="setEquipItemUpdate" parameterType="map">
-			UPDATE 
-				EQUIPMENT 
-			<set>
-				<if test="weapon != null">EQ_WEAPON = #{useItem}</if>
-				<if test="armor != null">EQ_ARMOR = #{useItem}</if>
-				<if test="glove != null">EQ_GLOVE = #{useItem}</if>
-				<if test="shoe != null">EQ_SHOE = #{useItem}</if>
-				<if test="ring != null">EQ_RING = #{useItem}</if>
-				<if test="necklace != null">EQ_NECKLACE = #{useItem}</if>
-			</set>				
-			<where>
-				EQ_CHNAME = #{content}
-			</where>
-		</update>
-	
+	<update id="setEquipItemUpdate" parameterType="map">
+		UPDATE
+		EQUIPMENT
+		<set>
+			<if test="weapon != null">EQ_WEAPON = #{useItem}</if>
+			<if test="armor != null">EQ_ARMOR = #{useItem}</if>
+			<if test="glove != null">EQ_GLOVE = #{useItem}</if>
+			<if test="shoe != null">EQ_SHOE = #{useItem}</if>
+			<if test="ring != null">EQ_RING = #{useItem}</if>
+			<if test="necklace != null">EQ_NECKLACE = #{useItem}</if>
+		</set>
+		<where>
+			EQ_CHNAME = #{content}
+		</where>
+	</update>
+
 	<!-- 아이템 착용 후 능력치 적용 -->
-		<update id="setItemApplyStatus" parameterType="gameBean">
-			UPDATE USER_CHARACTER
-			<set>
-				<if test="chAttack != 0"> CH_ATTACK = #{chAttack} </if>
-				<if test="chDefense != 0"> CH_DEFENSE = CH_DEFENSE + #{chDefense} </if>
-				<if test="chHp != 0"> CH_HP = CH_HP + #{chHp} </if>
-				<if test="chMp != 0"> CH_MP = CH_MP + #{chMp} </if>
-			</set>
-			WHERE CH_NAME=#{chName}
-		</update>
-		
+	<update id="setItemApplyStatus" parameterType="gameBean">
+		UPDATE USER_CHARACTER
+		<set>
+			<if test="chAttack != 0"> CH_ATTACK = #{chAttack} </if>
+			<if test="chDefense != 0"> CH_DEFENSE = CH_DEFENSE + #{chDefense} </if>
+			<if test="chHp != 0"> CH_HP = CH_HP + #{chHp} </if>
+			<if test="chMp != 0"> CH_MP = CH_MP + #{chMp} </if>
+		</set>
+		WHERE CH_NAME=#{chName}
+	</update>
+
 	<!-- 포션 사용 후 보유량 감소 시키기 -->
 	<update id="setAfterItemUse" parameterType="map">
-		UPDATE 
-			INVENTORY 
-		SET 
-			IV_AMOUNT = IV_AMOUNT - 1 
-		WHERE 
-			IV_CHNAME = #{content}
-		AND 
-			IV_ITCODE = #{useItem}
+		UPDATE
+		INVENTORY
+		SET
+		IV_AMOUNT = IV_AMOUNT - 1
+		WHERE
+		IV_CHNAME = #{content}
+		AND
+		IV_ITCODE = #{useItem}
 	</update>
 
 	<!-- 장착 아이템 해제하기 -->
 	<update id="setItemDisArm" parameterType="map">
 		UPDATE
-			EQUIPMENT
+		EQUIPMENT
 		<set>
 			<if test="weapon != null">EQ_WEAPON = #{idx}</if>
 			<if test="armor != null">EQ_ARMOR = #{idx}</if>
@@ -277,76 +448,88 @@
 			<if test="necklace != null">EQ_NECKLACE = #{idx}</if>
 		</set>
 		WHERE
-			EQ_CHNAME=#{chName}
+		EQ_CHNAME=#{chName}
 	</update>
 
 	<!-- 아이템 해제 후 능력치 적용 -->
 	<update id="setItemDisArmStatus" parameterType="gameBean">
-		UPDATE 
-			USER_CHARACTER
+		UPDATE
+		USER_CHARACTER
 		<set>
 			<if test="chAttack != 0"> CH_ATTACK = 0 </if>
 			<if test="chDefense != 0"> CH_DEFENSE = CH_DEFENSE - #{chDefense} </if>
 			<if test="chHp != 0"> CH_HP = CH_HP - #{chHp} </if>
 			<if test="chMp != 0"> CH_MP = CH_MP - #{chMp} </if>
 		</set>
-		WHERE 
-			CH_NAME=#{chName}
+		WHERE
+		CH_NAME=#{chName}
 	</update>
 
 
 	<!-- 길드보드 리스트 가져오기 -->
-	<select id="getGuildBoardList" parameterType="boardBean" resultMap="gBoardMap">
+	<select id="getGuildBoardList" parameterType="boardBean"
+		resultMap="gBoardMap">
 		SELECT * FROM GUILDBOARD
 	</select>
-	
-	<!-- 	길드보드 내용 가져오기 -->
-	<select id="getGuildBoardContent" parameterType="boardBean" resultType="boardBean">
-		SELECT GB_CODE AS gbCode,  GB_MBID AS "ID", GB_TITLE AS GBTITLE, 
-		GB_CONTENT AS GBCONTENT, GB_WDATE AS GBWDATE, GB_HIT AS GBHIT, 
-		GB_GROUP AS gbGroup, GB_STEP AS gbStep, GB_INDENT as gbIndent,  
+
+	<!-- 길드보드 내용 가져오기 -->
+	<select id="getGuildBoardContent" parameterType="boardBean"
+		resultType="boardBean">
+		SELECT GB_CODE AS gbCode, GB_MBID AS "ID", GB_TITLE AS
+		GBTITLE,
+		GB_CONTENT AS GBCONTENT, GB_WDATE AS GBWDATE, GB_HIT AS GBHIT,
+		GB_GROUP AS gbGroup, GB_STEP AS gbStep, GB_INDENT as gbIndent,
 		GB_MDATE AS gbMdate, GB_NAME AS CHNAME
 		FROM GUILDBOARD WHERE GB_CODE=#{gbCode}
 	</select>
 
 	<!-- 길드보드 조회수 증가하기 -->
 	<update id="setGuildBoardUpHit" parameterType="boardBean">
-		UPDATE GUILDBOARD SET GB_HIT = GB_HIT+1 WHERE GB_CODE=#{gbCode}
+		UPDATE GUILDBOARD
+		SET GB_HIT = GB_HIT+1 WHERE GB_CODE=#{gbCode}
 	</update>
 
 	<!-- 길드보드 글 작성하기 -->
 	<insert id="setGuildBoardWrite" parameterType="boardBean">
-		INSERT INTO GUILDBOARD (GB_CODE,GB_CONTENT,GB_GROUP,GB_HIT,GB_INDENT,GB_MBID,GB_MDATE,GB_NAME,GB_STEP,GB_TITLE,GB_WDATE)
-	    VALUES(GBOARD_SEQ.nextval,#{gbContent},DEFAULT,DEFAULT,DEFAULT,#{id},null,#{chName},DEFAULT,#{gbTitle},DEFAULT)
+		INSERT INTO
+		GUILDBOARD
+		(GB_CODE,GB_CONTENT,GB_GROUP,GB_HIT,GB_INDENT,GB_MBID,GB_MDATE,GB_NAME,GB_STEP,GB_TITLE,GB_WDATE)
+		VALUES(GBOARD_SEQ.nextval,#{gbContent},DEFAULT,DEFAULT,DEFAULT,#{id},null,#{chName},DEFAULT,#{gbTitle},DEFAULT)
 	</insert>
-	
+
 	<!-- 길드보드 글 삭제하기 -->
 	<delete id="setGuildBoardRemove" parameterType="boardBean">
-			DELETE FROM GUILDBOARD WHERE GB_CODE = #{gbCode}
+		DELETE FROM GUILDBOARD WHERE GB_CODE = #{gbCode}
 	</delete>
 
 	<!-- 길드보드 글 수정하기 -->
 	<update id="setGuildBoardModify" parameterType="boardBean">
-			UPDATE GUILDBOARD SET GB_TITLE = #{gbTitle}, GB_CONTENT = #{gbContent}, GB_MDATE = SYSDATE 
-			WHERE GB_CODE = #{gbCode}
+		UPDATE GUILDBOARD SET GB_TITLE = #{gbTitle}, GB_CONTENT = #{gbContent},
+		GB_MDATE = SYSDATE
+		WHERE GB_CODE = #{gbCode}
 	</update>
 
 	<!-- 길드보드 댓글 불러오기 -->
-	<select id="getGuildBoardReply" parameterType="boardBean" resultType="boardBean">
-		SELECT GR_NAME as chName, GR_CONTENT as gbReplyContent, GR_DATE as  gbWDate,
+	<select id="getGuildBoardReply" parameterType="boardBean"
+		resultType="boardBean">
+		SELECT GR_NAME as chName, GR_CONTENT as gbReplyContent,
+		GR_DATE as gbWDate,
 		GR_CODE as grCode
-		FROM GBREPLY WHERE GR_BDCODE = #{gbCode}
+		FROM GBREPLY WHERE GR_BDCODE =
+		#{gbCode}
 	</select>
 
 	<!-- 길드보드 댓글 달기 -->
 	<insert id="setGuildBoardReply" parameterType="boardBean">
-		INSERT INTO GBREPLY (GR_CODE, GR_NAME, GR_BDCODE, GR_DATE, GR_CONTENT) 
-		VALUES (GBREPLY_SEQ.nextval, #{chName}, #{gbCode}, DEFAULT, #{gbReplyContent})
+		INSERT INTO
+		GBREPLY (GR_CODE, GR_NAME, GR_BDCODE, GR_DATE, GR_CONTENT)
+		VALUES (GBREPLY_SEQ.nextval, #{chName}, #{gbCode}, DEFAULT,
+		#{gbReplyContent})
 	</insert>
 
 	<!-- 길드보드 댓글 삭제 -->
 	<delete id="setGuildBoardReplyDelete" parameterType="boardBean">
-			DELETE FROM GBREPLY WHERE GR_CODE = #{grCode}
+		DELETE FROM GBREPLY WHERE GR_CODE = #{grCode}
 	</delete>
 
 	<!-- 길드보드 리스트 가져오기위한 맵 -->
@@ -363,20 +546,16 @@
 		<result property="gbStep" column="GB_STEP" javaType="java.lang.Integer" />
 		<result property="gbIndent" column="GB_INDENT" javaType="java.lang.Integer" />
 	</resultMap>
-<!-- ↑ 신태휘 -->
+	<!-- ↑ 신태휘 -->
 
-<!-- **************************김훈******************************* -->
-	<!-- 아이디 체크(중복) -->
-	<select id="userIdCheck" parameterType="MemberBean" resultType="Integer">
-		SELECT COUNT(*) FROM MEMBER WHERE MB_ID=#{userId}
-	</select>
-	
+	<!-- **************************김훈******************************* -->
+
 	<!-- 공지사항 리스트 출력 -->
-	<select id="newsBoardList" resultMap="BoardMap">
+	<select id="newsBoardList" resultMap="newsBoardMap">
 		SELECT * FROM NOTICEBOARD ORDER BY NB_CODE DESC
 	</select>
 	
-	<resultMap type="BoardBean" id="BoardMap">
+	<resultMap type="BoardBean" id="newsBoardMap">
 		<result property="newsBoardCode" column="NB_CODE" javaType="java.lang.Integer" />
 		<result property="newsBoardUserId" column="NB_MBID" javaType="java.lang.String" />
 		<result property="newsBoardTitle" column="NB_TITLE" javaType="java.lang.String" />
@@ -399,7 +578,7 @@
 	</select>
 	
 	<!-- 공지사항 게시글 내용 출력 -->
-	<select id="newsBoardContents" parameterType="BoardBean" resultMap="BoardMap">
+	<select id="newsBoardContents" parameterType="BoardBean" resultMap="newsBoardMap">
 		SELECT * FROM NOTICEBOARD WHERE NB_CODE = #{newsBoardCode}
 	</select>
 	
@@ -419,23 +598,23 @@
 	</delete>
 	
 	<!-- 공지사항 게시글 작성자 검색 출력 -->
-	<select id="newsBoardSearchId" resultMap="BoardMap">
+	<select id="newsBoardSearchId" resultMap="newsBoardMap">
 		SELECT * FROM NOTICEBOARD WHERE NB_MBID LIKE #{newsBoardUserId} ORDER BY NB_CODE DESC
 	</select>
 	
 	<!-- 공지사항 게시글 제목 검색 출력 -->
-	<select id="newsBoardSearchTitle" resultMap="BoardMap">
+	<select id="newsBoardSearchTitle" resultMap="newsBoardMap">
 		SELECT * FROM NOTICEBOARD WHERE NB_TITLE LIKE #{newsBoardTitle} ORDER BY NB_CODE DESC
 	</select>
 	
 	<!-- 캐릭터 유무 검사 -->
 	<select id="characterIdCheck" parameterType="GameBean" resultType="Integer">
-		SELECT COUNT(*) FROM USER_CHARACTER WHERE CH_MBID = #{userId}
+		SELECT COUNT(*) FROM USER_CHARACTER WHERE CH_MBID = #{id}
 	</select>
 	
 	<!-- 캐릭터 성별 확인 -->
-	<select id="characterSex" parameterType="MemberBean" resultType="Integer">
-		SELECT MB_GENDER FROM MEMBER WHERE MB_ID = #{userId}
+	<select id="characterSex" parameterType="GameBean" resultType="Integer">
+		SELECT MB_GENDER FROM MEMBER WHERE MB_ID = #{id}
 	</select>
 	
 	<!-- 캐릭터 이름 유무 확인 -->
@@ -445,22 +624,28 @@
 	
 	<!-- 캐릭터 생성 -->
 	<insert id="characterCreate" parameterType="GameBean">
-		INSERT INTO USER_CHARACTER VALUES(#{characterName}, #{userId}, #{sex}, 1, 0, 100, 50, #{str}, #{dex}, #{intelligent}, 0, 0, 10000, NULL, 0)
+		INSERT INTO USER_CHARACTER VALUES(#{characterName}, #{id}, #{sex}, 1, 0, 100, 50, #{str}, #{dex}, #{intelligent}, 0, 0, 10000, NULL, 0)
 	</insert>
+	
+	<!-- 캐릭터 생성시 인벤토리에 강화석(10개) 추가 -->
+	<insert id="inventoryInsertMaterial" parameterType="GameBean">
+		INSERT INTO INVENTORY VALUES(#{characterName}, #{id}, 8001, 10, 0)
+	</insert>
+	
 	
 	<!-- 캐릭터 스킬1 생성 -->
 	<insert id="characterSkill1" parameterType="GameBean">
-		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{userId}, 'k', '발차기', 0, 0)
+		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{id}, 'k', '발차기', 0, 0)
 	</insert>
 	
 	<!-- 캐릭터 스킬2 생성 -->
 	<insert id="characterSkill2" parameterType="GameBean">
-		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{userId}, 't', '돌려차기', 10, 10)
+		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{id}, 't', '돌려차기', 10, 10)
 	</insert>
 	
 	<!-- 캐릭터 스킬3 생성 -->
 	<insert id="characterSkill3" parameterType="GameBean">
-		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{userId}, 'd', '공중회전킥', 20, 20)
+		INSERT INTO CHARACTER_SKILLS VALUES(#{characterName}, #{id}, 'd', '공중회전킥', 20, 20)
 	</insert>
 	
 	<!-- 캐릭터 스킬4 생성 -->
@@ -509,6 +694,11 @@
 		<result property="enHanceChance" column="EN_CHANCE" javaType="java.lang.Double" />
 		<result property="increase" column="EN_INCREASE" javaType="java.lang.Double" />
 	</resultMap>
+	
+	<!-- 강화석 존재 유무 확인 -->
+	<select id="meterialCheck" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM INVENTORY WHERE IV_CHNAME = #{characterName} AND IV_ITCODE = '8001'
+	</select>
 	
 	<!-- 소지한 강화석 개수 가져오기 -->
 	<select id="getMaterial" parameterType="String" resultType="Integer">
@@ -649,6 +839,308 @@
 	<update id="myQuestSuccess" parameterType="GameBean">
 		UPDATE MYQUEST SET MQ_SUSSESS = 1 WHERE MQ_CHNAME = #{characterName} AND MQ_QUECODE = #{questCode}
 	</update>
-<!-- **************************김훈******************************* -->
+	
+	<!-- **************************김훈******************************* -->
 
+
+	<!-- 종 -->
+	<resultMap type="MemberBean" id="MemberMap">
+		<result property="id" column="MB_ID" javaType="java.lang.String" />
+		<result property="pwd" column="MB_PW" javaType="java.lang.String" />
+		<result property="name" column="MB_MALL" javaType="java.lang.String" />
+		<result property="age" column="MB_AGE" javaType="java.lang.Integer" />
+		<result property="gender" column="MB_GENDER" javaType="java.lang.Integer" />
+		<result property="phone" column="MB_PHONE" javaType="java.lang.String" />
+		<result property="type" column="MB_TYPE" javaType="java.lang.Integer" />
+		<result property="name" column="MB_NAME" javaType="java.lang.String" />
+		<result property="birth" column="MB_BIRTH" javaType="java.lang.Integer" />
+	</resultMap>
+
+	<!-- 관리자 판단 -->
+	<select id="type" parameterType="MemberBean" resultType="Integer">
+		SELECT
+		MB_TYPE FROM MEMBER WHERE MB_ID = #{id}
+	</select>
+
+	<!-- 유저 타입 확인 -->
+	<select id="TypeCheck" parameterType="com.activityRPG.beans.MemberBean"
+		resultType="Integer">
+		SELECT COUNT(*) FROM MB WHERE MB_TYPE=3 AND MB_ID=#{id}
+	</select>
+
+	<!-- 활동맴버리스트 -->
+	<select id="MemberList" resultMap="MemberMap">
+		SELECT * FROM MEMBER WHERE
+		MB_TYPE = 1 ORDER BY MB_ID DESC
+	</select>
+	
+	<!-- jiwon -->
+	<!-- 정지 된 멤버 리스트 -->
+	<select id="MemberBrackList" resultMap="MemberMap">
+		SELECT * FROM MEMBER WHERE MB_TYPE = 3 ORDER BY MB_ID DESC
+	</select>
+
+	<!-- jiwon -->
+	<!-- 회원 정지 -->
+	<update id="userDelete" parameterType="MemberBean">
+		UPDATE MEMBER SET MB_TYPE=3 WHERE MB_ID = #{id} AND MB_TYPE=1
+	</update>
+	
+	<!-- jiwon -->
+	<!-- 회원 복귀 -->
+	<update id="userRestart" parameterType="MemberBean">
+		UPDATE MEMBER SET MB_TYPE=1 WHERE MB_ID = #{id} AND MB_TYPE=3
+	</update>
+
+	<!-- 공략 리스트 출력 -->
+	<select id="attackBoardList" resultMap="BoardMap1">
+		SELECT * FROM ATTACKBOARD
+		ORDER BY AB_CODE DESC
+	</select>
+
+	<resultMap type="BoardBean" id="BoardMap1">
+		<result property="attackBoardCode" column="AB_CODE" javaType="java.lang.Integer" />
+		<result property="attackBoardUserId" column="AB_MBID" javaType="java.lang.String" />
+		<result property="attackBoardTitle" column="AB_TITLE" javaType="java.lang.String" />
+		<result property="attackBoardContents" column="AB_CONTENT"
+			javaType="java.lang.String" />
+		<result property="attackBoardDate" column="AB_DATE" javaType="java.util.Date" />
+		<result property="attackBoardHit" column="AB_HIT" javaType="java.lang.Integer" />
+		<result property="attackBoardGroup" column="AB_GROUP" javaType="java.lang.Integer" />
+		<result property="attackBoardStep" column="AB_STEP" javaType="java.lang.Integer" />
+		<result property="attackBoardIndent" column="AB_INDENT"
+			javaType="java.lang.Integer" />
+	</resultMap>
+
+	<!-- 공략 작성 -->
+	<insert id="attackBoardMake" parameterType="BoardBean">
+		INSERT INTO
+		ATTACKBOARD
+		VALUES(ATTACKBOARD_SEQ.NEXTVAL, #{attackBoardUserId},
+		#{attackBoardTitle},
+		#{attackBoardContents}, DEFAULT, 0, 0, 0, 0)
+	</insert>
+
+	<!-- 공략 게시글 내용 출력 -->
+	<select id="attackBoardContents" parameterType="BoardBean"
+		resultMap="BoardMap1">
+		SELECT * FROM ATTACKBOARD WHERE AB_CODE = #{attackBoardCode}
+	</select>
+
+	<!-- 공략 게시글 조회수 증가 -->
+	<update id="attackBoardHitUp" parameterType="BoardBean">
+		UPDATE ATTACKBOARD
+		SET
+		AB_HIT = #{attackBoardHit} WHERE AB_CODE = #{attackBoardCode}
+	</update>
+
+	<!-- 공략 게시글 수정 -->
+	<update id="attackBoardModify" parameterType="BoardBean">
+		UPDATE ATTACKBOARD
+		SET AB_TITLE = #{attackBoardTitle}, AB_CONTENT =
+		#{attackBoardContents}
+		WHERE AB_CODE = #{attackBoardCode}
+	</update>
+
+	<!-- 공략 게시글 삭제 -->
+	<delete id="attackBoardDelete" parameterType="BoardBean">
+		DELETE FROM
+		ATTACKBOARD WHERE AB_CODE = #{attackBoardCode}
+	</delete>
+
+	<!-- 공략 게시글 작성자 검색 출력 -->
+	<select id="attackBoardSearchId" resultMap="BoardMap1">
+		SELECT * FROM
+		ATTACKBOARD WHERE AB_MBID LIKE #{attackBoardUserId} ORDER BY AB_CODE
+		DESC
+	</select>
+
+	<!-- 공략 게시글 제목 검색 출력 -->
+	<select id="attackBoardSearchTitle" resultMap="BoardMap1">
+		SELECT * FROM
+		ATTACKBOARD WHERE AB_TITLE LIKE #{attackBoardTitle} ORDER BY AB_CODE
+		DESC
+	</select>
+
+	<!-- 종 -->
+	
+	<!-- 한광수 -->
+	<select id="reportBoardList" resultMap="reportBoardMap">
+		SELECT * FROM REPORTBOARD ORDER BY RB_CODE DESC
+	</select>
+	
+	<resultMap type="BoardBean" id="reportBoardMap">
+		<result property="reportBoardCode" column="RB_CODE" javaType="java.lang.Integer" />
+		<result property="reportBoardUserId" column="RB_MBID" javaType="java.lang.String" />
+		<result property="reportBoardTitle" column="RB_TITLE" javaType="java.lang.String" />
+		<result property="reportBoardContents" column="RB_CONTENT" javaType="java.lang.String" />
+		<result property="reportBoardDate" column="RB_DATE" javaType="java.util.Date" />
+		<result property="reportBoardHit" column="RB_HIT" javaType="java.lang.Integer" />
+		<result property="reportBoardGroup" column="RB_GROUP" javaType="java.lang.Integer" />
+		<result property="reportBoardStep" column="RB_STEP" javaType="java.lang.Integer" />
+		<result property="reportBoardIndent" column="RB_INDENT" javaType="java.lang.Integer" />
+	</resultMap>
+	
+	<insert id="reportBoardMake" parameterType="BoardBean">
+		INSERT INTO REPORTBOARD VALUES(REPORTBOARD_SEQ.NEXTVAL, #{reportBoardTitle}, #{reportBoardContents}, DEFAULT, 0, 0, 0, 0 ,#{reportBoardUserId})
+	</insert>
+
+	
+	<select id="reportBoardContents" parameterType="BoardBean" resultMap="reportBoardMap">
+		SELECT * FROM REPORTBOARD WHERE RB_CODE = #{reportBoardCode}
+	</select>
+	
+	<update id="reportBoardHitUp" parameterType="BoardBean">
+		UPDATE REPORTBOARD SET RB_HIT = #{reportBoardHit} WHERE RB_CODE = #{reportBoardCode}
+	</update>
+	
+	<update id="reportBoardModify" parameterType="BoardBean">
+		UPDATE REPORTBOARD SET RB_TITLE = #{reportBoardTitle}, RB_CONTENT = #{reportBoardContents} WHERE RB_CODE = #{reportBoardCode}
+	</update>
+	
+	<delete id="reportBoardDelete" parameterType="BoardBean">
+		DELETE FROM REPORTBOARD WHERE RB_CODE = #{reportBoardCode} 
+	</delete>
+	
+	<select id="reportBoardSearchId" resultMap="reportBoardMap">
+		SELECT * FROM REPORTBOARD WHERE RB_MBID LIKE #{reportBoardUserId} ORDER BY RB_CODE DESC
+	</select>
+	
+	<select id="reportBoardSearchTitle" resultMap="reportBoardMap">
+		SELECT * FROM REPORTBOARD WHERE RB_TITLE LIKE #{reportBoardTitle} ORDER BY RB_CODE DESC
+	</select>
+	<resultMap type="GameBean" id="GameMap">
+		<result property="questCode" column="QUE_CODE" javaType="java.lang.Integer" />
+		<result property="questTitle" column="QUE_TITLE" javaType="java.lang.String" />
+		<result property="questContents" column="QUE_CONTENT" javaType="java.lang.String" />
+		<result property="myquestCode" column="MQ_CODE" javaType="java.lang.Integer" />
+		<result property="characterName" column="MQ_CHNAME" javaType="java.lang.String" />
+		<result property="userId" column="MQ_MBID" javaType="java.lang.String" />
+		<result property="sussess" column="MQ_SUSSESS" javaType="java.lang.String" />
+		
+	</resultMap>
+	<select id="questList" resultMap="GameMap">
+		SELECT * FROM QUEST ORDER BY QUE_CODE
+	</select>
+	<select id="characterName" parameterType="GameBean" resultType="String">
+		SELECT CH_NAME FROM USER_CHARACTER WHERE CH_MBID = #{userId}
+	</select>
+	<insert id="questAdded" parameterType="GameBean">
+		INSERT INTO MYQUEST VALUES(#{userId}, #{myquestCode}, #{characterName}, 0)
+	</insert>
+	<select id="myQuestList" parameterType="GameBean" resultMap="myQuestMap">
+		SELECT MQ_QUECODE, MQ_CHMBID, MQ_CHNAME, MQ_SUSSESS, QUE_TITLE, QUE_CONTENT FROM MYQUESTVIEW where MQ_CHNAME = #{characterName} ORDER BY QUE_CODE
+	</select>
+	<resultMap type="GameBean" id="myQuestMap">
+		<result property="userId" column="MQ_CHMBID" javaType="java.lang.String" />
+		<result property="characterName" column="MQ_CHNAME" javaType="java.lang.String" />
+		<result property="sussess" column="MQ_SUSSESS" javaType="java.lang.String" />
+		<result property="questTitle" column="QUE_TITLE" javaType="java.lang.String" />
+		<result property="questContents" column="QUE_CONTENT" javaType="java.lang.String" />
+		<result property="myquestCode" column="MQ_QUECODE" javaType="java.lang.Integer" />
+	</resultMap>
+	<delete id="questCheck" parameterType="GameBean">
+		DELETE FROM MYQUEST WHERE MQ_QUECODE = #{myquestCode} 
+	</delete>
+	<select id ="userGold" parameterType="GameBean" resultType="Integer">
+		SELECT CH_GOLD FROM USER_CHARACTER WHERE CH_NAME = #{characterName} 
+	</select>
+	<select id ="questExp" parameterType="GameBean" resultType="Integer">
+		SELECT QUP_EXP FROM QUESTPRIZE WHERE QUP_QUECODE = #{questPrizeCode}
+	</select>
+	<select id ="questGold" parameterType="GameBean" resultType="Integer">
+		SELECT QUP_GOLD FROM QUESTPRIZE WHERE QUP_QUECODE = #{questPrizeCode}
+	</select>
+	
+	<select id ="questPizCode" parameterType="GameBean" resultType="String">
+		SELECT * FROM QUESTPRIZE where QUP_QUECODE = #{myquestCode}
+	</select>
+	
+	<select id ="userExp" parameterType="GameBean" resultType="Integer">
+		SELECT CH_EXP FROM USER_CHARACTER WHERE CH_NAME = #{characterName}
+	</select>
+	
+	<update id ="updateGold" parameterType="GameBean">
+		UPDATE USER_CHARACTER SET CH_GOLD = #{updateGold} WHERE CH_NAME = #{characterName}
+	</update>
+	
+	<update id="updateExp" parameterType="GameBean">
+		UPDATE USER_CHARACTER SET CH_EXP = #{updateExp} WHERE CH_NAME = #{characterName}
+	</update>
+	
+	<select id ="questCodeCheck" parameterType="GameBean" resultType="Integer">
+		SELECT COUNT(*) FROM MYQUEST WHERE MQ_QUECODE = #{myquestCode}
+	</select>
+	
+	<resultMap type="GameBean" id="rankingMap">
+		<result property="rankingName" column="CH_NAME" javaType="java.lang.String" />
+		<result property="rankingLevel" column="CH_LEVEL" javaType="java.lang.Integer" />
+		<result property="rankingExp" column="CH_EXP" javaType="java.lang.Integer" />
+		<result property="rankingStr" column="CH_STR" javaType="java.lang.Integer" />
+		<result property="rankingDex" column="CH_DEX" javaType="java.lang.Integer" />
+		<result property="rankingInt" column="CH_INT" javaType="java.lang.Integer" />
+	</resultMap>
+	
+	<select id="rankingListView" resultMap="rankingMap">
+		SELECT CH_NAME,CH_LEVEL,CH_EXP,CH_STR,CH_DEX,CH_INT FROM USER_CHARACTER ORDER BY CH_EXP DESC
+	</select>
+	
+	<resultMap type="GameBean" id="guildMap">
+		<result property="guildCode" column="GU_CODE" javaType="java.lang.Integer" />
+		<result property="guildName" column="GU_NAME" javaType="java.lang.String" />
+		<result property="guildTotalNum" column="GU_TOTALNUM" javaType="java.lang.Integer" />
+		<result property="guildMenLevel" column="GU_GLCODE" javaType="java.lang.Integer" />
+		<result property="guildPreNum" column="GU_PRENUM" javaType="java.lang.Integer" />
+	</resultMap>
+	
+	<select id="guildList" resultMap="guildMap">
+		SELECT GU_NAME, GU_TOTALNUM, GU_PRENUM FROM GUILD ORDER BY GU_CODE DESC
+	</select>
+	
+	<insert id="guildCreate" parameterType="GameBean">
+		INSERT INTO GUILD VALUES(GUILD_SEQ.NEXTVAL, #{guildName}, 50 , '1', 1)
+	</insert>
+
+	<update id="userGuildupdate" parameterType="GameBean">
+		UPDATE USER_CHARACTER SET CH_GUCODE = #{guildCode}, CH_GLCODE = '1' WHERE CH_NAME = #{characterName}
+	</update>
+	
+	<select id="userGuildCheck" parameterType="GameBean" resultType="String">
+		SELECT CH_GLCODE FROM USER_CHARACTER WHERE CH_NAME= #{characterName}
+	</select>
+	
+	<select id="guildNameCheck" parameterType="GameBean" resultType="Integer">
+		SELECT COUNT(*) FROM GUILD WHERE GU_NAME = #{guildName}
+	</select>
+	
+	<select id="guildCodeGet" parameterType="GameBean" resultType="Integer">
+		SELECT GU_CODE FROM GUILD WHERE GU_NAME = #{guildName}
+	</select>
+	
+	<update id="guildDec" parameterType="GameBean">
+		UPDATE USER_CHARACTER SET CH_GOLD = #{updateGold} WHERE CH_NAME = #{characterName}
+	</update>
+	
+	<update id="userGuildJoin" parameterType="GameBean">
+		UPDATE USER_CHARACTER SET CH_GUCODE = #{guildCode}, CH_GLCODE = '2' WHERE CH_NAME = #{characterName}
+	</update>
+	
+	<!-- 길드 탈퇴 -->
+	<update id="guildOut" parameterType="GameBean">
+		UPDATE USER_CHARACTER SET CH_GUCODE = null, CH_GLCODE = 0 WHERE CH_NAME = #{characterName}
+	</update>
+	<resultMap type="GameBean" id="guildMemberListMap">
+		<result property="guildName" column="GU_NAME" javaType="java.lang.String" />
+		<result property="characterName" column="CH_NAME" javaType="java.lang.String" />
+		<result property="level" column="CH_LEVEL" javaType="java.lang.Integer" />
+		<result property="guildMenLevel" column="CH_GLCODE" javaType="java.lang.Integer" />
+	</resultMap>
+	<select id="guildMemberListView" parameterType="GameBean" resultMap="guildMemberListMap">
+		SELECT GU_NAME, CH_NAME, CH_LEVEL, CH_GLCODE FROM GUILDMEMBERLIST WHERE GU_CODE= #{guildCode} ORDER BY CH_GLCODE 
+	</select>
+	<select id="guildlevelNameView"	parameterType="GameBean" resultType="String">
+		SELECT GL_NAME FROM GUILDLEVEL WHERE GL_CODE = #{guildMenLevel}
+	</select>
+	<!-- 한광수 -->
+	
 </mapper>

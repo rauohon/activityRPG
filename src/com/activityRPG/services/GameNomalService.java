@@ -3,13 +3,17 @@ package com.activityRPG.services;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.activityRPG.beans.GameBean;
+import com.activityRPG.beans.MemberBean;
 import com.activityRPG.dao.IMBatisDao;
+import com.activityRPG.dao.TranEx;
 import com.activityRPG.utils.ProjectUtils;
 
 /**
@@ -18,13 +22,15 @@ import com.activityRPG.utils.ProjectUtils;
  * @설명 : 
  */
 @Service
-public class GameNomalService {
-	ModelAndView mav = new ModelAndView();
+public class GameNomalService extends TranEx {
 	@Autowired
 	private IMBatisDao dao;
 	@Autowired
 	private ProjectUtils session;
-	
+	@Autowired
+	private GamePlayService gp;
+
+	ModelAndView mav = new ModelAndView();
 	/**
 	 * 처리내용 : 게임 일반 서비스 분기
 	 * 작성일 : 2017. 10. 21.
@@ -57,14 +63,36 @@ public class GameNomalService {
 		case 6:
 			mav = itemInfo((GameBean)bean);
 			break;
+		case 41: //캐릭터 생성 폼 이동
+			mav = characterCreateFormMove((GameBean)bean);	
+			break;
+		case 42: //캐릭터 생성
+			mav = characterCreate((GameBean)bean);	
+			break;
+		case 66: //랭킹 출력
+			mav = ranking();
+			break;
+		case 67: //길드 리스트 출력
+			mav = guild();
+			break;
+		case 68: //길드 생성
+			mav = guildCreate((GameBean)bean);
+			break;
+		case 69: //길드 가입
+			mav = guildJoinMove((GameBean)bean);
+			break;
+		case 70: //길드 탈퇴
+			mav = guildOut();
+			break;
+		case 71: //길드 멤버리스트
+			mav = guildMemberMove((GameBean)bean);
+			break;
 		}
-
 
 		return mav;
 
-
 	}
-	
+
 	/**
 	 * 처리내용 : 아이템 사용여부 판단해서 버튼 만들어서 리턴
 	 * 작성일 : 2017. 11. 3.
@@ -131,7 +159,7 @@ public class GameNomalService {
 			System.out.println("마나포션류 입니다.");
 			result = arm;
 		}
-		
+
 		return result;
 	}
 
@@ -155,9 +183,9 @@ public class GameNomalService {
 		sb.append(itemIsUsed(bean));
 		sb.append("</td></tr></table>");
 		mav.addObject("itemInfo", sb.toString());
-		
+
 		mav.setViewName("itemInfo");
-		
+
 		return mav;
 	}
 
@@ -376,7 +404,7 @@ public class GameNomalService {
 
 		return bean;
 	}
-	
+
 	/**
 	 * 처리내용 : 5-0 캐릭터의 이미지를 불러와 출력
 	 * 작성일 : 2017. 10. 23.
@@ -440,7 +468,7 @@ public class GameNomalService {
 		}
 		return mav;
 	}
-	
+
 	/**
 	 * 처리내용 : 던전의 이미지를 가지고 와서 출력
 	 * 작성일 : 2017. 10. 23.
@@ -449,7 +477,7 @@ public class GameNomalService {
 	 * @return type : String
 	 */
 	private String dungeonImage(GameBean bean) {
-		
+
 		return "던전 image가 출력됩니다.";
 	}
 
@@ -461,7 +489,7 @@ public class GameNomalService {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView dungeonPage(GameBean bean) {
-		
+
 		mav.addObject("dungeonImage", dungeonImage(bean));
 		mav.setViewName("dungeon");
 		try {
@@ -511,11 +539,18 @@ public class GameNomalService {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView villagePage(GameBean bean) {
-		// 로그인 여부 확인
+		
 		try {
-			if(session.getAttribute("id") != null) {
-				mav.setViewName("village");
-				session.setAttribute("page", "village");
+			if(session.getAttribute("id") != null) { // 로그인 여부 확인
+				bean.setId(session.getAttribute("id").toString());
+				if(dao.characterIdCheck(bean) == 1) { // 캐릭터 존재 유무 확인
+					session.setAttribute("characterName", dao.getCharacterName(session.getAttribute("id").toString()));
+					session.setAttribute("page", "village");
+					mav.setViewName("village");
+				}else {
+					mav.addObject("message", "※ 먼저 캐릭터를 생성해 주세요.");
+					mav = characterCreateFormMove(bean);
+				}
 			}else {
 				mav.setViewName("home");
 			}
@@ -536,9 +571,13 @@ public class GameNomalService {
 		String callPage = null;
 		try {
 			if(session.getAttribute("page") != null) {
-				callPage = session.getAttribute("page").toString();
-				mav.setViewName(callPage);
-				session.removeAttribute("page");
+				if(session.getAttribute("page").toString().equals("battlePage")) {
+					mav = gp.entrance(45, bean);
+				}else {
+					callPage = session.getAttribute("page").toString();
+					mav.setViewName(callPage);
+					session.removeAttribute("page");
+				}
 			}else {
 				mav.setViewName("village");
 			}
@@ -548,4 +587,296 @@ public class GameNomalService {
 		return mav;
 	}
 
+
+	//***************************김훈*********************************
+	//캐릭터 생성
+	private ModelAndView characterCreate(GameBean gameBean) {
+		ModelAndView mav = new ModelAndView();
+
+		try {
+			randomAbility(gameBean); //랜덤 능력치 설정
+			gameBean.setId((String)session.getAttribute("id"));	//아이디를 빈에 저장
+			gameBean.setSex(dao.characterSex(gameBean));
+
+			//트랜잭션 설정 
+			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+
+			if(dao.characterNameCkeck(gameBean) == 0) {	//캐릭터 이름 확인
+				if(dao.characterCreate(gameBean) == 1) { //캐릭터 생성 성공
+					if(dao.inventoryInsertMaterial(gameBean) == 1) { //인벤토리에 강화석 추가
+						if(dao.characterSkill1(gameBean) == 1) { //캐릭터 스킬1 생성
+							if(dao.characterSkill2(gameBean) == 1){ //캐릭터 스킬2 생성
+								if(dao.characterSkill3(gameBean) == 1) { //캐릭터 스킬3 생성
+									mav.setViewName("home");
+									mav.addObject("message", "*캐릭터를 생성했습니다. 게임시작 버튼을 눌러주세요.");
+									//트랜잭션 커밋
+									setTransactionResult(true);
+								}
+							}
+						}
+					}
+				}else {	//캐릭터 생성 실패
+					mav.setViewName("home");
+					mav.addObject("message", "*캐릭터 생성에 실패했습니다. 잠시 후 다시 시도해 주세요");
+				}
+			}else {	//해당 캐릭터 이름 이미 존재
+				mav = characterCreateFormMove(gameBean);
+				mav.addObject("message", "*캐릭터 이름이 이미 존재합니다.");
+			}			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+	//캐릭터 생성 폼 이동
+	private ModelAndView characterCreateFormMove(GameBean gameBean) {
+		ModelAndView mav = new ModelAndView();
+		try{
+//			if(dao.characterIdCheck(gameBean) == 0) { //캐릭터 유무 확인
+				mav.addObject("userSex", gameBean.getSex());
+				mav.setViewName("characterCreateForm");
+//			}else {
+//				mav.setViewName("home");
+//				mav.addObject("message","이미 캐릭터가 존재합니다. 게임시작 버튼을 눌러주세요.");
+//			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
+	}
+
+	//랜덤 능력치 설정
+	private void randomAbility(GameBean gameBean) {
+		Random randomAbility = new Random();
+
+		gameBean.setStr((randomAbility.nextInt(10) + 1));
+		gameBean.setDex((randomAbility.nextInt(10) + 1)); 
+		gameBean.setIntelligent((randomAbility.nextInt(10) + 1)); 
+	}
+	//******************************김훈******************************************
+	//*****************************한광수***************************************
+	//길드멤버리스트
+		private ModelAndView guildMemberMove(GameBean gameBean) {
+			ModelAndView mav = new ModelAndView();
+			List<GameBean> guildMember = null;
+			try{
+				gameBean.setCharacterName(session.getAttribute("characterName").toString()); //캐릭터 이름 가져오기
+				
+				System.out.println(gameBean.getGuildName());
+				int code = dao.guildCodeGet(gameBean);
+				System.out.println(code);
+				
+				gameBean.setGuildCode(code);
+				
+				
+				
+				guildMember = dao.guildMemberListView(gameBean);
+				StringBuffer sb = new StringBuffer();
+				
+				sb.append("<table class=\"memberList\">");
+				sb.append("<tr>");
+				sb.append("<th>캐릭터이름</th><th>캐릭터레벨</th><th>길드 계급</th>");
+				sb.append("</tr>");
+				for(int i =0; i < guildMember.size(); i++) {
+					sb.append("<tr>");
+					sb.append("<td>"+guildMember.get(i).getCharacterName()+"</td>");
+					sb.append("<td>"+guildMember.get(i).getLevel()+"</td>");
+					if(guildMember.get(i).getGuildMenLevel()==1) {
+						sb.append("<td>길드 마스터</td>");
+					}else {
+						sb.append("<td>길드원</td>");
+					}
+					sb.append("</tr>");
+				}
+				sb.append("</table>");
+				mav.addObject("guildMember", sb.toString());
+				mav.addObject("guildName", gameBean.getGuildName());
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			mav.setViewName("guildMember");
+			return mav;
+		}
+		//길드 탈퇴
+		private ModelAndView guildOut() {
+			ModelAndView mav = new ModelAndView();
+			boolean transaction = false;
+			try {
+				GameBean gameBean = new GameBean();
+				gameBean.setCharacterName(session.getAttribute("characterName").toString()); //캐릭터 이름 가져오기
+				
+				setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+				
+				
+				dao.guildOut(gameBean);	//길드 탈퇴 
+				
+				transaction = true;
+				setTransactionResult(transaction);
+				
+				mav = guild();	//길드 리스트 
+				mav.addObject("message", "길드 탈퇴 되었습니다.");
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			return mav;
+		}
+		//길드 가입
+		private ModelAndView guildJoinMove(GameBean gameBean) {
+			ModelAndView mav = new ModelAndView();
+			boolean transaction = false;
+			try {
+				
+				gameBean.setCharacterName(session.getAttribute("characterName").toString());
+				
+				String userGuild = dao.userGuildCheck(gameBean); //유저 길드 유무 판단
+				System.out.println(userGuild);
+				
+				if(userGuild.equals("0 ")) {//"0 "일경우 가입
+					int guildCode = dao.guildCodeGet(gameBean); //길드 코드 가져오기
+					gameBean.setGuildCode(guildCode); //길드코드 빈에 저장
+					
+					setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+					
+					dao.userGuildJoin(gameBean); //해당하는 유저 길드코드 업데이트
+					
+					transaction = true;
+					setTransactionResult(transaction);
+					
+					mav = guildMemberMove(gameBean);
+				}else {
+					mav = guild();
+					mav.addObject("message", "길드가 이미 존재합니다.");
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			return mav;
+		}
+
+
+
+		//길드 
+		private ModelAndView guildCreate(GameBean gameBean) {
+			ModelAndView mav = new ModelAndView();
+			boolean transaction = false;
+		
+			try {		
+				System.out.println(session.getAttribute("characterName"));
+				
+				gameBean.setCharacterName(session.getAttribute("characterName").toString());
+				
+				//캐릭터 길드 유무 판단
+				String userGuild = dao.userGuildCheck(gameBean);
+				System.out.println(userGuild);
+				
+				if(userGuild.equals("0 ")) {	//길드 코드 이름이 "0 " 인 경우 (길드 없음)
+					
+					//길드 이름 중복 확인
+					if(dao.guildNameCheck(gameBean) == 0) { //길드 이름 사용 가능
+						
+						//캐릭터의 골드 확인
+						int userGold = dao.userGold(gameBean);
+						if(userGold - 10000 >= 0) { //골드가 10000원보다 많다면
+							//캐릭터의 골드 감소
+							gameBean.setUpdateGold(userGold - 10000);
+							
+							setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+							
+							dao.guildDec(gameBean);	//캐릭터의 골드 감소
+							
+							
+							//길드 생성
+							dao.guildCreate(gameBean);
+							
+							//길드 코드 가져오기
+							gameBean.setGuildCode(dao.guildCodeGet(gameBean));
+							
+							
+							//캐릭터 길드 추가
+							dao.userGuildupdate(gameBean);
+							
+							transaction = true;
+							setTransactionResult(transaction);
+							
+							mav = guild();
+							
+						}else { //10000원 이하
+							mav.addObject("message", "길드 생성에는 10000골드가 필요합니다.");
+							mav.setViewName("guildCreate");
+						}
+					}else {	//길드 이름이 이미 존재하는 경우
+						mav.addObject("message", "이미 존재하는 길드 이름입니다.");
+						mav.setViewName("guildCreate");
+					}
+				}else {	//캐릭터 길드가 있는 경우
+					mav.addObject("message", "이미 길드에 가입하셨습니다.");
+					mav.setViewName("guildCreate");
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return mav;
+		}
+		//길드 이동
+		private ModelAndView guild() {
+			ModelAndView mav = new ModelAndView();
+			List<GameBean> listGuildView = null;
+			try {
+				listGuildView = dao.guildList();
+				StringBuffer sb = new StringBuffer();
+				sb.append("<table class=\"guildList\">");
+				sb.append("<tr>");
+				sb.append("<th>길드명</th><th>제한인원수</th><th>길드 가입</th>");
+				sb.append("</tr>");
+				for(int i =0; i< listGuildView.size(); i++) {
+					sb.append("<tr>");
+					sb.append("<td onClick=\"guildMemberList(\'"+ listGuildView.get(i).getGuildName() +"\')\">" + listGuildView.get(i).getGuildName()+ "</td>");
+					sb.append("<td>" + listGuildView.get(i).getGuildTotalNum()+"</td>");
+					sb.append("<td><input class=\"guildjoinButton\" type=\"button\" value=\"가입\" onClick=\"guildJoin(\'"+ listGuildView.get(i).getGuildName() +"\')\">");
+					sb.append("</tr>");
+				}
+				sb.append("</table>");
+				mav.addObject("listGuildView", sb.toString());
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			mav.setViewName("GuildPage");
+			return mav;
+		}
+
+		//랭킹 리스트 출력
+		private ModelAndView ranking() {
+			ModelAndView mav = new ModelAndView();
+			List<GameBean> rankingList = null;
+			try {
+				
+				rankingList = dao.rankingListView();
+				StringBuffer sb = new StringBuffer();
+				sb.append("<table class=\"rankingList\">");
+				sb.append("<tr>");
+				sb.append("<th>순위</th><th>이름</th><th>레벨</th><th>경험치</th><th>힘</th><th>민첩</th><th>지능</th>");
+				sb.append("</tr>");
+				for(int i=0; i < rankingList.size(); i++) {
+					sb.append("<tr class=\"ranking" + i + "\">");
+					sb.append("<tr>");
+					sb.append("<td>"+ (i+1) +"</td>");
+					sb.append("<td>" + rankingList.get(i).getRankingName()+"</td>");
+					sb.append("<td>" + rankingList.get(i).getRankingLevel()+"</td>");
+					sb.append("<td>" + rankingList.get(i).getRankingExp()+"</td>");
+					sb.append("<td>" + rankingList.get(i).getRankingStr()+"</td>");
+					sb.append("<td>" + rankingList.get(i).getRankingDex()+"</td>");
+					sb.append("<td>" + rankingList.get(i).getRankingInt()+"</td>");
+					sb.append("</tr>");
+				}
+				sb.append("</table>");
+				mav.addObject("rankingList", sb.toString());
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			mav.setViewName("ranking");
+			return mav;
+		}
+		//****************************한광수************************************
 }

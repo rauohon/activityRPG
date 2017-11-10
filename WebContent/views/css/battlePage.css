@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+.hp {
+	white-space: nowrap;
+	line-height: normal;
+}
+
+.hp .totalHp {
+	display: inline-block;
+	width: 338px;
+	height: 14px;
+	margin: 0;
+	border: 1px solid #ccc;
+	background: #e9e9e9;
+	font-size: 11px;
+}
+
+.hp .monsterHp {
+	display: inline-block;
+	height: 14px;
+	border: 1px solid #8c9bac;
+	background: linear-gradient(to right, #008100, #77FF70);
+	margin: -1px;
+}
+
+.hp .characterHp {
+	display: inline-block;
+	height: 14px;
+	border: 1px solid #8c9bac;
+	background: linear-gradient(to right, #008100, #77FF70);
+	margin: -1px;
+}
+
+.hp .totalMp {
+	display: inline-block;
+	width: 337px;
+	height: 14px;
+	margin-top: 281px;
+	border: 1px solid #ccc;
+	background: #e9e9e9;
+	font-size: 11px;
+}
+
+.hp .characterMp {
+	display: inline-block;
+	height: 14px;
+	border: 1px solid #8c9bac;
+	background: linear-gradient(to right, #0000B7, #7F7EFF);
+	margin: -1px;
+}

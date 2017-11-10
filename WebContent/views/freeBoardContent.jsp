@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>freeBoardContent</title>
 <script src="js/common.js"></script>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="css/freeBoardList.css" media="screen" type="text/css" />
 <script>
 	function freeUpdate(id, code, title, content, date){
@@ -25,14 +28,57 @@
 		relationObj("freeUpageForm", "date");
 		form.submit();
 	}
+	
+	function freeUpdateBack(id, code, title, date){
+		var form = createForm("freeUpageBackForm", "freeBoard", "post");
+		
+		createinput("hidden", "id", id);
+		createinput("hidden", "code", code);
+		createinput("hidden", "title", title);
+		createinput("hidden", "date", date);
+		
+		relationObj("freeUpageBackForm", "id");
+		relationObj("freeUpageBackForm", "code");
+		relationObj("freeUpageBackForm", "title");
+		relationObj("freeUpageBackForm", "date");
+		form.submit();
+	}
+	
+	function freeComment(code){
+		var form = createForm("freeCommentForm", "freeComment", "post");
+		
+		createinput("hidden", "id", "${id}");
+		createinput("hidden", "code", code);
+		createinput("hidden", "comment", comment);
+		
+		relationObj("freeCommentForm", "id");
+		relationObj("freeCommentForm", "code");
+		relationObj("freeCommentForm", "comment");
+		
+		form.submit();
+	}
+</script>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
 </script>
 </head>
-<body>
-<%@ include file="nav.jsp"%>
-<div style="padding-top:60px">
-	<h2>자유게시판 글 상세보기</h2>
-	${freecontent }
-	${message }
+<body onLoad='init()'>
+	<%@ include file="nav.jsp"%>
+	<div class="contents">
+	<div style="padding-top: 90px">
+		${freecontent }
+		${freecomment }
+		${message }
+	</div>
 	</div>
 </body>
 </html>

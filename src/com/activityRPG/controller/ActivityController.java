@@ -22,6 +22,7 @@ public class ActivityController {
 	
 	@Autowired
 	private ActivityService as;
+	
 	private ModelAndView mav = new ModelAndView();
 	
 	/**
@@ -46,7 +47,7 @@ public class ActivityController {
 	 * @Method Name : activityWeekLogPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/ActivityWeekLogPage", method = RequestMethod.GET)
+	@RequestMapping(value="/ActivityWeekLogPage", method = RequestMethod.POST)
 	private ModelAndView activityWeekLogPage(@ModelAttribute ActivityBean bean) {
 		
 		mav = as.entrance(2, bean);
@@ -61,7 +62,7 @@ public class ActivityController {
 	 * @Method Name : adminActivityLogPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/AdminActivityLogPage", method = RequestMethod.GET)
+	@RequestMapping(value="/AdminActivityLogPage", method = RequestMethod.POST)
 	private ModelAndView adminActivityLogPage(@ModelAttribute ActivityBean bean) {
 		
 		mav = as.entrance(3, bean);
@@ -76,7 +77,7 @@ public class ActivityController {
 	 * @Method Name : AdminActivityAgeLogPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/AdminActivityAgeLogPage", method = RequestMethod.GET)
+	@RequestMapping(value="/AdminActivityAgeLogPage", method = RequestMethod.POST)
 	private ModelAndView adminActivityAgeLogPage(@ModelAttribute ActivityBean bean) {
 		
 		mav = as.entrance(4, bean);
@@ -91,7 +92,7 @@ public class ActivityController {
 	 * @Method Name : AdminActivitySexLogPage
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/AdminActivitySexLogPage", method = RequestMethod.GET)
+	@RequestMapping(value="/AdminActivitySexLogPage", method = RequestMethod.POST)
 	private ModelAndView adminActivitySexLogPage(@ModelAttribute ActivityBean bean) {
 		
 		mav = as.entrance(5, bean);		
@@ -125,6 +126,21 @@ public class ActivityController {
 	private ModelAndView enrollRaspberryPi(@ModelAttribute ActivityBean bean) {
 		
 		mav = as.entrance(7, bean);
+		
+		return mav;
+	}
+	
+	/**
+	 * 처리내용 : 운동량을 경험치로 전환 하기
+	 * 작성일 : 2017. 11. 8.
+	 * 작성자 : 신태휘
+	 * @Method Name : setExp
+	 * @return type : ModelAndView
+	 */
+	@RequestMapping(value="/SetExp", method = RequestMethod.POST)
+	private ModelAndView setExp(@ModelAttribute ActivityBean bean) {
+		
+		mav = as.entrance(8, bean);
 		
 		return mav;
 	}
