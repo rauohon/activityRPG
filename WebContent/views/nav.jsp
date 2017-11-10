@@ -65,7 +65,7 @@ function total(formname, action, method){
 	</div>
 	<div id='admin_user'>
 		<ul style='text-align: center;'>
-			<li><button onClick="total('mainForm', '/', 'post')" id="bar">MAIN PAGE</button></li>
+			<li><button onClick="total('mainForm', 'adminMain', 'post')" id="bar">MAIN PAGE</button></li>
 			<li><input type="button" value="공지사항 관리" onClick="newsBoardMove()"  id="bar" /></li>
 			<li><button onClick="total('', '', 'post')" id="bar">이벤트 관리</button></li>
 			<li><button onClick="total('', '', 'post')" id="bar">1대1문의 관리</button></li>

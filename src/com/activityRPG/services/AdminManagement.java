@@ -51,12 +51,44 @@ public class AdminManagement extends TranEx {
 	//관리자 메인 페이지
 	public ModelAndView adminmain(MemberBean mb) {
 		ModelAndView mav = new ModelAndView();
+		List<MemberBean> ListMemberBean = null;
+		String MemberList = null;
 
 		System.out.println("service :: 관리자 메인 페이지");
 		System.out.println(mb.getId());
 		try {
+			StringBuffer sb = new StringBuffer();
+			ListMemberBean = dao.MemberList();
 			if(dao.IdCheck(mb) != 0) {
 				//mb.setId(session.getAttribute("id").toString());
+				//종
+				int z = 0;
+				for(int i = 0 ; i <= ListMemberBean.size()/15; i++) {
+					sb.append("<table border=1>");
+					sb.append("<tr>");
+					sb.append("<th id=\"uid\">아이디</th>");
+					sb.append("<th id=\"bar\">회원활동</th>");
+
+					sb.append("</tr>");
+					for(int j = 0 + z; j < 15*(i+1); j++) {
+						if(j < ListMemberBean.size()) {
+							mb = ListMemberBean.get(j);
+							sb.append("<tr>");
+							sb.append("<td id=\"user\">" + mb.getId() + "</td>");
+							sb.append("<td class=\"see\">" + "<input id=\"submit\" type=\"button\" value=\"정지\" onClick=\"userDelete(\'" + mb.getId() + "\')\" />" + "</td>");
+							sb.append("</tr>");
+						}else {
+							break;
+						}
+						z = j + 1;
+					}
+					sb.append("</table>");
+				}
+				MemberList = sb.toString();
+				mav.addObject("listSize", ListMemberBean.size()/15);
+				mav.addObject("MemberList", MemberList);
+				mav.addObject("type", session.getAttribute("type"));
+				//종
 				mav.setViewName("adminmain");
 			}else {
 				mav.setViewName("home");

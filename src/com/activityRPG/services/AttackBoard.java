@@ -229,8 +229,6 @@ public class AttackBoard extends TranEx {
 			sb.append("<tr>");
 			sb.append("<td class=\"contents\" colspan=\"3\">" + boardBean.getAttackBoardContents() + "</td>");
 			sb.append("</tr>");
-			sb.append("<tr>");
-			sb.append("</tr>");
 			sb.append("</table>");
 			
 			mav.addObject("attackBoardContentsView", sb.toString());
@@ -240,7 +238,6 @@ public class AttackBoard extends TranEx {
 			e.printStackTrace();
 		}
 
-		
 		mav.setViewName("attackBoardContents");
 
 		return mav;
