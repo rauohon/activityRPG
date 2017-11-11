@@ -306,7 +306,7 @@ public class ReportBoard extends TranEx{
 		try {
 			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 
-			boardBean.setReportBoardUserId((String)pju.getAttribute("userId"));
+			boardBean.setReportBoardUserId((String)pju.getAttribute("id"));
 			dao.reportBoardMake(boardBean);
 			
 			transaction = true;
