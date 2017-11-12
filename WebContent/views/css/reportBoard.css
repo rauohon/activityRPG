@@ -107,6 +107,7 @@ $stroke-step: 7%;
 	.boardClass table {
 	width:100%;
 	margin:15px 0
+	
 	}
 	.boardClass th {
 	background-color:#1E90FF;
@@ -119,6 +120,7 @@ $stroke-step: 7%;
 	padding:4px;
 	border:1px solid #dddddd;
 	border-collapse:collapse
+
 	}
 	.boardClass tr:nth-child(odd){
 	background-color:#b4dafe;

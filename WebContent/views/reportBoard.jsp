@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/css/reportBoard.css"/>
+<link rel="stylesheet" type="text/css" href="/css/backGround.css"/>
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -13,23 +13,26 @@
 <title>Report Board</title>
 </head>
 <script>
-	var userType = ${userType };
-	function init(){
-		var userType = "${userType}";
-		if(userType==2){
-			 $("#nomar_user").css("display","none");
-			 $("#admin_user").css("display","");
-		}else{
-			$("#nomar_user").css("display","");
-			$("#admin_user").css("display","none");
-		}
-		 var input = document.createElement("input");
-		 input.type = "button";
-		 input.value = "게시글 작성";
-		 input.setAttribute("onClick", "reportBoardMakeFormMove()");
-		 input.setAttribute("class", "see");
-		 
-		 document.getElementById("divOption").appendChild(input);
+function init(){
+	var userType = "${userType}";
+    if(userType == ""){
+       
+    }else{
+        var input = document.createElement("input");
+        input.type = "button";
+        input.value = "게시글 작성";
+        input.setAttribute("onClick", "reportBoardMakeFormMove()");
+        input.setAttribute("class", "writeButton");
+        document.getElementById("divOption").appendChild(input);
+    }
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+	
 		var i;
 		var listSize = ${listSize };
 		for(i = 0; i <= listSize; i++){
@@ -119,6 +122,43 @@
 		background-color:white;
 		outline:none;
 	}
+	body {
+	background-color: #2c3338;
+}
+
+div#div0 {
+	display: block;
+}
+
+table.boardClass {
+	border-collapse: collapse;
+	text-align: left;
+	line-height: 1.5;
+	border-top: 1px solid #ccc;
+	border-left: 3px solid #369;
+	margin: 20px 10px;
+}
+
+table.boardClass th {
+	width: 147px;
+	padding: 5px 10px;
+	font-weight: bold;
+	vertical-align: top;
+	color: white;
+	background: linear-gradient(to right, #2c3338, #475660);
+}
+
+table.boardClass td {
+	width: 349px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	padding: 10px;
+	vertical-align: top;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	color: white;
+}
 </style>
 <body onLoad='init()'>
 <%@ include file="nav.jsp"%>

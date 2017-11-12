@@ -403,27 +403,23 @@ public class GuildBoard extends TranEx  {
 	 * @return type : String
 	 */
 	private String guildBoardList(BoardBean bean) {
-		System.out.println(bean.getGbStep() + "if문 진입전");
 		StringBuffer sb = new StringBuffer();
 		if(bean.getGbStep() <= 1) {
-			System.out.println("오버라이트 확인");
 			bean.setGbStep(1);
 			bean.setGbIndent(10);
-		}else if(bean.getGbStep() == 2){
-			bean.setGbStep(11);
-			bean.setGbIndent(20);
+		}else if(bean.getGbStep() >= 2){
+			bean.setGbStep(bean.getGbStep()+((bean.getGbStep()-1)*9));
+			bean.setGbIndent(bean.getGbStep()+9);
 		}
-		System.out.println(bean.getGbStep() + " :: 까꿍");
 		List<BoardBean> gBoardList = dao.getGuildBoardList(bean);
 		sb.append("<table><thead><tr><th>글 번호</th><th>작성자</th><th style=\'width: 50%;\'>글 제목</th><th>작성일</th><th>조회수</th></tr></thead><tbody>");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		int totalCount = dao.getGuildBoardCount(bean);
 		int countList = 10;
 		int totalPage = totalCount / countList;
-		if(totalPage / countList >0) {
+		if(totalCount / countList >0) {
 			totalPage++;
 		}
-		
 		for(int i=0 ; i< gBoardList.size();i++) {
 			sb.append("<tr><td>");
 			sb.append(gBoardList.get(i).getGbCode());

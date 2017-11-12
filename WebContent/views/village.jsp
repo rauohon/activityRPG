@@ -119,7 +119,7 @@ function init(){
 					<button class='button' onClick="movePage('questall','QuestAll','POST')"  style='height: 100px; width: 39%; margin-left: 1%;'>퀘스트</button>
 			</div>
 			<div id='go_guild'>
-				<button class='button' style='height: 100px; width: 79.5%; margin-top: 1%;'>길드</button>
+				<button class='button' onClick="movePage('guild','Guild','POST')" style='height: 100px; width: 79.5%; margin-top: 1%;'>길드</button>
 			</div>
 			<div id='go_dungeon'>
 				<button class='button' onClick="movePage('dungeonpage','DungeonPage','POST')" style='height: 100px; width: 79.5%; margin-top: 1%;'>탐험</button>
@@ -129,7 +129,7 @@ function init(){
 				<button onClick="EnhanceShopMove()" class='button' style='height: 100px; width: 39%; margin-left: 1%;  margin-top: 1%;'>대장간</button>
 			</div>
 			<div id='go_ranking'>
-				<button class='button' style='height: 100px; width: 79.5%; margin-top: 1%;'>랭킹</button>
+				<button class='button' onClick="movePage('ranking','Ranking','POST')" style='height: 100px; width: 79.5%; margin-top: 1%;'>랭킹</button>
 			</div>
 				<form id="fixForm"></form>
 		</div>

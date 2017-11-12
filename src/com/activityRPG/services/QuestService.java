@@ -37,19 +37,19 @@ public class QuestService extends TranEx{
 
 		switch(questCode) {
 
-		case 61:
+		case 61://퀘스트 리스트 출력
 			mav = questAll();
 			break;
-		case 62:
+		case 62://퀘스트 받기
 			mav = questAdd((GameBean)object[0]);
 			break;
-		case 63:
+		case 63://퀘스트 확인
 			mav = questCheck((GameBean)object[0]);
 			break;
-		case 64: 
+		case 64://퀘스트 보상
 			mav = questPresent((GameBean)object[0]);
 			break;
-		case 65: 
+		case 65://내 퀘스트 리스트 출력
 			mav = myQuestList();
 			break;
 		}
@@ -236,7 +236,6 @@ public class QuestService extends TranEx{
 			for(int i = 0; i < listMyQuest.size(); i++) {
 				sb.append("<tr>");
 				sb.append("<td>" + listMyQuest.get(i).getMyquestCode() + "</td>");
-				sb.append("<td>" + listMyQuest.get(i).getUserId() + "</td>");
 				sb.append("<td>" + listMyQuest.get(i).getCharacterName() + "</td>");
 				sb.append("<td>" + listMyQuest.get(i).getQuestTitle() + "</td>");
 				sb.append("<td>" + listMyQuest.get(i).getQuestContents() + "</td>");
@@ -258,10 +257,10 @@ public class QuestService extends TranEx{
 		List<GameBean> listMyQuest = null;
 		List<GameBean> ListGameBean = null;
 		String myQuestList = null;
-		
 		try {
 			GameBean gameBean = new GameBean();
-			gameBean.setCharacterName(pju.getAttribute("characterName").toString()); //빈에 캐릭터 이름 저장
+			gameBean.setUserId((String)pju.getAttribute("id"));//유저 아이디 불러오기
+			gameBean.setCharacterName((String)pju.getAttribute("characterName")); //빈에 캐릭터 이름 저장
 
 				listMyQuest = dao.myQuestList(gameBean);
 				StringBuffer sb = new StringBuffer();
@@ -269,7 +268,6 @@ public class QuestService extends TranEx{
 				for(int i = 0; i < listMyQuest.size(); i++) {
 					sb.append("<tr>");
 					sb.append("<td>" + listMyQuest.get(i).getMyquestCode() + "</td>");
-					sb.append("<td>" + listMyQuest.get(i).getUserId() + "</td>");
 					sb.append("<td>" + listMyQuest.get(i).getCharacterName() + "</td>");
 					sb.append("<td>" + listMyQuest.get(i).getQuestTitle() + "</td>");
 					sb.append("<td>" + listMyQuest.get(i).getQuestContents() + "</td>");
@@ -322,7 +320,6 @@ public class QuestService extends TranEx{
 				for(int i = 0; i < listMyQuest.size(); i++) {
 					sb.append("<tr>");
 					sb.append("<td>" + listMyQuest.get(i).getMyquestCode() + "</td>");
-					sb.append("<td>" + listMyQuest.get(i).getUserId() + "</td>");
 					sb.append("<td>" + listMyQuest.get(i).getCharacterName() + "</td>");
 					sb.append("<td>" + listMyQuest.get(i).getQuestTitle() + "</td>");
 					sb.append("<td>" + listMyQuest.get(i).getQuestContents() + "</td>");
@@ -349,7 +346,7 @@ public class QuestService extends TranEx{
 					sb.append("<td>" + gameBean.getQuestCode() + "</td>");
 					sb.append("<td>" + gameBean.getQuestTitle() + "　퇴치</td>");
 					sb.append("<td>" + gameBean.getQuestContents() + "골드</td>");
-					sb.append("<td><input type = \"button\" value=\"받기\" onClick=\"Add("+ gameBean.getQuestCode() +")\"></td>");
+					sb.append("<td><input class=\"questButton\" type = \"button\" value=\"받기\" onClick=\"Add("+ gameBean.getQuestCode() +")\"></td>");
 					sb.append("</tr>");
 				}
 				sb.append("</table>");

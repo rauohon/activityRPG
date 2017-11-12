@@ -976,6 +976,7 @@
 	<!-- 종 -->
 	
 	<!-- 한광수 -->
+	<!-- 신고게시판 리스트 출력 -->
 	<select id="reportBoardList" resultMap="reportBoardMap">
 		SELECT * FROM REPORTBOARD ORDER BY RB_CODE DESC
 	</select>
@@ -991,32 +992,31 @@
 		<result property="reportBoardStep" column="RB_STEP" javaType="java.lang.Integer" />
 		<result property="reportBoardIndent" column="RB_INDENT" javaType="java.lang.Integer" />
 	</resultMap>
-	
+	<!-- 신고게시판 글작성 -->
 	<insert id="reportBoardMake" parameterType="BoardBean">
 		INSERT INTO REPORTBOARD VALUES(REPORTBOARD_SEQ.NEXTVAL, #{reportBoardTitle}, #{reportBoardContents}, DEFAULT, 0, 0, 0, 0 ,#{reportBoardUserId})
 	</insert>
-
-	
+	<!-- 신고게시판 내용 -->
 	<select id="reportBoardContents" parameterType="BoardBean" resultMap="reportBoardMap">
 		SELECT * FROM REPORTBOARD WHERE RB_CODE = #{reportBoardCode}
 	</select>
-	
+	<!-- 신고게시판 조회수 -->
 	<update id="reportBoardHitUp" parameterType="BoardBean">
 		UPDATE REPORTBOARD SET RB_HIT = #{reportBoardHit} WHERE RB_CODE = #{reportBoardCode}
 	</update>
-	
+	<!-- 신고게시판 수정 -->
 	<update id="reportBoardModify" parameterType="BoardBean">
 		UPDATE REPORTBOARD SET RB_TITLE = #{reportBoardTitle}, RB_CONTENT = #{reportBoardContents} WHERE RB_CODE = #{reportBoardCode}
 	</update>
-	
+	<!-- 신고게시판 삭제 -->
 	<delete id="reportBoardDelete" parameterType="BoardBean">
 		DELETE FROM REPORTBOARD WHERE RB_CODE = #{reportBoardCode} 
 	</delete>
-	
+	<!-- 신고게시판 아이디검색 -->
 	<select id="reportBoardSearchId" resultMap="reportBoardMap">
 		SELECT * FROM REPORTBOARD WHERE RB_MBID LIKE #{reportBoardUserId} ORDER BY RB_CODE DESC
 	</select>
-	
+	<!-- 신고게시판 제목검색 -->
 	<select id="reportBoardSearchTitle" resultMap="reportBoardMap">
 		SELECT * FROM REPORTBOARD WHERE RB_TITLE LIKE #{reportBoardTitle} ORDER BY RB_CODE DESC
 	</select>
@@ -1027,8 +1027,7 @@
 		<result property="myquestCode" column="MQ_CODE" javaType="java.lang.Integer" />
 		<result property="characterName" column="MQ_CHNAME" javaType="java.lang.String" />
 		<result property="userId" column="MQ_MBID" javaType="java.lang.String" />
-		<result property="sussess" column="MQ_SUSSESS" javaType="java.lang.String" />
-		
+		<result property="sussess" column="MQ_SUSSESS" javaType="java.lang.String" />	
 	</resultMap>
 	<select id="questList" resultMap="GameMap">
 		SELECT * FROM QUEST ORDER BY QUE_CODE
