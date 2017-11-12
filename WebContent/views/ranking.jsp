@@ -148,18 +148,12 @@ function init(){
 		color:silver;
 	}
 	.rankingList{
-		margin-top:50px;
+		margin-top:10%;
 		text-align:center;
 	
 	}
 	.rankingList th{
 		font-size:22px;
-	}
-	.ranking{
-		margin-top:10%;
-		margin-left:30%;
-		width:400px;
-		height:500px;
 	}
 </style>
 	<div class="ranking">
