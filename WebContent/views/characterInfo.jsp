@@ -63,8 +63,15 @@
 		
 		f.submit();
 	} 
-</script>
-<script>
+	function changeimageform(){
+		var string = "<form id='fileUpload' action='CharaImgFileUpload' method='post' enctype='multipart/form-data'><input class='button' type='file' name='upLoadFile' /> <input type='button' class='button' onclick='changeimage()' value='제출'>	</form>"
+				$("#ajax_div").append(string);
+	}
+	function changeimage(){
+		var f = $("#fileUpload")
+		alert($("input[name=fileName]").val());
+		f.submit();
+	}
 function init(){
 	var userType = "${userType}";
 	if(userType==2){
@@ -79,17 +86,29 @@ function init(){
 <style>
 	table{
 	           text-align: center;
-	}
+	}	
+.button {
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.button:hover {
+	border: 3px solid #f68a6f;
+	background: #f68a6f;
+}
 </style>
 </head>
 <body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
 	<div id='wraper' style="padding-top: 60px;">
+		
 		<div id='charaInfo' style='float: left; width:40%; margin-left: 2%; margin-right: 2%;'>
 			<div id='charaPhoto' style='float: left; width:50%; color: white;'>
-				<h4>캐릭터 사진</h4>
-				<img alt="테스트" src="images/skull_Icon.png" width="50%" height="50%">
-<%-- 				${characterImage } --%>
+				<h1><a href='BackPage' class='button'>뒤로가기</a></h1>
+				<img alt="캐릭터사진" src="${characterImage }" width="50%" height="50%">
+				<button class="button" onClick="changeimageform()">사진 변경</button>
 			</div>
 			<div id='charaGeneInfo' style="color: white;">
 				<h4>캐릭터 이름 : ${chName }</h4>
@@ -167,10 +186,8 @@ function init(){
 				${ehanceItemList }
 			</div>
 		</div>
-		<h3 style="text-align: right;"><a href='BackPage'>뒤로</a></h3>
 		<div id='ajax_div' style="color: white;" >${msg}</div>
-	</div>
-	
+	</div>	
 	<form id="fixForm"></form>
 </body>
 </html>

@@ -76,6 +76,12 @@ public interface IMBatisDao {
 	public List<BoardBean> freeTitleComment(BoardBean board);		//자유게시판 글 타이틀 조회
 	/*↑ 전지원*/
 	/*↓ 신태휘*/
+	public int setCharaImage(GameBean bean);					// 캐릭터 사진 최초 삽입
+	
+	public int setCharaImageUdate(GameBean bean);					// 캐릭터 사진 업데이트
+	
+	public GameBean getCharaImage(GameBean bean);						// 캐릭터 사진 주소 가져오기
+	
 	public GameBean getCharacterStatus(GameBean bean);				// 캐릭터 능력치 조회
 
 	public GameBean getEquipList(Map<String, String> map);			// 캐릭터 장비 조회

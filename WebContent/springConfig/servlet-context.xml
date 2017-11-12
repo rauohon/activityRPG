@@ -30,9 +30,11 @@
 	<beans:bean id="chatWebSocketHandler"
 		class="com.activityRPG.controller.WebSocketController" />
 
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 	<websocket:handlers>
 		<websocket:mapping handler="chatWebSocketHandler" path="/chat-ws" />
 	</websocket:handlers>
+	
 	
  <!-- Session Interceptor 거의 완료 단계에서 작동시켜야 됩니다 -->
 <!--  	<interceptors> -->

@@ -1,13 +1,19 @@
 package com.activityRPG.services;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.activityRPG.beans.GameBean;
@@ -38,36 +44,39 @@ public class GameNomalService extends TranEx {
 	 * @Method Name : entrance
 	 * @return type : ModelAndView
 	 */
-	public ModelAndView entrance(int i, Object bean) {		
+	public ModelAndView entrance(int i, Object... bean) {		
 
 		switch(i) {
 
 		case 0:
-			mav = backPage((GameBean)bean);
+			mav = backPage((GameBean)bean[0]);
 			break;
 		case 1:
-			mav = villagePage((GameBean)bean);
+			mav = villagePage((GameBean)bean[0]);
 			break;
 		case 2:
-			mav = questPage((GameBean)bean);
+			mav = questPage((GameBean)bean[0]);
 			break;
 		case 3:
-			mav = guildPage((GameBean)bean);
+			mav = guildPage((GameBean)bean[0]);
 			break;
 		case 4:
-			mav = dungeonPage((GameBean)bean);
+			mav = dungeonPage((GameBean)bean[0]);
 			break;
 		case 5:
-			mav = characterInfoPage((GameBean)bean);
+			mav = characterInfoPage((GameBean)bean[0]);
 			break;			
 		case 6:
-			mav = itemInfo((GameBean)bean);
+			mav = itemInfo((GameBean)bean[0]);
+			break;
+		case 7:
+			mav = charaImageFileUpload((GameBean)bean[0], (HttpServletRequest)bean[1],  (HttpSession)bean[2]);
 			break;
 		case 41: //캐릭터 생성 폼 이동
-			mav = characterCreateFormMove((GameBean)bean);	
+			mav = characterCreateFormMove((GameBean)bean[0]);	
 			break;
 		case 42: //캐릭터 생성
-			mav = characterCreate((GameBean)bean);	
+			mav = characterCreate((GameBean)bean[0]);	
 			break;
 		case 66: //랭킹 출력
 			mav = ranking();
@@ -76,21 +85,58 @@ public class GameNomalService extends TranEx {
 			mav = guild();
 			break;
 		case 68: //길드 생성
-			mav = guildCreate((GameBean)bean);
+			mav = guildCreate((GameBean)bean[0]);
 			break;
 		case 69: //길드 가입
-			mav = guildJoinMove((GameBean)bean);
+			mav = guildJoinMove((GameBean)bean[0]);
 			break;
 		case 70: //길드 탈퇴
 			mav = guildOut();
 			break;
 		case 71: //길드 멤버리스트
-			mav = guildMemberMove((GameBean)bean);
+			mav = guildMemberMove((GameBean)bean[0]);
 			break;
 		}
 
 		return mav;
 
+	}
+
+	/**
+	 * 처리내용 : 
+	 * 작성일 : 2017. 11. 12.
+	 * 작성자 : 신태휘
+	 * @Method Name : charaImageFileUpload
+	 * @return type : ModelAndView
+	 */
+	private ModelAndView charaImageFileUpload(GameBean bean, HttpServletRequest request,
+			HttpSession httpsession) {
+		mav.setViewName("home");
+		httpsession =	request.getSession();	
+		String fname = "";
+		MultipartFile uploadfile = bean.getUpLoadFile();
+		try {
+		bean.setId(session.getAttribute("id").toString());
+		fname = bean.getId() + uploadfile.getOriginalFilename();
+		
+		if(fname.equals("")) {
+			bean.setFileName(null);
+		}else {
+			bean.setFileName(fname);			
+			
+				uploadfile.transferTo(new File("C:\\Users\\rnjde\\Documents\\activityRPG\\WebContent\\views\\images\\" + fname));
+																			//파일 경로 변경 필요!!
+				if(dao.setCharaImageUdate(bean) != 0) {
+					System.out.println("/images/"+fname);
+					mav = characterInfoPage(bean);					
+				}
+			
+		}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		
+		return mav;
 	}
 
 	/**
@@ -413,10 +459,12 @@ public class GameNomalService extends TranEx {
 	 * @return type : String
 	 */
 	private String characterImage(GameBean bean) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("사진이 출력 됩니다.");
-
-		return sb.toString();
+		String sb = "";
+		bean = dao.getCharaImage(bean);
+		
+		sb = bean.getChImagePath()+bean.getChImageName();
+		
+		return sb;
 	}
 
 	/**
@@ -607,10 +655,12 @@ public class GameNomalService extends TranEx {
 						if(dao.characterSkill1(gameBean) == 1) { //캐릭터 스킬1 생성
 							if(dao.characterSkill2(gameBean) == 1){ //캐릭터 스킬2 생성
 								if(dao.characterSkill3(gameBean) == 1) { //캐릭터 스킬3 생성
-									mav.setViewName("home");
-									mav.addObject("message", "*캐릭터를 생성했습니다. 게임시작 버튼을 눌러주세요.");
-									//트랜잭션 커밋
-									setTransactionResult(true);
+									if(dao.setCharaImage(gameBean) != 0) {// 캐릭터 이미지 삽입(신태휘)
+										mav.setViewName("home");
+										mav.addObject("message", "*캐릭터를 생성했습니다. 게임시작 버튼을 눌러주세요.");
+										//트랜잭션 커밋
+										setTransactionResult(true);										
+									}
 								}
 							}
 						}
@@ -855,11 +905,10 @@ public class GameNomalService extends TranEx {
 				rankingList = dao.rankingListView();
 				StringBuffer sb = new StringBuffer();
 				sb.append("<table class=\"rankingList\">");
-				sb.append("<tr>");
-				sb.append("<th>순위</th><th>이름</th><th>레벨</th><th>경험치</th><th>힘</th><th>민첩</th><th>지능</th>");
+				sb.append("<thead><tr>");
+				sb.append("<th>순위</th><th>이름</th><th>레벨</th><th>경험치</th><th>힘</th><th>민첩</th><th>지능</th></thead>");
 				sb.append("</tr>");
 				for(int i=0; i < rankingList.size(); i++) {
-					sb.append("<tr class=\"ranking" + i + "\">");
 					sb.append("<tr>");
 					sb.append("<td>"+ (i+1) +"</td>");
 					sb.append("<td>" + rankingList.get(i).getRankingName()+"</td>");

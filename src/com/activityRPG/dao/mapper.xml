@@ -224,7 +224,7 @@
 		AND
 					AT_LOG = 1		
 	</select>
-<!-- 	AT_LOGDATE <= TO_DATE('2017/11/08','YYYY/MM/DD') AND AT_LOGDATE > TO_DATE('2017/11/07','YYYY/MM/DD') -->
+
 	<!-- 	어제 활동량 가져오기 -->
 	<select id="getYesterdayAct" parameterType="actBean" resultType='actBean'>
 		<![CDATA[SELECT 
@@ -319,7 +319,22 @@
 	<select id="getCharaName" parameterType="boardBean" resultType="String">
 		SELECT CH_NAME AS chName FROM USER_CHARACTER WHERE CH_MBID=#{id}
 	</select>
+
+	<!-- 캐릭터 최초 사진 넣기 -->
+	<insert id="setCharaImage" parameterType="boardBean" >
+		INSERT INTO CHARACTER_IMAGE (CI_CHNAME, CI_CHMBID, CI_CODE, CI_PATH) 
+		VALUES (#{characterName}, #{id}, 'skull_Icon.png', 'images/')
+	</insert>
+
+	<!-- 캐릭터 사진 가져오기 -->
+	<select id="getCharaImage" parameterType="gameBean" resultType="gameBean">
+		SELECT CI_PATH as chImagePath, CI_CODE as chImageName FROM CHARACTER_IMAGE WHERE CI_CHNAME = #{chName}
+	</select>
 	
+	<!-- 캐릭터 사진 업데이트 -->
+	<update id="setCharaImageUdate" parameterType="gameBean">
+		UPDATE CHARACTER_IMAGE SET CI_CODE = #{fileName} WHERE CI_CHMBID = #{id}
+	</update>
 
 	<!-- 캐릭터 능력치 가져오기 -->
 	<select id="getCharacterStatus" parameterType="gameBean"
