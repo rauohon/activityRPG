@@ -56,15 +56,3 @@ function onOpen(evt){
 function onClose(evt){
 	console.log("웹 소켓에 연결 해제");
 }
-
-//서버에서 메시지가 왔을 때 호출되는 함수
-function onMessage(evt){
-	//서버가 전송한 메시지 가져오기
-	var data = evt.data;
-	var jobIndex = data.split(",");
-	//메시지를 출력
-	if(jobIndex[0]=="0"){
-	$('#chatEveryUserMsgArea').append(jobIndex[1] + "<br />");
-	}else if(jobIndex[0]=="1")
-		$('#chatGuildUserMsgArea').append(jobIndex[1] + "<br />");
-}

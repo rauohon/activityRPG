@@ -16,6 +16,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.activityRPG.beans.BoardBean;
 import com.activityRPG.beans.GameBean;
 import com.activityRPG.beans.MemberBean;
 import com.activityRPG.dao.IMBatisDao;
@@ -578,6 +579,11 @@ public class GameNomalService extends TranEx {
 
 		return mav;
 	}
+	
+	private String guildChat(GameBean bean, String guildCode) {
+		String sb = "<div id=\'" + guildCode + "\'></div>"; 
+		return sb;
+	}
 
 	/**
 	 * 처리내용 : 1. villagePage 호출
@@ -592,6 +598,12 @@ public class GameNomalService extends TranEx {
 			if(session.getAttribute("id") != null) { // 로그인 여부 확인
 				bean.setId(session.getAttribute("id").toString());
 				if(dao.characterIdCheck(bean) == 1) { // 캐릭터 존재 유무 확인
+					BoardBean boardBean = new BoardBean();
+					boardBean.setId(bean.getId());
+					if(dao.getUserIsGuildCheck(boardBean) != 0) {
+						mav.addObject("guildCode",String.valueOf(dao.getGuildCode(boardBean)));
+						mav.addObject("guildChat", guildChat(bean, String.valueOf(dao.getGuildCode(boardBean))));
+					}
 					session.setAttribute("characterName", dao.getCharacterName(session.getAttribute("id").toString()));
 					session.setAttribute("page", "village");
 					mav.setViewName("village");

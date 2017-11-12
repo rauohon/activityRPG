@@ -26,10 +26,11 @@
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/chat.js"></script>
 <script src="/js/common.js"></script>
+<script src="/js/chat.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+		var guildcode = '${guildCode}';
 		var nickName = $("<input />");
 		nickName.attr("type", "hidden");
 		nickName.attr("value", '${id}');
@@ -50,8 +51,7 @@
 				$("#chatEveryUserArea").css({
 					"display" : "none"
 				});
-			}
-			;
+			};
 		});
 	});
 	function movePage(formName, actionName, method) {
@@ -66,17 +66,13 @@
 		$("#fixForm").append(i);
 
 		f.submit();
-	}
-	
-	
+	}	
 	
 	function EnhanceShopMove(){
 		createForm("EnhanceShopMoveForm", "EnhanceShop", "get");
 		var form = document.getElementsByName("EnhanceShopMoveForm")[0];
 		form.submit();
 	}
-</script>
-<script>
 function init(){
 	var userType = "${userType}";
 	if(userType==2){
@@ -85,6 +81,22 @@ function init(){
 	}else{
 		$("#nomar_user").css("display","");
 		$("#admin_user").css("display","none");
+	}
+}
+
+//서버에서 메시지가 왔을 때 호출되는 함수
+function onMessage(evt){
+	//서버가 전송한 메시지 가져오기
+	var data = evt.data;
+	var jobIndex = data.split(",");
+	
+	//메시지를 출력
+	if(jobIndex[0]=="0"){
+	$('#chatEveryUserMsgArea').append(jobIndex[1] + "<br />");
+	}else if(jobIndex[0]=="1"){
+		if('${guildCode}' != null){
+			$('#${guildCode}').append(jobIndex[1] + "<br />");		
+		}
 	}
 }
 </script>
@@ -100,7 +112,9 @@ function init(){
 			</div>
 			<div id="chatGuildUserArea" style="border: 1px solid black; height:600px;">
 				<h4>길드 채팅</h4>
-				<div id="chatGuildUserMsgArea"></div>
+				<div id="chatGuildUserMsgArea">
+					${guildChat}
+				</div>
 			</div>
 			<div id='chatTalkArea' style='height: 75px;'>
 			<p style='text-align: center;'>
