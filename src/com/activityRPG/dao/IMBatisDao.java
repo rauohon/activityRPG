@@ -74,6 +74,12 @@ public interface IMBatisDao {
 	public int freeTitlefine(BoardBean board);						//자유게시판 글 타이틀 조회
 
 	public List<BoardBean> freeTitleComment(BoardBean board);		//자유게시판 글 타이틀 조회
+	
+	public List<BoardBean> eventBoardList (BoardBean board);		//이벤트게시판 리스트
+	
+	public int eventInsert(BoardBean board);						//이벤트게시판 글 저장
+
+	public BoardBean eventBoardContent(BoardBean board);			//이벤트게시판 내용 보기
 	/*↑ 전지원*/
 	/*↓ 신태휘*/
 	public GameBean getCharacterStatus(GameBean bean);				// 캐릭터 능력치 조회

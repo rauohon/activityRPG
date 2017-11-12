@@ -16,15 +16,21 @@ function total(formname, action, method){
 	relationObj("accessForm", "id");
 	relationObj("characterinfo", "id");
 	relationObj("guildboardpage", "id");
+	relationObj("eventBoardListForm", "id");
 	form.submit();
 }
 	
 	//회원 관리
 	function userCheck() {
 		createForm("userCheckForm", "userCheck", "post");
-
 		var form = document.getElementsByName("userCheckForm")[0];
-
+		form.submit();
+	}
+	
+	//이벤트 게시판
+	function eventBoardList() {
+		createForm("eventBoardListForm", "eventBoardList", "post");
+		var form = document.getElementsByName("eventBoardListForm")[0];
 		form.submit();
 	}
 	//**************************김훈****************************
@@ -55,9 +61,9 @@ function total(formname, action, method){
 	}
 	//**************************김종인****************************
 	//한광수
-	function reportBoardMove(){
+	function reportBoardMove() {
 		createForm("reportBoardForm", "ReportBoard", "post");
-	
+
 		var form = document.getElementsByName("reportBoardForm")[0];
 		form.submit();
 	}
@@ -75,6 +81,7 @@ function total(formname, action, method){
 					<li><button onClick="total('guildboardpage', 'GuildBoardPage', 'get')" id="bar">길드게시판</button></li>
 					<li><button onClick="total('freeBoardForm', 'freeBoard', 'post')" id="bar">자유게시판</button></li>
 					<li><input type="button" value="공지사항 게시판" onClick="newsBoardMove()"  id="bar" /></li>
+					<li><button onClick="total('eventBoardListForm', 'eventBoardList', 'post')" id="bar">이벤트 관리</button></li>
 					<li><input type="button" value="공략 게시판" onClick="attackBoardMove()" id="bar" /></li>
 					<li><input type="button" value="신고 게시판" onClick="reportBoardMove()" id="bar" /></li>
 				</ul>
@@ -86,7 +93,7 @@ function total(formname, action, method){
 			<li><button onClick="total('mainForm', 'adminMain', 'post')" id="bar">MAIN PAGE</button></li>
 			<li><input type="button" value="회원 관리" onClick="userCheck()"  id="bar" /></li>
 			<li><input type="button" value="공지사항 관리" onClick="newsBoardMove()"  id="bar" /></li>
-			<li><button onClick="total('', '', 'post')" id="bar">이벤트 관리</button></li>
+			<li><button onClick="total('eventBoardListForm', 'eventBoardList', 'post')" id="bar">이벤트 관리</button></li>
 			<li><button onClick="total('', '', 'post')" id="bar">1대1문의 관리</button></li>
 			<li><button id="bar">게시판 관리</button>
 				<ul>

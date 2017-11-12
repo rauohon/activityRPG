@@ -13,6 +13,7 @@ import com.activityRPG.services.GuildBoard;
 import com.activityRPG.services.NewsBoard;
 import com.activityRPG.services.ReportBoard;
 import com.activityRPG.services.AttackBoard;
+import com.activityRPG.services.EventBoard;
 import com.activityRPG.services.FreeBoard;
 
 /**
@@ -27,6 +28,8 @@ public class BoardController {
 	private GuildBoard gBoard;
 	@Autowired
 	private FreeBoard fb;
+	@Autowired
+	private EventBoard eventboard;
 	@Autowired
 	private NewsBoard newsBoard;
 	@Autowired
@@ -190,14 +193,14 @@ public class BoardController {
 	//회원 메인 게시판 리스트(자유)
 	@RequestMapping(value="/freeBoard", method = RequestMethod.POST)
 	public ModelAndView freeBoardList(@ModelAttribute BoardBean board) throws Exception {
-		System.out.println("MemberController :: 메인 게시판 리스트(자유)");
+		System.out.println("BoardController :: 메인 게시판 리스트(자유)");
 		mav = fb.entrance(1, board);
 		return mav;
 	}
 	
 	@RequestMapping(value="/freeBoardContent", method = RequestMethod.POST)
 	public ModelAndView freeBoardContent(@ModelAttribute BoardBean board) throws Exception {
-		System.out.println("MemberController :: 자유 게시판 내용 보기");
+		System.out.println("BoardController :: 자유 게시판 내용 보기");
 		mav = fb.entrance(2, board);
 		return mav;
 	}
@@ -205,7 +208,7 @@ public class BoardController {
 	//회원 메인 게시판(자유)
 	@RequestMapping(value="/freeInsertPage", method = RequestMethod.POST)
 	public ModelAndView freeBoardInsertPage(@ModelAttribute BoardBean board) throws Exception {
-		System.out.println("MemberController :: 자유 게시판 글쓰기 페이지");
+		System.out.println("BoardController :: 자유 게시판 글쓰기 페이지");
 		mav = fb.entrance(3, board);
 		return mav;
 	}
@@ -221,7 +224,7 @@ public class BoardController {
 	//자유게시판 글 삭제
 	@RequestMapping(value="/freeBoardDelete", method = RequestMethod.POST)
 	public ModelAndView freeBoardDelete(@ModelAttribute BoardBean board) throws Exception {
-		System.out.println("MemberController :: 자유 게시판 글 삭제");
+		System.out.println("BoardController :: 자유 게시판 글 삭제");
 		mav = fb.entrance(5, board);
 		return mav;
 	}
@@ -229,7 +232,7 @@ public class BoardController {
 	//자유게시판 글 수정 페이지
 	@RequestMapping(value="/freeUpdate", method = RequestMethod.POST)
 	public ModelAndView freeUpdate(@ModelAttribute BoardBean board) throws Exception {
-		System.out.println("MemberController :: 자유 게시판 글 수정 페이지");
+		System.out.println("BoardController :: 자유 게시판 글 수정 페이지");
 		mav = fb.entrance(6, board);
 		return mav;
 	}
@@ -237,7 +240,7 @@ public class BoardController {
 	//자유게시판 글 수정 올리기
 	@RequestMapping(value="/freeUpdateCheck", method = RequestMethod.POST)
 	public ModelAndView freeUpdateCheck(@ModelAttribute BoardBean board) throws Exception {
-		System.out.println("MemberController :: 자유 게시판 글 수정 올리기");
+		System.out.println("BoardController :: 자유 게시판 글 수정 올리기");
 		mav = fb.entrance(7, board);
 		return mav;
 	}
@@ -253,19 +256,42 @@ public class BoardController {
 	//자유게시판 글 제목 찾기
 	@RequestMapping(value="/freeTitleFine", method = RequestMethod.POST)
 	public ModelAndView freeTitleFine(@ModelAttribute BoardBean board) throws Exception {
-		System.out.println("MemberController :: 자유 게시판 글 제목 찾기");
+		System.out.println("BoardController :: 자유 게시판 글 제목 찾기");
 		mav = fb.entrance(9, board);
 		return mav;
 	}
 	
-/*	@RequestMapping(value="/listCmt", method={RequestMethod.GET, RequestMethod.POST})
-    public String listCmt(String no, ModelMap map) {
-          List listCmt = dao.getListCmt(no);
-          map.put("listCmt", listCmt);
-          return "reboard/listCmt";
-    }
-	*/
+	//이벤트 게시판 리스트
+	@RequestMapping(value="/eventBoardList", method = RequestMethod.POST)
+	public ModelAndView eventBoardList(@ModelAttribute BoardBean board) throws Exception {
+		System.out.println("BoardController :: 이벤트 게시판 리스트");
+		mav = eventboard.entrance(1, board);
+		return mav;
+	}
 	
+	//이벤트 게시판 글 작성
+	@RequestMapping(value="/eventBoardInsert", method = RequestMethod.POST)
+	public ModelAndView eventBoardInsert(@ModelAttribute BoardBean board) throws Exception {
+		System.out.println("BoardController :: 이벤트 게시판 글 작성");
+		mav = eventboard.entrance(2, board);
+		return mav;
+	}
+
+	//이벤트 게시판 글 등록
+	@RequestMapping(value="/eventInsert", method = RequestMethod.POST)
+	public ModelAndView eventInsert(@ModelAttribute BoardBean board) throws Exception {
+		System.out.println("BoardController :: 이벤트 게시판 글 등록");
+		mav = eventboard.entrance(3, board);
+		return mav;
+	}
+	
+	//이벤트 게시판 글 상세보기
+	@RequestMapping(value="/eventBoardContent", method = RequestMethod.POST)
+	public ModelAndView eventBoardContent(@ModelAttribute BoardBean board) throws Exception {
+		System.out.println("BoardController :: 이벤트 게시판 글 상세보기");
+		mav = eventboard.entrance(4, board);
+		return mav;
+	}
 	//****************김훈********************
 	@RequestMapping(value = "/NewsBoard", method = RequestMethod.POST)
 	public ModelAndView newsBoardMove() {
