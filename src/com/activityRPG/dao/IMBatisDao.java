@@ -135,6 +135,10 @@ public interface IMBatisDao {
 	public int setItemDisArmStatus(GameBean bean);					// 아이템 사용후 캐릭터 능력치 업데이트
 
 	public String getCharaName(BoardBean bean);					// 캐릭터 이름 불러오기
+	
+	public int getUserIsGuildCheck(BoardBean bean);							// 길드 가입 여부 확인
+	
+	public int getGuildCode(BoardBean bean);							// 길드 코드 가져오기
 
 	public List<BoardBean> getGuildBoardList(BoardBean bean);		// 길드 보드의 리스트 불러오기
 

@@ -120,14 +120,15 @@ $(document).ready(function() {
 					            borderColor: 'rgb(162, 54, 235, 1)',
 					            borderWidth: 1,
 					           data:[dataArray[3].step]
-					        }
-					// 			{
-					//         	label:dataArray[4].date,
-					//         	backgroundColor: 'rgba(255, 255, 132,1)',
-					//             borderColor: 'rgb(54, 162, 235, 1)',
-					//             borderWidth: 1,
-					//            data:[dataArray[4].step]
-					//         },{
+					        },
+								{
+					        	label:dataArray[4].date,
+					        	backgroundColor: 'rgba(255, 255, 132,1)',
+					            borderColor: 'rgb(54, 162, 235, 1)',
+					            borderWidth: 1,
+					           data:[dataArray[4].step]
+					        },
+					// 				{
 					//         	label:dataArray[5].date,
 					//         	backgroundColor: 'rgba(255, 255, 132,1)',
 					//             borderColor: 'rgb(54, 162, 235, 1)',
@@ -172,8 +173,8 @@ $(document).ready(function() {
 							      ticks: {
 						    	  		fontColor:"white",
 								        min: 0,
-								        max: 20,
-								        stepSize: 5
+								        max: 30,
+								        stepSize: 10
 								      }
 							    }],
 							  }
@@ -211,13 +212,14 @@ $(document).ready(function() {
 					            borderWidth: 1,
 					           data:[dataArray[3].floor]
 					        },
-					//         {
-					//         	label:dataArray[4].date,
-					//         	backgroundColor: 'rgba(255, 255, 132,1)',
-					//             borderColor: 'rgb(54, 162, 235, 1)',
-					//             borderWidth: 1,
-					//            data:[dataArray[4].floor]
-					//         },{
+					        {
+					        	label:dataArray[4].date,
+					        	backgroundColor: 'rgba(255, 255, 132,1)',
+					            borderColor: 'rgb(54, 162, 235, 1)',
+					            borderWidth: 1,
+					           data:[dataArray[4].floor]
+					        },
+// 					{
 					//         	label:dataArray[5].date,
 					//         	backgroundColor: 'rgba(255, 255, 132,1)',
 					//             borderColor: 'rgb(54, 162, 235, 1)',
@@ -304,13 +306,14 @@ $(document).ready(function() {
 					            borderWidth: 1,
 					           data:[dataArray[3].exp]
 					        },
-					//         {
-					//         	label:dataArray[4].date,
-					//         	backgroundColor: 'rgba(255, 255, 132,1)',
-					//             borderColor: 'rgb(54, 162, 235, 1)',
-					//             borderWidth: 1,
-					//            data:[dataArray[4].exp]
-					//         },{
+					        {
+					        	label:dataArray[4].date,
+					        	backgroundColor: 'rgba(255, 255, 132,1)',
+					            borderColor: 'rgb(54, 162, 235, 1)',
+					            borderWidth: 1,
+					           data:[dataArray[4].exp]
+					        },
+// 					        {
 					//         	label:dataArray[5].date,
 					//         	backgroundColor: 'rgba(255, 255, 132,1)',
 					//             borderColor: 'rgb(54, 162, 235, 1)',

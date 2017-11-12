@@ -222,9 +222,6 @@ public class GuildBoard extends TranEx  {
 			map.put("reply", "-----------------------------\n");
 			map.put("content", bean.getGbContent());
 			map.put("wdate", sdf.format(bean.getGbWDate()));
-			map.put("gbGroup",String.valueOf(bean.getGbGroup()));
-			map.put("gbStep", String.valueOf(bean.getGbStep()));
-			map.put("gbIndent", String.valueOf(bean.getGbIndent()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -249,10 +246,7 @@ public class GuildBoard extends TranEx  {
 				mav.addObject("gbTitle",map.get("title"));
 				mav.addObject("reply",map.get("reply"));
 				mav.addObject("content",map.get("content"));
-				mav.addObject("hit",map.get("hit"));
-				mav.addObject("gbGroup",map.get("gbGroup"));
-				mav.addObject("gbStep",map.get("gbStep"));
-				mav.addObject("gbIndent",map.get("gbIndent"));				
+				mav.addObject("hit",map.get("hit"));	
 			}else {
 				mav.addObject("msg", "타인의 글은 수정하실수 없어요");
 			}
@@ -422,7 +416,7 @@ public class GuildBoard extends TranEx  {
 		}
 		for(int i=0 ; i< gBoardList.size();i++) {
 			sb.append("<tr><td>");
-			sb.append(gBoardList.get(i).getGbCode());
+			sb.append(i+1);
 			sb.append("</td><td>");
 			sb.append(gBoardList.get(i).getChName());
 			sb.append("</td><td onClick='readGboard(\""+ gBoardList.get(i).getGbCode() +"\")'>");
@@ -451,17 +445,18 @@ public class GuildBoard extends TranEx  {
 	 */
 	private ModelAndView guildBoardPage(BoardBean bean) {
 		// 로그인 여부 확인
+		mav.setViewName("home");
 		try {
 			if(session.getAttribute("id") != null) {
 				bean.setId(session.getAttribute("id").toString());
-				bean.setChName(dao.getCharaName(bean));
-				System.out.println(bean.getGbStep() + "모델엔뷰");
-				session.setAttribute("chName", bean.getChName());
-				mav.addObject("boards", guildBoardList(bean));
-				mav.setViewName("guildBoard");
-				session.setAttribute("page", "guildBoard");
-			}else {
-				mav.setViewName("home");
+				if(dao.getUserIsGuildCheck(bean) != 0) {
+					bean.setChName(dao.getCharaName(bean));
+					bean.setGbGuCode(dao.getGuildCode(bean));
+					session.setAttribute("chName", bean.getChName());
+					mav.addObject("boards", guildBoardList(bean));
+					mav.setViewName("guildBoard");
+					session.setAttribute("page", "guildBoard");					
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

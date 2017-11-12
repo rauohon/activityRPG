@@ -46,8 +46,6 @@ public class BoardController {
 	@RequestMapping(value="/GuildBoardPage", method = RequestMethod.GET)
 	private ModelAndView backPage(@ModelAttribute BoardBean bean) {
 
-		System.out.println(bean.getGbStep() + " :: controller");
-		
 		mav=gBoard.entrance(0, bean);
 		
 		return mav;

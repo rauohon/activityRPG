@@ -140,8 +140,8 @@
 				      ticks: {
 			    	  		fontColor:"white",
 					        min: 0,
-					        max: 20,
-					        stepSize: 5
+					        max: 30,
+					        stepSize: 10
 					      }
 				    }],
 				  }

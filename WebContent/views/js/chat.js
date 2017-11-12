@@ -9,9 +9,9 @@ $(function(){
 	//입장 버튼을 클릭했을 때 이벤트 처리 $(document).ready(function()
 	$(document).ready(function(){
 		//웹 소켓 연결
-		websocket = new WebSocket("ws://192.168.0.237:8000/chat-ws");
+		websocket = new WebSocket("ws://192.168.0.237:8181/chat-ws");
 		//웹 소켓 이벤트 처리
-
+		alert("환영합니다.~!");
 		websocket.onopen = onOpen;
 		websocket.onmessage = onMessage;
 		websocket.onclose = onClose;

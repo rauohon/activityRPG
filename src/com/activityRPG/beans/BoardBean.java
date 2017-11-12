@@ -32,8 +32,8 @@ public class BoardBean {
 	private String gbContent;	//길드 게시판 글내용
 	private Date gbWDate;		//길드 게시판 글 작성일
 	private Date gbMDate;		//길드 게시판 글 수정일
+	private int gbGuCode; 		//길드 코드
 	private int gbHit;				//길드 게시판 조회수
-	private int gbGroup;		//길드 게시판 글 그룹
 	private int gbStep;			//길드 게시판 step
 	private int gbIndent;		//길드 게시판 들여쓰기
 	private String gbReplyContent ; // 길드 게시판 댓글 달기
@@ -283,11 +283,11 @@ public class BoardBean {
 	public void setGbHit(int gbHit) {
 		this.gbHit = gbHit;
 	}
-	public int getGbGroup() {
-		return gbGroup;
+	public int getGbGuCode() {
+		return gbGuCode;
 	}
-	public void setGbGroup(int gbGroup) {
-		this.gbGroup = gbGroup;
+	public void setGbGuCode(int gbGuCode) {
+		this.gbGuCode = gbGuCode;
 	}
 	public int getGbStep() {
 		return gbStep;

@@ -319,6 +319,7 @@
 	<select id="getCharaName" parameterType="boardBean" resultType="String">
 		SELECT CH_NAME AS chName FROM USER_CHARACTER WHERE CH_MBID=#{id}
 	</select>
+	
 
 	<!-- 캐릭터 능력치 가져오기 -->
 	<select id="getCharacterStatus" parameterType="gameBean"
@@ -327,8 +328,7 @@
 		chExp,
 		CH_HP as chHp, CH_MP as chMp, CH_STR as chStr,
 		CH_DEX as chDex, CH_INT as chInt, CH_ATTACK as chAttack,
-		CH_DEFENSE as
-		chDefense,
+		CH_DEFENSE as	chDefense,
 		CH_GOLD as chGold
 		FROM USER_CHARACTER WHERE CH_MBID=#{id}
 	</select>
@@ -464,6 +464,17 @@
 		WHERE
 		CH_NAME=#{chName}
 	</update>
+	
+	<!-- 길드 가입 여부 확인하기 -->
+	<select id="getUserIsGuildCheck" parameterType="gameBean" resultType="Integer">
+		SELECT COUNT(*) FROM GUILD 
+		WHERE GU_CODE = (SELECT CH_GUCODE FROM USER_CHARACTER WHERE CH_MBID =#{id})
+	</select>
+	
+	<!-- 길드코드가져오기 -->
+	<select id="getGuildCode" parameterType="gameBean" resultType="Integer">
+		SELECT CH_GUCODE FROM USER_CHARACTER WHERE CH_MBID =#{id}
+	</select>
 
 	<!-- 길드보드 리스트 가져오기 -->
 	<select id="getGuildBoardList" parameterType="boardBean"
@@ -473,14 +484,14 @@
     		(SELECT rownum as rnum, gb_code, gb_mbid, gb_title, gb_wdate, gb_hit, gb_name
     		FROM 
        			 (SELECT gb_code, gb_mbid, gb_title, gb_wdate, gb_hit, gb_name
-        		FROM GUILDBOARD ORDER BY GB_WDATE DESC)
+        		FROM GUILDBOARD WHERE GB_GUCODE = #{gbGuCode} ORDER BY GB_WDATE DESC)
     		GUILDBOARD)
 		WHERE rnum <= #{gbIndent} and rnum >= #{gbStep}]]>
 	</select>
 	
 	<!-- 길드보드 총 게시글 수 가져오기 -->
 	<select id="getGuildBoardCount" parameterType="boardBean" resultType="Integer">
-		SELECT COUNT(*) GB_CODE FROM GUILDBOARD
+		SELECT COUNT(*) GB_CODE FROM GUILDBOARD  WHERE GB_GUCODE = #{gbGuCode}  
 	</select>
 
 	<!-- 길드보드 내용 가져오기 -->
@@ -489,7 +500,6 @@
 		SELECT GB_CODE AS gbCode, GB_MBID AS "ID", GB_TITLE AS
 		GBTITLE,
 		GB_CONTENT AS GBCONTENT, GB_WDATE AS GBWDATE, GB_HIT AS GBHIT,
-		GB_GROUP AS gbGroup, GB_STEP AS gbStep, GB_INDENT as gbIndent,
 		GB_MDATE AS gbMdate, GB_NAME AS CHNAME
 		FROM GUILDBOARD WHERE GB_CODE=#{gbCode}
 	</select>
@@ -504,8 +514,8 @@
 	<insert id="setGuildBoardWrite" parameterType="boardBean">
 		INSERT INTO
 		GUILDBOARD
-		(GB_CODE,GB_CONTENT,GB_GROUP,GB_HIT,GB_INDENT,GB_MBID,GB_MDATE,GB_NAME,GB_STEP,GB_TITLE,GB_WDATE)
-		VALUES(GBOARD_SEQ.nextval,#{gbContent},DEFAULT,DEFAULT,DEFAULT,#{id},null,#{chName},DEFAULT,#{gbTitle},DEFAULT)
+		(GB_CODE,GB_CONTENT,GB_HIT,GB_MBID,GB_MDATE,GB_NAME,GB_TITLE,GB_WDATE)
+		VALUES(GBOARD_SEQ.nextval,#{gbContent},DEFAULT,#{id},null,#{chName},#{gbTitle},DEFAULT)
 	</insert>
 
 	<!-- 길드보드 글 삭제하기 -->
@@ -553,9 +563,6 @@
 		<result property="gbWDate" column="GB_WDATE" javaType="java.util.Date" />
 		<result property="gbMDate" column="GB_MDATE" javaType="java.util.Date" />
 		<result property="gbHit" column="GB_HIT" javaType="java.lang.Integer" />
-		<result property="gbGroup" column="GB_GROUP" javaType="java.lang.Integer" />
-		<result property="gbStep" column="GB_STEP" javaType="java.lang.Integer" />
-		<result property="gbIndent" column="GB_INDENT" javaType="java.lang.Integer" />
 	</resultMap>
 	<!-- ↑ 신태휘 -->
 
