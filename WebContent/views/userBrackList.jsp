@@ -56,9 +56,9 @@
 	function userRestart(id){
 	      alert(id);
 	      createForm("userRestartForm", "userRestart", "post");
-	      var form = document.getElementsByName("userDeleteForm")[0];
+	      var form = document.getElementsByName("userRestartForm")[0];
 	
-	      /* 리스트에서 삭제시켜줄 회원 */
+	      /* 리스트에서  복귀시켜줄 회원 */
 	      var user = document.createElement("input");
 	      user.type = "hidden";
 	      user.name = "id";

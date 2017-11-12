@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/adminpage.css" media="screen" type="text/css" />
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="js/common.js"></script>
@@ -38,18 +37,13 @@ function init(){
 		$("#nomar_user").css("display","");
 		$("#admin_user").css("display","none");
 	}
-	
-	if (state != "") {
-		login.style.display = "block";
-	} else {
-		login.style.display = "none";
-	}
 }
 </script>
 </head>
 <body onLoad=init()>
 	
 	<%@ include file="nav.jsp"%>
+	<link rel="stylesheet" href="css/adminpage.css" media="screen" type="text/css" />
 	<!-- <div class="contents"> -->
 	<div style="padding-top: 70px; padding-left: 50px;">	
 	<h3 id="login">로그인 된 관리자 페이지 입니다.</h3>

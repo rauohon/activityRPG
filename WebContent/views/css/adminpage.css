@@ -7,7 +7,7 @@ body {
 
 #delete {
 	margin-top: 70px;
-    margin-left: 80px;
+    margin-left: 8em;
     border: 1px solid #475660;
 }
 
@@ -41,21 +41,20 @@ body {
 #login {
 	color: #fff;
     margin-left: 78%;
-        margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 /* 로그아웃 버튼 */
 #logout {
-    font-size: 1em;
-	border: 1px solid transparent;
-	background: #3b4148;
-	color: #fafafa;
-	border-radius: 5px;
-	box-sizing: border-box;
-	margin: 10px;
-	padding: 5px;
-	width:120px;
-	margin-left: 70em;
+    background-color: #f47757;
+    margin-top: 5px;
+    margin-left: 70em;
+    padding: 4px 15px;
+    border-radius: 5px;
+    border: 1px solid #f47757;
+    width: 100px;
+    color: #fff;
+    font-size: 15px;
 }
 
 /* 회원 정지 버튼 */
@@ -93,4 +92,20 @@ body {
 	width: 170px; 
 	color:#fff;
 	font-size: 15px;
+}
+
+/* 정지, 복귀 회원 */
+#list {
+	font-size: 1em;
+    border: 1px solid transparent;
+    background: #3b4148;
+    color: #fafafa;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin: 10px;
+    padding: 5px;
+    width: 150px;
+    height: 40px;
+    margin-left: 35em;
+    margin-top: 20px;
 }
