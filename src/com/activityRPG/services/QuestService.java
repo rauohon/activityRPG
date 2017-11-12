@@ -257,8 +257,8 @@ public class QuestService extends TranEx{
 		List<GameBean> listMyQuest = null;
 		List<GameBean> ListGameBean = null;
 		String myQuestList = null;
+		GameBean gameBean = new GameBean();
 		try {
-			GameBean gameBean = new GameBean();
 			gameBean.setUserId((String)pju.getAttribute("id"));//유저 아이디 불러오기
 			gameBean.setCharacterName((String)pju.getAttribute("characterName")); //빈에 캐릭터 이름 저장
 

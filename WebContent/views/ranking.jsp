@@ -35,15 +35,14 @@
 	}
 	.rankingList td{
 		font-size:20px;
+		color:white;
 		
 	}
 	.ranking{
-		background-image:url("/images/rankingListPhoto.png");
-		background-repeat:no-repeat;
-		background-size:100% 100%;
 		margin-top:260px;
 		margin-left:450px;
 		width:400px;
+		height:500px;
 	}
 	.backButton{
 		margin-left:500px;
@@ -54,9 +53,6 @@
 <body>
 	<div class="ranking">
 	${rankingList }
-	</div>
-	<div>
-	<input class="backButton" type="button" value="뒤로가기" onClick="back()">
 	</div>
 </body>
 

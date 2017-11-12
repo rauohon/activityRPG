@@ -69,7 +69,7 @@ var SuccessCheck = null;
 		color:white;
 	}
 	.questTable td{
-		padding:10px 30px;
+		padding:5px 20px;
 	}
 	.questButton{
 		margin-left:290px;
@@ -103,7 +103,7 @@ function init(){
 		/* background-attachment:fixed; */
 	}
 	</style>
-	<div id='wraper' style="padding-top: 60px;">
+	<div id='wraper' style="padding-top: 90px;">
 	<div>
 	<h1>퀘스트 목록</h1>
 	</div>

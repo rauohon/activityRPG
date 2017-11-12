@@ -134,9 +134,8 @@ table.boardClass {
 	border-collapse: collapse;
 	text-align: left;
 	line-height: 1.5;
-	border-top: 1px solid #ccc;
-	border-left: 3px solid #369;
-	margin: 20px 10px;
+	
+	margin: 10px 20px;
 }
 
 table.boardClass th {
@@ -145,7 +144,7 @@ table.boardClass th {
 	font-weight: bold;
 	vertical-align: top;
 	color: white;
-	background: linear-gradient(to right, #2c3338, #475660);
+	background: linear-gradient(to right, #2c3338, #660033);
 }
 
 table.boardClass td {
@@ -155,10 +154,13 @@ table.boardClass td {
 	white-space: nowrap;
 	padding: 10px;
 	vertical-align: top;
-	border-right: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
+	
 	color: white;
 }
+	.number{
+		margin-left:50px;
+	
+	}
 </style>
 <body onLoad='init()'>
 <%@ include file="nav.jsp"%>

@@ -1036,15 +1036,19 @@
 		<result property="userId" column="MQ_MBID" javaType="java.lang.String" />
 		<result property="sussess" column="MQ_SUSSESS" javaType="java.lang.String" />	
 	</resultMap>
+	<!-- 퀘스트 리스트  -->
 	<select id="questList" resultMap="GameMap">
 		SELECT * FROM QUEST ORDER BY QUE_CODE
 	</select>
+	<!-- 캐릭터 네임 가져오기 -->
 	<select id="characterName" parameterType="GameBean" resultType="String">
 		SELECT CH_NAME FROM USER_CHARACTER WHERE CH_MBID = #{userId}
 	</select>
+	<!-- 퀘스트 받기 -->
 	<insert id="questAdded" parameterType="GameBean">
 		INSERT INTO MYQUEST VALUES(#{userId}, #{myquestCode}, #{characterName}, 0)
 	</insert>
+	<!-- 내 퀘스트 목록 -->
 	<select id="myQuestList" parameterType="GameBean" resultMap="myQuestMap">
 		SELECT MQ_QUECODE, MQ_CHMBID, MQ_CHNAME, MQ_SUSSESS, QUE_TITLE, QUE_CONTENT FROM MYQUESTVIEW where MQ_CHNAME = #{characterName} ORDER BY QUE_CODE
 	</select>
@@ -1056,35 +1060,39 @@
 		<result property="questContents" column="QUE_CONTENT" javaType="java.lang.String" />
 		<result property="myquestCode" column="MQ_QUECODE" javaType="java.lang.Integer" />
 	</resultMap>
+	<!-- 퀘스트 확인 -->
 	<delete id="questCheck" parameterType="GameBean">
 		DELETE FROM MYQUEST WHERE MQ_QUECODE = #{myquestCode} 
 	</delete>
+	<!-- 유저 골드 가져오기 -->
 	<select id ="userGold" parameterType="GameBean" resultType="Integer">
 		SELECT CH_GOLD FROM USER_CHARACTER WHERE CH_NAME = #{characterName} 
 	</select>
+	<!-- 퀘스트 경험치 가져오기 -->
 	<select id ="questExp" parameterType="GameBean" resultType="Integer">
 		SELECT QUP_EXP FROM QUESTPRIZE WHERE QUP_QUECODE = #{questPrizeCode}
 	</select>
+	<!-- 퀘스트 골드 가져오기 -->
 	<select id ="questGold" parameterType="GameBean" resultType="Integer">
 		SELECT QUP_GOLD FROM QUESTPRIZE WHERE QUP_QUECODE = #{questPrizeCode}
 	</select>
-	
+	<!-- 퀘스트 보상 코드확인 -->
 	<select id ="questPizCode" parameterType="GameBean" resultType="String">
 		SELECT * FROM QUESTPRIZE where QUP_QUECODE = #{myquestCode}
 	</select>
-	
+	<!-- 유저 경험치 가져오기 -->
 	<select id ="userExp" parameterType="GameBean" resultType="Integer">
 		SELECT CH_EXP FROM USER_CHARACTER WHERE CH_NAME = #{characterName}
 	</select>
-	
+	<!-- 유저에게 퀘스트 골드 추가 -->
 	<update id ="updateGold" parameterType="GameBean">
 		UPDATE USER_CHARACTER SET CH_GOLD = #{updateGold} WHERE CH_NAME = #{characterName}
 	</update>
-	
+	<!-- 유저에게 퀘스트 경험치 추가 -->
 	<update id="updateExp" parameterType="GameBean">
 		UPDATE USER_CHARACTER SET CH_EXP = #{updateExp} WHERE CH_NAME = #{characterName}
 	</update>
-	
+	<!-- 퀘스트코드 확인 -->
 	<select id ="questCodeCheck" parameterType="GameBean" resultType="Integer">
 		SELECT COUNT(*) FROM MYQUEST WHERE MQ_QUECODE = #{myquestCode}
 	</select>
@@ -1097,7 +1105,7 @@
 		<result property="rankingDex" column="CH_DEX" javaType="java.lang.Integer" />
 		<result property="rankingInt" column="CH_INT" javaType="java.lang.Integer" />
 	</resultMap>
-	
+	<!-- 랭킹 -->
 	<select id="rankingListView" resultMap="rankingMap">
 		SELECT CH_NAME,CH_LEVEL,CH_EXP,CH_STR,CH_DEX,CH_INT FROM USER_CHARACTER ORDER BY CH_EXP DESC
 	</select>
@@ -1109,35 +1117,35 @@
 		<result property="guildMenLevel" column="GU_GLCODE" javaType="java.lang.Integer" />
 		<result property="guildPreNum" column="GU_PRENUM" javaType="java.lang.Integer" />
 	</resultMap>
-	
+	<!-- 길드 리스트 -->
 	<select id="guildList" resultMap="guildMap">
 		SELECT GU_NAME, GU_TOTALNUM, GU_PRENUM FROM GUILD ORDER BY GU_CODE DESC
 	</select>
-	
+	<!-- 길드 생성 -->
 	<insert id="guildCreate" parameterType="GameBean">
 		INSERT INTO GUILD VALUES(GUILD_SEQ.NEXTVAL, #{guildName}, 50 , '1', 1)
 	</insert>
-
+	<!-- 유저 길드 업데이트 -->
 	<update id="userGuildupdate" parameterType="GameBean">
 		UPDATE USER_CHARACTER SET CH_GUCODE = #{guildCode}, CH_GLCODE = '1' WHERE CH_NAME = #{characterName}
 	</update>
-	
+	<!-- 유저 길드 체크 -->
 	<select id="userGuildCheck" parameterType="GameBean" resultType="String">
 		SELECT CH_GLCODE FROM USER_CHARACTER WHERE CH_NAME= #{characterName}
 	</select>
-	
+	<!-- 길드 이름 가져오기 -->
 	<select id="guildNameCheck" parameterType="GameBean" resultType="Integer">
 		SELECT COUNT(*) FROM GUILD WHERE GU_NAME = #{guildName}
 	</select>
-	
+	<!-- 길드 코드 가져오기 -->
 	<select id="guildCodeGet" parameterType="GameBean" resultType="Integer">
 		SELECT GU_CODE FROM GUILD WHERE GU_NAME = #{guildName}
 	</select>
-	
+	<!-- 길드 생성시 골드 감소 -->
 	<update id="guildDec" parameterType="GameBean">
 		UPDATE USER_CHARACTER SET CH_GOLD = #{updateGold} WHERE CH_NAME = #{characterName}
 	</update>
-	
+	<!-- 유저 길드 가입 -->
 	<update id="userGuildJoin" parameterType="GameBean">
 		UPDATE USER_CHARACTER SET CH_GUCODE = #{guildCode}, CH_GLCODE = '2' WHERE CH_NAME = #{characterName}
 	</update>
@@ -1152,9 +1160,11 @@
 		<result property="level" column="CH_LEVEL" javaType="java.lang.Integer" />
 		<result property="guildMenLevel" column="CH_GLCODE" javaType="java.lang.Integer" />
 	</resultMap>
+	<!-- 길드 멤버 리스트 -->
 	<select id="guildMemberListView" parameterType="GameBean" resultMap="guildMemberListMap">
 		SELECT GU_NAME, CH_NAME, CH_LEVEL, CH_GLCODE FROM GUILDMEMBERLIST WHERE GU_CODE= #{guildCode} ORDER BY CH_GLCODE 
 	</select>
+	<!-- 길드 직위 확인 -->
 	<select id="guildlevelNameView"	parameterType="GameBean" resultType="String">
 		SELECT GL_NAME FROM GUILDLEVEL WHERE GL_CODE = #{guildMenLevel}
 	</select>
