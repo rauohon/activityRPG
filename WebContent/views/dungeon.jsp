@@ -7,6 +7,19 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+   <style>
+   .button {
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.button:hover {
+	border: 3px solid #f68a6f;
+	background: #f68a6f;
+}
+   </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="js/common.js"></script>
 <script>
@@ -72,21 +85,21 @@ function init(){
 		<div id='dungeonImage' style='border:1px solid black;'>${dungeonImage }</div>
 		<div id='dungeonTeleport' style="margin-top:30%; padding-left:15%; float: left;">
 			<div style=" float: left;">
-				<button onClick="total('gameForm', 'GameForm', 'post')" style='height: 150px; width: 200px;'>마을로 이동</button>
+				<button class='button' onClick="total('gameForm', 'GameForm', 'post')" style='height: 150px; width: 200px;'>마을로 이동</button>
 			</div>
-				<button onClick="total('characterinfo', 'CharacterInfo', 'get')" style='height: 70px; margin-left: 20px; width: 120px;'>캐릭터 정보</button><br/>
-				<button style='height: 70px; margin-top:10px; margin-left: 20px; width: 120px;'>퀘스트 정보</button>
+				<button class='button' onClick="total('characterinfo', 'CharacterInfo', 'get')" style='height: 70px; margin-left: 20px; width: 120px;'>캐릭터 정보</button><br/>
+				<button class='button' onClick="total('myquestlist','MyQuestList','POST')"  style='height: 70px; margin-top:10px; margin-left: 20px; width: 120px;'>퀘스트 정보</button>
 		</div>
 		<div id='dungeonController' style="margin-top:30%; margin-left:60%">
 			<div id = 'dungeonConFront' style="margin-left:30%;">
-				<button name='moveValue' value="2" style='border-radius: 50%; height: 50px; width: 60px;'>▲</button><br/>
+				<button class='button' name='moveValue' value="2" style='border-radius: 50%; height: 50px; width: 60px;'>▲</button><br/>
 			</div>
 			<div id='dungeonConLefRigh' style="margin-left:18%;">
-				<button name='moveValue' value='4' style='border-radius: 50%; height: 50px; width: 60px;'>◀</button>
-				<button name='moveValue' value='5' style='border-radius: 50%; height: 50px; width: 60px;margin-left: 13.8%;'>▶</button><br/>
+				<button class='button' name='moveValue' value='4' style='border-radius: 50%; height: 50px; width: 60px;'>◀</button>
+				<button class='button' name='moveValue' value='5' style='border-radius: 50%; height: 50px; width: 60px;margin-left: 13.8%;'>▶</button><br/>
 			</div>
 			<div id='dungeonConAfter' style="margin-left:30%;">
-				<button name='moveValue' value='3' style='border-radius: 50%; height: 50px; width: 60px;'>▼</button>
+				<button class='button' name='moveValue' value='3' style='border-radius: 50%; height: 50px; width: 60px;'>▼</button>
 			</div>
 		</div>
 	</div>

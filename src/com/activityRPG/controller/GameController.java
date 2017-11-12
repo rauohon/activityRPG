@@ -1,11 +1,13 @@
 package com.activityRPG.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.activityRPG.beans.BattleBean;
@@ -13,8 +15,6 @@ import com.activityRPG.beans.GameBean;
 import com.activityRPG.services.GameNomalService;
 import com.activityRPG.services.GamePlayService;
 import com.activityRPG.services.QuestService;
-import com.activityRPG.utils.ProjectUtils;
-import com.google.gson.Gson;
 
 /**
  * @클래스명 : GameController
@@ -136,7 +136,15 @@ public class GameController {
 		mav = gn.entrance(6, gameBean);
 		
 		return mav;
-	}	
+	}
+	
+	@RequestMapping(value="/CharaImgFileUpload", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	private ModelAndView charaImgFileUpload(@ModelAttribute GameBean gameBean, HttpServletRequest request, HttpSession session) {
+		
+		mav = gn.entrance(7, gameBean, request, session);
+		
+		return mav;
+	}
 
 	/**
 	 * 처리내용 : 각 상점 페이지 연결

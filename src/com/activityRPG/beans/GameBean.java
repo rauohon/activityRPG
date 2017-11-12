@@ -1,6 +1,7 @@
 package com.activityRPG.beans;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @클래스명 : GameBean
@@ -14,6 +15,8 @@ public class GameBean {
 	private String chName;
 	private String id;
 	private String chGender;
+	private String chImagePath;
+	private String chImageName;
 	private int chLevel;
 	private int chExp;
 	private int chHp;
@@ -40,6 +43,8 @@ public class GameBean {
 	private int eqShoe;
 	private int eqRing;
 	private int eqNecklace;
+	private MultipartFile upLoadFile;
+	private String fileName;
 	/*↑ 신태휘*/
 	
 	//*****************************김훈********************************
@@ -875,5 +880,39 @@ public class GameBean {
 	public void setEqNecklace(int eqNecklace) {
 		this.eqNecklace = eqNecklace;
 	}
+
+	public String getChImageName() {
+		return chImageName;
+	}
+
+	public void setChImageName(String chImageName) {
+		this.chImageName = chImageName;
+	}
+
+	public String getChImagePath() {
+		return chImagePath;
+	}
+
+	public void setChImagePath(String chImagePath) {
+		this.chImagePath = chImagePath;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public MultipartFile getUpLoadFile() {
+		return upLoadFile;
+	}
+
+	public void setUpLoadFile(MultipartFile upLoadFile) {
+		this.upLoadFile = upLoadFile;
+	}
+
+
 
 }

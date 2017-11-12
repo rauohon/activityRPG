@@ -51,15 +51,15 @@ public class FreeBoard extends TranEx {
 		case 4:
 			mav = freeboardinsert((BoardBean)object[0]);
 			break;
-			//자유게시판 글 등록
+			//자유게시판 글 삭제
 		case 5:
 			mav = freeboarddelete((BoardBean)object[0]);
 			break;
-			//자유게시판 글 등록
+			//자유게시판 글 수정
 		case 6:
 			mav = freeboardupdate((BoardBean)object[0]);
 			break;
-			//자유게시판 글 등록
+			//자유게시판 글 수정 등록
 		case 7:
 			mav = freeupdatecheck((BoardBean)object[0]);
 			break;
@@ -288,7 +288,6 @@ public class FreeBoard extends TranEx {
 		System.out.println("service :: 자유게시판 글 등록하기");
 
 		try {
-			//session.setAttribute("id", board.getId());
 			if(session.getAttribute("id") != null) {
 				if(dao.freeInsert(board) != 0) {
 					System.out.println("데이터베이스에 게시글 저장함.");

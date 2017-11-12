@@ -102,8 +102,20 @@ function init(){
 		overflow:hidden;
 		/* background-attachment:fixed; */
 	}
+		.button {
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.button:hover {
+	border: 3px solid #f68a6f;
+	background: #f68a6f;
+}
 	</style>
-	<div id='wraper' style="padding-top: 90px;">
+	<div id='wraper' style="padding-top: 60px;">
+		<a href='BackPage' class='button'>뒤로가기</a>
 	<div>
 	<h1>퀘스트 목록</h1>
 	</div>

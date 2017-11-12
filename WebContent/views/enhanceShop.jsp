@@ -63,7 +63,17 @@ function init(){
 }
 </script>
 <style>
-	
+		.button {
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.button:hover {
+	border: 3px solid #f68a6f;
+	background: #f68a6f;
+}
 </style>
 <body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
@@ -76,6 +86,7 @@ function init(){
 		}
 	</style>
 	<div id='wraper' style="padding-top: 60px;">
+	<a href='BackPage' class='button'>뒤로가기</a>
 		<div id="message">
 			${message }
 		</div>

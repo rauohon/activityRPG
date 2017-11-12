@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/adminpage.css" media="screen" type="text/css" />
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="js/common.js"></script>
@@ -51,6 +50,7 @@ function init(){
 	
 	<%@ include file="nav.jsp"%>
 	<!-- <div class="contents"> -->
+	<link rel="stylesheet" href="css/adminpage.css" media="screen" type="text/css" />
 	<div style="padding-top: 70px; padding-left: 50px;">	
 	<h3 id="login">로그인 된 관리자 페이지 입니다.</h3>
 	

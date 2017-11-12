@@ -16,6 +16,7 @@ import com.activityRPG.dao.IMBatisDao;
 import com.activityRPG.dao.TranEx;
 import com.activityRPG.utils.Encryption;
 import com.activityRPG.utils.ProjectUtils;
+import com.activityRPG.beans.BoardBean;
 import com.activityRPG.beans.MemberBean;
 
 /**
@@ -894,4 +895,37 @@ public class MemberManagement extends TranEx {
 		}
 		return mav;
 	}
+	
+	//공지사항 보여주기
+	/*public ModelAndView newsBoard(BoardBean board) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("sevice :: 공지사항 보여주기");
+		try {
+			mav.addObject("newsList", newsBoardList(board));
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return mav;
+	}*/
+	//공지사항 리스트
+	/*private String newsBoardList(BoardBean board) {
+		StringBuffer sb = new StringBuffer();
+		List<MemberBean> bean = dao.(board);
+		sb.append("<table>");
+		sb.append("<tr>");
+		sb.append("<td>" + "보낸 사람" + "</td>");
+		sb.append("<td>" + "내용" + "</td>");
+		sb.append("<td>" + "날짜" + "</td>");
+		sb.append("</tr>");
+
+		for(int i=0; i<bean.size(); i++) {
+			sb.append("<tr>");
+			sb.append("<td>" + bean.get(i).getMbid() + "</td>");
+			sb.append("<td>" + bean.get(i).getMsgText() + "</td>");
+			sb.append("<td>" + sdf.format(bean.get(i).getDate()) + "</td>");
+			sb.append("<td>" + "<button id=\'del\' onClick=\"sendMessageDelete(\'"+ bean.get(i).getMbid() +"\', \'"+ bean.get(i).getMsgText() +"\')\">" + "삭제" + "</button>" + "</td>");
+			sb.append("</tr>");
+		}
+		return sb.toString();
+	}*/
 }

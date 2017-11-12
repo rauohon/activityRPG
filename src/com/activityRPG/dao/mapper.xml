@@ -123,7 +123,7 @@
 		resultType="Integer">
 		SELECT COUNT(*) FROM MB WHERE MB_TYPE=2 AND MB_ID=#{id}
 	</select>
-
+	
 	<!-- 자유게시판 리스트 -->
 	<select id="freeBoardList" parameterType="com.activityRPG.beans.BoardBean"
 		resultType="com.activityRPG.beans.BoardBean">
@@ -179,6 +179,30 @@
 		SELECT FB_CODE AS code, FB_TITLE AS title, FB_MBID AS id, FB_DATE AS "date"
 		FROM FB WHERE FB_TITLE=#{text} OR FB_MBID=#{text} ORDER BY FB_DATE DESC
 	</select>
+	
+	<!-- 이벤트게시판 리스트 -->
+	<select id="eventBoardList" parameterType="com.activityRPG.beans.BoardBean"
+		resultType="com.activityRPG.beans.BoardBean">
+		SELECT EB_CODE AS code, EB_TITLE AS title, EB_MBID AS id, EB_DATE AS "date" FROM EB ORDER BY EB_DATE DESC
+	</select>
+	
+	<!-- 글 등록 -->
+	<insert id="eventInsert" parameterType="com.activityRPG.beans.BoardBean">
+		INSERT INTO EB(EB_CODE, EB_MBID, EB_DATE, EB_TITLE, EB_CONTENT, EB_HIT, EB_GROUP, EB_STEP, EB_INDENT)
+		VALUES(EB_NUM.NEXTVAL, #{id}, DEFAULT, #{title}, #{content}, DEFAULT, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+
+	<!-- 이벤트게시판 내용 보기 -->
+	<select id="eventBoardContent" parameterType="com.activityRPG.beans.BoardBean"
+		resultType="com.activityRPG.beans.BoardBean">
+		SELECT EB_CODE AS code, EB_MBID AS id, EB_TITLE AS title, EB_CONTENT AS "content", EB_DATE AS "date"
+		FROM EB WHERE EB_CODE=#{code}
+	</select>
+	
+	<!-- 공지사항 리스트 메인페이지에 보여주기 -->
+	<!-- <select id="mainNewsList" parameterType="com.activityRPG.beans.BoardBean" resultType="com.activityRPG.beans.BoardBean">
+		SELECT NB_TITLE FROM NB WHERE NB_CODE=#{code}
+	</select> -->
 <!-- ↑ 전지원 -->
 <!-- ↓ 신태휘 -->
 	<!-- 라즈베리파이 등록전 코드 유무 확인 -->
@@ -224,7 +248,7 @@
 		AND
 					AT_LOG = 1		
 	</select>
-<!-- 	AT_LOGDATE <= TO_DATE('2017/11/08','YYYY/MM/DD') AND AT_LOGDATE > TO_DATE('2017/11/07','YYYY/MM/DD') -->
+
 	<!-- 	어제 활동량 가져오기 -->
 	<select id="getYesterdayAct" parameterType="actBean" resultType='actBean'>
 		<![CDATA[SELECT 
@@ -319,7 +343,22 @@
 	<select id="getCharaName" parameterType="boardBean" resultType="String">
 		SELECT CH_NAME AS chName FROM USER_CHARACTER WHERE CH_MBID=#{id}
 	</select>
+
+	<!-- 캐릭터 최초 사진 넣기 -->
+	<insert id="setCharaImage" parameterType="boardBean" >
+		INSERT INTO CHARACTER_IMAGE (CI_CHNAME, CI_CHMBID, CI_CODE, CI_PATH) 
+		VALUES (#{characterName}, #{id}, 'skull_Icon.png', 'images/')
+	</insert>
+
+	<!-- 캐릭터 사진 가져오기 -->
+	<select id="getCharaImage" parameterType="gameBean" resultType="gameBean">
+		SELECT CI_PATH as chImagePath, CI_CODE as chImageName FROM CHARACTER_IMAGE WHERE CI_CHNAME = #{chName}
+	</select>
 	
+	<!-- 캐릭터 사진 업데이트 -->
+	<update id="setCharaImageUdate" parameterType="gameBean">
+		UPDATE CHARACTER_IMAGE SET CI_CODE = #{fileName} WHERE CI_CHMBID = #{id}
+	</update>
 
 	<!-- 캐릭터 능력치 가져오기 -->
 	<select id="getCharacterStatus" parameterType="gameBean"

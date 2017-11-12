@@ -121,7 +121,7 @@ public class AdminManagement extends TranEx {
 			}
 			sb.append("</table>");
 
-			sb.append("<button onClick=\'stop()\'>" + "정지 된 회원 리스트" + "</button>");
+			sb.append("<button id=\'list\' onClick=\'stop()\'>" + "정지 된 회원 리스트" + "</button>");
 		}
 		return sb.toString();
 	}
@@ -171,7 +171,7 @@ public class AdminManagement extends TranEx {
 			}
 			sb.append("</table>");
 
-			sb.append("<button onClick=\'start()\'>" + "회원 리스트" + "</button>");
+			sb.append("<button id=\'list\' onClick=\'start()\'>" + "회원 리스트" + "</button>");
 		}
 		return sb.toString();
 	}
