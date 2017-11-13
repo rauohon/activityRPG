@@ -96,7 +96,6 @@ function init(){
 		<div class="buttonDiv1">
 			<button onClick="newsBoardModify()" class="button">수정완료</button>
 		</div>
-		
 	</form>
 	<form name="newsBoardContentsForm" action="NewsBoardContentsView" method="post">
 		<input type="hidden" name="newsBoardCode" value="${newsBoardCode }" /> 

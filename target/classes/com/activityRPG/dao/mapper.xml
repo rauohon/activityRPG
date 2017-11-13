@@ -1133,7 +1133,7 @@
 	</update>
 	<!-- 퀘스트코드 확인 -->
 	<select id ="questCodeCheck" parameterType="GameBean" resultType="Integer">
-		SELECT COUNT(*) FROM MYQUEST WHERE MQ_QUECODE = #{myquestCode}
+		SELECT COUNT(*) FROM MYQUEST WHERE MQ_QUECODE = #{myquestCode} AND MQ_CHNAME = #{characterName}
 	</select>
 	
 	<resultMap type="GameBean" id="rankingMap">
