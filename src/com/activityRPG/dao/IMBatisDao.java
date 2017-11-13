@@ -148,6 +148,8 @@ public interface IMBatisDao {
 
 	public String getCharaName(BoardBean bean);					// 캐릭터 이름 불러오기
 	
+	public List<BoardBean> getGuildBoardAdminList(BoardBean bean);	// 관리자 길드보드 리스트 불러오기
+	
 	public int getUserIsGuildCheck(BoardBean bean);							// 길드 가입 여부 확인
 	
 	public int getGuildCode(BoardBean bean);							// 길드 코드 가져오기
@@ -155,6 +157,8 @@ public interface IMBatisDao {
 	public List<BoardBean> getGuildBoardList(BoardBean bean);		// 길드 보드의 리스트 불러오기
 
 	public BoardBean getGuildBoardContent(BoardBean bean);			// 길드 보드 내용 불러오기
+	
+	public int getGuildBoardAdminCount(BoardBean bean);					// 관리자 길드보드 게시글 수
 	
 	public int getGuildBoardCount(BoardBean bean);					// 길드보드 게시글 수
 

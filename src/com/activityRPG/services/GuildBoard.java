@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.activityRPG.beans.BoardBean;
+import com.activityRPG.beans.MemberBean;
 import com.activityRPG.dao.IMBatisDao;
 import com.activityRPG.dao.TranEx;
 import com.activityRPG.utils.ProjectUtils;
@@ -389,6 +390,51 @@ public class GuildBoard extends TranEx  {
 		return mav;
 	}
 	
+	private String guildBoardAdminList(BoardBean bean) {
+		StringBuffer sb = new StringBuffer();
+		if(bean.getGbStep() <= 1) {
+			bean.setGbStep(1);
+			bean.setGbIndent(10);
+		}else if(bean.getGbStep() >= 2){
+			bean.setGbStep(bean.getGbStep()+((bean.getGbStep()-1)*9));
+			bean.setGbIndent(bean.getGbStep()+9);
+		}
+		List<BoardBean> gBoardList = dao.getGuildBoardAdminList(bean);
+		sb.append("<table><thead><tr><th>글 번호</th><th>작성자</th><th style=\'width: 50%;\'>글 제목</th><th>작성일</th><th>조회수</th><th>삭제</th></tr></thead><tbody>");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		int totalCount = dao.getGuildBoardAdminCount(bean);
+		int countList = 10;
+		int totalPage = totalCount / countList;
+		if(totalCount / countList >0) {
+			totalPage++;
+		}
+		System.out.println(totalPage);
+		for(int i=0 ; i< gBoardList.size(); i++) {
+			sb.append("<tr><td>");
+			sb.append(i+1);
+			sb.append("</td><td>");
+			sb.append(gBoardList.get(i).getChName());
+			sb.append("</td><td onClick='readGboard(\""+ gBoardList.get(i).getGbCode() +"\")'>");
+			sb.append(gBoardList.get(i).getGbTitle());
+			sb.append("</td><td>");
+			sb.append(sdf.format((gBoardList.get(i).getGbWDate())));
+			sb.append("</td><td>");
+			sb.append(gBoardList.get(i).getGbHit());
+			sb.append("</td><td>");
+			sb.append("<button>삭제</button>");
+			sb.append("</td></tr>");
+		}
+
+		sb.append("</tbody></table>");
+		sb.append("<div class=\'pageNum\'>");
+		for(int i=1 ; i<=totalPage ; i++) {
+			sb.append("<button onClick=\"guildboardpage2(\'"+ i +"\')\">"+ i +"</button>");
+		}
+		sb.append("</div>");
+		return sb.toString();
+		
+	}	
+	
 	/**
 	 * 처리내용 : 0-1 게시글 리스트 출력
 	 * 작성일 : 2017. 10. 26.
@@ -448,15 +494,25 @@ public class GuildBoard extends TranEx  {
 		mav.setViewName("home");
 		try {
 			if(session.getAttribute("id") != null) {
-				bean.setId(session.getAttribute("id").toString());
-				if(dao.getUserIsGuildCheck(bean) != 0) {
-					bean.setChName(dao.getCharaName(bean));
-					bean.setGbGuCode(dao.getGuildCode(bean));
-					session.setAttribute("chName", bean.getChName());
-					mav.addObject("boards", guildBoardList(bean));
+				MemberBean memberBean = new MemberBean();
+				memberBean.setId(session.getAttribute("id").toString());
+				if(dao.userType(memberBean) == 2) {
+					System.out.println("관리자 확인");
+					mav.addObject("boards", guildBoardAdminList(bean));
 					mav.setViewName("guildBoard");
-					session.setAttribute("page", "guildBoard");					
+					session.setAttribute("page", "guildBoard");	
+				}else {
+					bean.setId(session.getAttribute("id").toString());
+					if(dao.getUserIsGuildCheck(bean) != 0) {
+						bean.setChName(dao.getCharaName(bean));
+						bean.setGbGuCode(dao.getGuildCode(bean));
+						session.setAttribute("chName", bean.getChName());
+						mav.addObject("boards", guildBoardList(bean));
+						mav.setViewName("guildBoard");
+						session.setAttribute("page", "guildBoard");	
+					}
 				}
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

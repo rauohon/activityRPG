@@ -514,7 +514,20 @@
 	<select id="getGuildCode" parameterType="gameBean" resultType="Integer">
 		SELECT CH_GUCODE FROM USER_CHARACTER WHERE CH_MBID =#{id}
 	</select>
-
+	
+	<!-- 길드 보드 관리자 리스트 가져오기 -->
+	<select id="getGuildBoardAdminList" parameterType="boardBean"
+		resultMap="gBoardMap">
+		<![CDATA[SELECT gb_code, gb_mbid, gb_title, gb_wdate, gb_hit, gb_name
+		FROM
+    		(SELECT rownum as rnum, gb_code, gb_mbid, gb_title, gb_wdate, gb_hit, gb_name
+    		FROM 
+       			 (SELECT gb_code, gb_mbid, gb_title, gb_wdate, gb_hit, gb_name
+        		FROM GUILDBOARD ORDER BY GB_WDATE DESC)
+    		GUILDBOARD)
+		WHERE rnum <= #{gbIndent} and rnum >= #{gbStep}]]>
+	</select>
+	
 	<!-- 길드보드 리스트 가져오기 -->
 	<select id="getGuildBoardList" parameterType="boardBean"
 		resultMap="gBoardMap">
@@ -526,6 +539,11 @@
         		FROM GUILDBOARD WHERE GB_GUCODE = #{gbGuCode} ORDER BY GB_WDATE DESC)
     		GUILDBOARD)
 		WHERE rnum <= #{gbIndent} and rnum >= #{gbStep}]]>
+	</select>
+	
+	<!-- 길드보드 관리자 총 게시글 수 가져오기 -->
+	<select id="getGuildBoardAdminCount" parameterType="boardBean" resultType="Integer">
+		SELECT COUNT(*) GB_CODE FROM GUILDBOARD
 	</select>
 	
 	<!-- 길드보드 총 게시글 수 가져오기 -->
