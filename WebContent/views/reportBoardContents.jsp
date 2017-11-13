@@ -14,7 +14,7 @@
 	function init(){
 		var userType = "${userType}";
 		if(userType != ""){
-			if("${userId}" == "${ReportBoardUserId}"){
+			if("${id}" == "${ReportBoardUserId}"){
 				var modify = document.getElementsByName("reportBoardModifyFormMove")[0];
 				modify.setAttribute("type", "button");
 			

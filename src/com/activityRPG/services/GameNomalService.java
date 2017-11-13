@@ -725,9 +725,9 @@ public class GameNomalService extends TranEx {
 			try{
 				gameBean.setCharacterName(session.getAttribute("characterName").toString()); //캐릭터 이름 가져오기
 				
-				System.out.println(gameBean.getGuildName());
+				//System.out.println(gameBean.getGuildName());
 				int code = dao.guildCodeGet(gameBean);
-				System.out.println(code);
+				//System.out.println(code);
 				
 				gameBean.setGuildCode(code);
 				
@@ -795,7 +795,7 @@ public class GameNomalService extends TranEx {
 				String userGuild = dao.userGuildCheck(gameBean); //유저 길드 유무 판단
 				System.out.println(userGuild);
 				
-				if(userGuild.equals("0")) {//"0 "일경우 가입
+				if(userGuild.equals("0 ")) {//"0 "일경우 가입
 					int guildCode = dao.guildCodeGet(gameBean); //길드 코드 가져오기
 					gameBean.setGuildCode(guildCode); //길드코드 빈에 저장
 					

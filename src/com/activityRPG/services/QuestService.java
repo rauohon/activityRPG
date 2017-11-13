@@ -301,8 +301,8 @@ public class QuestService extends TranEx{
 			gameBean.setUserId((String)pju.getAttribute("id"));//유저 아이디 불러오기
 			gameBean.setCharacterName((String)pju.getAttribute("characterName")); //빈에 캐릭터 이름 저장
 			
-			System.out.println("수락한 퀘스트 코드 : " + gameBean.getMyquestCode());
-
+			//System.out.println("수락한 퀘스트 코드 : " + gameBean.getMyquestCode());
+			System.out.println(dao.questCodeCheck(gameBean));
 			if(dao.questCodeCheck(gameBean) == 0) { //퀘스트가 존재하지 않음
 				
 				

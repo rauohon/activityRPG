@@ -83,12 +83,13 @@
 			<input type="hidden" name="reportBoardUserId" value="${reportBoardUserId }" /> 
 			<input type="hidden" name="reportBoardHit" value="${reportBoardHit }" />
 		</div>
+		<button class="button" onClick="reportBoardModify()">수정완료</button>
 	</form>
 	<form name="reportBoardContentsForm" action="ReportBoardContentsView" method="post">
 		<input type="hidden" name="reportBoardCode" value="${reportBoardCode }" /> 
 		<input type="hidden" name="reportBoardHit" value="${reportBoardHit }" />
 		<div class="buttonOption">
-		<button class="button" onClick="reportBoardModify()">수정완료</button>
+		<!-- <button class="button" onClick="reportBoardModify()">수정완료</button> -->
 		<button class="button" onClick="back()">뒤로가기</button>
 		</div>
 	</form>
