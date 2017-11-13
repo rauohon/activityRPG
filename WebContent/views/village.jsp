@@ -139,6 +139,7 @@ function onMessage(evt){
 				<button class='button' onClick="movePage('dungeonpage','DungeonPage','POST')" style='height: 100px; width: 79.5%; margin-top: 1%;'>탐험</button>
 			</div>
 			<div id='go_shop'>
+				<input type="button" value='아이템 상점' style='height: 100px; width: 39%; margin-top: 1%;' onClick="createForm('shopequip','ShopEquip','GET')" />
 				<button class='button' style='height: 100px; width: 39%; margin-top: 1%;'>상점</button>
 				<button onClick="EnhanceShopMove()" class='button' style='height: 100px; width: 39%; margin-left: 1%;  margin-top: 1%;'>대장간</button>
 			</div>

@@ -116,13 +116,125 @@ public class GameBean {
 	private String userGuildLevel;		//유저길드 레벨
 	private int userGuildCode;			//유저 길드 코드
 	//****************************한광수*******************************
+	/*↓ 김형석*/
+	private String scCode;
+	private String scName;
+	private String storeSccode; //상점 코드
+	private int storeItemcode;	//상점에서 파는 아이템 코드
+	private String itIgcode;	//아이템 등급 (ex: 노말, 매직...)
+	private String itemInfo;
+    private String ivChname;
+    private String ivMbid;
+    private int ivItemcode;		//인벤토리 아이템 코드
+    private int ivAmount;
+    private int ivEnlevel;	// 강화 레벨
+    private int calGold;	// 계산된 골드
+    /*↑ 김형석*/
 	
 	
 	
 	
 	
-	public int getRequiAbility() {
+    
+    
+    public int getRequiAbility() {
 		return requiAbility;
+	}
+
+	public String getScCode() {
+		return scCode;
+	}
+
+	public void setScCode(String scCode) {
+		this.scCode = scCode;
+	}
+
+	public String getScName() {
+		return scName;
+	}
+
+	public void setScName(String scName) {
+		this.scName = scName;
+	}
+
+	public String getStoreSccode() {
+		return storeSccode;
+	}
+
+	public void setStoreSccode(String storeSccode) {
+		this.storeSccode = storeSccode;
+	}
+
+	public int getStoreItemcode() {
+		return storeItemcode;
+	}
+
+	public void setStoreItemcode(int storeItemcode) {
+		this.storeItemcode = storeItemcode;
+	}
+
+	public String getItIgcode() {
+		return itIgcode;
+	}
+
+	public void setItIgcode(String itIgcode) {
+		this.itIgcode = itIgcode;
+	}
+
+	public String getItemInfo() {
+		return itemInfo;
+	}
+
+	public void setItemInfo(String itemInfo) {
+		this.itemInfo = itemInfo;
+	}
+
+	public String getIvChname() {
+		return ivChname;
+	}
+
+	public void setIvChname(String ivChname) {
+		this.ivChname = ivChname;
+	}
+
+	public String getIvMbid() {
+		return ivMbid;
+	}
+
+	public void setIvMbid(String ivMbid) {
+		this.ivMbid = ivMbid;
+	}
+
+	public int getIvItemcode() {
+		return ivItemcode;
+	}
+
+	public void setIvItemcode(int ivItemcode) {
+		this.ivItemcode = ivItemcode;
+	}
+
+	public int getIvAmount() {
+		return ivAmount;
+	}
+
+	public void setIvAmount(int ivAmount) {
+		this.ivAmount = ivAmount;
+	}
+
+	public int getIvEnlevel() {
+		return ivEnlevel;
+	}
+
+	public void setIvEnlevel(int ivEnlevel) {
+		this.ivEnlevel = ivEnlevel;
+	}
+
+	public int getCalGold() {
+		return calGold;
+	}
+
+	public void setCalGold(int calGold) {
+		this.calGold = calGold;
 	}
 
 	public String getQuestContents() {

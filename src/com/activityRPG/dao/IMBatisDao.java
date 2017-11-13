@@ -421,6 +421,45 @@ public interface IMBatisDao {
 	//퀘스트 코드 확인
 	public int questCodeCheck(GameBean gameBean);
 	//한광수
+	
+	/*↓ 김형석*/
+	public List<BoardBean> questionBoardList();						//1:1문의 리스트 출력
+		
+	public int questionBoardMake(BoardBean boardBean);				//1:1문의 작성
 
+	public BoardBean questionBoardContents(BoardBean boardBean);	//1:1문의 게시글 내용 출력
+
+	public int questionBoardHitUp(BoardBean boardBean);				//1:1문의 게시글 조회수 증가	
+
+	public int questionBoardModify(BoardBean boardBean);			//1:1문의 게시글 수정
+
+	public int questionBoardDelete(BoardBean boardBean);			//1:1문의 게시글 삭제
+
+	public List<BoardBean> questionBoardSearchId(BoardBean boardBean);	//1:1문의 게시글 작성자 검색 출력
+
+	public List<BoardBean> questionBoardSearchTitle(BoardBean boardBean);	//1:1문의 게시글 제목 검색 출력
+		
+	public int questionBoardReply(BoardBean boardBean);				//1:1문의 답글 달기
+		
+	public List<GameBean> equipItemList();							//상점아이템 리스트 출력
+		
+	public int equipItemBuy(GameBean gameBean);						//상점아이템 구매
+		
+	public String getCharacterName(GameBean gameBean);				//캐릭터 이름 가져오기
+		
+	public List<GameBean> getCharacterInven(GameBean gameBean);		//캐릭터 인벤토리 호출
+	
+	public int getCharacterGold(GameBean gameBean);					//캐릭터 골드 가져오기
+	
+	public int buyGoldPrice(GameBean gameBean);						//아이템 살 때 골드가격
+	
+	public int sellGoldPrice(GameBean gameBean);					//아이템 팔 때 골드가격
+		
+	public int dealGoldCal(GameBean gameBean);						//아이템 거래할 때 골드 계산
+	
+	public int sellItemDel(GameBean gameBean);						//아이템 팔 때 인벤의 아이템 삭제
+	
+	public int invenItemAmount(GameBean gameBean);					//인벤의 아이템 수량 가져오기
+	/*↑ 김형석*/
 }
 

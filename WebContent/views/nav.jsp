@@ -17,6 +17,7 @@ function total(formname, action, method){
 	relationObj("characterinfo", "id");
 	relationObj("guildboardpage", "id");
 	relationObj("eventBoardListForm", "id");
+	relationObj("questionBoardForm", "id");
 	form.submit();
 }
 	
@@ -68,6 +69,15 @@ function total(formname, action, method){
 		form.submit();
 	}
 	//한광수
+	//김형석
+	function questionBoardMove() {
+    	createForm("questionBoardForm", "QuestionBoard", "post");
+
+    	var form = document.getElementsByName("questionBoardForm")[0];
+
+    	form.submit();
+ 	}
+	//김형석
 </script>
 <link rel="stylesheet" href="css/home.css" media="screen" type="text/css" />
 <div id="layer_fixed">
@@ -84,6 +94,7 @@ function total(formname, action, method){
 					<li><button onClick="total('eventBoardListForm', 'eventBoardList', 'post')" id="bar">이벤트 관리</button></li>
 					<li><input type="button" value="공략 게시판" onClick="attackBoardMove()" id="bar" /></li>
 					<li><input type="button" value="신고 게시판" onClick="reportBoardMove()" id="bar" /></li>
+					<li><button onClick="total('questionBoardForm', 'QuestionBoard', 'post')" id="bar">1:1문의</button></li>
 				</ul>
 			</li>
 		</ul>

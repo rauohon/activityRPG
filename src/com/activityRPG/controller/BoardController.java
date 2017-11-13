@@ -11,6 +11,7 @@ import com.activityRPG.beans.BoardBean;
 import com.activityRPG.beans.MemberBean;
 import com.activityRPG.services.GuildBoard;
 import com.activityRPG.services.NewsBoard;
+import com.activityRPG.services.QuestionBoard;
 import com.activityRPG.services.ReportBoard;
 import com.activityRPG.services.AttackBoard;
 import com.activityRPG.services.EventBoard;
@@ -36,6 +37,8 @@ public class BoardController {
 	private AttackBoard attackBoard;
 	@Autowired
 	private ReportBoard reportBoard;
+	@Autowired
+	private QuestionBoard qb;
 
 	private ModelAndView mav = new ModelAndView();
 
@@ -462,4 +465,60 @@ public class BoardController {
 		return mav;
 	}
 	//한광수
+	//김형석
+	@RequestMapping(value = "/QuestionBoard", method = RequestMethod.POST)
+	public ModelAndView questionBoardMove() {
+		
+		mav = qb.entrance(21);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/QuestionBoardMakeFormMove", method = RequestMethod.POST)
+	public ModelAndView questionBoardMakeFormMove() {
+		mav.setViewName("questionBoardMakeForm");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/QuestionBoardMake", method = RequestMethod.POST)
+	public ModelAndView questionBoardMake(@ModelAttribute BoardBean boardBean, @ModelAttribute MemberBean memberBean) {
+		
+		mav = qb.entrance(22, boardBean, memberBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/QuestionBoardContentsView", method = RequestMethod.POST)
+	public ModelAndView questionBoardContentsView(@ModelAttribute BoardBean boardBean) {
+		
+		mav = qb.entrance(23, boardBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/QuestionBoardModifyFormMove", method = RequestMethod.POST)
+	public ModelAndView questionBoardModifyMove(@ModelAttribute BoardBean boardBean) {
+		
+		mav = qb.entrance(24, boardBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/QuestionBoardModify", method = RequestMethod.POST)
+	public ModelAndView questionBoardModify(@ModelAttribute BoardBean boardBean) {
+		
+		mav = qb.entrance(25, boardBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/QuestionBoardDelete", method = RequestMethod.POST)
+	public ModelAndView questionBoardDelete(@ModelAttribute BoardBean boardBean) {
+		
+		mav = qb.entrance(26, boardBean);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/Search", method = RequestMethod.POST)
+	public ModelAndView search(@ModelAttribute BoardBean boardBean) {
+		
+		mav = qb.entrance(27, boardBean);
+		return mav;
+	}
+	//김형석
 }

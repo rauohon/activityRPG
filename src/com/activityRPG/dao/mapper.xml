@@ -1208,5 +1208,133 @@
 		SELECT GL_NAME FROM GUILDLEVEL WHERE GL_CODE = #{guildMenLevel}
 	</select>
 	<!-- 한광수 -->
+	<!-- ↓ 김형석 -->
+	<select id="questionBoardList" resultMap="qBoardMap">
+		SELECT * FROM
+		QUESTIONBOARD ORDER BY QB_CODE DESC
+	</select>
+
+	<resultMap type="boardBean" id="qBoardMap">
+		<result property="qbCode" column="QB_CODE" javaType="java.lang.Integer" />
+		<result property="qbTitle" column="QB_TITLE" javaType="java.lang.String" />
+		<result property="qbContent" column="QB_CONTENT" javaType="java.lang.String" />
+		<result property="qbDate" column="QB_DATE" javaType="java.util.Date" />
+		<result property="qbHit" column="QB_HIT" javaType="java.lang.Integer" />
+		<result property="qbGroup" column="QB_GROUP" javaType="java.lang.Integer" />
+		<result property="qbStep" column="QB_STEP" javaType="java.lang.Integer" />
+		<result property="qbIndent" column="QB_INDENT" javaType="java.lang.Integer" />
+		<result property="qbMbid" column="QB_MBID" javaType="java.lang.String" />
+	</resultMap>
+
+	<insert id="questionBoardMake" parameterType="boardBean">
+		INSERT INTO
+		QB(QB_CODE, QB_TITLE, QB_CONTENT, QB_DATE, QB_HIT, QB_GROUP, QB_STEP,
+		QB_INDENT, QB_MBID)
+		VALUES(QUESTIONBOARD_SEQ.nextval, #{qbTitle},
+		#{qbContent}, default , 0, QUESTIONBOARD_SEQ.currval, 0, 0, #{qbMbid})
+	</insert>
+
+	<select id="questionBoardContents" parameterType="boardBean"
+		resultMap="qBoardMap">
+		SELECT * FROM QUESTIONBOARD WHERE QB_CODE = #{qbCode}
+	</select>
+
+	<update id="questionBoardHitUp" parameterType="boardBean">
+		UPDATE
+		QUESTIONBOARD SET QB_HIT = #{qbHit} WHERE QB_CODE = #{qbCode}
+	</update>
+
+	<update id="questionBoardModify" parameterType="boardBean">
+		UPDATE QUESTIONBOARD SET QB_TITLE = #{qbTitle}, QB_CONTENT = #{qbContent} WHERE QB_CODE = #{qbCode}
+	</update>
+
+	<delete id="questionBoardDelete" parameterType="boardBean">
+		DELETE FROM
+		QUESTIONBOARD WHERE QB_CODE = #{qbCode}
+	</delete>
+
+	<select id="questionBoardSearchId" resultMap="qBoardMap">
+		SELECT * FROM
+		QUESTIONBOARD WHERE QB_MBID LIKE #{qbMbid} ORDER BY QB_CODE DESC
+	</select>
+
+	<select id="questionBoardSearchTitle" resultMap="qBoardMap">
+		SELECT * FROM
+		QUESTIONBOARD WHERE QB_TITLE LIKE #{qbTitle} ORDER BY QB_CODE DESC
+	</select>
+
+
+	<select id="equipItemList" resultMap="itemMap">
+		SELECT ST_SCCODE, IT_CODE,
+		IT_NAME, IT_REQUIREABILITY, IT_ABILITY, IT_BUY, IT_SELL, IT_IGCODE
+		FROM EQUIPINFO WHERE ST_SCCODE = 'I'
+	</select>
+
+	<resultMap type="gameBean" id="itemMap">
+		<result property="storeSccode" column="ST_SCCODE" javaType="java.lang.String" />
+		<result property="storeItemcode" column="ST_ITCODE" javaType="java.lang.Integer" />
+		<result property="itcode" column="IT_CODE" javaType="java.lang.String" />
+		<result property="itname" column="IT_NAME" javaType="java.lang.String" />
+		<result property="requiAbility" column="IT_REQUIREABILITY"
+			javaType="java.lang.Integer" />
+		<result property="ability" column="IT_ABILITY" javaType="java.lang.Integer" />
+		<result property="buyPrice" column="IT_BUY" javaType="java.lang.Integer" />
+		<result property="sellPrice" column="IT_SELL" javaType="java.lang.Integer" />
+		<result property="itIgcode" column="IT_IGCODE" javaType="java.lang.String" />
+	</resultMap>
+	<insert id="equipItemBuy" parameterType="gameBean">
+		MERGE INTO inventory
+    USING DUAL ON (iv_itcode = #{storeItemcode})
+    WHEN MATCHED THEN
+        UPDATE SET iv_amount = iv_amount + 1
+    WHEN NOT MATCHED THEN
+        INSERT (iv_chname, iv_mbid, iv_itcode, iv_amount, iv_enlevel) VALUES (#{chName}, #{id}, #{storeItemcode}, 1, 0)
+	</insert>
+	<select id="getCharacterName" parameterType="gameBean"
+		resultType="String">
+		SELECT CH_NAME FROM USER_CHARACTER WHERE CH_MBID =
+		#{id}
+	</select>
+
+
+	<select id="getCharacterInven" parameterType="gameBean"
+		resultMap="invenMap">
+		select IV_CHNAME, IV_AMOUNT, IV_ENLEVEL,
+		IT_NAME, IT_REQUIREABILITY, IT_ABILITY, IT_SELL, IT_CODE from CHARACTERINVEN
+		where IV_CHNAME = #{chName}
+	</select>
 	
+	<select id="getCharacterGold" parameterType="gameBean" resultType="Integer">
+		select ch_gold from user_character where ch_name = #{chName}
+	</select>
+	<select id="buyGoldPrice" parameterType="gameBean" resultType="Integer">
+		select it_buy from item where it_code = #{storeItemcode}
+	</select>
+	<select id="sellGoldPrice" parameterType="gameBean" resultType="Integer">
+		select it_sell from item where it_code = #{ivItemcode}
+	</select>
+	<update id="dealGoldCal" parameterType="gameBean">
+		update user_character set ch_gold = #{calGold} where ch_name = #{chName}
+	</update>
+	<delete id="sellItemDel" parameterType="gameBean">
+		delete from inventory where iv_itcode = #{ivItemcode} and iv_chname = #{chName}
+	</delete>
+	<select id="invenItemAmount" parameterType="gameBean" resultType="Integer">
+		select iv_amount from inventory where iv_itcode = #{ivItemcode}
+	</select>
+	
+	
+	<resultMap type="gameBean" id="invenMap">
+		<result property="ivChname" column="IV_CHNAME" javaType="java.lang.String" />
+		<result property="ivMbid" column="IV_MBID" javaType="java.lang.String" />
+		<result property="ivItemcode" column="IV_ITCODE" javaType="java.lang.Integer" />
+		<result property="ivAmount" column="IV_AMOUNT" javaType="java.lang.Integer" />
+		<result property="ivEnlevel" column="IV_ENLEVEL" javaType="java.lang.Integer" />
+		<result property="itname" column="IT_NAME" javaType="java.lang.String" />
+		<result property="requiAbility" column="IT_REQUIREABILITY" javaType="java.lang.Integer" />
+		<result property="ability" column="IT_ABILITY" javaType="java.lang.Integer" />
+		<result property="sellPrice" column="IT_SELL" javaType="java.lang.Integer" />
+		<result property="ivItemcode" column="IT_CODE" javaType="java.lang.Integer" />
+	</resultMap>
+	<!-- ↑ 김형석 -->
 </mapper>
