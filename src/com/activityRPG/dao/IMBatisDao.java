@@ -88,6 +88,8 @@ public interface IMBatisDao {
 	
 	public GameBean getCharaImage(GameBean bean);						// 캐릭터 사진 주소 가져오기
 	
+	public int setEquipFirst(GameBean bean);											// 캐릭터 생성시 장비창 생성하기
+	
 	public GameBean getCharacterStatus(GameBean bean);				// 캐릭터 능력치 조회
 
 	public GameBean getEquipList(Map<String, String> map);			// 캐릭터 장비 조회

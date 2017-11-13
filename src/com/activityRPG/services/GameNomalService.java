@@ -659,10 +659,8 @@ public class GameNomalService extends TranEx {
 			randomAbility(gameBean); //랜덤 능력치 설정
 			gameBean.setId((String)session.getAttribute("id"));	//아이디를 빈에 저장
 			gameBean.setSex(dao.characterSex(gameBean));
-
 			//트랜잭션 설정 
 			setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
-
 			if(dao.characterNameCkeck(gameBean) == 0) {	//캐릭터 이름 확인
 				if(dao.characterCreate(gameBean) == 1) { //캐릭터 생성 성공
 					if(dao.inventoryInsertMaterial(gameBean) == 1) { //인벤토리에 강화석 추가
@@ -670,10 +668,12 @@ public class GameNomalService extends TranEx {
 							if(dao.characterSkill2(gameBean) == 1){ //캐릭터 스킬2 생성
 								if(dao.characterSkill3(gameBean) == 1) { //캐릭터 스킬3 생성
 									if(dao.setCharaImage(gameBean) != 0) {// 캐릭터 이미지 삽입(신태휘)
-										mav.setViewName("home");
-										mav.addObject("message", "*캐릭터를 생성했습니다. 게임시작 버튼을 눌러주세요.");
-										//트랜잭션 커밋
-										setTransactionResult(true);										
+										if(dao.setEquipFirst(gameBean) != 0) {// 캐릭터 장비창 생성(신태휘)
+											mav.setViewName("home");
+											mav.addObject("message", "*캐릭터를 생성했습니다. 게임시작 버튼을 눌러주세요.");
+											//트랜잭션 커밋
+											setTransactionResult(true);		
+										}																		
 									}
 								}
 							}
