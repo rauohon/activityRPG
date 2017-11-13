@@ -211,6 +211,7 @@ public class GamePlayService  extends TranEx {
 			map.put("equipItem", String.valueOf(bean.getEqWeapon()));
 			try { bean.setId(session.getAttribute("id").toString());}catch(Exception e) {}
 			bean = dao.getCharacterStatus(bean);
+			System.out.println("");
 			System.out.println(bean.getChName() + "캐릭터 이름 확인");
 			switch(jobCode) {
 				case 0:
