@@ -128,13 +128,14 @@ $(document).ready(function() {
 					            borderWidth: 1,
 					           data:[dataArray[4].step]
 					        },
-					// 				{
-					//         	label:dataArray[5].date,
-					//         	backgroundColor: 'rgba(255, 255, 132,1)',
-					//             borderColor: 'rgb(54, 162, 235, 1)',
-					//             borderWidth: 1,
-					//            data:[dataArray[5].step]
-					//         },{
+									{
+					        	label:dataArray[5].date,
+					        	backgroundColor: 'rgba(132, 255, 255 ,1)',
+					            borderColor: 'rgb(54, 162, 235, 1)',
+					            borderWidth: 1,
+					           data:[dataArray[5].step]
+					        }
+// 					        ,{
 					//         	label:dataArray[6].date,
 					//         	backgroundColor: 'rgba(255, 255, 132,1)',
 					//             borderColor: 'rgb(54, 162, 235, 1)',
@@ -219,13 +220,14 @@ $(document).ready(function() {
 					            borderWidth: 1,
 					           data:[dataArray[4].floor]
 					        },
+					{
+					        	label:dataArray[5].date,
+					        	backgroundColor: 'rgba(132, 255, 255 ,1)',
+					            borderColor: 'rgb(54, 162, 235, 1)',
+					            borderWidth: 1,
+					           data:[dataArray[5].floor]
+					        },
 // 					{
-					//         	label:dataArray[5].date,
-					//         	backgroundColor: 'rgba(255, 255, 132,1)',
-					//             borderColor: 'rgb(54, 162, 235, 1)',
-					//             borderWidth: 1,
-					//            data:[dataArray[5].floor]
-					//         },{
 					//         	label:dataArray[6].date,
 					//         	backgroundColor: 'rgba(255, 255, 132,1)',
 					//             borderColor: 'rgb(54, 162, 235, 1)',
@@ -313,13 +315,14 @@ $(document).ready(function() {
 					            borderWidth: 1,
 					           data:[dataArray[4].exp]
 					        },
-// 					        {
-					//         	label:dataArray[5].date,
-					//         	backgroundColor: 'rgba(255, 255, 132,1)',
-					//             borderColor: 'rgb(54, 162, 235, 1)',
-					//             borderWidth: 1,
-					//            data:[dataArray[5].exp]
-					//         },{
+					        {
+					        	label:dataArray[5].date,
+					        	backgroundColor: 'rgba(132, 255, 255 ,1)',
+					            borderColor: 'rgb(54, 162, 235, 1)',
+					            borderWidth: 1,
+					           data:[dataArray[5].exp]
+					        },
+// 					{
 					//         	label:dataArray[6].date,
 					//         	backgroundColor: 'rgba(255, 255, 132,1)',
 					//             borderColor: 'rgb(54, 162, 235, 1)',

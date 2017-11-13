@@ -290,11 +290,13 @@ public class ActivityService extends TranEx {
 		sb.append("<br/>");
 		List<ActivityBean> acti = dao.getActivityAllData(bean);
 		List<ActivityBean> acti2 = dao.getAppliedAllData(bean);
+		double a = Math.round((acti.get(0).getStep()*0.0007)*100d)/100d;
+		double b = Math.round((acti.get(0).getFloor()*2.45)*100d)/100d;
 		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " + acti.get(0).getStep() + " : 지금까지 이만큼 걸으셨어요.</h1>");
 		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " + acti.get(0).getFloor() + " : 지금까지 이만큼 계단으로 오르내리셨어요.</h1>");
 		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " +acti2.get(0).getExp()+ " : 지금까지 이만큼 경험치로 전환 하셨어요.</h1>");
-		sb.append("<div id=\'showDetail\' style=\'display:none;\'>"+ acti.get(0).getStep()*0.0007 +" km 정도를 걸으셨어요!<br>"
-				+ ((Math.round(acti.get(0).getFloor()*100d))/100d)*2.45 +" m 정도를 오르셨어요!</div>");
+		sb.append("<div id=\'showDetail\' style=\'display:none;\'>"+ a +" km 정도를 걸으셨어요!<br>"
+				+ b +" m 정도를 오르셨어요!</div>");
 		
 		return sb.toString();
 	}
@@ -443,6 +445,7 @@ public class ActivityService extends TranEx {
 		List<ActivityBean> acti = dao.getTodayAct(bean);
 		sb = gson.toJson(acti);
 	
+			System.out.println(sb);
 		return sb;
 	}
 
