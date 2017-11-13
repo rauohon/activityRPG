@@ -4,6 +4,8 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/css/backGround.css"/>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>s
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -84,7 +86,42 @@
 		color: #333333;
 	}
 </style>
-<body>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
+</script>
+<body onLoad='init()'>
+	<%@ include file="nav.jsp"%>
+	<style>	
+	body{
+		background-image:url("/images/guild.jpg");
+		background-repeat:no-repeat;
+		background-size:100% 100%;
+		overflow:hidden;
+		/* background-attachment:fixed; */
+	}
+		.button {
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.button:hover {
+	border: 3px solid #f68a6f;
+	background: #f68a6f;
+}
+	</style>
+	<div id='wraper' style="padding-top: 60px;">
+		<a href='BackPage' class='button'>뒤로가기</a>
 	<div class="guildMemberBox">
 	<h1> ${guildName}의 현재 길드원</h1>
 	<div class="guildList">
@@ -93,6 +130,7 @@
 	<div class="guildButton">
 		<button	class="guildbutton" onClick="guildOut()">길드 탈퇴</button>
 		<button class="guildbutton" onClick="guildList()">길드 리스트</button>
+	</div>
 	</div>
 	</div>
 </body>

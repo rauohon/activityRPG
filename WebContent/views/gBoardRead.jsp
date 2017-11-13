@@ -6,9 +6,45 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-table tr th td{
-	borer : 1px solid black;
+h1{
+  font-size: 30px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 15px;
 }
+table{
+  width:100%;
+  table-layout: fixed;
+}
+.tbl-header{
+  background-color: rgba(255,255,255,0.3);
+ }
+.tbl-content{
+  height:300px;
+  overflow-x:auto;
+  margin-top: 0px;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+.tbl-header th{
+  padding: 15px 15px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  text-transform: uppercase;
+}
+td{
+  padding: 50px;
+  text-align: left;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 12px;
+  color: #fff;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
+}
+
 </style>
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
@@ -61,8 +97,6 @@ function replyForm(formName, actionName, method, grCode){
 	
 	f.submit();
 }
-</script>
-<script>
 function init(){
 	var userType = "${userType}";
 	if(userType==2){
@@ -73,12 +107,17 @@ function init(){
 		$("#admin_user").css("display","none");
 	}
 }
+$(window).on("load resize ", function() {
+	  var scrollWidth = $('.tbl-content').width() - $('.tbl-content table').width();
+	  $('.tbl-header').css({'padding-right':scrollWidth});
+	}).resize();
 </script>
 </head>
 <body onLoad='init()'>
 <%@ include file="nav.jsp"%>
 <div id='wraper' style="padding-top: 60px;">
 	<table style='border:1px solid black; color:white;'>
+	<thead class='tbl-header'>
 		<tr>
 			<th>
 				작성자 : ${writer }
@@ -95,13 +134,16 @@ function init(){
 				${title }
 			</th>
 		</tr>
+		</thead>
+		<tbody class='tbl-content'>
 		<tr>
-			<td colspan="3">
+			<td colspan="3" style="padding-bottom: 20%">
 				${content }
 			</td>
 		</tr>
+		</tbody>
 	</table>
-	<div id='ajax_div'  style='color:white;'>${reply }</div>
+	<div id='ajax_div'  style='color:white; margin-left: 20%'>${reply }</div>
 	<div id='replyWrite' style='color:white;'>
 			${chName } : <input type='text' placeholder='댓글을 달아주세요.' name='gbReplyContent' size='100px;'/>
 			<input type='button' onClick='gBoardForm("replygboard","ReplyGBoard","POST")' value='댓글 등록' />

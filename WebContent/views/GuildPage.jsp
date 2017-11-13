@@ -4,6 +4,8 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/css/backGround.css"/>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -121,9 +123,8 @@ function init(){
 </head>
 <body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
-<link rel="stylesheet" type="text/css"
-   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 	<div id='wraper' style="padding-top: 60px;">
+	<a href='BackPage' class='button'>뒤로가기</a>
 		<style>
 		body{
 			background-image:url("/images/guild.jpg");
@@ -132,6 +133,17 @@ function init(){
 			overflow:hidden;
 			/* background-attachment:fixed; */
 		}
+				.button {
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.button:hover {
+	border: 3px solid #f68a6f;
+	background: #f68a6f;
+}
 		</style>
 		<div class="guildView" style="padding-right: 0px; padding-left: 0px;">
 			<div class="guildBackground">
