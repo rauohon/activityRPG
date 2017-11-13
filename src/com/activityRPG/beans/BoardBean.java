@@ -75,12 +75,76 @@ public class BoardBean {
 	private int reportBoardStep;
 	private int reportBoardIndent;
 	//*****************한광수*******************************
-	
-	
+	/* 김형석*/
+	private int qbCode;
+	private String qbTitle;
+	private String qbContent;
+	private Date qbDate;
+	private int qbHit;
+	private int qbGroup;
+	private int qbStep;
+	private int qbIndent;
+	private String qbMbid;
+	/* 김형석*/
+
 	
 
 	public int getNewsBoardCode() {
 		return newsBoardCode;
+	}
+	public int getQbCode() {
+		return qbCode;
+	}
+	public void setQbCode(int qbCode) {
+		this.qbCode = qbCode;
+	}
+	public String getQbTitle() {
+		return qbTitle;
+	}
+	public void setQbTitle(String qbTitle) {
+		this.qbTitle = qbTitle;
+	}
+	public String getQbContent() {
+		return qbContent;
+	}
+	public void setQbContent(String qbContent) {
+		this.qbContent = qbContent;
+	}
+	public Date getQbDate() {
+		return qbDate;
+	}
+	public void setQbDate(Date qbDate) {
+		this.qbDate = qbDate;
+	}
+	public int getQbHit() {
+		return qbHit;
+	}
+	public void setQbHit(int qbHit) {
+		this.qbHit = qbHit;
+	}
+	public int getQbGroup() {
+		return qbGroup;
+	}
+	public void setQbGroup(int qbGroup) {
+		this.qbGroup = qbGroup;
+	}
+	public int getQbStep() {
+		return qbStep;
+	}
+	public void setQbStep(int qbStep) {
+		this.qbStep = qbStep;
+	}
+	public int getQbIndent() {
+		return qbIndent;
+	}
+	public void setQbIndent(int qbIndent) {
+		this.qbIndent = qbIndent;
+	}
+	public String getQbMbid() {
+		return qbMbid;
+	}
+	public void setQbMbid(String qbMbid) {
+		this.qbMbid = qbMbid;
 	}
 	public int getReportBoardCode() {
 		return reportBoardCode;

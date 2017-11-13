@@ -26,13 +26,14 @@
 		form.submit();
 	}
 
-	function change() {
+	function changePwd() {
 		var form = createForm("changeForm", "changePwd", "post");
 		var pwd = document.getElementsByName("pwd")[0];
 		createinput("hidden", "id", "${id }");
 		relationObj("changeForm", "id");
 		relationObj("changeForm", "pwd");
-		form.submit();
+		alert(pwd.value);
+ 		form.submit();
 	}
 </script>
 <script>
@@ -56,7 +57,6 @@ function init(){
 		</div> -->
 		
 		<!-- 패스워드 -->
-		<form id="changePwd" action="changePwd" method="post">
 		
 		<div>
 			<!-- 패스워드 입력 -->
@@ -75,9 +75,8 @@ function init(){
 			</div>
 		</div>
 		<input type="hidden" value="${id }" />
-		<button id="btn" onClick="change()">패스워드 변경</button><br>
+		<button id="btn" onClick="changePwd()">패스워드 변경</button><br>
 		<button id="btn" onClick="infoBack()">나의 정보로 돌아가기</button>
-		</form>
 	</div>
 </body>
 </html>

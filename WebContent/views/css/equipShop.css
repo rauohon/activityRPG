@@ -1,0 +1,152 @@
+@charset "UTF-8";
+
+body {
+	background-image: url("/images/shop2.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
+h1 {
+	color: #C9AE00;
+	text-align: center;
+}
+
+#shopItem {
+	width: 400px;
+	height: 550px;
+	overflow: auto;
+	border: 6px solid #868686;
+	color: #CC723D;
+	font-size: 20px;
+	position: absolute;
+	top: 240px;
+	left: 90px;
+	border-style: double;
+	border-color: #662500;
+}
+
+#inven {
+	width: 400px;
+	height: 400px;
+	overflow: auto;
+	border: 6px solid #868686;
+	color: #CC723D;
+	font-size: 20px;
+	position: absolute;
+	top: 240px;
+	left: 90px;
+	margin-left: 500px;
+	border-style: double;
+	border-color: #662500
+}
+
+.shopbt {
+	margin-left: 590px;
+	margin-top: 600px;
+}
+
+input {
+	background: #CC723D;
+	color: #fff;
+	border: none;
+	position: relative;
+	height: 60px;
+	font-size: 1.6em;
+	padding: 0 2em;
+	transition: 800ms ease all;
+	outline: none;
+}
+
+input:hover {
+	background: #fff;
+	color: #CC723D;
+}
+
+input:before, input:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 2px;
+	width: 0;
+	background: #CC723D;
+	transition: 400ms ease all;
+}
+
+input:after {
+	right: inherit;
+	top: inherit;
+	left: 0;
+	bottom: 0;
+}
+
+input:hover:before, input:hover:after {
+	width: 100%;
+	transition: 800ms ease all;
+}
+
+.gold {
+	font-size: 35px;
+	color: white;
+}
+
+.shopDeal {
+	
+}
+
+.tb1 {
+	border-spacing: 0px 5px;
+}
+
+.tb2 {
+	border-spacing: 0px 5px;
+}
+
+/*  마우스 오버(마우스 올렸을때) 
+tr:hover {
+	background-color: chocolate;
+}
+ 마우스 클릭하고있을때 
+tr:active {
+	background-color: aqua;
+}
+ 마우스 클릭하고 방문 후 
+tr:visited {
+	background-color: #662500;
+} */
+
+.itemName {
+	text-align: center;
+	cursor: pointer;
+}
+
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+	border: 3px solid #662500;
+}
+
+::-webkit-scrollbar-button:start:decrement, ::-webkit-scrollbar-button:end:increment
+	{
+	display: block;
+	height: 10px;
+	background: url(`./images/bg.png`) #662500
+}
+
+::-webkit-scrollbar-track {
+	background: #662500;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .2)
+}
+
+::-webkit-scrollbar-thumb {
+	height: 50px;
+	width: 50px;
+	background: rgba(0, 0, 0, .2);
+	-webkit-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, .1)
+}

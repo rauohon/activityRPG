@@ -66,6 +66,15 @@ public class GamePlayService  extends TranEx {
 			case 2:
 				mav = itemDisArm((GameBean)bean[0]);
 				break;
+			case 21:  //상점으로 이동
+				mav = equipShopMove();
+				break;
+			case 22:  //아이템 구매
+				mav = equipItemBuy((GameBean)bean[0]);
+				break;
+			case 23:  //아이템 판매
+				mav = equipItemSell((GameBean)bean[0]);
+				break;
 			case 42: //강화 상점 이동
 				mav = enhanceShopEnter();
 				break;
@@ -1077,4 +1086,141 @@ public class GamePlayService  extends TranEx {
 		}
 		
 		//*********************************김훈***********************************
+		//*********************************김형석***********************************
+		//상점아이템 판매
+		private ModelAndView equipItemSell(GameBean gameBean) {
+
+			try {
+				gameBean.setId((String)session.getAttribute("id")); //아이디 빈에 저장
+				gameBean.setChName(session.getAttribute("chName").toString());	//캐릭터 이름 빈에 저장
+
+				System.out.println(gameBean.getIvItemcode());
+
+				setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+				//아이템 코드로 아이템 가격 가져오기
+				int sellPrice = dao.sellGoldPrice(gameBean);
+				System.out.println(sellPrice);
+				//캐릭터에 현재 골드 추출
+				int chGold = dao.getCharacterGold(gameBean);
+				System.out.println(chGold);
+				//인벤 아이템 수량 가져오기
+				int ivAmount = dao.invenItemAmount(gameBean);
+				System.out.println(ivAmount);
+				//더한 가격 업데이트
+				gameBean.setCalGold(chGold + sellPrice * ivAmount); 
+				System.out.println(sellPrice * ivAmount);
+				System.out.println(gameBean.getCalGold());
+
+
+				dao.sellItemDel(gameBean);	//아이템 판매 시 인벤의 아이템 삭제
+				dao.dealGoldCal(gameBean);	//아이템 거래 시 골드 계산
+
+				transaction = true;
+				setTransactionResult(transaction);
+				
+
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			mav = equipShopMove();
+			return mav;
+		}
+
+		//상점아이템 구매
+		private ModelAndView equipItemBuy(GameBean gameBean) {
+
+			try {
+				gameBean.setId((String)session.getAttribute("id")); //아이디 빈에 저장
+				gameBean.setChName(session.getAttribute("chName").toString());	//캐릭터 이름 빈에 저장
+
+				//System.out.println(gameBean.getChName());
+				//System.out.println(gameBean.getId());
+				System.out.println(gameBean.getStoreItemcode());
+
+				setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
+				//아이템 코드로 아이템 가격 가져오기
+				int buyPrice = dao.buyGoldPrice(gameBean);
+				System.out.println(buyPrice);
+				//캐릭터에 현재 골드 추출
+				int chGold = dao.getCharacterGold(gameBean);
+				System.out.println(chGold);
+				//뺀 가격 업데이트
+				gameBean.setCalGold(chGold - buyPrice); 
+				System.out.println(gameBean.getCalGold());
+				
+				dao.equipItemBuy(gameBean); //아이템 구입
+				dao.dealGoldCal(gameBean);
+				
+				transaction = true;
+				setTransactionResult(transaction);
+
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			mav = equipShopMove();
+			return mav;
+		}
+
+		//상점으로 이동
+		private ModelAndView equipShopMove() {
+			StringBuffer sb = new StringBuffer();
+			List<GameBean> listGameBean = null;
+			List<GameBean> invenList = null;
+			String equipItemList = null;
+			try {
+				//상점에서 파는 아이템 목록
+				listGameBean = dao.equipItemList();
+
+				sb.append("<div id=\"shopItem\">");
+				sb.append("<table class=\"tb1\">");
+
+				for(int i = 0; i < listGameBean.size(); i++) {
+					sb.append("<tr>");
+					sb.append("<td class=\"itemName\" onClick=\"equipBuy(" +  listGameBean.get(i).getItcode() + ")\">" + listGameBean.get(i).getItname() + "</td>");
+					sb.append("<td>" + "Stats:" + listGameBean.get(i).getAbility() + "</td>");
+					sb.append("<td>" + "Price:" + listGameBean.get(i).getBuyPrice() + "</td>");
+					sb.append("</tr>");
+				}
+				sb.append("</table>");
+				sb.append("</div>");
+
+				//캐릭터 이름 가져오기
+				GameBean gameBean = new GameBean();
+				String id = (String)session.getAttribute("id");	//세션에 저장된 유저 아이디 가져오기
+				gameBean.setId(id);
+
+				String chName = dao.getShopCharacter(gameBean);	//DAO를 통해서 캐릭터 이름 가져오기
+				session.setAttribute("chName", chName); //세션에 캐릭터이름 저장
+				gameBean.setChName(chName);
+
+				//캐릭터 골드 가져오기
+				int chGold = dao.getCharacterGold(gameBean);	
+				session.setAttribute("chGold", chGold); 
+				gameBean.setChGold(chGold);
+
+
+				//인벤토리 가져오기
+				invenList = dao.getCharacterInven(gameBean);
+				sb.append("<div id=\"inven\">");
+				sb.append("<table class=\"tb2\">");
+
+				for(int i = 0; i < invenList.size(); i++) {
+					sb.append("<tr>");
+					sb.append("<td class=\"itemName\" onClick=\"equipSell(" + invenList.get(i).getIvItemcode() + ")\">" + invenList.get(i).getItname() + "</td>");
+					sb.append("<td>" + "Stats:" + invenList.get(i).getAbility() + "</td>");
+					sb.append("<td>" + "Amount:" + invenList.get(i).getIvAmount() + "</td>");
+					sb.append("</tr>");			
+				}
+
+				sb.append("</table>");
+				sb.append("</div>");
+
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			mav.addObject("equipItemList", sb.toString());
+			mav.setViewName("shopEquip");
+			return mav;
+		}
+		//*********************************김형석***********************************
 }

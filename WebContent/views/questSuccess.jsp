@@ -26,6 +26,9 @@
 </script>
 <body>
 <div>
+	${massage }
+</div>
+<div>
 	<input type = "button" value = "퀘스트 목록으로 이동" onClick="QuestMove()" />
 </div>
 </body>

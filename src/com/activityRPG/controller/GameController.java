@@ -409,4 +409,37 @@ public class GameController {
 			return mav;
 		}
 		//**********************************한광수*****************
+		//*******************************김형석******************************
+		@RequestMapping(value="/ShopEquip", method = RequestMethod.GET)
+		private ModelAndView shopEquip(@ModelAttribute GameBean gameBean) {
+			/*//상품 목록 정보 취득
+	        List<GameBean> itemList = this.gp.getItemList();
+	        
+	        //모델 생성
+	        Map<String, Object> model = new HashMap<String, Object>();
+	        model.put("itemList", itemList);
+	        
+	        //반환값인 ModelAndView 인스턴스 생성
+	        ModelAndView modelAndView = new ModelAndView();
+	        modelAndView.setViewName("shopWeapon");
+	        modelAndView.addAllObjects(model);*/
+	        
+			mav = gp.entrance(21, gameBean);
+			return mav;
+		}
+		
+		@RequestMapping(value="/EquipBuy", method = RequestMethod.POST)
+		private ModelAndView equipBuy(@ModelAttribute GameBean gameBean) {
+			
+			mav = gp.entrance(22, gameBean);
+	        return mav;
+		}
+		
+		@RequestMapping(value="/EquipSell", method = RequestMethod.POST)
+		private ModelAndView equipSell(@ModelAttribute GameBean gameBean) {
+			
+			mav = gp.entrance(23, gameBean);
+	        return mav;
+		}
+		//*******************************김형석******************************
 }
