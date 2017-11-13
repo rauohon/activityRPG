@@ -237,6 +237,7 @@ public class QuestionBoard extends TranEx {
 			sb.append("</tr>");
 			sb.append("</table>");
 			
+			mav.addObject("qbMbid", boardBean.getQbMbid());
 			mav.addObject("questionBoardContentsView", sb.toString());
 			mav.addObject("qbCode", boardBean.getQbCode());
 		}catch(Exception e) {

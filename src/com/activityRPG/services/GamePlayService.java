@@ -194,24 +194,33 @@ public class GamePlayService  extends TranEx {
 	 * @return type : void
 	 */
 	private void setEquipment(GameBean bean, int jobCode) {
+		System.out.println(bean.getItcode() + " :: 2");
+		String ida = bean.getId();
+		System.out.println(ida + " :: ida 1");
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("content",bean.getChName());
+		map.put("equipItem", String.valueOf(bean.getItcode()));
 		int requiAbility = 0;			// 장비 필요 능력치
 		int chStatus = 0;						// 캐릭터의 해당 능력치
 		int applyStatus = 0;			// 캐릭터에 적용할 능력치
-		
+		System.out.println(ida + " :: ida 2");
 		if(chStatus >= requiAbility) {
+			System.out.println(ida + " :: ida 3");
 			System.out.println("능력치 적합 여부 확인");
 			bean = dao.getItemInfo(bean);
 			map.put("useItem", bean.getItcode());
 			requiAbility = bean.getRequiAbility();
 			applyStatus = bean.getAbility();
+			System.out.println(ida + " :: ida 4");
+			System.out.println(map.get("content") + "맵 확인");
 			bean = dao.getEquipList(map);
-			System.out.println(bean.getEqWeapon() + " :: 2");
-			map.put("equipItem", String.valueOf(bean.getEqWeapon()));
-			try { bean.setId(session.getAttribute("id").toString());}catch(Exception e) {}
-			bean = dao.getCharacterStatus(bean);
-			System.out.println("");
+			System.out.println("아이템 교체1");
+			System.out.println(ida + " :: ida 5");
+			GameBean bean2 = new GameBean();
+			bean2.setId(ida);
+			System.out.println(ida + " :: ida 6");
+			bean = dao.getCharacterStatus(bean2);
+			System.out.println("아이템 교체2");
 			System.out.println(bean.getChName() + "캐릭터 이름 확인");
 			switch(jobCode) {
 				case 0:
@@ -225,15 +234,23 @@ public class GamePlayService  extends TranEx {
 						if(dao.setEquipItemUpdate(map) != 0) {
 							if(dao.setItemApplyStatus(bean) != 0) {
 								transaction = true;
+							}else {
+								System.out.println("에러1");
 							}
+						}else {
+							System.out.println("에러2");
 						}
 					}else {
 						if(dao.setEquipItemUpdate(map) != 0) {
 							if(dao.setItemApplyStatus(bean) != 0) {
 								transaction = true;
+							}else {
+								System.out.println("에러3");
 							}
+						}else {
+							System.out.println("에러4");
 						}
-					}					
+					}
 					break;
 				case 1:
 					// 갑옷 변경
@@ -246,13 +263,21 @@ public class GamePlayService  extends TranEx {
 						if(dao.setEquipItemUpdate(map) != 0) {
 							if(dao.setItemApplyStatus(bean) != 0) {
 								transaction = true;
+							}else {
+								System.out.println("에러1");
 							}
+						}else {
+							System.out.println("에러2");
 						}
 					}else {
 						if(dao.setEquipItemUpdate(map) != 0) {
 							if(dao.setItemApplyStatus(bean) != 0) {
 								transaction = true;
+							}else {
+								System.out.println("에러3");
 							}
+						}else {
+							System.out.println("에러4");
 						}
 					}
 					break;
@@ -267,13 +292,21 @@ public class GamePlayService  extends TranEx {
 						if(dao.setEquipItemUpdate(map) != 0) {
 							if(dao.setItemApplyStatus(bean) != 0) {
 								transaction = true;
+							}else {
+								System.out.println("에러1");
 							}
+						}else {
+							System.out.println("에러2");
 						}
 					}else {
 						if(dao.setEquipItemUpdate(map) != 0) {
 							if(dao.setItemApplyStatus(bean) != 0) {
 								transaction = true;
+							}else {
+								System.out.println("에러3");
 							}
+						}else {
+							System.out.println("에러4");
 						}
 					}
 					break;
@@ -289,13 +322,21 @@ public class GamePlayService  extends TranEx {
 							System.out.println("chAttack : " + bean.getChAttack());
 							if(dao.setItemApplyStatus(bean) != 0) {
 								transaction = true;
+							}else {
+								System.out.println("에러1");
 							}
+						}else {
+							System.out.println("에러2");
 						}
 					}else {
 						if(dao.setEquipItemUpdate(map) != 0) {
 							if(dao.setItemApplyStatus(bean) != 0) {
 								transaction = true;
+							}else {
+								System.out.println("에러3");
 							}
+						}else {
+							System.out.println("에러4");
 						}
 					}
 					break;
@@ -310,13 +351,21 @@ public class GamePlayService  extends TranEx {
 						if(dao.setEquipItemUpdate(map) != 0) {
 							if(dao.setItemApplyStatus(bean) != 0) {
 								transaction = true;
+							}else {
+								System.out.println("에러1");
 							}
+						}else {
+							System.out.println("에러2");
 						}
 					}else {
 						if(dao.setEquipItemUpdate(map) != 0) {
 							if(dao.setItemApplyStatus(bean) != 0) {
 								transaction = true;
+							}else {
+								System.out.println("에러3");
 							}
+						}else {
+							System.out.println("에러4");
 						}
 					}
 					break;
@@ -331,13 +380,21 @@ public class GamePlayService  extends TranEx {
 						if(dao.setEquipItemUpdate(map) != 0) {
 							if(dao.setItemApplyStatus(bean) != 0) {
 								transaction = true;
+							}else {
+								System.out.println("에러1");
 							}
+						}else {
+							System.out.println("에러2");
 						}
 					}else {
 						if(dao.setEquipItemUpdate(map) != 0) {
 							if(dao.setItemApplyStatus(bean) != 0) {
 								transaction = true;
+							}else {
+								System.out.println("에러3");
 							}
+						}else {
+							System.out.println("에러4");
 						}
 					}
 					break;
@@ -350,7 +407,11 @@ public class GamePlayService  extends TranEx {
 					if(dao.setItemApplyStatus(bean) != 0) {
 						if(dao.setAfterItemUse(map) != 0) {
 							transaction = true;							
+						}else {
+							System.out.println("에러1");
 						}
+					}else {
+						System.out.println("에러2");
 					}
 					break;
 				case 7:
@@ -362,7 +423,11 @@ public class GamePlayService  extends TranEx {
 					if(dao.setItemApplyStatus(bean) != 0) {
 						if(dao.setAfterItemUse(map) != 0) {
 							transaction = true;							
+						}else {
+							System.out.println("에러1");
 						}
+					}else {
+						System.out.println("에러2");
 					}
 					break;
 			}
@@ -378,7 +443,6 @@ public class GamePlayService  extends TranEx {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView itemUse(GameBean bean) {
-		
 		rv = new RedirectView("/CharacterInfo");
 		rv.setExposeModelAttributes(false);
 		mav.setView(rv);
@@ -387,6 +451,8 @@ public class GamePlayService  extends TranEx {
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		try {
 			System.out.println(session.getAttribute("id") + "itemUse");
+			bean.setId(session.getAttribute("id").toString());
+			System.out.println(bean.getId() + "어게인");
 		if(jobcode <= 2000) {
 			System.out.println("무기 입니다.");
 			setEquipment(bean, 0);

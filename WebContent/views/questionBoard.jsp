@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="com.activityRPG.utils.ProjectUtils" %>
+	pageEncoding="UTF-8"%>
+<%@ page import="com.activityRPG.utils.ProjectUtils"%>
 <%! ProjectUtils session; %>
 <!DOCTYPE html>
 <html>
@@ -8,19 +8,30 @@
 <meta charset="UTF-8">
 <title>Question Board</title>
 </head>
-<link rel="stylesheet" type="text/css" href="/css/questionBoard.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css/questionBoard.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-	function init(){
-		var userType = ${userType};
-		if(userType==1){
-			 var input = document.createElement("input");
-			 input.type = "button";
-			 input.value = "게시글 작성";
-			 input.setAttribute("onClick", "questionBoardMakeFormMove()");
-			 input.setAttribute("class", "writeButton");
-			 document.getElementById("divOption").appendChild(input);
-		}
+function init(){
+	var userType = ${userType};
+	if(userType == ""){
+		
+	}else{
+		 var input = document.createElement("input");
+		 input.type = "button";
+		 input.value = "게시글 작성";
+		 input.setAttribute("onClick", "questionBoardMakeFormMove()");
+		 input.setAttribute("class", "writeButton");
+		 document.getElementById("divOption").appendChild(input);
+	}
+	if(userType == 1){
+		 $("#nomar_user").css("display","none");
+	     $("#admin_user").css("display","");
+	   }else{
+	      $("#nomar_user").css("display","");
+	      $("#admin_user").css("display","none");
+	   }
+
 		var i;
 		var listSize = ${listSize };
 		for(i = 0; i <= listSize/15; i++){
@@ -111,27 +122,24 @@
 	}
 </script>
 <style>
-	.divClass{
-		display:none;
-	} 
-	div#div0{
-		display:block;
-	}
-	
+.divClass {
+	display: none;
+}
+
+div#div0 {
+	display: block;
+}
 </style>
 <body onload="init()">
 	${questionBoardList}
-	<div id="pageNum">
-	
-	</div>
-	<br/>
+	<div id="pageNum"></div>
+	<br />
 	<div id="divOption">
 		<select id="option" class="selectBox">
 			<option value="qbTitle">제목</option>
 			<option value="qbMbid">작성자</option>
-		</select>
-		<input type="text" name="search" class="textBox"/>
-		<input type="button" value="검색" onClick="search()" class="searchButton"/>
+		</select> <input type="text" name="search" class="textBox" /> <input
+			type="button" value="검색" onClick="search()" class="searchButton" />
 	</div>
 </body>
 </html>
