@@ -33,7 +33,7 @@ public class GameBean {
 	private String itcode;
 	private int requiAbility;
 	private int buyPrice;
-	private int sellPirce;
+	private int sellPrice;
 	private int ability;
 	private int amount;
 	private int enlevel;
@@ -769,12 +769,14 @@ public class GameBean {
 		this.buyPrice = buyPrice;
 	}
 
-	public int getSellPirce() {
-		return sellPirce;
+	
+
+	public int getSellPrice() {
+		return sellPrice;
 	}
 
-	public void setSellPirce(int sellPirce) {
-		this.sellPirce = sellPirce;
+	public void setSellPrice(int sellPrice) {
+		this.sellPrice = sellPrice;
 	}
 
 	public int getAmount() {

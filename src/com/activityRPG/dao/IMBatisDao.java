@@ -445,7 +445,7 @@ public interface IMBatisDao {
 		
 	public int equipItemBuy(GameBean gameBean);						//상점아이템 구매
 		
-	public String getCharacterName(GameBean gameBean);				//캐릭터 이름 가져오기
+	public String getShopCharacter(GameBean gameBean);				//캐릭터 이름 가져오기
 		
 	public List<GameBean> getCharacterInven(GameBean gameBean);		//캐릭터 인벤토리 호출
 	

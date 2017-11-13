@@ -1189,7 +1189,7 @@ public class GamePlayService  extends TranEx {
 				String id = (String)session.getAttribute("id");	//세션에 저장된 유저 아이디 가져오기
 				gameBean.setId(id);
 
-				String chName = dao.getCharacterName(gameBean);	//DAO를 통해서 캐릭터 이름 가져오기
+				String chName = dao.getShopCharacter(gameBean);	//DAO를 통해서 캐릭터 이름 가져오기
 				session.setAttribute("chName", chName); //세션에 캐릭터이름 저장
 				gameBean.setChName(chName);
 

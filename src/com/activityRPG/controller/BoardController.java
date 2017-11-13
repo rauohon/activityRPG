@@ -514,8 +514,8 @@ public class BoardController {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/Search", method = RequestMethod.POST)
-	public ModelAndView search(@ModelAttribute BoardBean boardBean) {
+	@RequestMapping(value = "/QuestionSearch", method = RequestMethod.POST)
+	public ModelAndView questionSearch(@ModelAttribute BoardBean boardBean) {
 		
 		mav = qb.entrance(27, boardBean);
 		return mav;

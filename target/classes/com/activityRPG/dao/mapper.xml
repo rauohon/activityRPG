@@ -1226,7 +1226,7 @@
 		<result property="qbMbid" column="QB_MBID" javaType="java.lang.String" />
 	</resultMap>
 
-	<insert id="questionBoardMake" parameterType="boardBean">
+	 <insert id="questionBoardMake" parameterType="boardBean">
 		INSERT INTO
 		QB(QB_CODE, QB_TITLE, QB_CONTENT, QB_DATE, QB_HIT, QB_GROUP, QB_STEP,
 		QB_INDENT, QB_MBID)
@@ -1290,7 +1290,7 @@
     WHEN NOT MATCHED THEN
         INSERT (iv_chname, iv_mbid, iv_itcode, iv_amount, iv_enlevel) VALUES (#{chName}, #{id}, #{storeItemcode}, 1, 0)
 	</insert>
-	<select id="getCharacterName" parameterType="gameBean"
+	<select id="getShopCharacter" parameterType="gameBean"
 		resultType="String">
 		SELECT CH_NAME FROM USER_CHARACTER WHERE CH_MBID =
 		#{id}
@@ -1335,6 +1335,6 @@
 		<result property="ability" column="IT_ABILITY" javaType="java.lang.Integer" />
 		<result property="sellPrice" column="IT_SELL" javaType="java.lang.Integer" />
 		<result property="ivItemcode" column="IT_CODE" javaType="java.lang.Integer" />
-	</resultMap>
+	</resultMap> 
 	<!-- ↑ 김형석 -->
 </mapper>
