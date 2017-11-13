@@ -626,6 +626,7 @@
 		<result property="gbWDate" column="GB_WDATE" javaType="java.util.Date" />
 		<result property="gbMDate" column="GB_MDATE" javaType="java.util.Date" />
 		<result property="gbHit" column="GB_HIT" javaType="java.lang.Integer" />
+		<result property="gbGuCode" column="GB_GUCODE" javaType="java.lang.Integer" />
 	</resultMap>
 	<!-- ↑ 신태휘 -->
 

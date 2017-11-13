@@ -110,7 +110,7 @@ public class QuestService extends TranEx{
 				setTransactionResult(transaction);
 				if(dao.updateExp(gameBean) == 1 && dao.updateGold(gameBean) == 1) {	//업데이트 골드
 					System.out.println("골드가 업데이트 됬습니다.");
-					mav.addObject("massage", "1000골드와 경험치 50 획득!");
+					mav.addObject("message", "1000골드와 경험치 50 획득!");
 				}else {
 					System.out.println("골드 업데이트 실패");
 				}
@@ -126,7 +126,7 @@ public class QuestService extends TranEx{
 				setTransactionResult(transaction);
 				if(dao.updateExp(gameBean) == 1 && dao.updateGold(gameBean) == 1) {	//업데이트 골드
 					System.out.println("골드가 업데이트 됬습니다.");
-					mav.addObject("massage", "2000골드와 경험치 100 획득!");
+					mav.addObject("message", "2000골드와 경험치 100 획득!");
 				}else {
 					System.out.println("골드 업데이트 실패");
 				}
@@ -142,7 +142,7 @@ public class QuestService extends TranEx{
 				setTransactionResult(transaction);
 				if(dao.updateExp(gameBean) == 1 && dao.updateGold(gameBean) == 1) {	//업데이트 골드
 					System.out.println("골드가 업데이트 됬습니다.");
-					mav.addObject("massage", "3000골드와 경험치 150 획득!");
+					mav.addObject("message", "3000골드와 경험치 150 획득!");
 				}else {
 					System.out.println("골드 업데이트 실패");
 				}
@@ -158,7 +158,7 @@ public class QuestService extends TranEx{
 				setTransactionResult(transaction);
 				if(dao.updateExp(gameBean) == 1 && dao.updateGold(gameBean) == 1) {	//업데이트 골드
 					System.out.println("골드가 업데이트 됬습니다.");
-					mav.addObject("massage", "4000골드와 경험치 200 획득!");
+					mav.addObject("message", "4000골드와 경험치 200 획득!");
 				}else {
 					System.out.println("골드 업데이트 실패");
 				}
@@ -174,7 +174,7 @@ public class QuestService extends TranEx{
 				setTransactionResult(transaction);
 				if(dao.updateExp(gameBean) == 1 && dao.updateGold(gameBean) == 1) {	//업데이트 골드
 					System.out.println("골드가 업데이트 됬습니다.");
-					mav.addObject("massage", "5000골드와 경험치 250 획득!");
+					mav.addObject("message", "5000골드와 경험치 250 획득!");
 				}else {
 					System.out.println("골드 업데이트 실패");
 				}
@@ -190,7 +190,7 @@ public class QuestService extends TranEx{
 				setTransactionResult(transaction);
 				if(dao.updateExp(gameBean) == 1 && dao.updateGold(gameBean) == 1){	//업데이트 골드
 					System.out.println("골드가 업데이트 됬습니다.");
-					mav.addObject("massage", "6000골드와 경험치 300 획득!");
+					mav.addObject("message", "6000골드와 경험치 300 획득!");
 				}else {
 					System.out.println("골드 업데이트 실패");
 				}
@@ -206,7 +206,7 @@ public class QuestService extends TranEx{
 				setTransactionResult(transaction);
 				if(dao.updateExp(gameBean) == 1 && dao.updateGold(gameBean) == 1){	//업데이트 골드
 					System.out.println("골드가 업데이트 됬습니다.");
-					mav.addObject("massage", "6000골드와 경험치 350 획득!");
+					mav.addObject("message", "6000골드와 경험치 350 획득!");
 				}else {
 					System.out.println("골드 업데이트 실패");
 				}
@@ -276,8 +276,8 @@ public class QuestService extends TranEx{
 					sb.append("<tr>");
 					sb.append("<td>" + listMyQuest.get(i).getMyquestCode() + "</td>");
 					sb.append("<td>" + listMyQuest.get(i).getCharacterName() + "</td>");
-					sb.append("<td>" + listMyQuest.get(i).getQuestTitle() + "</td>");
-					sb.append("<td>" + listMyQuest.get(i).getQuestContents() + "</td>");
+					sb.append("<td>" + listMyQuest.get(i).getQuestTitle() + "퇴치</td>");
+					sb.append("<td>" + listMyQuest.get(i).getQuestContents() + "골드</td>");
 					if(listMyQuest.get(i).getSussess().equals("1 ")) {
 						sb.append("<td>완료</td>");
 					}else {
@@ -328,8 +328,8 @@ public class QuestService extends TranEx{
 					sb.append("<tr>");
 					sb.append("<td>" + listMyQuest.get(i).getMyquestCode() + "</td>");
 					sb.append("<td>" + listMyQuest.get(i).getCharacterName() + "</td>");
-					sb.append("<td>" + listMyQuest.get(i).getQuestTitle() + "</td>");
-					sb.append("<td>" + listMyQuest.get(i).getQuestContents() + "</td>");
+					sb.append("<td>" + listMyQuest.get(i).getQuestTitle() + "퇴치</td>");
+					sb.append("<td>" + listMyQuest.get(i).getQuestContents() + "골드</td>");
 					if(listMyQuest.get(i).getSussess().equals("1 ")) {
 						sb.append("<td>완료</td>");
 					}else {
