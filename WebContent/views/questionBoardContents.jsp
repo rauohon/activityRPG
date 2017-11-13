@@ -1,24 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Question Board Contents</title>
 </head>
-<link rel="stylesheet" type="text/css" href="/css/questionBoardContents.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/css/questionBoardContents.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-	function init(){
-		var userType = ${userType};
-		if(userType==1){
-			var modify = document.getElementsByName("questionBoardModifyFormMove")[0];
-			modify.setAttribute("type", "button");
-			
-			var questiondelete = document.getElementsByName("questionBoardDelete")[0];
-			questiondelete.setAttribute("type", "button");
-		}
+function init(){
+	var userType = ${userType};
+	 if(userType != ""){
+		 if("${id}" == "${qbMbid}"){
+		var modify = document.getElementsByName("questionBoardModifyFormMove")[0];
+		modify.setAttribute("type", "button");
+		
+		var questiondelete = document.getElementsByName("questionBoardDelete")[0];
+		questiondelete.setAttribute("type", "button");
 	}
+}else{
+	
+}
+	 if(userType==2){
+          $("#nomar_user").css("display","none");
+          $("#admin_user").css("display","");
+      }else{
+         $("#nomar_user").css("display","");
+         $("#admin_user").css("display","none");
+      }
+   }
 	
 	function questionBoardModifyFormMove(qbCode){
 		createForm("questionBoardModifyFormMoveForm", "QuestionBoardModifyFormMove", "post");
@@ -61,15 +74,14 @@
 	}
 </script>
 <style>
-  
 </style>
 <body onload="init()">
-	<div id="contentsDiv">
-		${questionBoardContentsView }
-	</div>
+	<div id="contentsDiv">${questionBoardContentsView }</div>
 	<div id="buttonDiv">
-		<input type="hidden" name="questionBoardModifyFormMove" value="수정" onClick="questionBoardModifyFormMove(${qbCode})" class="button"/>
-		<input type="hidden" name="questionBoardDelete" value="삭제" onClick="questionBoardDelete(${qbCode})" class="button"/>
+		<input type="hidden" name="questionBoardModifyFormMove" value="수정"
+			onClick="questionBoardModifyFormMove(${qbCode})" class="button" /> <input
+			type="hidden" name="questionBoardDelete" value="삭제"
+			onClick="questionBoardDelete(${qbCode})" class="button" />
 		<button onClick="back()" class="button">목록</button>
 	</div>
 </body>

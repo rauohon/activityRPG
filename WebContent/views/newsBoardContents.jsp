@@ -14,14 +14,14 @@
 	function init(){
 		var userType = "${userType}";
 		if(userType==2){
-			 var input = document.createElement("input");
-			 input.type = "button";
-			 input.value = "게시글 작성";
-			 input.setAttribute("onClick", "newsBoardMakeFormMove()");
-			 input.setAttribute("class", "writeButton");
-			 $("#nomar_user").css("display","none");
-			 $("#admin_user").css("display","");
-			 document.getElementById("divOption").appendChild(input);
+			var modify = document.getElementsByName("newsBoardModifyFormMove")[0];
+			modify.setAttribute("type", "button");
+			
+			var newsdelete = document.getElementsByName("newsBoardDelete")[0];
+			newsdelete.setAttribute("type", "button");
+			 
+			$("#nomar_user").css("display","none");
+			$("#admin_user").css("display","");
 		}else{
 			$("#nomar_user").css("display","");
 			$("#admin_user").css("display","none");

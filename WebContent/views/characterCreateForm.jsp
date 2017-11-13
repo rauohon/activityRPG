@@ -25,14 +25,16 @@
 			girl.height = 600;
 			girl.alt = "여자 사진입니다.";
 			girl.title = "여자 사진";
-		}else{	//남자
+		}else if(sex == 0){
+			//남자
 			var boy = document.getElementById("boy");
 			boy.src = "/images/man.png";
 			boy.width = 500;
 			boy.height = 600;
 			boy.alt = "남자 사진입니다.";
 			boy.title = "남자 사진";
-		}
+		}	
+		
 		var userType = "${userType}";
 		if(userType==2){
 			 $("#nomar_user").css("display","none");
