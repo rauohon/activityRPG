@@ -4,7 +4,10 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="/css/backGround.css"/>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
@@ -59,7 +62,42 @@
 	}
 </style>
 </head>
-<body>
+<script>
+function init(){
+	var userType = "${userType}";
+	if(userType==2){
+		 $("#nomar_user").css("display","none");
+		 $("#admin_user").css("display","");
+	}else{
+		$("#nomar_user").css("display","");
+		$("#admin_user").css("display","none");
+	}
+}
+</script>
+<body onLoad='init()'>
+<%@ include file="nav.jsp"%>
+	<style>	
+	body{
+		background-image:url("/images/guild.jpg");
+		background-repeat:no-repeat;
+		background-size:100% 100%;
+		overflow:hidden;
+		/* background-attachment:fixed; */
+	}
+		.button {
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.button:hover {
+	border: 3px solid #f68a6f;
+	background: #f68a6f;
+}
+	</style>
+	<div id='wraper' style="padding-top: 60px;">
+		<a href='BackPage' class='button'>뒤로가기</a>
 	<div class="createButton">
 	<input class="textBox" type ="text" name = "guildName" maxlength=5/>
 	<input class="buttons" type ="button" value = "생성" onClick ="guildCreate()" />
