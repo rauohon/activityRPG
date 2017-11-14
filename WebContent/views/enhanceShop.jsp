@@ -63,8 +63,8 @@ function init(){
 }
 </script>
 <style>
-		.button {
-	background: none;
+.button {
+	/* background: none; */
 	border: 3px solid #fff;
 	border-radius: 5px;
 	color: #fff;
@@ -86,7 +86,7 @@ function init(){
 		}
 	</style>
 	<div id='wraper' style="padding-top: 60px;">
-	<a href='BackPage' class='button'>뒤로가기</a>
+	<a href='BackPage' >뒤로가기</a>
 		<div id="message">
 			${message }
 		</div>
