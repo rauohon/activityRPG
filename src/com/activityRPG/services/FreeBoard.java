@@ -178,7 +178,7 @@ public class FreeBoard extends TranEx {
 		sb.append("<tr>");
 		sb.append("<th style=\'padding-right: 15px;\'>" + "댓글쓰기" + "</th>");
 		sb.append("<th>" + "<input type=\'text\' id=\'comment\' name=\'comment\' style=\'padding-right: 15px;\' />" + "</th>");
-		sb.append("<th>" + "<button id=\'commentinput\' onClick=\"freeComment(\'"+ bean.getFrcode() +"\', \'"+ bean.getId() +"\')\">" + "댓글 달기" + "</button>" + "</th>");
+		sb.append("<th>" + "<button id=\'commentinput\' onClick=\"freeComment(\'"+ bean.getCode() +"\', \'"+ bean.getId() +"\')\">" + "댓글 달기" + "</button>" + "</th>");
 		sb.append("</tr>");
 		
 		for(int i=0; i<beans.size(); i++) {
@@ -189,7 +189,7 @@ public class FreeBoard extends TranEx {
 			sb.append("<tr>");
 			sb.append("<td>" + beans.get(i).getComment() + "</td>");
 			sb.append("<td>" + sdf.format(beans.get(i).getDate()) + "</td>");
-			sb.append("<td>" + "<button id=\'del\' onClick=\"freecommentdelete(\'"+ beans.get(i).getFrcode() +"\', \'"+beans.get(i).getId()+"\')\">" + "삭제" + "</button>" + "</td>");
+			sb.append("<td>" + "<button id=\'del\' onClick=\"freecommentdelete(\'"+ beans.get(i).getFrcode() +"\', \'"+beans.get(i).getId()+"\', \'"+ bean.getCode() +"\')\">" + "삭제" + "</button>" + "</td>");
 			sb.append("</tr>");
 			sb.append("</tbody>");
 		}
@@ -206,6 +206,7 @@ public class FreeBoard extends TranEx {
 				System.out.println("아이디 체크 완료");
 				if(dao.freeComment(board) != 0) {
 					System.out.println("댓글 등록 완료");
+					mav.addObject("code", board.getCode());
 					mav.addObject("frcode", board.getFrcode());
 					mav = freeboardcontent(board);
 				}
@@ -226,6 +227,9 @@ public class FreeBoard extends TranEx {
 			board.setId(session.getAttribute("id").toString());
 			if(session.getAttribute("id") != null) {
 				System.out.println("아이디 체크 완료");
+				System.out.println(board.getFrcode());
+				System.out.println(board.getId());
+				System.out.println(board.getCode());
 				if(dao.freeCommentDelete(board) != 0) {
 					System.out.println("댓글 삭제 완료");
 					mav.setViewName("freeBoardContent");
@@ -339,7 +343,10 @@ public class FreeBoard extends TranEx {
 		ModelAndView mav = new ModelAndView();
 		System.out.println("service :: 자유게시판 글 삭제");
 		try {
+			System.out.println(board.getId());
+			System.out.println(session.getAttribute("id"));
 			if(board.getId().equals(session.getAttribute("id"))) {
+				System.out.println(board.getCode());
 				if(dao.freeDelete(board) != 0) {
 					mav.setViewName("freeBoardList");
 					mav.addObject("freelist", freeboardlist(board));

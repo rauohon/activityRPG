@@ -11,8 +11,9 @@ td {
 	padding-right: 20px;
 }
 
-h3 {
-	padding-left: 15px; 
+p {
+	padding: 10px 15px;
+    font-size: 20px;
 }
 
 #user {
@@ -22,7 +23,7 @@ h3 {
 }
 
 #infocheck {
-	margin-top: 15px;
+	margin-left: 20px;
 	margin-right: 10px;
 	background-color: #f47757;
 	padding: 3px 25px;
@@ -36,6 +37,25 @@ h3 {
 }
 
 #infocheck:hover {
+	background-color: #f68a6f;
+	border: 1px solid #f68a6f;
+}
+
+#pwdChange {
+	margin-left: -5px;
+	margin-right: 10px;
+	background-color: #f47757;
+	padding: 3px 25px;
+	border-radius: 5px;
+	border: 1px solid #f47757;
+	width: 170px;
+	color:#fff;
+	font-size: 14px;
+	height: 45px;
+    width: 152px;
+}
+
+#pwdChange:hover {
 	background-color: #f68a6f;
 	border: 1px solid #f68a6f;
 }

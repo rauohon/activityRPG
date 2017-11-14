@@ -51,7 +51,8 @@ function init(){
 </head>
 <body onLoad='init()'>
 <%@ include file="nav.jsp"%>
-	<div id="pwdChange" style="padding-top:70px;">
+<div class="contents">
+	<form role="form" id="pwdChange" style="padding-top:70px;" action="changePwd" method="post">
 		<!-- <div class="form-group">
 			<input type="password" name="pw" placeholder="현재 패스워드" />
 		</div> -->
@@ -69,14 +70,15 @@ function init(){
 			<!-- 패스워드 재입력 -->
 			<div class="form-group col-lg-6">
 				<div class="input-group">
-					<input name="pwd2" id="spassword" type="password" class="form-control" placeholder="변경 할 패스워드 재 입력">
+					<input name="pwd2" class="spassword" type="password" class="form-control" placeholder="변경 할 패스워드 재 입력">
 				</div>
 				<span class="help-block" id="error"></span>
 			</div>
 		</div>
 		<input type="hidden" value="${id }" />
-		<button id="btn" onClick="changePwd()">패스워드 변경</button><br>
-		<button id="btn" onClick="infoBack()">나의 정보로 돌아가기</button>
-	</div>
+		<button id="btn" type="submit">패스워드 변경</button><br>
+	</form>
+		<button id="btns" onClick="infoBack()">나의 정보로 돌아가기</button>
+		</div>
 </body>
 </html>

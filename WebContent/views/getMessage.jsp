@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+	<link rel="stylesheet" href="css/getMessage.css" media="screen" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="js/common.js"></script>
 <script>
@@ -50,8 +51,16 @@ function init(){
 </head>
 <body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
+	<style>
+	body {
+		background-image: url("/images/message.jpg");
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+	}
+	</style>
+	
 	<div class="contents">
-	<link rel="stylesheet" href="css/getMessage.css" media="screen" type="text/css" />
 	<div id='wraper' style="padding-top: 60px;">
 		<p>받은 메시지 함</p>
 		<input type="hidden" name="id" value="${id }"  />
@@ -61,6 +70,7 @@ function init(){
 		<div>
 		${messagelist }
 		</div>
+	</div>
 	</div>
 </body>
 </html>

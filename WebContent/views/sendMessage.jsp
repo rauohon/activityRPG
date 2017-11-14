@@ -13,10 +13,10 @@
 function total(formname, action, method){
 	var form = createForm(formname, action, method);
 	
-	createObj("hidden", "id", "${id}", "");
-	
+	createinput("hidden", "id", "${id}");
 	relationObj("messageForm", "id");
 	relationObj("sendmsgForm", "id");
+	alert(id);
 	form.submit();
 }
 

@@ -44,17 +44,16 @@
 		form.submit();
 	}
 	
-	function freeComment(code){
+	function freeComment(code, id){
 		var form = createForm("freeCommentForm", "freeComment", "post");
 		
-		createinput("hidden", "id", "${id}");
+		createinput("hidden", "id", id);
 		createinput("hidden", "code", code);
 		createinput("hidden", "comment", comment);
 		
 		relationObj("freeCommentForm", "id");
 		relationObj("freeCommentForm", "code");
 		relationObj("freeCommentForm", "comment");
-		
 		form.submit();
 	}
 	
