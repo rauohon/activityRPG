@@ -359,6 +359,7 @@ public class GameNomalService extends TranEx {
 	 */
 	private Map<String, String> equipedMap(GameBean bean) {
 		Map<String, String> map = new HashMap<String, String>();
+		System.out.println(bean.getChName() + "착용 아이템 확인");
 		map.put("content",bean.getChName());
 		GameBean equipBean = new GameBean();
 		GameBean enBean = new GameBean();
