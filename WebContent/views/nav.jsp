@@ -88,13 +88,13 @@ function total(formname, action, method){
 			<li><button onClick="total('gameForm', 'GameForm', 'post')" id="bar">GAME PLAY</button></li>
 			<li><button id="bar">BOARD</button>
 				<ul>
-					<li><button onClick="total('guildboardpage', 'GuildBoardPage', 'get')" id="bar">길드게시판</button></li>
-					<li><button onClick="total('freeBoardForm', 'freeBoard', 'post')" id="bar">자유게시판</button></li>
 					<li><input type="button" value="공지사항 게시판" onClick="newsBoardMove()"  id="bar" /></li>
 					<li><button onClick="total('eventBoardListForm', 'eventBoardList', 'post')" id="bar">이벤트 관리</button></li>
+					<li><button onClick="total('freeBoardForm', 'freeBoard', 'post')" id="bar">자유게시판</button></li>
+					<li><button onClick="total('questionBoardForm', 'QuestionBoard', 'post')" id="bar">1:1문의</button></li>
+					<li><button onClick="total('guildboardpage', 'GuildBoardPage', 'get')" id="bar">길드게시판</button></li>
 					<li><input type="button" value="공략 게시판" onClick="attackBoardMove()" id="bar" /></li>
 					<li><input type="button" value="신고 게시판" onClick="reportBoardMove()" id="bar" /></li>
-					<li><button onClick="total('questionBoardForm', 'QuestionBoard', 'post')" id="bar">1:1문의</button></li>
 				</ul>
 			</li>
 		</ul>

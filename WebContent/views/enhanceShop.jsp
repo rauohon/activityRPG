@@ -63,8 +63,8 @@ function init(){
 }
 </script>
 <style>
-		.button {
-	background: none;
+.button {
+	/* background: none; */
 	border: 3px solid #fff;
 	border-radius: 5px;
 	color: #fff;

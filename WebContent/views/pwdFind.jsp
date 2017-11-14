@@ -65,5 +65,6 @@ function init(){
 		</div>
 	</div>
 	<!-- end login -->
+	</div>
 </body>
 </html>

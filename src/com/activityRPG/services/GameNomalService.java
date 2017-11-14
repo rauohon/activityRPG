@@ -130,7 +130,7 @@ public class GameNomalService extends TranEx {
 	}
 
 	/**
-	 * 처리내용 : 
+	 * 처리내용 : 이미지 파일 업로드
 	 * 작성일 : 2017. 11. 12.
 	 * 작성자 : 신태휘
 	 * @Method Name : charaImageFileUpload
@@ -175,8 +175,8 @@ public class GameNomalService extends TranEx {
 	 */
 	private String itemIsUsed(GameBean bean) {
 		String result = "";
-		String disArm = "<input type='button' value='해제하기' onClick='itemdisarm(\""+bean.getItcode() +"\")'";
-		String arm = "<input type='button' value='사용하기' onClick='itemuse(\""+bean.getItcode() +"\")'";
+		String disArm = "<input type='button' class=\'button\' value='해제하기' onClick='itemdisarm(\""+bean.getItcode() +"\")'";
+		String arm = "<input type='button' class=\'button\' value='사용하기' onClick='itemuse(\""+bean.getItcode() +"\")'";
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			map.put("content",session.getAttribute("chName").toString());

@@ -194,34 +194,22 @@ public class GamePlayService  extends TranEx {
 	 * @return type : void
 	 */
 	private void setEquipment(GameBean bean, int jobCode) {
-		System.out.println(bean.getItcode() + " :: 2");
 		String ida = bean.getId();
-		System.out.println(ida + " :: ida 1");
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("content",bean.getChName());
 		map.put("equipItem", String.valueOf(bean.getItcode()));
 		int requiAbility = 0;			// 장비 필요 능력치
 		int chStatus = 0;						// 캐릭터의 해당 능력치
 		int applyStatus = 0;			// 캐릭터에 적용할 능력치
-		System.out.println(ida + " :: ida 2");
 		if(chStatus >= requiAbility) {
-			System.out.println(ida + " :: ida 3");
-			System.out.println("능력치 적합 여부 확인");
 			bean = dao.getItemInfo(bean);
 			map.put("useItem", bean.getItcode());
 			requiAbility = bean.getRequiAbility();
 			applyStatus = bean.getAbility();
-			System.out.println(ida + " :: ida 4");
-			System.out.println(map.get("content") + "맵 확인");
 			bean = dao.getEquipList(map);
-			System.out.println("아이템 교체1");
-			System.out.println(ida + " :: ida 5");
 			GameBean bean2 = new GameBean();
 			bean2.setId(ida);
-			System.out.println(ida + " :: ida 6");
 			bean = dao.getCharacterStatus(bean2);
-			System.out.println("아이템 교체2");
-			System.out.println(bean.getChName() + "캐릭터 이름 확인");
 			switch(jobCode) {
 				case 0:
 					// 무기 변경
@@ -1240,7 +1228,7 @@ public class GamePlayService  extends TranEx {
 
 				sb.append("<div id=\"shopItem\">");
 				sb.append("<table class=\"tb1\">");
-
+				
 				for(int i = 0; i < listGameBean.size(); i++) {
 					sb.append("<tr>");
 					sb.append("<td class=\"itemName\" onClick=\"equipBuy(" +  listGameBean.get(i).getItcode() + ")\">" + listGameBean.get(i).getItname() + "</td>");
@@ -1272,11 +1260,13 @@ public class GamePlayService  extends TranEx {
 				sb.append("<table class=\"tb2\">");
 
 				for(int i = 0; i < invenList.size(); i++) {
-					sb.append("<tr>");
-					sb.append("<td class=\"itemName\" onClick=\"equipSell(" + invenList.get(i).getIvItemcode() + ")\">" + invenList.get(i).getItname() + "</td>");
-					sb.append("<td>" + "Stats:" + invenList.get(i).getAbility() + "</td>");
-					sb.append("<td>" + "Amount:" + invenList.get(i).getIvAmount() + "</td>");
-					sb.append("</tr>");			
+					if(invenList.get(i).getIvItemcode() != 0) {
+						sb.append("<tr>");
+						sb.append("<td class=\"itemName\" onClick=\"equipSell(" + invenList.get(i).getIvItemcode() + ")\">" + invenList.get(i).getItname() + "</td>");
+						sb.append("<td>" + "Stats:" + invenList.get(i).getAbility() + "</td>");
+						sb.append("<td>" + "Amount:" + invenList.get(i).getIvAmount() + "</td>");
+						sb.append("</tr>");	
+					}	
 				}
 
 				sb.append("</table>");

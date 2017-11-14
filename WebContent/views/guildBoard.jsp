@@ -129,7 +129,7 @@ td{
 	<div id='control' style="text-align: center;">
 		<a href='WriteGBoardPage' class="button">글 작성</a>
 		<input type="text" name="text" />
-		<input type="button" id="button" class="button" onClick="titlefine()" value="검색" />
+		<input type="button" id="button" class="button" value="검색" />
 		<form id="fixForm"></form>
 	</div>
 </div>

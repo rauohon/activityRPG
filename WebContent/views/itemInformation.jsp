@@ -96,7 +96,7 @@
 
 .button {
 	font-size:20px;
-	background: white;
+	/* background: white; */
 	position: absolute;
 	left: 100px;
 }

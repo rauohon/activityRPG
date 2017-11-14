@@ -446,23 +446,24 @@ public class GuildBoard extends TranEx  {
 	 */
 	private String guildBoardList(BoardBean bean) {
 		StringBuffer sb = new StringBuffer();
-		if(bean.getGbStep() <= 1) {
-			bean.setGbStep(1);
-			bean.setGbIndent(10);
-		}else if(bean.getGbStep() >= 2){
-			bean.setGbStep(bean.getGbStep()+((bean.getGbStep()-1)*9));
-			bean.setGbIndent(bean.getGbStep()+9);
+		if(bean.getGbStep() <= 1) {										// 첫페이지의 경우
+			bean.setGbStep(1);											// 1번 row num 부터
+			bean.setGbIndent(10);										// 10번 까지
+		}else if(bean.getGbStep() >= 2){													// 두번째 페이지 부터
+			bean.setGbStep(bean.getGbStep()+((bean.getGbStep()-1)*9));			// 시작 row num = 페이지 번호 + ((페이지 번호-1) * 9)
+			bean.setGbIndent(bean.getGbStep()+9);										// 끝 row num = 시작 row num + 9
 		}
-		List<BoardBean> gBoardList = dao.getGuildBoardList(bean);
-		sb.append("<table><thead><tr><th>글 번호</th><th>작성자</th><th style=\'width: 50%;\'>글 제목</th><th>작성일</th><th>조회수</th></tr></thead><tbody>");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-		int totalCount = dao.getGuildBoardCount(bean);
-		int countList = 10;
-		int totalPage = totalCount / countList;
-		if(totalCount / countList >0) {
+		List<BoardBean> gBoardList = dao.getGuildBoardList(bean);			// DB 내용 끌어오기
+		sb.append("<table><thead><tr><th>글 번호</th><th>작성자</th><th style=\'width: 50%;\'>글 제목</th>"
+				+ "<th>작성일</th><th>조회수</th></tr></thead><tbody>");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");		// 날짜 형식 변환
+		int totalCount = dao.getGuildBoardCount(bean);			// 길드보드 총 게시글 수 불러오기
+		int countList = 10;												// 길드보드페이지에 표시할 갯수 설정
+		int totalPage = totalCount / countList;						// 전체 페이지 계산
+		if(totalCount / countList >0) {									// 총 게시글 / 표시 갯수 가 0보다 크면 전체 페이지 +1
 			totalPage++;
 		}
-		for(int i=0 ; i< gBoardList.size();i++) {
+		for(int i=0 ; i< gBoardList.size();i++) {						// 길드보드 리스트 출력
 			sb.append("<tr><td>");
 			sb.append(i+1);
 			sb.append("</td><td>");
@@ -479,7 +480,7 @@ public class GuildBoard extends TranEx  {
 		sb.append("</tbody></table>");
 		sb.append("<div class=\'pageNum\'>");
 		for(int i=1 ; i<=totalPage ; i++) {
-			sb.append("<button onClick=\"guildboardpage2(\'"+ i +"\')\">"+ i +"</button>");
+			sb.append("<button class=\'button\' onClick=\"guildboardpage2(\'"+ i +"\')\">"+ i +"</button>");
 		}
 		sb.append("</div>");
 		return sb.toString();
@@ -513,8 +514,7 @@ public class GuildBoard extends TranEx  {
 						mav.setViewName("guildBoard");
 						session.setAttribute("page", "guildBoard");	
 					}
-				}
-				
+				}				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
