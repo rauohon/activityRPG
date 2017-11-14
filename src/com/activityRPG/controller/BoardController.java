@@ -164,7 +164,7 @@ public class BoardController {
 	}
 
 	/**
-	 * 처리내용 : 댓글 수정
+	 * 처리내용 : 댓글 삭제
 	 * 작성일 : 2017. 10. 31.
 	 * 작성자 : 신태휘
 	 * @Method Name : replyDelete
@@ -177,16 +177,16 @@ public class BoardController {
 
 		return mav;
 	}
-
+	
 	/**
-	 * 처리내용 : 파일 업로드
+	 * 처리내용 : 관리자 길드보드 게시글 삭제
 	 * 작성일 : 2017. 10. 31.
 	 * 작성자 : 신태휘
-	 * @Method Name : fileUploadGBoard
+	 * @Method Name : replyDelete
 	 * @return type : ModelAndView
 	 */
-	@RequestMapping(value="/UploadFileGBoard", method = RequestMethod.POST )
-	private ModelAndView fileUploadGBoard(@ModelAttribute BoardBean bean) {
+	@RequestMapping(value="/GuildBoardAdminDelete", method = RequestMethod.POST )
+	private ModelAndView guildBoardAdminDelete(@ModelAttribute BoardBean bean) {
 
 		mav=gBoard.entrance(9, bean);
 

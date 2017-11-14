@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Question Board</title>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 </head>
 <link rel="stylesheet" type="text/css" href="/css/questionBoard.css" />
 <script
@@ -25,11 +27,11 @@ function init(){
 		 document.getElementById("divOption").appendChild(input);
 	}
 	if(userType == 1){
-		 $("#nomar_user").css("display","none");
-	     $("#admin_user").css("display","");
-	   }else{
 	      $("#nomar_user").css("display","");
 	      $("#admin_user").css("display","none");
+	   }else{
+			 $("#nomar_user").css("display","none");
+		     $("#admin_user").css("display","");
 	   }
 
 		var i;
@@ -129,8 +131,23 @@ function init(){
 div#div0 {
 	display: block;
 }
+.button {
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.button:hover {
+	border: 3px solid #f68a6f;
+	background: #f68a6f;
+}
 </style>
-<body onload="init()">
+</head>
+<body onLoad='init()'>
+	<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">
+	<h1><a href='BackPage' class='button'>뒤로가기</a></h1>
 	${questionBoardList}
 	<div id="pageNum"></div>
 	<br />
@@ -140,6 +157,7 @@ div#div0 {
 			<option value="qbMbid">작성자</option>
 		</select> <input type="text" name="search" class="textBox" /> <input
 			type="button" value="검색" onClick="search()" class="searchButton" />
+	</div>
 	</div>
 </body>
 </html>

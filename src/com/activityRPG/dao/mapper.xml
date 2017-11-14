@@ -583,7 +583,7 @@
 
 	<!-- 길드보드 글 삭제하기 -->
 	<delete id="setGuildBoardRemove" parameterType="boardBean">
-		DELETE FROM GUILDBOARD WHERE GB_CODE = #{gbCode}
+		DELETE FROM GUILDBOARD WHERE GB_CODE = #{gbCode} AND GB_NAME = #{chName}
 	</delete>
 
 	<!-- 길드보드 글 수정하기 -->
@@ -626,7 +626,14 @@
 		<result property="gbWDate" column="GB_WDATE" javaType="java.util.Date" />
 		<result property="gbMDate" column="GB_MDATE" javaType="java.util.Date" />
 		<result property="gbHit" column="GB_HIT" javaType="java.lang.Integer" />
+		<result property="gbGuCode" column="GB_GUCODE" javaType="java.lang.Integer" />
 	</resultMap>
+	
+	<!-- 관리자 길드보드 글 삭제하기 -->
+	<delete id="setAdminGuildBoardRemove" parameterType="boardBean">
+		DELETE FROM GUILDBOARD WHERE GB_CODE = #{gbCode}
+	</delete>
+	
 	<!-- ↑ 신태휘 -->
 
 	<!-- **************************김훈******************************* -->

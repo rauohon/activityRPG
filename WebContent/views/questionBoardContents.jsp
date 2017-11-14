@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Question Board Contents</title>
+<link rel="stylesheet" type="text/css"
+   href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 </head>
 <link rel="stylesheet" type="text/css"
 	href="/css/questionBoardContents.css" />
@@ -74,8 +76,22 @@ function init(){
 	}
 </script>
 <style>
+.button {
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.button:hover {
+	border: 3px solid #f68a6f;
+	background: #f68a6f;
+}
 </style>
 <body onload="init()">
+	<%@ include file="nav.jsp"%>
+	<div id='wraper' style="padding-top: 60px;">		
+	<h1><a href='BackPage' class='button'>뒤로가기</a></h1>
 	<div id="contentsDiv">${questionBoardContentsView }</div>
 	<div id="buttonDiv">
 		<input type="hidden" name="questionBoardModifyFormMove" value="수정"
@@ -83,6 +99,7 @@ function init(){
 			type="hidden" name="questionBoardDelete" value="삭제"
 			onClick="questionBoardDelete(${qbCode})" class="button" />
 		<button onClick="back()" class="button">목록</button>
+	</div>
 	</div>
 </body>
 </html>
