@@ -58,6 +58,7 @@
 	}
 </script>
 <style>
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
 	.guildView{
 		overflow:hidden;
 		width:100%;
@@ -71,8 +72,11 @@
 		font-size:30px;
 	}
 	h1{
+		font-family: 'Hanna', serif;
+		padding-top:5%;
+		padding-bottom:5%;
 		font-size:50px;
-		color:white;
+		color:black;
 		margin-right:375px;
 	}
 	.buttonMassage{
@@ -88,6 +92,7 @@
 		background: linear-gradient(to right, #A6A6A6, #D9E5FF);
 	}
 	.guildList{
+		font-family: 'Hanna', serif;
 		width:100%;
 	}
 	.guildList tr{
@@ -95,12 +100,13 @@
 		color:black;
 	}
 	.guildList td{
+		padding-top:2%;
 		font-size:30px;
 		color:black;
 	}
 	.guildList th{
 		font-size:33px;
-		color:white;
+		color:black;
 		padding: 10px;
 	}
 	.guildBackground{
@@ -147,7 +153,7 @@ function init(){
 		</style>
 		<div class="guildView" style="padding-right: 0px; padding-left: 0px;">
 			<div class="guildBackground">
-				<h1 style="font-size: 40px;color: black;">길드</h1>
+				<h1>길드</h1>
 				${listGuildView }
 				<div class="buttonMassage">
 					<input class="buttonCreate" type = "button" value = "길드 생성"	 onClick="guildCreateMove()">

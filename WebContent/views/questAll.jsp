@@ -49,26 +49,30 @@ var myquestCode = null;
 	}
 </script>
 <style>
-
+@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
 	.quest1{
-		width:600px;
-		height:560px;
+		font-family: 'Nanum Pen Script', serif;
+		width:50%;
+		height:100%;		
+		margin-top:10%;
 		background-image:url("/images/questAllButton.jpg");
 		background-size:100% 100%;
+		background-repeat: no-repeat;
 	}
-
-	h1{
-		font-size:40px;
-		margin-left:140px;
-		margin-top:130px;
+	p{
+		padding-top:6%;
+		font-size:60px;
+		margin-left: 23%;
 	}
 
 	.questTable{
 		margin-top:10px;
-		font-size:26px;
+		font-size:45px;
 	}
 	.questTable td{
-		padding:5px 30px;
+		color:black;
+		padding:15px 30px;
+		font-weight: 900;
 	}
 	.questAllButton{
 		margin-top:50px;
@@ -122,21 +126,22 @@ var myquestCode = null;
 }
 	</style>
 	<div id='wraper' style="padding-top: 60px;">	
-	<a href='BackPage' class='button'>뒤로가기</a>
-	<div class="quest1">
-		<div style='color: white;'>
-			<h1>전체 퀘스트 목록</h1>
+		<a href='BackPage' class='button'>뒤로가기</a>
+		<div class="quest1">
+			<div style='color: white;'>
+				<p>전체 퀘스트 목록</p>
+			</div>
+			<div style="margin-top: 6%;">
+				${questList }
+			</div>
+			<div class="questAllButton">
+				<input class="buttonBox" type = "button" value="내 퀘스트창으로 이동" onClick="myQuestMove()"/>
+			</div>
+			<div class="messageBox">
+			${message }
+			<br/>
+			</div>
 		</div>
-		<div style="margin-top: 6%;">
-			${questList }
-		</div>
-		<div class="questAllButton">
-			<input class="buttonBox" type = "button" value="내 퀘스트창으로 이동" onClick="myQuestMove()"/>
-		</div>
-		<div class="messageBox">
-		${message }
-		</div>
-	</div>
 	</div>
 </body>
 </html>
