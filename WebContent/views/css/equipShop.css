@@ -20,7 +20,7 @@ h1 {
 }
 
 #inven {
-	width: 400px;
+	width: 40%;
 	height: 400px;
 	overflow: auto;
 	border: 6px solid #868686;
@@ -35,7 +35,7 @@ h1 {
 }
 
 .shopbt {
-	margin-left: 60%;
+	margin-left: 71%;
 	margin-top: 45%;
 }
 

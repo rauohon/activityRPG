@@ -9,12 +9,24 @@
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <style type="text/css">
-@import url(https://fonts.googleapis.com/css?family=Raleway:300);
+@font-face {
+  font-family: 'Jeju Hallasan';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.eot);
+  src: url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.eot?#iefix) format('embedded-opentype'),
+       url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.woff2) format('woff2'),
+       url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.woff) format('woff'),
+       url(//fonts.gstatic.com/ea/jejuhallasan/v3/JejuHallasan-Regular.ttf) format('truetype');
+}
+
 #chatGuildUserArea {
 	display: none;
 }
 .button {
-	background: none;
+	background : rgba(0, 0, 0,0.6);
+	font-size:40px;
+	font-family: Jeju Hallasan;
 	border: 3px solid #fff;
 	border-radius: 5px;
 	color: #fff;
@@ -22,7 +34,7 @@
 }
 .button:hover {
 	border: 3px solid #f68a6f;
-	background: #f68a6f;
+	background: rgba(246, 138, 111,0.6);
 }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -99,9 +111,16 @@ function onMessage(evt){
 </head>
 <body onLoad='init()'>
 <%@ include file="nav.jsp"%>
-	<div id='wraper' style="padding-top: 60px;">
-		<div id='chatArea' style="width:30%; float: left; height: 60%; margin-left: 80px;">
-			<h1>마을 페이지</h1>
+<style>
+body{
+	background-image: url('/images/village.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+</style>
+	<div id='wraper' style="padding-top: 10%;">
+		<div id='chatArea' style="width:30%; float: left; height: 60%; margin-left: 80px; background : rgba(0, 0, 0, 0.6);">
 			<div id="chatEveryUserArea" style="border: 1px solid black; height:600px;">
 				<h4>전체 채팅</h4>
 				<div id="chatEveryUserMsgArea"></div>
@@ -135,7 +154,7 @@ function onMessage(evt){
 				<button class='button' onClick="movePage('dungeonpage','DungeonPage','POST')" style='height: 100px; width: 79.5%; margin-top: 1%;'>탐험</button>
 			</div>
 			<div id='go_shop'>
-				<button class='button' onClick="movePage('shopequip','ShopEquip','GET')" style='height: 100px; width: 39%; margin-top: 1%;'>아이템상점</button>
+				<button class='button' onClick="movePage('shopequip','ShopEquip','GET')" style='height: 100px; width: 39%; margin-top: 1%;'>아이템 상점</button>
 				<button onClick="EnhanceShopMove()" class='button' style='height: 100px; width: 39%; margin-left: 1%;  margin-top: 1%;'>대장간</button>
 			</div>
 			<div id='go_ranking'>
