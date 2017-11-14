@@ -241,6 +241,7 @@
 			</if>
 		</where>
 	</select>
+	
 	<!-- 	전환 가능한 경험치 가져오기 -->
 	<select id="getAvailableAct" parameterType="actBean" resultType='actBean'>
 		SELECT 
@@ -317,7 +318,10 @@
 	
 	<!-- 전체 활동량 가져오기 -->
 	<select id="getActivityAllData" parameterType="actBean" resultType="actBean">
-		SELECT SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor FROM ACTIVITY WHERE AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID=#{id})
+		SELECT 
+			SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor FROM ACTIVITY 
+		WHERE 
+			AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID=#{id})
 	</select>
 	
 	<!-- 전체 경험치 전환량 가져오기 -->
@@ -325,7 +329,7 @@
 		SELECT SUM(AL_EXP) AS "exp" FROM ACTIVITY_LOG WHERE AL_MBID = #{id}
 	</select>
 	
-	<!-- 회원 전체 일일 평균 걸음/오른 층 불러오기 -->
+	<!-- 회원 전체 일일 평균 걸음 / 층 수 불러오기 -->
 	<select id="getAvgActivityAllUser" parameterType="actBean" resultType="actBean">
 		SELECT 
 			AVG(step) AS step, AVG(floor) AS floor 
@@ -385,12 +389,12 @@
 	<!-- 장비한 리스트 가져오기 -->
 	<select id="getEquipList" parameterType="map" resultType="gameBean">
 		SELECT
-		EQ_WEAPON AS EQWEAPON, EQ_ARMOR AS EQARMOR, EQ_GLOVE AS EQGLOVE,
-		EQ_SHOE AS EQSHOE, EQ_RING AS EQRING, EQ_NECKLACE AS EQNECKLACE
+			EQ_WEAPON AS EQWEAPON, EQ_ARMOR AS EQARMOR, EQ_GLOVE AS EQGLOVE,
+			EQ_SHOE AS EQSHOE, EQ_RING AS EQRING, EQ_NECKLACE AS EQNECKLACE
 		FROM
-		EQUIPMENT
+			EQUIPMENT
 		WHERE
-		EQ_CHNAME = #{content}
+			EQ_CHNAME = #{content}
 	</select>
 
 	<!-- 장비한 리스트의 아이템 이름 가져오기 -->
@@ -412,18 +416,25 @@
 
 	<!-- 소지한 장비 리스트 가져오기 -->
 	<select id="getIvenList" parameterType="map" resultType="gameBean">
-		<![CDATA[SELECT IVITCODE as ITCODE, ITNAME, REQUIRE as  REQUIABILITY, ABILITY, AMOUNT, ENLEVEL, BUYPRICE, SELLPRICE	FROM IVENLIST	WHERE CHNAME=#{content} AND IVITCODE >=#{min} AND IVITCODE <= #{max}]]>
+		<![CDATA[
+			SELECT 
+				IVITCODE as ITCODE, ITNAME, REQUIRE as  REQUIABILITY, ABILITY, AMOUNT, ENLEVEL, BUYPRICE, SELLPRICE	
+			FROM 
+				IVENLIST
+			WHERE 
+				CHNAME=#{content} AND IVITCODE >=#{min} AND IVITCODE <= #{max}
+				]]>
 	</select>
 
 	<!-- 아이템 정보 가져오기 -->
 	<select id="getItemInfo" parameterType="gameBean" resultType="gameBean">
 		SELECT
-		IT_CODE as ITCODE, IT_NAME AS ITNAME, IT_REQUIREABILITY AS REQUIABILITY,
-		IT_ABILITY AS ABILITY, IT_BUY AS BUYPRICE, IT_SELL AS SELLPRICE
+			IT_CODE as ITCODE, IT_NAME AS ITNAME, IT_REQUIREABILITY AS REQUIABILITY,
+			IT_ABILITY AS ABILITY, IT_BUY AS BUYPRICE, IT_SELL AS SELLPRICE
 		FROM
-		ITEM
+			ITEM
 		WHERE
-		IT_CODE=#{itcode}
+			IT_CODE=#{itcode}
 	</select>
 
 	<!-- 아이템 착용전 기착용 여부 확인 -->

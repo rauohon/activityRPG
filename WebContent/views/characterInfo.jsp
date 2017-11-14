@@ -14,14 +14,14 @@
 		$.ajax({
 			type: "get",
 			url: "ItemInfo",
-			data: { chName : '${chName}', itcode:code},							// 전달 값
-			dataType: "html",										// json, xml, html(text): 안쓰면 html
+			data: { chName : '${chName}', itcode:code},	// 전달 값
+			dataType: "html",										// html
 			timeout : "5000",										// 타임아웃
 			success : function(data) {							// 성공
 				console.log(data);
 				$("#ajax_div").append(data);
 			},
-			error : function( error ) {							// 실패
+			error : function( error ) {								// 실패
 				alert( "error" );
 				console.log(error);
 			}

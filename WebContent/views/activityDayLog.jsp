@@ -58,11 +58,17 @@
 	<%@ include file="nav.jsp"%>
 	<div id='wraper' style="padding-top: 60px;">	
 		<br/>
+		
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+		<!-- chart.js cdn 설정 -->
+		
 		<div id='chart' style="width: 50%; height:60%; text-align: center; float:left;">
 		<h3>오늘(24 시간)의 운동량</h3>
+			
 			<canvas id="myChart1" width="100%" height="60%"></canvas>
+			
 			<canvas id="myChart2" width="100%" height="60%"></canvas>
+		
 			<script>
 			$("#chart").append(${todayActivity}[0].step + " / " + ${yesterdayActivity}[0].step + "\t");
 			$("#chart").append(${todayActivity}[0].floor + " / " + ${yesterdayActivity}[0].floor);

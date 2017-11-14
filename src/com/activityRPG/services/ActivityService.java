@@ -445,7 +445,7 @@ public class ActivityService extends TranEx {
 		List<ActivityBean> acti = dao.getTodayAct(bean);
 		sb = gson.toJson(acti);
 	
-			System.out.println(sb);
+		System.out.println(sb);
 		return sb;
 	}
 
