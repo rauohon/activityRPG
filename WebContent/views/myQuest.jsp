@@ -15,8 +15,8 @@ var SuccessCheck = null;
 //퀘스트 진행중 확인 , 완료버튼 보상넘김
 	function QuestChecking(Code , success){
 		if(success==1){
-			createForm("questAll","QuestAll","post");
-			var questSuccessForm = document.getElementsByName("questAll")[0];
+			createForm("questPresent","QuestPresent","post");
+			var questSuccessForm = document.getElementsByName("questPresent")[0];
 			
 			var myquestSuccess = document.createElement("input");
 			

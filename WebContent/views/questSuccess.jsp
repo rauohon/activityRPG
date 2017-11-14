@@ -43,10 +43,14 @@
 	border: 3px solid #f68a6f;
 	background: #f68a6f;
 }
+.messageBox{
+	color:white;
+	font-size:33px;
+	}
 </style>
 <body>
-<div>
-	${massage }
+<div class="messageBox">
+	${message }
 </div>
 <div>
 	<input type = "button" value = "퀘스트 목록으로 이동" onClick="QuestMove()" />

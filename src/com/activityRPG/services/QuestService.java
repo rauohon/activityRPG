@@ -206,11 +206,11 @@ public class QuestService extends TranEx{
 				setTransactionResult(transaction);
 				if(dao.updateExp(gameBean) == 1 && dao.updateGold(gameBean) == 1){	//업데이트 골드
 					System.out.println("골드가 업데이트 됬습니다.");
-					mav.addObject("message", "6000골드와 경험치 350 획득!");
+					mav.addObject("message", "7000골드와 경험치 350 획득!");
 				}else {
 					System.out.println("골드 업데이트 실패");
 				}
-				System.out.println("6000골드 획득");
+				System.out.println("7000골드 획득");
 				break;
 			}
 
@@ -219,7 +219,7 @@ public class QuestService extends TranEx{
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		mav.setViewName("questAll");
+		mav.setViewName("questSuccess");
 		return mav;
 	}
 
