@@ -1,5 +1,25 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: pc
+=======
+<<<<<<< HEAD
+Built-By: rnjde
+=======
+<<<<<<< HEAD
+Built-By: pc
+=======
+<<<<<<< HEAD
+Built-By: rnjde
+=======
+<<<<<<< HEAD
+Built-By: pc
+=======
+Built-By: jiwon
+>>>>>>> 4f77c007f5c6640a4aa0a45cdd773844374400a7
+>>>>>>> db01b1df65b09da33e5248c2f4bcfbbb3532579c
+>>>>>>> 1068963a967e5bd04549bf81cfb50d0344b29fc0
+>>>>>>> 843aa8ca696bbc2939307bd4bed5dd269f0a4cda
+>>>>>>> a4dadfc92d9faceb427920545003a42ddc9e8d72
 Build-Jdk: 1.8.0_144
 Created-By: Maven Integration for Eclipse
 
