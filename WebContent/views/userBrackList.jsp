@@ -23,20 +23,54 @@
 	}
 	
 	/* 정지 된 회원 리스트 */
-	function stop(){
-		createForm("stopListForm", "stopList", "post");
-	      var form = document.getElementsByName("stopListForm")[0];
-	      form.submit();
+	function stop(id){
+		alert(id);
+		var form = createForm("stopListForm", "stopList", "post");
+		createinput("hidden", "id", id);
+		relationObj("stopListForm", "id");
+		form.submit();
 	}
-	
+
 	/* 회원 리스트 */
-	function start(){
+	function start(id) {
 		createForm("startListForm", "userCheck", "post");
-	      var form = document.getElementsByName("startListForm")[0];
-	      form.submit();
+		var form = document.getElementsByName("startListForm")[0];
+		form.submit();
 	}
-	
+
 	/* 정지 버튼 */
+<<<<<<< HEAD
+	function userDelete(id) {
+		alert(id);
+		createForm("userDeleteForm", "UserDelete", "post");
+		var form = document.getElementsByName("userDeleteForm")[0];
+
+		/* 리스트에서 삭제시켜줄 회원 */
+		var code = document.createElement("input");
+		code.type = "hidden";
+		code.name = "id";
+		code.value = id;
+
+		form.appendChild(code);
+		form.submit();
+	}
+
+	/* 복귀 버튼 */
+	function userRestart(id) {
+		alert(id);
+		createForm("userRestartForm", "userRestart", "post");
+		var form = document.getElementsByName("userDeleteForm")[0];
+
+		/* 리스트에서 삭제시켜줄 회원 */
+		var user = document.createElement("input");
+		user.type = "hidden";
+		user.name = "id";
+		user.value = id;
+
+		form.appendChild(user);
+		form.submit();
+	}
+=======
 	function userDelete(id){
 	      createForm("userDeleteForm", "UserDelete", "post");
 	      var form = document.getElementsByName("userDeleteForm")[0];
@@ -65,6 +99,7 @@
 	      form.appendChild(user);
 	      form.submit();
 	   }
+>>>>>>> 48d9e3c7d8f8981d1f8656655d7d99b758679922
 </script>
 
 </head>
@@ -76,5 +111,6 @@
 		${MemberList }
 	</div>
 	<!-- 종 -->
+	</div>
 </body>
 </html>

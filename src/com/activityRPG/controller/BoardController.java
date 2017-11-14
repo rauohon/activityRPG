@@ -295,6 +295,15 @@ public class BoardController {
 		mav = eventboard.entrance(4, board);
 		return mav;
 	}
+
+	//자유게시판 댓글 삭제
+	@RequestMapping(value="/freeCommentDelete", method = RequestMethod.POST)
+	public ModelAndView freeCommentDelete(@ModelAttribute BoardBean board) throws Exception {
+		System.out.println("BoardController :: 자유게시판 댓글 삭제");
+		System.out.println(board.getFrcode());
+		mav = fb.entrance(11, board);
+		return mav;
+	}
 	//****************김훈********************
 	@RequestMapping(value = "/NewsBoard", method = RequestMethod.POST)
 	public ModelAndView newsBoardMove() {

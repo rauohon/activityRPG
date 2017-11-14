@@ -147,8 +147,7 @@
 	
 	<!-- 글 삭제 -->
 	<insert id="freeDelete" parameterType="com.activityRPG.beans.BoardBean">
-		DELETE FROM FB WHERE
-		FB_CODE=#{code}
+		DELETE FROM FB WHERE FB_CODE=#{code}
 	</insert>
 	
 	<!-- 글 수정 -->
@@ -168,6 +167,11 @@
 		SELECT FR_CODE AS frcode, FR_MBID AS id, FR_COMMENT AS "comment", FR_DATE AS "date"
 		FROM FR WHERE FR_BDCODE=#{code} ORDER BY FR_DATE DESC
 	</select>
+	
+	<!-- 자유게시판 댓글 삭제 -->
+	<insert id="freeCommentDelete" parameterType="com.activityRPG.beans.BoardBean">
+		DELETE FROM FR WHERE FR_CODE=#{frcode}
+	</insert>
 	
 	<!-- 자유게시판 글 제목 조회 -->
 	<select id="freeTitlefine" parameterType="com.activityRPG.beans.BoardBean" resultType="Integer">
@@ -958,7 +962,7 @@
 
 	<!-- 활동맴버리스트 -->
 	<select id="MemberList" resultMap="MemberMap">
-		SELECT * FROM MEMBER WHERE
+		SELECT MB_ID FROM MB WHERE
 		MB_TYPE = 1 ORDER BY MB_ID DESC
 	</select>
 	

@@ -57,6 +57,20 @@
 		
 		form.submit();
 	}
+	
+	function freecommentdelete(frcode, id, code) {
+		alert(code);
+		alert(id);
+		var form = createForm("freeDeleteForm", "freeCommentDelete", "post");
+		createinput("hidden", "frcode", frcode);
+		createinput("hidden", "id", id);
+		createinput("hidden", "code", code);
+
+		relationObj("freeDeleteForm", "frcode");
+		relationObj("freeDeleteForm", "id");
+		relationObj("freeDeleteForm", "code");
+		form.submit();
+	}
 </script>
 <script>
 function init(){

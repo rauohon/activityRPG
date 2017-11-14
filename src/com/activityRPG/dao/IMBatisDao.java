@@ -70,6 +70,8 @@ public interface IMBatisDao {
 	public int freeComment(BoardBean board);						//자유게시판 댓글 달기
 
 	public List<BoardBean> getfreeComment(BoardBean board);			//자유게시판 댓글 보기
+	
+	public int freeCommentDelete(BoardBean board);					//자유게시판 댓글 삭제
 
 	public int freeTitlefine(BoardBean board);						//자유게시판 글 타이틀 조회
 
