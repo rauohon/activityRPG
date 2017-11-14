@@ -169,6 +169,8 @@ public interface IMBatisDao {
 	public int setGuildBoardWrite(BoardBean bean);					// 길드 보드 글 작성하기
 
 	public int setGuildBoardRemove(BoardBean bean);					// 길드 보드 글 삭제 하기
+	
+	public int setAdminGuildBoardRemove(BoardBean bean);					// 관리자 길드 보드 글 삭제 하기
 
 	public int setGuildBoardModify(BoardBean bean);					// 길드 보드 글 수정 하기
 

@@ -42,7 +42,8 @@ td{
 	background-color: gray;
 }
 .pageNum{
-	margin-left: 40%;
+	text-align:center;
+	margin-left: auto;
 	margin-top: 2%;
 }
 .pageNum button{
@@ -51,6 +52,17 @@ td{
 	border-radius: 5px;
 	margin: 1%;
 	width: 5%;
+}
+	.button {
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.button:hover {
+	border: 3px solid #f68a6f;
+	background: #f68a6f;
 }
 
 </style>
@@ -94,16 +106,32 @@ td{
 		$("#fixForm").append(i);
 		f.submit();
 	}
+	function guildboardadmindelete(code){
+		var f = $("#fixForm");
+		var i = $("<input />");
+		f.attr("name", "guildBoardAdminDelete");
+		f.attr("action", "GuildBoardAdminDelete");
+		f.attr("method", "POST");
+		i.attr("type", "hidden");
+		i.attr("name", "gbCode");
+		i.attr("value", code);
+		$("#fixForm").append(i);
+		f.submit();
+	}
 </script>
 </head>
 <body onLoad='init()'>
 <%@ include file="nav.jsp"%>
 	<div id='wraper' style="padding-top: 60px;">
-	<a href='WriteGBoardPage'>글 작성</a>
 	<div style="color: white;">
 		${boards }
 	</div>
-	<form id="fixForm"></form>
+	<div id='control' style="text-align: center;">
+		<a href='WriteGBoardPage' class="button">글 작성</a>
+		<input type="text" name="text" />
+		<input type="button" id="button" class="button" onClick="titlefine()" value="검색" />
+		<form id="fixForm"></form>
+	</div>
 </div>
 </body>
 </html>

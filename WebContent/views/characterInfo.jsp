@@ -102,8 +102,7 @@ function init(){
 </head>
 <body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
-	<div id='wraper' style="padding-top: 60px;">
-		
+	<div id='wraper' style="padding-top: 60px;">		
 		<div id='charaInfo' style='float: left; width:40%; margin-left: 2%; margin-right: 2%;'>
 			<div id='charaPhoto' style='float: left; width:50%; color: white;'>
 				<h1><a href='BackPage' class='button'>뒤로가기</a></h1>

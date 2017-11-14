@@ -44,7 +44,17 @@ td{
   color: #fff;
   border-bottom: solid 1px rgba(255,255,255,0.1);
 }
-
+	.button {
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.button:hover {
+	border: 3px solid #f68a6f;
+	background: #f68a6f;
+}
 </style>
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
@@ -116,7 +126,7 @@ $(window).on("load resize ", function() {
 <body onLoad='init()'>
 <%@ include file="nav.jsp"%>
 <div id='wraper' style="padding-top: 60px;">
-	<table style='border:1px solid black; color:white;'>
+	<table style='border:1px solid black; color:white; width: 90%; margin-left: 5%; margin-top:5%;'>
 	<thead class='tbl-header'>
 		<tr>
 			<th>
@@ -143,16 +153,17 @@ $(window).on("load resize ", function() {
 		</tr>
 		</tbody>
 	</table>
-	<div id='ajax_div'  style='color:white; margin-left: 20%'>${reply }</div>
-	<div id='replyWrite' style='color:white;'>
-			${chName } : <input type='text' placeholder='댓글을 달아주세요.' name='gbReplyContent' size='100px;'/>
-			<input type='button' onClick='gBoardForm("replygboard","ReplyGBoard","POST")' value='댓글 등록' />
+	<div id='ajax_div'  style='color:white; margin-top:2%; margin-left: 20%'>${reply }</div>
+	<div id='replyWrite' style='color:white; text-align: center; margin-top: 2%;'>
+			${chName } : <input type='text' placeholder='댓글을 달아주세요.' name='gbReplyContent' size='100px;' class='button'/>
+			<input type='button' onClick='gBoardForm("replygboard","ReplyGBoard","POST")' class="button"  value='댓글 등록' />
 	</div>
-	
-	<a href='GuildBoardPage'>전체 목록</a>
-	<input type='button' onClick='gBoardForm("deletegboard", "DeleteGBoard", "POST")' value='삭제' />
-	<input type='button' onClick='gBoardForm("modifygboardpage", "ModifyGBoardPage", "POST")' value='수정' />
-	<input type='button' onClick='gBoardForm("writegboardpage", "WriteGBoardPage", "GET")' value='글쓰기' />
+	<div style="text-align: center; margin-top: 2%;">
+	<a href='GuildBoardPage' class="button">전체 목록</a>
+	<input type='button' class="button" onClick='gBoardForm("deletegboard", "DeleteGBoard", "POST")' value='삭제' />
+	<input type='button' class="button" onClick='gBoardForm("modifygboardpage", "ModifyGBoardPage", "POST")' value='수정' />
+	<input type='button' class="button" onClick='gBoardForm("writegboardpage", "WriteGBoardPage", "GET")' value='글쓰기' />
+	</div>
 	<form id="fixForm"></form>
 </div>
 </body>

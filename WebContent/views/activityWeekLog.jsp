@@ -83,8 +83,8 @@ $(document).ready(function() {
 							      ticks: {
 							    	  	fontColor:"white",
 								        min: 0,
-								        max: 14000,
-								        stepSize: 2000
+								        max: 20000,
+								        stepSize: 5000
 								      }
 							    }],
 							  }
