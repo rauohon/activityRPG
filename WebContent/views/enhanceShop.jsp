@@ -86,7 +86,7 @@ function init(){
 		}
 	</style>
 	<div id='wraper' style="padding-top: 60px;">
-	<a href='BackPage' >뒤로가기</a>
+	<a href='BackPage' class='button'>뒤로가기</a>
 		<div id="message">
 			${message }
 		</div>

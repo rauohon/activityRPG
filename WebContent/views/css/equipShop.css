@@ -1,19 +1,12 @@
 @charset "UTF-8";
 
-body {
-	background-image: url("/images/shop2.jpg");
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-}
-
 h1 {
 	color: #C9AE00;
 	text-align: center;
 }
 
 #shopItem {
-	width: 400px;
+	width: 40%;
 	height: 550px;
 	overflow: auto;
 	border: 6px solid #868686;
@@ -36,14 +29,14 @@ h1 {
 	position: absolute;
 	top: 240px;
 	left: 90px;
-	margin-left: 500px;
+	margin-left: 45%;
 	border-style: double;
 	border-color: #662500
 }
 
 .shopbt {
-	margin-left: 590px;
-	margin-top: 600px;
+	margin-left: 60%;
+	margin-top: 45%;
 }
 
 input {
