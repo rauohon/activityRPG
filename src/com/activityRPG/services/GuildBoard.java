@@ -479,7 +479,7 @@ public class GuildBoard extends TranEx  {
 		sb.append("</tbody></table>");
 		sb.append("<div class=\'pageNum\'>");
 		for(int i=1 ; i<=totalPage ; i++) {
-			sb.append("<button onClick=\"guildboardpage2(\'"+ i +"\')\">"+ i +"</button>");
+			sb.append("<button class=\'button\' onClick=\"guildboardpage2(\'"+ i +"\')\">"+ i +"</button>");
 		}
 		sb.append("</div>");
 		return sb.toString();
