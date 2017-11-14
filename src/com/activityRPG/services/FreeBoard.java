@@ -71,6 +71,14 @@ public class FreeBoard extends TranEx {
 		case 9:
 			mav = freetitlefine((BoardBean)object[0]);
 			break;
+			//자유 게시판 글 제목 찾기
+		case 10:
+			mav = freetitlefine((BoardBean)object[0]);
+			break;
+			//자유 게시판 댓글 삭제
+		case 11:
+			mav = freecommentdelete((BoardBean)object[0]);
+			break;
 		}
 		System.out.println(mav.getViewName() + " : 스위치 mav 네임");
 		return mav;
@@ -170,7 +178,7 @@ public class FreeBoard extends TranEx {
 		sb.append("<tr>");
 		sb.append("<th style=\'padding-right: 15px;\'>" + "댓글쓰기" + "</th>");
 		sb.append("<th>" + "<input type=\'text\' id=\'comment\' name=\'comment\' style=\'padding-right: 15px;\' />" + "</th>");
-		sb.append("<th>" + "<button id=\'commentinput\' onClick=\"freeComment(\'"+ bean.getCode() +"\', \'"+ bean.getId() +"\')\">" + "댓글 달기" + "</button>" + "</th>");
+		sb.append("<th>" + "<button id=\'commentinput\' onClick=\"freeComment(\'"+ bean.getFrcode() +"\', \'"+ bean.getId() +"\')\">" + "댓글 달기" + "</button>" + "</th>");
 		sb.append("</tr>");
 		
 		for(int i=0; i<beans.size(); i++) {
@@ -181,6 +189,7 @@ public class FreeBoard extends TranEx {
 			sb.append("<tr>");
 			sb.append("<td>" + beans.get(i).getComment() + "</td>");
 			sb.append("<td>" + sdf.format(beans.get(i).getDate()) + "</td>");
+			sb.append("<td>" + "<button id=\'del\' onClick=\"freecommentdelete(\'"+ beans.get(i).getFrcode() +"\', \'"+beans.get(i).getId()+"\')\">" + "삭제" + "</button>" + "</td>");
 			sb.append("</tr>");
 			sb.append("</tbody>");
 		}
@@ -194,13 +203,37 @@ public class FreeBoard extends TranEx {
 		try {
 			board.setId(session.getAttribute("id").toString());
 			if(session.getAttribute("id") != null) {
+				System.out.println("아이디 체크 완료");
 				if(dao.freeComment(board) != 0) {
-					System.out.println("아이디 체크 완료");
 					System.out.println("댓글 등록 완료");
+					mav.addObject("frcode", board.getFrcode());
 					mav = freeboardcontent(board);
 				}
 			}else {
 				mav = freeboardcontent(board);
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return mav;
+	}
+
+	//자유게시판 댓글 삭제
+	public ModelAndView freecommentdelete(BoardBean board) {
+		ModelAndView mav = new ModelAndView();
+		System.out.println("service :: 자유게시판 댓글 삭제");
+		try {
+			board.setId(session.getAttribute("id").toString());
+			if(session.getAttribute("id") != null) {
+				System.out.println("아이디 체크 완료");
+				if(dao.freeCommentDelete(board) != 0) {
+					System.out.println("댓글 삭제 완료");
+					mav.setViewName("freeBoardContent");
+					mav.addObject("freecontent", getfreeboardcontent(board));
+				}
+			}else {
+				mav.setViewName("freeBoardContent");
+				mav.addObject("freecontent", getfreeboardcontent(board));
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -255,7 +288,7 @@ public class FreeBoard extends TranEx {
 				sb.append("<td>" + "<button id=\'title\' onClick=\"viewContents(\'"+ bean.get(i).getCode() +"\')\" >" + bean.get(i).getTitle() + "</button>" + "</td>");
 				sb.append("<td>" + bean.get(i).getId() + "</td>");
 				sb.append("<td>" + sdf.format(bean.get(i).getDate()) + "</td>");
-				sb.append("<td>" + "<button id=\'del\' onClick=\"freedelete(\'"+ bean.get(i).getCode() +"\', \'"+bean.get(i).getId()+"\')\">" + "삭제" + "</button>" + "</td>");
+				sb.append("<td>" + "<button id=\'del\' onClick=\"freedelete(\'"+ bean.get(i).getCode() +"\', \'"+bean.get(i).getId()+"\', \'"+ bean.get(i).getCode() +"\')\">" + "삭제" + "</button>" + "</td>");
 				sb.append("</tr>");
 				sb.append("</tbody>");
 			}

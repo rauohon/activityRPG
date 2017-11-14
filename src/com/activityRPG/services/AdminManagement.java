@@ -99,30 +99,21 @@ public class AdminManagement extends TranEx {
 	public String MemberList(MemberBean mb) {
 		StringBuffer sb = new StringBuffer();
 		List<MemberBean> listBean = dao.MemberList();
-		int z = 0;
-		for(int i = 0 ; i <= listBean.size()/15; i++) {
+		
 			sb.append("<table id=\'delete\' border=1>");
 			sb.append("<tr>");
 			sb.append("<th id=\"deletetitle\">아이디</th>");
 			sb.append("<th id=\"deletetitle\">회원활동</th>");
 
 			sb.append("</tr>");
-			for(int j = 0 + z; j < 15*(i+1); j++) {
-				if(j < listBean.size()) {
-					mb = listBean.get(j);
+			for(int i = 0; i < listBean.size(); i++) {
 					sb.append("<tr>");
-					sb.append("<td id=\"user\">" + mb.getId() + "</td>");
-					sb.append("<td class=\"see\">" + "<input id=\"submit\" type=\"button\" value=\"정지\" onClick=\"userDelete(\'" + mb.getId() + "\')\" />" + "</td>");
+					sb.append("<td id=\"user\">" + listBean.get(i).getId() + "</td>");
+					sb.append("<td class=\"see\">" + "<input id=\"submit\" type=\"button\" value=\"정지\" onClick=\"userDelete(\'" + listBean.get(i).getId() + "\')\" />" + "</td>");
 					sb.append("</tr>");
-				}else {
-					break;
-				}
-				z = j + 1;
 			}
 			sb.append("</table>");
-
-			sb.append("<button id=\'list\' onClick=\'stop()\'>" + "정지 된 회원 리스트" + "</button>");
-		}
+			sb.append("<button id=\'list\' onClick=\"stop(\'" + mb.getId() + "\')\">" + "정지 된 회원 리스트" + "</button>");
 		return sb.toString();
 	}
 
@@ -149,30 +140,20 @@ public class AdminManagement extends TranEx {
 	public String getstopList(MemberBean mb) {
 		StringBuffer sb = new StringBuffer();
 		List<MemberBean> listBean = dao.MemberBrackList();
-		int z = 0;
-		for(int i = 0 ; i <= listBean.size()/15; i++) {
 			sb.append("<table id=\'delete\' border=1>");
 			sb.append("<tr>");
 			sb.append("<th id=\"deletetitle\">아이디</th>");
 			sb.append("<th id=\"deletetitle\">회원활동</th>");
 
 			sb.append("</tr>");
-			for(int j = 0 + z; j < 15*(i+1); j++) {
-				if(j < listBean.size()) {
-					mb = listBean.get(j);
+			for(int i = 0; i < listBean.size(); i++) {
 					sb.append("<tr>");
-					sb.append("<td id=\"user\">" + mb.getId() + "</td>");
-					sb.append("<td class=\"see\">" + "<input id=\"submit\" type=\"button\" value=\"복귀\" onClick=\"userRestart(\'" + mb.getId() + "\')\" />" + "</td>");
+					sb.append("<td id=\"user\">" + listBean.get(i).getId() + "</td>");
+					sb.append("<td class=\"see\">" + "<input id=\"submit\" type=\"button\" value=\"복귀\" onClick=\"userRestart(\'" + listBean.get(i).getId() + "\')\" />" + "</td>");
 					sb.append("</tr>");
-				}else {
-					break;
-				}
-				z = j + 1;
 			}
 			sb.append("</table>");
-
 			sb.append("<button id=\'list\' onClick=\'start()\'>" + "회원 리스트" + "</button>");
-		}
 		return sb.toString();
 	}
 
@@ -210,7 +191,7 @@ public class AdminManagement extends TranEx {
 
 		try {
 			if(dao.userRestart(mb) == 1) {
-				System.out.println("사용자 정지 성공");
+				System.out.println("사용자 복귀 성공");
 
 				transaction = true;
 				

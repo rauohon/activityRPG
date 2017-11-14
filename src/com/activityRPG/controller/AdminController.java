@@ -59,7 +59,7 @@ public class AdminController {
 	//회원 복귀 버튼 눌렀을 때
 	@RequestMapping(value = "/userRestart", method = RequestMethod.POST)
 	public ModelAndView userRestart(@ModelAttribute MemberBean member) throws Exception {
-		System.out.println("AdminController :: 회원 관리 페이지 >> 타입3");
+		System.out.println("AdminController :: 회원 복귀 버튼 눌렀을 때");
 		mav = am.entrance(5, member);
 		return mav;
 	}
