@@ -38,7 +38,6 @@
 	
 	/* 정지 버튼 */
 	function userDelete(id){
-	      alert(id);
 	      createForm("userDeleteForm", "UserDelete", "post");
 	      var form = document.getElementsByName("userDeleteForm")[0];
 	
@@ -54,9 +53,8 @@
 	
 	/* 복귀 버튼 */
 	function userRestart(id){
-	      alert(id);
 	      createForm("userRestartForm", "userRestart", "post");
-	      var form = document.getElementsByName("userDeleteForm")[0];
+	      var form = document.getElementsByName("userRestartForm")[0];
 	
 	      /* 리스트에서 삭제시켜줄 회원 */
 	      var user = document.createElement("input");
