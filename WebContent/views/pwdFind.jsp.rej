@@ -1,0 +1,9 @@
+diff a/WebContent/views/pwdFind.jsp b/WebContent/views/pwdFind.jsp	(rejected hunks)
+@@ -36,6 +36,7 @@
+  </script>
+  </head>
+  <body onLoad='init()'>
+++<<<<<<< HEAD
+ +<%@ include file="nav.jsp"%>	
+ +=======
+  <%@ include file="nav.jsp"%>

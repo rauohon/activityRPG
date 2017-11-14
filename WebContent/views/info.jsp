@@ -89,7 +89,7 @@ function init(){
 <body onLoad='init()'>
 <%@ include file="nav.jsp"%>
 <div style="padding-top:60px">
-	<h3>나의 정보</h3>
+	<p>나의 정보</p>
 	<input type="hidden" name="id" value="${id }" />
 	${userInfo }
 </div>

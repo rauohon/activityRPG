@@ -64,7 +64,7 @@ function init(){
 	<div style="padding-top: 60px;">
 		<p>자유 게시판</p>
 		${freelist }
-		<div>${message }</div>
+		<div id="board">${message }</div>
 		<table class="fine" style="margin-top: 20px;">
 			<thead>
 				<tr>

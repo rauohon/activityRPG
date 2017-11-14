@@ -38,6 +38,14 @@ function init(){
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script></head>
 <body onLoad="init()">
 	<%@ include file="nav.jsp"%>
+	<style>
+		body {
+			background-image: url("/images/main.jpg");
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+		}
+	</style>
 	<div id='wraper' style="padding-top: 60px;">
 		<table id="get">
 			<tr>
@@ -47,7 +55,7 @@ function init(){
 				<td><a href="PwdFind">패스워드 찾기</a></td>
 			</tr>
 		</table>
-		<h2 id="logincheck">${id }님 로그인된 메인 페이지 입니다.</h2>
+		<h2 id="logincheck">${id }님 로그인 된 메인 페이지 입니다.</h2>
 		<table id="nodab">
 			<tr>
 				<td><button onClick="total('infoForm', 'Info', 'post')" id="info">나의 정보</button></td>

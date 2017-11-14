@@ -1,10 +1,7 @@
 // JavaScript Validation For Registration Page
 
 
-$(function()
-
-{    
-
+$(function() {    
 	// id validation
 	var idregex = /^[a-zA-Z0-9]+$/;
 	$.validator.addMethod("validid", function( value, element ) {

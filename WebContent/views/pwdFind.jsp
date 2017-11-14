@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,8 +36,7 @@ function init(){
 </script>
 </head>
 <body onLoad='init()'>
-<%@ include file="nav.jsp"%>
-<div id='wraper' style="padding-top: 10%;">
+<%@ include file="nav.jsp"%>	
 <link rel="stylesheet" href="css/login.css" media="screen" type="text/css" />
 	<!-- login -->
 	<div class="container" style="padding-top:60px">
