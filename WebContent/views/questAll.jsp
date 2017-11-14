@@ -98,6 +98,7 @@ var myquestCode = null;
 		}
 	}
 </script>
+</head>
 <body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
 	<style>

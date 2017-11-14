@@ -108,8 +108,8 @@ function init(){
 							      ticks: {
 							    	  	fontColor:"white",
 								        min: 0,
-								        max: 10,
-								        stepSize: 2
+								        max: 15,
+								        stepSize: 3
 								      }
 							    }],
 							  }
@@ -122,7 +122,7 @@ function init(){
 					        labels: ["하루 평균 층 수"],
 					        datasets: [{
 					            label: "일일 평균",
-					            backgroundColor: 'rgba(255, 99, 132,1)',
+					            backgroundColor: 'rgba(255, 255, 132,1))',
 					            borderColor: 'rgb(54, 162, 235, 1)',
 					            borderWidth: 1,
 					            data: [${avgActivityAllUser}[0].floor]
@@ -159,8 +159,8 @@ function init(){
 							      ticks: {
 							    	  	fontColor:"white",
 								        min: 0,
-								        max: 60000,
-								        stepSize: 10000
+								        max: 100000,
+								        stepSize: 20000
 								      }
 							    }],
 							  }
@@ -210,8 +210,8 @@ function init(){
 							      ticks: {
 							    	  	fontColor:"white",
 								        min: 0,
-								        max: 50,
-								        stepSize: 10
+								        max: 100,
+								        stepSize: 20
 								      }
 							    }],
 							  }
@@ -224,7 +224,7 @@ function init(){
 					        labels: ["누적 층 수"],
 					        datasets: [{
 					            label: "층 수 누적",
-					            backgroundColor: 'rgba(255, 99, 132,1)',
+					            backgroundColor: 'rgba(255, 255, 132,1))',
 					            borderColor: 'rgb(54, 162, 235, 1)',
 					            borderWidth: 1,
 					            data: [${activityAllUser}[0].floor]

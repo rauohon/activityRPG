@@ -82,9 +82,9 @@ public class GuildBoard extends TranEx  {
 			case 8:
 				mav = deleteReplyGBoard((BoardBean)bean);
 				break;
-			
+				
 			case 9:
-				mav = fileUploadGBoard((BoardBean)bean);
+				mav = guildBoardAdminDelete((BoardBean)bean);
 				break;
 		}		
 		
@@ -92,19 +92,23 @@ public class GuildBoard extends TranEx  {
 	}
 
 	/**
-	 * 처리내용 : 
+	 * 처리내용 : 9. 관리자 게시글 삭제
 	 * 작성일 : 2017. 10. 31.
 	 * 작성자 : 신태휘
-	 * @Method Name : fileUploadGBoard
+	 * @Method Name : deleteReplyGBoard
 	 * @return type : ModelAndView
 	 */
-	private ModelAndView fileUploadGBoard(BoardBean bean) {
+	private ModelAndView guildBoardAdminDelete(BoardBean bean) {
+		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		
-		// 하고 싶지만 보류 하는 걸로
-		
-		return null;
+		if(dao.setGuildBoardReplyDelete(bean) != 0) {
+			transaction = true;
+			mav = readGBoardPage(bean);
+			setTransactionResult(transaction);
+		}		
+		return mav;
 	}
-
+	
 	/**
 	 * 처리내용 : 8. 댓글 삭제
 	 * 작성일 : 2017. 10. 31.
@@ -154,10 +158,8 @@ public class GuildBoard extends TranEx  {
 			if(bean.getChName().equals(session.getAttribute("chName").toString())) {
 				if(dao.setGuildBoardRemove(bean) != 0) {
 					transaction = true;
-					RedirectView rv = null;
-					rv = new RedirectView("/GuildBoardPage");
-					rv.setExposeModelAttributes(false);
-					mav.setView(rv);
+					System.out.println("삭제 성공");
+					mav=guildBoardPage(bean);
 				}				
 			}else {
 				mav.addObject("msg", "타인의 글은 삭제할 수 없어요.");
@@ -288,7 +290,7 @@ public class GuildBoard extends TranEx  {
 			sb.append("</td><td>");
 			sb.append(sdf.format((replyList.get(i).getGbWDate())));
 			sb.append("</td><td>");
-			sb.append("<input type='button' value='삭제' onclick='replyForm(\"replydelete\",\"ReplyDelete\",\"POST\",\"" + replyList.get(i).getGrCode()  + "\")' />");
+			sb.append("<input type='button' class=\'button\' value='삭제' onclick='replyForm(\"replydelete\",\"ReplyDelete\",\"POST\",\"" + replyList.get(i).getGrCode()  + "\")' />");
 			sb.append("</td></tr>");
 		}
 		sb.append("</table>");
@@ -421,14 +423,14 @@ public class GuildBoard extends TranEx  {
 			sb.append("</td><td>");
 			sb.append(gBoardList.get(i).getGbHit());
 			sb.append("</td><td>");
-			sb.append("<button>삭제</button>");
+			sb.append("<button onClick=\'guildboardadmindelete(\""+ gBoardList.get(i).getGbCode() + "\")\'>삭제</button>");
 			sb.append("</td></tr>");
 		}
 
 		sb.append("</tbody></table>");
 		sb.append("<div class=\'pageNum\'>");
 		for(int i=1 ; i<=totalPage ; i++) {
-			sb.append("<button onClick=\"guildboardpage2(\'"+ i +"\')\">"+ i +"</button>");
+			sb.append("<button class=\'button\' onClick=\"guildboardpage2(\'"+ i +"\')\">"+ i +"</button>");
 		}
 		sb.append("</div>");
 		return sb.toString();

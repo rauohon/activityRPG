@@ -24,9 +24,33 @@
 		}
 	
 </script>
+<style>
+		body{
+		background-image:url("/images/quest.jpg");
+		background-repeat:no-repeat;
+		background-size:100% 100%;
+		overflow:hidden;
+		/* background-attachment:fixed; */
+	}
+	.button {
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.button:hover {
+	border: 3px solid #f68a6f;
+	background: #f68a6f;
+}
+.messageBox{
+	color:white;
+	font-size:33px;
+	}
+</style>
 <body>
-<div>
-	${massage }
+<div class="messageBox">
+	${message }
 </div>
 <div>
 	<input type = "button" value = "퀘스트 목록으로 이동" onClick="QuestMove()" />
