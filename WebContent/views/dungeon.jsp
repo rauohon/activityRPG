@@ -8,7 +8,11 @@
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
    <style>
+   @import url(http://fonts.googleapis.com/earlyaccess/jejuhallasan.css);
+   
    .button {
+   	font-family: 'Jeju Hallasan', serif;
+   	font-size:30px;
 	background: none;
 	border: 3px solid #fff;
 	border-radius: 5px;
@@ -16,6 +20,17 @@
 	text-transform: uppercase;
 }
 .button:hover {
+	border: 3px solid #f68a6f;
+	background: #f68a6f;
+}
+.buttons {
+	background: none;
+	border: 3px solid #fff;
+	border-radius: 5px;
+	color: #fff;
+	text-transform: uppercase;
+}
+.buttons:hover {
 	border: 3px solid #f68a6f;
 	background: #f68a6f;
 }
@@ -81,14 +96,16 @@ function init(){
 <body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
 	<div id='wraper' style="padding-top: 60px;">
-		<h3><a href='BackPage' class='button'>뒤로가기</a></h3>
-		<div id='dungeonImage' style='border:1px solid black;'><img src='/images/dungeon.png' art='던전문' style="width: 100%;"/></div>
-		<div id='dungeonTeleport' style="margin-top:1%; padding-left:15%; float: left;">
-			<div style=" float: left;">
-				<button class='button' onClick="total('gameForm', 'GameForm', 'post')" style='height: 150px; width: 200px;'>마을로 이동</button>
+		<h3><a href='BackPage' class='buttons'>뒤로가기</a></h3>
+		<div id='dungeonImage' style='border:1px solid black;'><img src='/images/dungeon.png' alt='던전문' style="width: 100%;"/></div>
+		<div id='dungeonTeleport' style="margin-top:1%; padding-left:20%; width:500px; float: left;">
+			<div style="float: left;">
+				<button class='button' onClick="total('gameForm', 'GameForm', 'post')" style='height: 150px; width: 100%;'>마을로 이동</button>
 			</div>
-				<button class='button' onClick="total('characterinfo', 'CharacterInfo', 'get')" style='height: 70px; margin-left: 20px; width: 120px;'>캐릭터 정보</button><br/>
-				<button class='button' onClick="total('myquestlist','MyQuestList','POST')"  style='height: 70px; margin-top:10px; margin-left: 20px; width: 120px;'>퀘스트 정보</button>
+			<div>
+				<button class='button' onClick="total('characterinfo', 'CharacterInfo', 'get')" style='height: 70px; margin-left: 3%; width: 50%;'>캐릭터 정보</button><br/>
+				<button class='button' onClick="total('myquestlist','MyQuestList','POST')" style='height: 70px; margin-top:10px; margin-left: 3%; width: 50%;'>퀘스트 정보</button>
+			</div>
 		</div>
 		<div id='dungeonController' style="margin-top:1%; margin-left:60%">
 			<div id = 'dungeonConFront' style="margin-left:30%;">

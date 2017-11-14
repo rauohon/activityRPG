@@ -301,6 +301,8 @@ public class BoardController {
 	public ModelAndView freeCommentDelete(@ModelAttribute BoardBean board) throws Exception {
 		System.out.println("BoardController :: 자유게시판 댓글 삭제");
 		System.out.println(board.getFrcode());
+		System.out.println(board.getId());
+		System.out.println(board.getCode());
 		mav = fb.entrance(11, board);
 		return mav;
 	}

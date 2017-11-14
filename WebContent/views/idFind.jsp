@@ -46,7 +46,7 @@ function init(){
 			<form action="javascript:void(0);" method="get">
 				<fieldset class="clearfix">
 				
-					<!-- 이메일 입력(아이디찾기) -->
+					<!-- 핸드폰 번호(아이디찾기) -->
 					<p>
 						<span class="fontawesome-user"></span>
 						<input type="text" name="phone" value="Phone" onBlur="if(this.value == '') this.value = 'Phone'"

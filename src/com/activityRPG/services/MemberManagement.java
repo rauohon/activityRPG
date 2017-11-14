@@ -224,18 +224,17 @@ public class MemberManagement extends TranEx {
 							}
 						}else {
 							mav.setViewName("login");
-							mav.addObject("message", "아이디와 비밀번호를 다시확인해주세요");
+							mav.addObject("message", "패스워드를 다시 확인해주세요.");
 						}
 					}else {
 						mav.setViewName("login");
-						mav.addObject("message", "아이디와 비밀번호를 다시확인해주세요");
+						mav.addObject("message", "아이디를 다시 확인해주세요.");
 					}
 				}
 				//종
 			}else {
 				mav.setViewName("login");
-				mav.addObject("message", "정지된 회원입니다.");
-
+				mav.addObject("message", "정지 된 회원입니다.");
 			}
 			//종
 		}catch(Exception ex) {
@@ -260,9 +259,9 @@ public class MemberManagement extends TranEx {
 				System.out.println("logout successful");
 
 				session.removeAttribute("id");
-				session.removeAttribute("userType");	//로그인 시 세션에 저장한 유저타입 제거
+				session.removeAttribute("userType");		//로그인 시 세션에 저장한 유저타입 제거
 				session.removeAttribute("characterName");	//세션에 저장된 캐릭터 이름 제거
-				session.removeAttribute("userSex");	//세션에 저장된 유저 성별 제거
+				session.removeAttribute("userSex");			//세션에 저장된 유저 성별 제거
 
 				rv = new RedirectView("/");
 				rv.setExposeModelAttributes(false);
@@ -306,6 +305,7 @@ public class MemberManagement extends TranEx {
 		System.out.println(mav.getViewName() + " : 서비스 if 밖 mav 네임");
 		return mav;
 	}
+	
 	//아이디 중복확인
 	public ModelAndView idCheck(MemberBean mb) {
 		ModelAndView mav = new ModelAndView();
@@ -342,11 +342,11 @@ public class MemberManagement extends TranEx {
 				MemberBean id = dao.idSend(mb);
 				mav.setViewName("pwdFind");
 				mav.addObject("message", ms + id.getId() + msg);
-				System.out.println("핸드폰번호 확인");
+				System.out.println("핸드폰 번호 확인");
 			}else {
 				mav.setViewName("idFind");
-				mav.addObject("message", "핸드폰번호가 일치하지 않습니다. 다시 입력해주세요.");
-				System.out.println("핸드폰번호 존재 하지 않음");
+				mav.addObject("message", "핸드폰 번호가 일치하지 않습니다. 다시 입력해주세요.");
+				System.out.println("핸드폰 번호 존재 하지 않음");
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();
@@ -392,10 +392,8 @@ public class MemberManagement extends TranEx {
 		password = password.substring(0, 10);
 
 		mb.setPwd(password);
-		System.out.println("service :: 패스워드 찾기 >> 이메일 발송하자");
 		try {
 			if(dao.mailcheck(mb) != 0) {
-				System.out.println("들어왔니?");
 				System.out.println(mb.getId());
 				MemberBean id = dao.mailSend(mb);
 
@@ -404,8 +402,8 @@ public class MemberManagement extends TranEx {
 
 				smm.setFrom("wldnjs08@gmail.com");
 				smm.setTo(id.getEmail().toString());
-				smm.setSubject("TEXT-RPG의 임시비밀번호입니다.");
-				smm.setText("안녕하세요. TEXT-RPG입니다. \n 임시 비밀번호 : " + password);
+				smm.setSubject("TEXT-RUN의 임시비밀번호입니다.");
+				smm.setText("안녕하세요. TEXT-RUN입니다. \n 임시 비밀번호 : " + password);
 
 				javaMailSenderImpl.send(smm);
 				mav.setViewName("login");
@@ -465,7 +463,7 @@ public class MemberManagement extends TranEx {
 		sb.append("</table>" + "</br>");
 		sb.append("<button id=\'infocheck\' onClick=\"total(\'activityDayLogForm \', \'ActivityDayLogPage\', \'post\')\" />"+"운동 정보 확인"+"</button>");
 		sb.append("<button id=\'ras\' onClick=\"total(\'enrollRaspberryPiForm\', \'EnrollRaspberryPiPage\', \'post\')\" />"+"라즈베리 파이 등록하기"+"</button>");
-		sb.append("<button id=\'infocheck\' onClick=\"total(\'passwordChangeForm\', \'passwordChangePage\', \'post\')\" />"+"비밀번호 변경"+"</button>");
+		sb.append("<button id=\'pwdChange\' onClick=\"total(\'passwordChangeForm\', \'passwordChangePage\', \'post\')\" />"+"비밀번호 변경"+"</button>");
 		return sb.toString();
 	}
 
@@ -755,8 +753,8 @@ public class MemberManagement extends TranEx {
 
 		System.out.println("service :: 받은 메시지 리스트");
 		try {
-			mb.setId(session.getAttribute("id").toString());
-			if(dao.IdCheck(mb) != 0) {
+			if(session.getAttribute("id") != null) {
+				mb.setId(session.getAttribute("id").toString());
 				mav.addObject("id", mb.getId());
 				mav.addObject("messagelist", getlist(mb));
 				mav.setViewName("getMessage");
@@ -888,7 +886,10 @@ public class MemberManagement extends TranEx {
 			mb.setId(session.getAttribute("id").toString());
 			if(mb.getId().equals(session.getAttribute("id"))) {
 				mav.addObject("id", mb.getId());
-				mav.setViewName("info");
+				mav.addObject("phone", mb.getPhone());
+				mav.addObject("name", mb.getName());
+				mav.addObject("email", mb.getEmail());
+				mav = info(mb);
 			}
 		}catch(Exception ex) {
 			ex.printStackTrace();

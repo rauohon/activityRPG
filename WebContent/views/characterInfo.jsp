@@ -102,18 +102,26 @@ function init(){
 </head>
 <body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
-	<div id='wraper' style="padding-top: 60px;">		
-		<div id='charaInfo' style='float: left; width:40%; margin-left: 2%; margin-right: 2%;'>
-			<div id='charaPhoto' style='float: left; width:50%; color: white;'>
+<style>
+	body{
+		background-image: url('/images/charaInfoBody.png');
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+	}
+</style>
+	<div id='wraper' style="padding-top: 60px;">	
+		<div id='charaInfo' style='float: left; width:40%; margin-left: 2%;'>
+			<div id='charaPhoto' style='float: left; width:62%; color: white;'>
 				<h1><a href='BackPage' class='button'>뒤로가기</a></h1>
 				<img alt="캐릭터사진" src="${characterImage }" width="50%" height="50%">
-				<button class="button" onClick="changeimageform()">사진 변경</button>
+				<div id='charaGeneInfo' style="color: white; float:right; margin-top: -45%; margin-left:54%;">
+					<h4>캐릭터 이름 : ${chName }</h4>
+					<h5>캐릭터 레벨 : ${chLevel }</h5>
+					<button class="button" onClick="changeimageform()">사진 변경</button>
+				</div>
 			</div>
-			<div id='charaGeneInfo' style="color: white;">
-				<h4>캐릭터 이름 : ${chName }</h4>
-				<h5>캐릭터 레벨 : ${chLevel }</h5>
-			</div>
-			<div id='charaStatus' style="margin-top: 12px; color: white;">
+			<div id='charaStatus' style="margin-top: 52%; color: white;">
 				<table style="width: 100%;">
 					<tr>
 						<th>경험치</th><td> ${chExp }</td>
@@ -141,7 +149,7 @@ function init(){
 					</tr>
 				</table>
 			</div>
-			<div style="margin-top: 12px; background-image: url('images/people_Icon.png'); color: white; height: 455px; width: 520px;">
+			<div style="margin-top: 12px; background-image: url('images/people_Icon.png'); color: white; height: 400px; width: 100%;">
 				<br/>
 				<div style='margin-left: 35%; margin-top: 10%;'>
 					<h5>${necklace } ${necklaceEn }</h5>
@@ -166,7 +174,7 @@ function init(){
 				</div>
 			</div>
 		</div>
-		<div id='inventory' style="margin-left: ; color: white; float:left; margin-right: 2%;">
+		<div id='inventory' style="margin-top:5%; color: white; float:left; margin-right: 2%;">
 			<h4>소지금 : ${chGold }</h4>
 			<div style='margin-top:4%;'>
 				<h4>무기</h4>
@@ -185,7 +193,7 @@ function init(){
 				${ehanceItemList }
 			</div>
 		</div>
-		<div id='ajax_div' style="color: white;" >${msg}</div>
+		<div id='ajax_div' style="color: white; margin-top:5%;" >${msg}</div>
 	</div>	
 	<form id="fixForm"></form>
 </body>

@@ -32,6 +32,14 @@ public class GameController {
 	private QuestService questService;
 	
 	private ModelAndView mav = new ModelAndView();
+
+	@RequestMapping(value="/gameGoGo", method = RequestMethod.POST)
+	private ModelAndView gameGoGo(@ModelAttribute GameBean gameBean) {
+		
+		mav = gn.entrance(72, gameBean);
+		
+		return mav;
+	}
 	
 	/**
 	 * 처리내용 : 호출 페이지 연결

@@ -1,30 +1,30 @@
 $(function(){
 
 	
-	$("#changePwd").validate({
+	$("#pwdChange").validate({
 	    rules:
 	    {
-	    	changePwd: {
+	    	pwd: {
 		     required: true,
 		     minlength: 5,
 		     maxlength: 15
 		    },
 		    
-		    changeSpwd: {
+		    pwd2: {
 		     required: true,
-		     equalTo: '#pwd'
+		     equalTo: '#password'
 		    }
 	     },
 	     
 	     messages:
 	     {
-	    	 changePwd:{
+	    	 pwd:{
 	    		 required: "패스워드를 입력해주세요.",
 	    		 minlength: "패스워드 5자리 이상 입력해주세요.",
 	    		 maxlength: "패스워드 15자리를 넘어가지 말아주세요."
 	    	 },
 
-	    	 changeSpwd:{
+	    	 pwd2:{
 	    		 required: "패스워드를 재입력해주세요.",
 	    		 equalTo: "패스워드가 일치하지 않습니다."
 	    	 }
@@ -46,7 +46,6 @@ $(function(){
 	     submitHandler: function(form) {
 	    	 
 	 		form.submit();
-	 		alert('ok');
 	     }
 	});
 });

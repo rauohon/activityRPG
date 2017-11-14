@@ -238,3 +238,9 @@ table.fine input[type="text"] {
     vertical-align: baseline;
     width: 400px;
 }
+
+#board {
+	color: #EDB022;
+	margin-left: 75em;
+    margin-bottom: 5px;
+}

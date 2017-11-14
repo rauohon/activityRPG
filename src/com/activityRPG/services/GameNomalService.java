@@ -97,10 +97,36 @@ public class GameNomalService extends TranEx {
 		case 71: //길드 멤버리스트
 			mav = guildMemberMove((GameBean)bean[0]);
 			break;
+		case 72: 
+			mav = characterCreates((GameBean)bean[0]);
+			break;
 		}
-
 		return mav;
-
+	}
+	
+		private ModelAndView characterCreates(GameBean bean) {
+		
+		try {
+				if(dao.characterIdCheck(bean) == 1) { // 캐릭터 존재 유무 확인
+					System.out.println("캐릭터 존재");
+					BoardBean boardBean = new BoardBean();
+					boardBean.setId(bean.getId());
+					if(dao.getUserIsGuildCheck(boardBean) != 0) {
+						mav.addObject("guildCode",String.valueOf(dao.getGuildCode(boardBean)));
+						mav.addObject("guildChat", guildChat(bean, String.valueOf(dao.getGuildCode(boardBean))));
+					}
+					session.setAttribute("characterName", dao.getCharacterName(session.getAttribute("id").toString()));
+					session.setAttribute("page", "village");
+					mav.setViewName("village");
+				}else {
+					mav.addObject("message", "※ 먼저 캐릭터를 생성해 주세요.");
+					System.out.println("캐릭터 존재하지 않음");
+					mav = characterCreateFormMove(bean);
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
 	}
 
 	/**
@@ -149,8 +175,8 @@ public class GameNomalService extends TranEx {
 	 */
 	private String itemIsUsed(GameBean bean) {
 		String result = "";
-		String disArm = "<input type='button' value='해제하기' onClick='itemdisarm(\""+bean.getItcode() +"\")'";
-		String arm = "<input type='button' value='사용하기' onClick='itemuse(\""+bean.getItcode() +"\")'";
+		String disArm = "<input type='button' class=\'button\' value='해제하기' onClick='itemdisarm(\""+bean.getItcode() +"\")'";
+		String arm = "<input type='button' class=\'button\' value='사용하기' onClick='itemuse(\""+bean.getItcode() +"\")'";
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			map.put("content",session.getAttribute("chName").toString());
@@ -612,10 +638,11 @@ public class GameNomalService extends TranEx {
 				}else {
 					mav.addObject("message", "※ 먼저 캐릭터를 생성해 주세요.");
 					System.out.println("캐릭터 존재하지 않음");
-					mav = characterCreateFormMove(bean);
+					mav.setViewName("index");;
 				}
 			}else {
-				mav.setViewName("home");
+				mav.setViewName("login");
+				mav.addObject("message", "로그인 후 이용해주세요.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
