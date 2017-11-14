@@ -24,7 +24,6 @@
 	
 	/* 정지 된 회원 리스트 */
 	function stop(id){
-		alert(id);
 		var form = createForm("stopListForm", "stopList", "post");
 		createinput("hidden", "id", id);
 		relationObj("stopListForm", "id");
@@ -40,7 +39,6 @@
 
 	/* 정지 버튼 */
 	function userDelete(id) {
-		alert(id);
 		createForm("userDeleteForm", "UserDelete", "post");
 		var form = document.getElementsByName("userDeleteForm")[0];
 
@@ -56,9 +54,8 @@
 
 	/* 복귀 버튼 */
 	function userRestart(id) {
-		alert(id);
 		createForm("userRestartForm", "userRestart", "post");
-		var form = document.getElementsByName("userDeleteForm")[0];
+		var form = document.getElementsByName("userRestartForm")[0];
 
 		/* 리스트에서 삭제시켜줄 회원 */
 		var user = document.createElement("input");
