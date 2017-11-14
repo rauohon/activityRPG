@@ -104,7 +104,7 @@ public class GameNomalService extends TranEx {
 	}
 
 	/**
-	 * 처리내용 : 
+	 * 처리내용 : 이미지 파일 업로드
 	 * 작성일 : 2017. 11. 12.
 	 * 작성자 : 신태휘
 	 * @Method Name : charaImageFileUpload

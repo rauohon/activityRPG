@@ -122,7 +122,7 @@ function init(){
 					        labels: ["하루 평균 층 수"],
 					        datasets: [{
 					            label: "일일 평균",
-					            backgroundColor: 'rgba(255, 255, 132,1))',
+					            backgroundColor: 'rgba(0, 216, 255,1)',
 					            borderColor: 'rgb(54, 162, 235, 1)',
 					            borderWidth: 1,
 					            data: [${avgActivityAllUser}[0].floor]
@@ -173,7 +173,7 @@ function init(){
 					        labels: ["누적 걸음 수"],
 					        datasets: [{
 					            label: "걸음 수 누적",
-					            backgroundColor: 'rgba(0, 216, 255,1)',
+					            backgroundColor: 'rgba(204, 61, 61,1)',
 					            borderColor: 'rgb(54, 162, 235, 1)',
 					            borderWidth: 1,
 					            data: [${activityAllUser}[0].step]
@@ -210,8 +210,8 @@ function init(){
 							      ticks: {
 							    	  	fontColor:"white",
 								        min: 0,
-								        max: 100,
-								        stepSize: 20
+								        max: 200,
+								        stepSize: 50
 								      }
 							    }],
 							  }
@@ -223,8 +223,8 @@ function init(){
 					    data: {
 					        labels: ["누적 층 수"],
 					        datasets: [{
-					            label: "층 수 누적",
-					            backgroundColor: 'rgba(255, 255, 132,1))',
+					            label: "누적 층 수",
+					            backgroundColor: 'rgba(204, 61, 61,1)',
 					            borderColor: 'rgb(54, 162, 235, 1)',
 					            borderWidth: 1,
 					            data: [${activityAllUser}[0].floor]
