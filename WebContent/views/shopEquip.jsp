@@ -32,7 +32,7 @@ img {
 h3.h3{
 	color:#C9AE00;
 	position: absolute;
-    left: 100px;
+    left: 90px;
     top: 180px;
 }
 h3.h33{
