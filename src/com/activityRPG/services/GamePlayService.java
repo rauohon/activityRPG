@@ -1240,7 +1240,7 @@ public class GamePlayService  extends TranEx {
 
 				sb.append("<div id=\"shopItem\">");
 				sb.append("<table class=\"tb1\">");
-
+				
 				for(int i = 0; i < listGameBean.size(); i++) {
 					sb.append("<tr>");
 					sb.append("<td class=\"itemName\" onClick=\"equipBuy(" +  listGameBean.get(i).getItcode() + ")\">" + listGameBean.get(i).getItname() + "</td>");
@@ -1272,11 +1272,13 @@ public class GamePlayService  extends TranEx {
 				sb.append("<table class=\"tb2\">");
 
 				for(int i = 0; i < invenList.size(); i++) {
-					sb.append("<tr>");
-					sb.append("<td class=\"itemName\" onClick=\"equipSell(" + invenList.get(i).getIvItemcode() + ")\">" + invenList.get(i).getItname() + "</td>");
-					sb.append("<td>" + "Stats:" + invenList.get(i).getAbility() + "</td>");
-					sb.append("<td>" + "Amount:" + invenList.get(i).getIvAmount() + "</td>");
-					sb.append("</tr>");			
+					if(invenList.get(i).getIvItemcode() != 0) {
+						sb.append("<tr>");
+						sb.append("<td class=\"itemName\" onClick=\"equipSell(" + invenList.get(i).getIvItemcode() + ")\">" + invenList.get(i).getItname() + "</td>");
+						sb.append("<td>" + "Stats:" + invenList.get(i).getAbility() + "</td>");
+						sb.append("<td>" + "Amount:" + invenList.get(i).getIvAmount() + "</td>");
+						sb.append("</tr>");	
+					}	
 				}
 
 				sb.append("</table>");

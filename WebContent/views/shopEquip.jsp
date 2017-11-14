@@ -29,7 +29,19 @@ $(document).ready(function() {
 img {
     border-radius: 30%;
 }
+h3.h3{
+	color:#C9AE00;
+	position: absolute;
+    left: 100px;
+    top: 180px;
+}
+h3.h33{
+	color:#C9AE00;
+	position: absolute;
+    top: 180px;
+    left: 590px;
 
+}
 </style>
 <script>
 var equipCode = null;
@@ -87,6 +99,8 @@ function createForm(formName, action, method){
 </script>
 <body>
 	<h1>아이템 상점</h1>
+	<h3 class="h3">파는아이템</h3>
+	<h3 class="h33">인벤토리</h3>
 		${equipItemList }
 	<div class="shopbt">
 		<div class="gold">
