@@ -163,7 +163,7 @@ $(function() {
 
      submitHandler: function(form) {
  		form.submit();
- 		alert('ok');
+ 		alert('회원 가입을 축하드립니다. 로그인 버튼을 눌러 로그인 해주세요.');
      }
      
 	});

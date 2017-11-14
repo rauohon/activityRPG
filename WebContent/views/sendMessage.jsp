@@ -16,13 +16,10 @@ function total(formname, action, method){
 	createinput("hidden", "id", "${id}");
 	relationObj("messageForm", "id");
 	relationObj("sendmsgForm", "id");
-	alert(id);
 	form.submit();
 }
 
 function sendMessageDelete(mbid, msgText){
-	alert(mbid);
-	alert(msgText);
 	var form = createForm("sendMessageDeleteForm", "sendMessageDelete", "post");
 	createinput("hidden", "mbid", mbid);
 	createinput("hidden", "msgText", msgText);

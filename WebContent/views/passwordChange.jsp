@@ -32,7 +32,6 @@
 		createinput("hidden", "id", "${id }");
 		relationObj("changeForm", "id");
 		relationObj("changeForm", "pwd");
-		alert(pwd.value);
  		form.submit();
 	}
 </script>

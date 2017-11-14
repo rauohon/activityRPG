@@ -13,7 +13,6 @@
 <script>
 function eventBoardList(){
 	var form = createForm("eventBoardListForm", "eventBoardList", "post");
-	alert("?????");
 	form.submit();
 }
 

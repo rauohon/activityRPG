@@ -22,8 +22,6 @@ function total(formname, action, method){
 }
 
 function messageDelete(mbid, msgText){
-	alert(mbid);
-	alert(msgText);
 	var form = createForm("messageDeleteForm", "messageDelete", "post");
 	createinput("hidden", "mbid", mbid);
 	createinput("hidden", "msgText", msgText);

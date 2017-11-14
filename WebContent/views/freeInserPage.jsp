@@ -13,7 +13,6 @@
 <script>
 function freeBoardList(){
 	var form = createForm("freeListForm", "freeBoard", "post");
-	alert("?????");
 	form.submit();
 }
 
