@@ -102,9 +102,9 @@ function init(){
 function onMessage(evt){
 	//서버가 전송한 메시지 가져오기
 	var data = evt.data;
-	var jobIndex = data.split(",");
 	//메시지를 출력
-	$('#chatEveryUserMsgArea').append(jobIndex[1] + "<br />");
+	alert(data);
+	$('#chatEveryUserMsgArea').append(data + "<br />");
 }
 </script>
 </head>

@@ -21,10 +21,9 @@ $(function(){
 	$('#sendBtn').bind('click', function(){
 		//nickname 과 message에 입력된 내용을 서버에 전송
 		var jobCode = $('#jobCode').val();
-		var nick = $('#nickname').val();
 		var msg = $('#message').val();
 		//메시지 전송
-		websocket.send(jobCode+"," + nick + ":" + msg);
+		websocket.send(nick + ":" + msg);
 		//메시지 입력창 초기화
 		$('#message').val('');
 	});

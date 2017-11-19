@@ -43,6 +43,15 @@ function init(){
 </head>
 <body onLoad='init()'>
 <%@ include file="nav.jsp"%>
+<style>
+	body {
+		background-image: url("/images/message.jpg");
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+	}
+	</style>
+	
 	<div class="contents">
 <link rel="stylesheet" href="css/getMessage.css" media="screen" type="text/css" />
 	<div style="padding-top:60px">
@@ -53,6 +62,7 @@ function init(){
 	</div>
 	<div>
 	${messagelist }
+	</div>
 	</div>
 </body>
 </html>

@@ -38,21 +38,29 @@ function init(){
 		$("#admin_user").css("display","none");
 	}
 	
-	if (state != "") {
+	/* if (state != "") {
 		login.style.display = "block";
 	} else {
 		login.style.display = "none";
-	}
+	} */
 }
 </script>
 </head>
 <body onLoad=init()>
 	
 	<%@ include file="nav.jsp"%>
-	<!-- <div class="contents"> -->
 	<link rel="stylesheet" href="css/adminpage.css" media="screen" type="text/css" />
+	<style>
+		body {
+			background-image: url("/images/main.jpg");
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
+		}
+	</style>
+	<!-- <div class="contents"> -->
 	<div style="padding-top: 70px; padding-left: 50px;">	
-	<h3 id="login">로그인 된 관리자 페이지 입니다.</h3>
+	<h3 id="login" style="color:black;">로그인 된 관리자 페이지 입니다.</h3>
 	
 	<button id="logout" onClick="total('accessForm', 'AccessOut', 'post')">로그아웃</button>
 	</div>

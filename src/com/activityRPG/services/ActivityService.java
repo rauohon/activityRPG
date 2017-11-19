@@ -85,12 +85,8 @@ public class ActivityService extends TranEx {
 			if(dao.setActExp(bean) != 0) {
 				if(dao.setActivity(bean) != 0) {
 					if(dao.setActLog(bean) != 0) {
-						mav.addObject("todayActivity",todayActivity(bean));
-						mav.addObject("applicableExp",applicableExp(bean));
-						mav.addObject("appliedExpIndi",appliedExpIndi(bean));
-						mav.addObject("yesterdayActivity",yesterDayStepData(bean));
-						mav.setViewName("activityDayLog");
-						// transaction = true;
+						mav = activityDayLogPage(bean);
+						transaction = true;
 						// 시연때는 true 해제
 					}
 				}
@@ -418,15 +414,17 @@ public class ActivityService extends TranEx {
 	 */
 	private String applicableExp(ActivityBean bean) {
 		StringBuffer sb = new StringBuffer();
-		List<ActivityBean> acti  = dao.getAvailableAct(bean);
-		
-		int floor = acti.get(0).getFloor();
-		int step = acti.get(0).getStep();
-		int applicableExp = (floor * 100) + (step / 10);
-		
-		sb.append(String.valueOf(applicableExp) + " 을(를) 경험치 전환이 가능 합니다. <br>");
-		sb.append("<button class=\'button\' onClick='setexp(\""+ applicableExp + "\")' style=\'height: 35px; width: 10%; margin-top:2%\'>경험치로 바꾸기</button>");
-		
+		try {
+			bean.setId(session.getAttribute("id").toString());
+			List<ActivityBean> acti  = dao.getAvailableAct(bean);
+			int floor = acti.get(0).getFloor();
+			int step = acti.get(0).getStep();
+			int applicableExp = (floor * 100) + (step / 10);
+			sb.append(String.valueOf(applicableExp) + " 을(를) 경험치 전환이 가능 합니다. <br>");
+			sb.append("<button class=\'button\' onClick='setexp(\""+ applicableExp + "\")' style=\'height: 35px; width: 10%; margin-top:2%\'>경험치로 바꾸기</button>");			
+		}catch(Exception e) {
+			
+		}		
 		return sb.toString();
 	}
 
