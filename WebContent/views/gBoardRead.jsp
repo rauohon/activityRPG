@@ -89,7 +89,6 @@ function gBoardForm(formName, actionName, method) {
 	f.submit();
 }
 function replyForm(formName, actionName, method, grCode){
-	alert(grCode);
 	var f = $("#fixForm");
 	var grcode = $("<input />");
 	var gbCode = $("<input />");

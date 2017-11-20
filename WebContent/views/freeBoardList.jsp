@@ -41,7 +41,6 @@
 			createinput("hidden", "type", type);
 			relationObj("freeTitleFineForm", "text");
 			relationObj("freeTitleFineForm", "type");
-			alert(type.value);
 		form.submit();
 	}
 </script>

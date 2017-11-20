@@ -1146,38 +1146,130 @@ public class GamePlayService  extends TranEx {
 		private ModelAndView equipItemSell(GameBean gameBean) {
 
 			try {
+				Map<String, String> map = new HashMap<String, String>();
+				
 				gameBean.setId((String)session.getAttribute("id")); //아이디 빈에 저장
 				gameBean.setChName(session.getAttribute("chName").toString());	//캐릭터 이름 빈에 저장
-
-				System.out.println(gameBean.getIvItemcode());
-
+				map.put("content",session.getAttribute("chName").toString());
+				map.put("useItem", String.valueOf(gameBean.getIvItemcode()));
+				int jobcode = gameBean.getIvItemcode();
 				setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 				//아이템 코드로 아이템 가격 가져오기
 				int sellPrice = dao.sellGoldPrice(gameBean);
-				System.out.println(sellPrice);
 				//캐릭터에 현재 골드 추출
 				int chGold = dao.getCharacterGold(gameBean);
-				System.out.println(chGold);
 				//인벤 아이템 수량 가져오기
 				int ivAmount = dao.invenItemAmount(gameBean);
-				System.out.println(ivAmount);
 				//더한 가격 업데이트
 				gameBean.setCalGold(chGold + sellPrice * ivAmount); 
 				System.out.println(sellPrice * ivAmount);
 				System.out.println(gameBean.getCalGold());
-
-
-				dao.sellItemDel(gameBean);	//아이템 판매 시 인벤의 아이템 삭제
-				dao.dealGoldCal(gameBean);	//아이템 거래 시 골드 계산
-
-				transaction = true;
-				setTransactionResult(transaction);
-				
-
+				if(jobcode <= 2000) {
+					map.put("weapon", "무기");
+					if(dao.getIsEquip(map) == 0) {
+						if(dao.sellItemDel(gameBean) != 0) { //아이템 판매 시 인벤의 아이템 삭제
+							if(dao.dealGoldCal(gameBean) != 0) { //아이템 거래 시 골드 계산
+								mav = equipShopMove();
+								transaction = true;
+								setTransactionResult(transaction);
+							}
+						}
+					}else {
+						mav.addObject("msg","장착된 아이템은 판매할 수 없습니다.");
+						mav = equipShopMove();
+					}
+				}else if(jobcode <= 3000) {
+					map.put("armor", "갑옷");
+					if(dao.getIsEquip(map) == 0) {
+						if(dao.sellItemDel(gameBean) != 0) { //아이템 판매 시 인벤의 아이템 삭제
+							if(dao.dealGoldCal(gameBean) != 0) { //아이템 거래 시 골드 계산
+								mav = equipShopMove();
+								transaction = true;
+								setTransactionResult(transaction);
+							}
+						}
+					}else {
+						mav.addObject("msg","장착된 아이템은 판매할 수 없습니다.");
+						mav = equipShopMove();
+					}
+				}else if(jobcode <= 4000) {
+					map.put("glove", "장갑");
+					if(dao.getIsEquip(map) == 0) {
+						if(dao.sellItemDel(gameBean) != 0) { //아이템 판매 시 인벤의 아이템 삭제
+							if(dao.dealGoldCal(gameBean) != 0) { //아이템 거래 시 골드 계산
+								mav = equipShopMove();
+								transaction = true;
+								setTransactionResult(transaction);
+							}
+						}
+					}else {
+						mav.addObject("msg","장착된 아이템은 판매할 수 없습니다.");
+						mav = equipShopMove();
+					}
+				}else if(jobcode <= 5000) {
+					map.put("shoe", "신발");
+					if(dao.getIsEquip(map) == 0) {
+						if(dao.sellItemDel(gameBean) != 0) { //아이템 판매 시 인벤의 아이템 삭제
+							if(dao.dealGoldCal(gameBean) != 0) { //아이템 거래 시 골드 계산
+								mav = equipShopMove();
+								transaction = true;
+								setTransactionResult(transaction);
+							}
+						}
+					}else {
+						mav.addObject("msg","장착된 아이템은 판매할 수 없습니다.");
+						mav = equipShopMove();
+					}
+				}else if(jobcode <= 6000) {
+					map.put("ring", "반지");
+					if(dao.getIsEquip(map) == 0) {
+						if(dao.sellItemDel(gameBean) != 0) { //아이템 판매 시 인벤의 아이템 삭제
+							if(dao.dealGoldCal(gameBean) != 0) { //아이템 거래 시 골드 계산
+								mav = equipShopMove();
+								transaction = true;
+								setTransactionResult(transaction);
+							}
+						}
+					}else {
+						mav.addObject("msg","장착된 아이템은 판매할 수 없습니다.");
+						mav = equipShopMove();
+					}
+				}else if(jobcode <= 7000) {
+					map.put("necklace", "목걸이");
+					if(dao.getIsEquip(map) == 0) {
+						if(dao.sellItemDel(gameBean) != 0) { //아이템 판매 시 인벤의 아이템 삭제
+							if(dao.dealGoldCal(gameBean) != 0) { //아이템 거래 시 골드 계산
+								mav = equipShopMove();
+								transaction = true;
+								setTransactionResult(transaction);
+							}
+						}
+					}else {
+						mav.addObject("msg","장착된 아이템은 판매할 수 없습니다.");
+						mav = equipShopMove();
+					}
+				}else if(jobcode <= 7500) {
+					System.out.println("체력포션류 입니다.");
+					if(dao.sellItemDel(gameBean) != 0) { //아이템 판매 시 인벤의 아이템 삭제
+						if(dao.dealGoldCal(gameBean) != 0) { //아이템 거래 시 골드 계산
+							mav = equipShopMove();
+							transaction = true;
+							setTransactionResult(transaction);
+						}
+					}
+				}else{
+					System.out.println("마나포션류 입니다.");
+					if(dao.sellItemDel(gameBean) != 0) { //아이템 판매 시 인벤의 아이템 삭제
+						if(dao.dealGoldCal(gameBean) != 0) { //아이템 거래 시 골드 계산
+							mav = equipShopMove();
+							transaction = true;
+							setTransactionResult(transaction);
+						}
+					}
+				}
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
-			mav = equipShopMove();
 			return mav;
 		}
 

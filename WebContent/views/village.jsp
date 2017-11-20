@@ -102,10 +102,9 @@ function init(){
 function onMessage(evt){
 	//서버가 전송한 메시지 가져오기
 	var data = evt.data;
-	var jobIndex = data.split(",");
-	alert(jobIndex[0]);
 	//메시지를 출력
-	$('#chatEveryUserMsgArea').append(jobIndex + "<br />");
+	alert(data);
+	$('#chatEveryUserMsgArea').append(data + "<br />");
 }
 </script>
 </head>
@@ -123,7 +122,7 @@ body{
 		<div id='chatArea' style="width:30%; float: left; height: 60%; margin-left: 80px; background : rgba(0, 0, 0, 0.6);">
 			<div id="chatEveryUserArea" style="border: 1px solid black; height:600px;">
 				<h4>전체 채팅</h4>
-				<div id="chatEveryUserMsgArea"></div>
+				<div id="chatEveryUserMsgArea" style="font-size:20px;"></div>
 			</div>
 			<div id="chatGuildUserArea" style="border: 1px solid black; height:600px;">
 				<h4>길드 채팅</h4>

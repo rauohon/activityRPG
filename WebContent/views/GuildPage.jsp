@@ -25,7 +25,6 @@
 	}
 	function guildJoin(GuildName){
 		
-		alert(GuildName);
 		createForm("guildJoinMove","GuildJoinMove","post");
 		var guildJoinForm = document.getElementsByName("guildJoinMove")[0];
 		
@@ -40,8 +39,6 @@
 		
 	}
 	function guildMemberList(Name){
-		
-		alert(Name);
 		
 		createForm("guildMemberMove","GuildMemberMove","post");
 		var guildMemberForm = document.getElementsByName("guildMemberMove")[0];

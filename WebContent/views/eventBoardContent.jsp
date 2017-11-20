@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="css/freeBoardList.css" media="screen" type="text/css" />
 <script>
 	function eventUpdate(id, code, title, content, date){
-		alert(code);
 		var form = createForm("freeUpageForm", "freeUpdate", "post");
 		
 		createinput("hidden", "id", id);

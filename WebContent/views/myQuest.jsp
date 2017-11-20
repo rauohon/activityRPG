@@ -28,7 +28,6 @@ var SuccessCheck = null;
 			questSuccessForm.submit();
 		
 		}else{
-			alert("진행중");		
 		}
 		
 		

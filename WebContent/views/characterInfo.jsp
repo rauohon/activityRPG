@@ -69,7 +69,6 @@
 	}
 	function changeimage(){
 		var f = $("#fileUpload")
-		alert($("input[name=fileName]").val());
 		f.submit();
 	}
 function init(){

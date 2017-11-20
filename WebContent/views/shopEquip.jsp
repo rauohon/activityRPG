@@ -132,6 +132,7 @@ function init(){
 	<div id='wraper' style="padding-top: 60px;">	
 		<a href='BackPage' class='button'>뒤로가기</a>
 	<h1 style="font-size: 50px;">아이템 상점</h1>
+	${msg }
 	<h3 class="h3" style="font-size: 25px;">파는 아이템</h3>
 	<h3 class="h33" style="font-size: 25px;">소지 아이템</h3>
 		${equipItemList }

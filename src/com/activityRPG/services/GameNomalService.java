@@ -151,7 +151,7 @@ public class GameNomalService extends TranEx {
 		}else {
 			bean.setFileName(fname);			
 			
-				uploadfile.transferTo(new File("C:\\Users\\rnjde\\Documents\\activityRPG\\WebContent\\views\\images\\" + fname));
+				uploadfile.transferTo(new File("C:\\Users\\pc\\Documents\\activityRPG\\WebContent\\views\\images\\" + fname));
 																			//파일 경로 변경 필요!!
 				if(dao.setCharaImageUdate(bean) != 0) {
 					System.out.println("/images/"+fname);
@@ -449,6 +449,7 @@ public class GameNomalService extends TranEx {
 					map.put("ringEn", "+"+String.valueOf(enBean.getEnlevel())+"</h4>");			
 				}
 			}
+			System.out.println(equipBean.getEqNecklace());
 			if(equipBean.getEqNecklace() != 0) {
 				int necklaceCode = equipBean.getEqNecklace();
 				map.put("itcode", String.valueOf(necklaceCode));

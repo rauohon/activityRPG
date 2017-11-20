@@ -34,6 +34,14 @@ function init(){
 </head>
 <body onLoad='init()'>
 	<%@ include file="nav.jsp"%>
+<style>
+	body {
+		background-image: url("/images/message.jpg");
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-attachment: fixed;
+	}
+	</style>
 
 	<form id="setMessage" action="setMessage" method="post">
 

@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="css/freeBoardList.css" media="screen" type="text/css" />
 <script>
 	function freeUpdate(id, code, title, content, date){
-		alert(code);
 		var form = createForm("freeUpageForm", "freeUpdate", "post");
 		
 		createinput("hidden", "id", id);
@@ -58,8 +57,6 @@
 	}
 	
 	function freecommentdelete(frcode, id, code) {
-		alert(code);
-		alert(id);
 		var form = createForm("freeDeleteForm", "freeCommentDelete", "post");
 		createinput("hidden", "frcode", frcode);
 		createinput("hidden", "id", id);
