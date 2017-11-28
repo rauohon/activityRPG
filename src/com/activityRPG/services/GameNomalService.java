@@ -847,7 +847,7 @@ public class GameNomalService extends TranEx {
 
 
 
-		//길드 
+		//길드 생성
 		private ModelAndView guildCreate(GameBean gameBean) {
 			ModelAndView mav = new ModelAndView();
 			boolean transaction = false;

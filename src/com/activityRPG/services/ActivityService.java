@@ -400,7 +400,7 @@ public class ActivityService extends TranEx {
 			bean.setExp(1);
 			bean = dao.getWeekAppliedExp(bean);
 			
-			sb = String.valueOf(bean.getExp());			
+//			sb = String.valueOf(bean.getExp());			
 
 		return sb;
 	}
@@ -460,10 +460,9 @@ public class ActivityService extends TranEx {
 			if(session.getAttribute("id") != null) {
 				bean.setId(session.getAttribute("id").toString());
 				if(dao.getIsRaspCheck(bean) != 0) {
-					bean.setId(session.getAttribute("id").toString());
 					mav.addObject("todayActivity",todayActivity(bean));
 					mav.addObject("applicableExp",applicableExp(bean));
-					mav.addObject("appliedExpIndi",appliedExpIndi(bean));
+//					mav.addObject("appliedExpIndi",appliedExpIndi(bean));
 					mav.addObject("yesterdayActivity",yesterDayStepData(bean));
 					mav.setViewName("activityDayLog");
 				}else{

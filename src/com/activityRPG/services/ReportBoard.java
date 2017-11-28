@@ -34,25 +34,25 @@ public class ReportBoard extends TranEx{
 		ModelAndView mav = null;
 
 		switch(serviceCode) {
-		case 1: //공지사항 리스트 출력
+		case 1: //신고게시판 리스트 출력
 			mav = reportBoardList();	
 			break;
-		case 2: //공지사항 게시글 작성
+		case 2: //신고게시판 게시글 작성
 			mav = reportBoardMake((BoardBean)object[0]);	
 			break;
-		case 3: //공지사항 게시글 내용보기
+		case 3: //신고게시판 게시글 내용보기
 			mav = reportBoardContents((BoardBean)object[0]);	
 			break;
-		case 4: //공지사항 게시글 수정 폼 이동
+		case 4: //신고게시판 게시글 수정 폼 이동
 			mav = reportBoardModifyForm((BoardBean)object[0]);	
 			break;
-		case 5: //공지사항 게시글 수정
+		case 5: //신고게시판 게시글 수정
 			mav = reportBoardModify((BoardBean)object[0]);	
 			break;
-		case 6: //공지사항 게시글 삭제
+		case 6: //신고게시판 게시글 삭제
 			mav = reportBoardDelete((BoardBean)object[0]);	
 			break;
-		case 7: //공지사항 게시글 검색
+		case 7: //신고게시판 게시글 검색
 			mav = reportBoardSearch((BoardBean)object[0]);	
 			break;
 		}
@@ -60,7 +60,7 @@ public class ReportBoard extends TranEx{
 		return mav;
 	}
 
-	//공지사항 게시글 검색
+	//신고게시판 게시글 검색
 	private ModelAndView reportBoardSearch(BoardBean boardBean) {
 		ModelAndView mav = new ModelAndView();
 		List<BoardBean> ListBoardBean = null;
@@ -145,7 +145,7 @@ public class ReportBoard extends TranEx{
 		return mav;
 	}
 
-	//공지사항 게시글 삭제
+	//신고게시판 게시글 삭제
 	private ModelAndView reportBoardDelete(BoardBean boardBean) {
 		ModelAndView mav = new ModelAndView();
 		List<BoardBean> ListBoardBean = null;
@@ -202,7 +202,7 @@ public class ReportBoard extends TranEx{
 		return mav;
 	}
 
-	//공지사항 게시글 수정
+	//신고게시판 게시글 수정
 	private ModelAndView reportBoardModify(BoardBean boardBean) {
 		ModelAndView mav = new ModelAndView();
 		
@@ -224,7 +224,7 @@ public class ReportBoard extends TranEx{
 		return mav;
 	}
 
-	//공지사항 게시글 수정 폼 이동
+	//신고게시판 게시글 수정 폼 이동
 	private ModelAndView reportBoardModifyForm(BoardBean boardBean) {
 		ModelAndView mav = new ModelAndView();
 		try {
@@ -246,7 +246,7 @@ public class ReportBoard extends TranEx{
 		return mav;
 	}
 
-	//공지사항 게시글 내용보기
+	//신고게시판 게시글 내용보기
 	private ModelAndView reportBoardContents(BoardBean boardBean) {
 		ModelAndView mav = new ModelAndView();
 		String reportBoardContentsView = null;
@@ -296,7 +296,7 @@ public class ReportBoard extends TranEx{
 		return mav;
 	}
 
-	//공지사항 게시글 작성
+	//신고게시판 게시글 작성
 	private ModelAndView reportBoardMake(BoardBean boardBean) {
 		ModelAndView mav = new ModelAndView();
 		List<BoardBean> ListBoardBean = null;
@@ -356,7 +356,7 @@ public class ReportBoard extends TranEx{
 		return mav;
 	}
 
-	//공지사항 리스트 출력
+	//신고게시판 리스트 출력
 	private ModelAndView reportBoardList() {
 		ModelAndView mav = new ModelAndView();
 		List<BoardBean> ListBoardBean = null;
