@@ -17,6 +17,8 @@
 		crossorigin="anonymous"></script>
 <script src="js/common.js"></script>
 <script src="js/join.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <link rel="stylesheet" href="css/join.css" media="screen" type="text/css" />
 	
 <script>

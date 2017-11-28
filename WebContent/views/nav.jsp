@@ -83,7 +83,7 @@ function total(formname, action, method){
 <div id="layer_fixed">
 	<div id='nomar_user'>
 		<ul style='text-align: center;'>
-			<li><button onClick="total('mainForm', '/', 'post')" id="bar">MAIN PAGE</button></li>
+			<li><button onClick="total('mainForm', 'activityRPG', 'post')" id="bar">MAIN PAGE</button></li>
 			<li><button onClick="total('msgForm', 'getMessageList', 'post')" id="bar">MESSAGE</button></li>
 			<li><button onClick="total('gameForm', 'GameForm', 'post')" id="bar">GAME PLAY</button></li>
 			<li><button id="bar">BOARD</button>

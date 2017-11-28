@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>News Board</title>
 </head>
-<link rel="stylesheet" type="text/css" href="/css/newsBoard.css"/>
+<link rel="stylesheet" type="text/css" href="css/newsBoard.css"/>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>

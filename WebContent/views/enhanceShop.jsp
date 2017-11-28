@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 </head>
-<link rel="stylesheet" type="text/css" href="/css/enhanceShop.css"/>
+<link rel="stylesheet" type="text/css" href="css/enhanceShop.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> <!-- alert창 변경 -->
 <script>
@@ -79,7 +79,7 @@ function init(){
 	<%@ include file="nav.jsp"%>
 	<style>				
 		body {
-			background-image: url("/images/enhance2.png");
+			background-image: url("images/enhance2.png");
 			background-size: cover;
 			background-repeat: no-repeat;
 			background-attachment: fixed;

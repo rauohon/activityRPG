@@ -97,7 +97,7 @@ function init(){
 	<%@ include file="nav.jsp"%>
 	<div id='wraper' style="padding-top: 60px;">
 		<h3><a href='BackPage' class='buttons'>뒤로가기</a></h3>
-		<div id='dungeonImage' style='border:1px solid black;'><img src='/images/dungeon.png' alt='던전문' style="width: 100%;"/></div>
+		<div id='dungeonImage' style='border:1px solid black;'><img src='images/dungeon.png' alt='던전문' style="width: 100%;"/></div>
 		<div id='dungeonTeleport' style="margin-top:1%; padding-left:20%; width:500px; float: left;">
 			<div style="float: left;">
 				<button class='button' onClick="total('gameForm', 'GameForm', 'post')" style='height: 150px; width: 100%;'>마을로 이동</button>

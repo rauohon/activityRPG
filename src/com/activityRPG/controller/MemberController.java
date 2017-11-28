@@ -2,6 +2,7 @@ package com.activityRPG.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,8 +34,16 @@ public class MemberController {
 		mav.setViewName("home");
 		return mav;
 	}
+	//메인 페이지
+		@RequestMapping(value = "/activityRPG", method = RequestMethod.GET)
+		public ModelAndView home(Model model) {
+			mav = new ModelAndView();
+			System.out.println("MemberController :: 메인페이지(get)");
+			mav.setViewName("home");
+			return mav;
+		}
 	//메인 페이지 - 데이터 o --> post
-	@RequestMapping(value = "/", method = RequestMethod.POST)
+	@RequestMapping(value = "/activityRPG", method = RequestMethod.POST)
 	public ModelAndView home(@ModelAttribute MemberBean member) {
 		mav = new ModelAndView();
 		System.out.println("MemberController :: 메인페이지(post)");

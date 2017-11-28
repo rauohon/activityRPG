@@ -74,11 +74,6 @@
 	<!-- <Error Page Definition> : 에러 발생시 보여줄 페이지 설정 -->
 	<!-- <session> : 세션 유지시간 설정 -->
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>

@@ -112,7 +112,7 @@ function onMessage(evt){
 <%@ include file="nav.jsp"%>
 <style>
 body{
-	background-image: url('/images/village.png');
+	background-image: url('images/village.png');
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;

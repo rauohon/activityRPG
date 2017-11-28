@@ -246,7 +246,7 @@
 		WHERE
 			AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID = #{id})
 		AND
-					AT_LOG = 1		
+					AT_LOG = 0		
 	</select>
 
 	<!-- 	어제 활동량 가져오기 -->

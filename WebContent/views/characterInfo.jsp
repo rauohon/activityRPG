@@ -103,7 +103,7 @@ function init(){
 	<%@ include file="nav.jsp"%>
 <style>
 	body{
-		background-image: url('/images/charaInfoBody.png');
+		background-image: url('images/charaInfoBody.png');
 		background-size: contain;
 		background-repeat: no-repeat;
 		background-attachment: fixed;

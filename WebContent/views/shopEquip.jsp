@@ -26,7 +26,7 @@ $(document).ready(function() {
 });
 </script>
 </head>
-<link rel="stylesheet" type="text/css" href="/css/equipShop.css"/>
+<link rel="stylesheet" type="text/css" href="css/equipShop.css"/>
 <style>
 img {
     border-radius: 30%;
@@ -112,7 +112,7 @@ function init(){
 	<%@ include file="nav.jsp"%>
 	<style>
 	body {
-	background-image: url("/images/shop2.jpg");
+	background-image: url("images/shop2.jpg");
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-attachment: fixed;

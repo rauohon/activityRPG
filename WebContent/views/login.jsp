@@ -21,11 +21,14 @@ function init(){
 	}
 }
 </script>
+
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 </head>
 <body onLoad='init()'>
 <%@ include file="nav.jsp"%>
 	<!-- login -->
-	<link rel="stylesheet" href="/css/login.css" media="screen" type="text/css" />
+		<link rel="stylesheet" href="css/login.css" media="screen" type="text/css" />
 	<div class="container" style="padding-top: 60px">
 		<div id="login">
 

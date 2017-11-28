@@ -633,7 +633,7 @@ public class GameNomalService extends TranEx {
 				}else {
 					mav.addObject("message", "※ 먼저 캐릭터를 생성해 주세요.");
 					System.out.println("캐릭터 존재하지 않음");
-					mav.setViewName("index");;
+					mav.setViewName("index2");;
 				}
 			}else {
 				mav.setViewName("login");
@@ -841,7 +841,7 @@ public class GameNomalService extends TranEx {
 
 
 
-		//길드 
+		//길드 생성
 		private ModelAndView guildCreate(GameBean gameBean) {
 			ModelAndView mav = new ModelAndView();
 			boolean transaction = false;
