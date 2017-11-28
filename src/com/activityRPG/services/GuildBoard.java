@@ -410,7 +410,6 @@ public class GuildBoard extends TranEx  {
 		if(totalCount / countList >0) {
 			totalPage++;
 		}
-		System.out.println(totalPage);
 		for(int i=0 ; i< gBoardList.size(); i++) {
 			sb.append("<tr><td>");
 			sb.append(i+1);
@@ -500,7 +499,6 @@ public class GuildBoard extends TranEx  {
 				MemberBean memberBean = new MemberBean();
 				memberBean.setId(session.getAttribute("id").toString());
 				if(dao.userType(memberBean) == 2) {
-					System.out.println("관리자 확인");
 					mav.addObject("boards", guildBoardAdminList(bean));
 					mav.setViewName("guildBoard");
 					session.setAttribute("page", "guildBoard");	

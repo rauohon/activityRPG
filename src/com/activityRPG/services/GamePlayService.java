@@ -201,26 +201,25 @@ public class GamePlayService  extends TranEx {
 		int requiAbility = 0;			// 장비 필요 능력치
 		int chStatus = 0;						// 캐릭터의 해당 능력치
 		int applyStatus = 0;			// 캐릭터에 적용할 능력치
-		if(chStatus >= requiAbility) {
 			bean = dao.getItemInfo(bean);
 			map.put("useItem", bean.getItcode());
-			requiAbility = bean.getRequiAbility();
-			applyStatus = bean.getAbility();
+			requiAbility = bean.getRequiAbility(); // 아이템의 요구 능력치
+			applyStatus = bean.getAbility(); // 아이템의 향상 적용 능력치
 			bean = dao.getEquipList(map);
+			if(chStatus >= requiAbility) {
 			GameBean bean2 = new GameBean();
 			bean2.setId(ida);
-			bean = dao.getCharacterStatus(bean2);
+			bean = dao.getCharacterStatus(bean2); 
 			switch(jobCode) {
-				case 0:
-					// 무기 변경
+				case 0: // 무기 변경
 					map.put("weapon", "무기");
 					bean.setChAttack(applyStatus);
 					bean.setChDefense(0);
 					bean.setChHp(0);
 					bean.setChMp(0);
-					if(dao.getIsEquip(map) != 0) {
-						if(dao.setEquipItemUpdate(map) != 0) {
-							if(dao.setItemApplyStatus(bean) != 0) {
+					if(dao.getIsEquip(map) != 0) { // 아이템 착용 여부 확인
+						if(dao.setEquipItemUpdate(map) != 0) { // 착용아이템 업데이트
+							if(dao.setItemApplyStatus(bean) != 0) { // 
 								transaction = true;
 							}else {
 								System.out.println("에러1");
@@ -435,35 +434,24 @@ public class GamePlayService  extends TranEx {
 		rv.setExposeModelAttributes(false);
 		mav.setView(rv);
 		int jobcode = Integer.parseInt(bean.getItcode());
-		System.out.println(jobcode + "jobcode");
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		try {
-			System.out.println(session.getAttribute("id") + "itemUse");
 			bean.setId(session.getAttribute("id").toString());
-			System.out.println(bean.getId() + "어게인");
-		if(jobcode <= 2000) {
-			System.out.println("무기 입니다.");
-			setEquipment(bean, 0);
-		}else if(jobcode <= 3000) {
-			System.out.println("갑옷류 입니다.");
+		if(jobcode <= 2000) {// 무기 착용
+			setEquipment(bean, 0);//실제 착용 method
+		}else if(jobcode <= 3000) {// 갑옷 착용
 			setEquipment(bean, 1);
-		}else if(jobcode <= 4000) {
-			System.out.println("장갑류 입니다.");
+		}else if(jobcode <= 4000) {// 장갑 착용
 			setEquipment(bean, 2);
-		}else if(jobcode <= 5000) {
-			System.out.println("신발류 입니다.");
+		}else if(jobcode <= 5000) {// 신발 착용
 			setEquipment(bean, 3);
-		}else if(jobcode <= 6000) {
-			System.out.println("반지류 입니다.");
+		}else if(jobcode <= 6000) {// 반지 착용
 			setEquipment(bean, 4);
-		}else if(jobcode <= 7000) {
-			System.out.println("목걸이류 입니다.");
+		}else if(jobcode <= 7000) {// 목걸이 착용
 			setEquipment(bean, 5);
-		}else if(jobcode <= 7500) {
-			System.out.println("체력포션류 입니다.");
+		}else if(jobcode <= 7500) {// 체력포션 사용
 			setEquipment(bean, 6);
-		}else{
-			System.out.println("마나포션류 입니다.");
+		}else{// 마나포션 사용
 			setEquipment(bean, 7);
 		}
 		setTransactionResult(transaction);

@@ -33,10 +33,8 @@ public class ActivityController {
 	 * @return type : ModelAndView
 	 */
 	@RequestMapping(value="/ActivityDayLogPage", method = RequestMethod.POST)
-	private ModelAndView activityDayLogPage(@ModelAttribute ActivityBean bean) {
-		
-		mav = as.entrance(1, bean);
-		
+	private ModelAndView activityDayLogPage(@ModelAttribute ActivityBean bean) {		
+		mav = as.entrance(1, bean);		
 		return mav;
 	}
 	
@@ -63,10 +61,8 @@ public class ActivityController {
 	 * @return type : ModelAndView
 	 */
 	@RequestMapping(value="/AdminActivityLogPage", method = RequestMethod.POST)
-	private ModelAndView adminActivityLogPage(@ModelAttribute ActivityBean bean) {
-		
-		mav = as.entrance(3, bean);
-		
+	private ModelAndView adminActivityLogPage(@ModelAttribute ActivityBean bean) {		
+		mav = as.entrance(3, bean);		
 		return mav;
 	}
 	

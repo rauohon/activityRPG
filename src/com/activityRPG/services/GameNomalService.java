@@ -1,7 +1,6 @@
 package com.activityRPG.services;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.activityRPG.beans.BoardBean;
 import com.activityRPG.beans.GameBean;
-import com.activityRPG.beans.MemberBean;
 import com.activityRPG.dao.IMBatisDao;
 import com.activityRPG.dao.TranEx;
 import com.activityRPG.utils.ProjectUtils;
@@ -256,9 +254,7 @@ public class GameNomalService extends TranEx {
 		sb.append(itemIsUsed(bean));
 		sb.append("</td></tr></table>");
 		mav.addObject("itemInfo", sb.toString());
-
 		mav.setViewName("itemInfo");
-
 		return mav;
 	}
 
@@ -360,7 +356,8 @@ public class GameNomalService extends TranEx {
 		map.put("min", "1001");
 		map.put("max", "2000");
 		List<GameBean> invenList = dao.getIvenList(map);
-		sb.append("<table><tr><th>+</th><th>무기 이름</th><th>추가 능력치</th><th>보유 갯수</th></tr>");
+		sb.append("<table><tr><th>+</th><th>무기 이름</th>"
+				+ "<th>추가 능력치</th><th>보유 갯수</th></tr>");
 		for(int i = 0 ; i < invenList.size() ; i++) {
 			sb.append("<tr onClick=\'startAjax(\""+invenList.get(i).getItcode()+"\")\'><td>");
 			sb.append(invenList.get(i).getEnlevel());
@@ -449,7 +446,6 @@ public class GameNomalService extends TranEx {
 					map.put("ringEn", "+"+String.valueOf(enBean.getEnlevel())+"</h4>");			
 				}
 			}
-			System.out.println(equipBean.getEqNecklace());
 			if(equipBean.getEqNecklace() != 0) {
 				int necklaceCode = equipBean.getEqNecklace();
 				map.put("itcode", String.valueOf(necklaceCode));
@@ -540,9 +536,7 @@ public class GameNomalService extends TranEx {
 			mav.addObject("ehanceItemList", ehanceItemList(bean));
 			mav.addObject("characterImage", characterImage(bean));
 			mav.setViewName("characterInfo");
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+		}catch(Exception e) {		}
 		return mav;
 	}
 

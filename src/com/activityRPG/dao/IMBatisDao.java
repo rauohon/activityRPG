@@ -108,11 +108,11 @@ public interface IMBatisDao {
 	
 	public int setRaspMem(ActivityBean ab);							// 라즈베리파이-회원 연동
 
-	public List<ActivityBean> getTodayAct(ActivityBean ab);		// 오늘 걸음수 가져오기
+	public List<ActivityBean> getTodayAct(ActivityBean ab);		// 오늘 운동량 가져오기
 
-	public List<ActivityBean> getYesterdayAct(ActivityBean ab);		// 오늘 걸음수 가져오기
+	public List<ActivityBean> getYesterdayAct(ActivityBean ab);		// 어제 운동량 가져오기
 
-	public List<ActivityBean> getAvailableAct(ActivityBean ab);		// 오늘 걸음수 가져오기
+	public List<ActivityBean> getAvailableAct(ActivityBean ab);		// 적용가능한 경험치 가져오기
 
 	public ActivityBean getAppliedWeekSumExp(ActivityBean ab);		// 적용한 경험치 총량 가져오기
 
@@ -124,17 +124,17 @@ public interface IMBatisDao {
 
 	public int setActLog(ActivityBean ab);											// 운동량 경험치로 적용하기 3. 운동량 사용내역 인서트
 
-	public List<ActivityBean> getWeekActivity(ActivityBean ab); // 일주일 운동량 가져오기
+	public List<ActivityBean> getWeekActivity(ActivityBean ab); 			// 일주일 운동량 가져오기
 
-	public ActivityBean getWeekAppliedExp(ActivityBean ab);	// 일주일 경험치 전환 내역 불러오기
+	public ActivityBean getWeekAppliedExp(ActivityBean ab);				// 일주일 경험치 전환 내역 불러오기
 
-	public List<ActivityBean> getActivityAllData(ActivityBean ab);	// 전체 활동량 내역 불러오기
+	public List<ActivityBean> getActivityAllData(ActivityBean ab);			// 전체 활동량 내역 불러오기
 
-	public List<ActivityBean> getAppliedAllData(ActivityBean ab);	// 전체 경험치 내역 불러오기
+	public List<ActivityBean> getAppliedAllData(ActivityBean ab);			// 전체 경험치 내역 불러오기
 	
-	public List<ActivityBean> getAvgActivityAllUser(ActivityBean ab); // 회원 전체 일일 평균 걸음/오른 층 불러오기
+	public List<ActivityBean> getAvgActivityAllUser(ActivityBean ab); 	// 회원 전체 일일 평균 걸음/오른 층 불러오기
 	
-	public List<ActivityBean> getActivityAllUser(ActivityBean ab); // 회원 전체 걸음/오른 층 불러오기
+	public List<ActivityBean> getActivityAllUser(ActivityBean ab); 		// 회원 전체 걸음/오른 층 불러오기
 	
 	public GameBean getItemInfo(GameBean bean);						// 아이템 정보 조회
 

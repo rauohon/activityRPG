@@ -146,6 +146,13 @@ public class GameController {
 		return mav;
 	}
 	
+	/**
+	 * 처리내용 : 캐릭터의 사진 파일 업로드
+	 * 작성일 : 2017. 11. 13.
+	 * 작성자 : 신태휘
+	 * @Method Name : charaImgFileUpload
+	 * @return type : ModelAndView
+	 */
 	@RequestMapping(value="/CharaImgFileUpload", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	private ModelAndView charaImgFileUpload(@ModelAttribute GameBean gameBean, HttpServletRequest request, HttpSession session) {
 		
@@ -207,10 +214,8 @@ public class GameController {
 	 * @return type : ModelAndView
 	 */
 	@RequestMapping(value="/ItemUse", method = RequestMethod.POST)
-	private ModelAndView itemUse(@ModelAttribute GameBean gameBean) {
-		
-		mav=gp.entrance(1, gameBean);
-		
+	private ModelAndView itemUse(@ModelAttribute GameBean gameBean) {		
+		mav=gp.entrance(1, gameBean);		
 		return mav;
 	}
 

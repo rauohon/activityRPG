@@ -50,7 +50,7 @@ public class BoardController {
 	 * @return type : ModelAndView
 	 */
 	@RequestMapping(value="/GuildBoardPage", method = RequestMethod.GET)
-	private ModelAndView backPage(@ModelAttribute BoardBean bean) {
+	private ModelAndView guildBoardPage(@ModelAttribute BoardBean bean) {
 
 		mav=gBoard.entrance(0, bean);
 		

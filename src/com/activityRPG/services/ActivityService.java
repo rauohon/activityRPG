@@ -216,16 +216,10 @@ public class ActivityService extends TranEx {
 	 * @return type : String
 	 */
 	private String activityAllUser(ActivityBean bean) {
-		String sb = "";
-		
-		List<ActivityBean> acti = dao.getActivityAllUser(bean);
-		
-		Gson gson = new Gson();
-		
-		sb = gson.toJson(acti);
-		
-		System.out.println(sb);
-
+		String sb = "";		
+		List<ActivityBean> acti = dao.getActivityAllUser(bean);		
+		Gson gson = new Gson();		
+		sb = gson.toJson(acti);		
 		return sb;
 	}
 
@@ -237,16 +231,10 @@ public class ActivityService extends TranEx {
 	 * @return type : String
 	 */
 	private String avgActAllUser(ActivityBean bean) {
-		String sb = "";
-		
-		List<ActivityBean> acti = dao.getAvgActivityAllUser(bean);
-		
-		Gson gson = new Gson();
-		
-		sb = gson.toJson(acti);
-		
-		System.out.println(sb);
-
+		String sb = "";		
+		List<ActivityBean> acti = dao.getAvgActivityAllUser(bean);		
+		Gson gson = new Gson();		
+		sb = gson.toJson(acti);		
 		return sb;
 	}
 
@@ -261,15 +249,12 @@ public class ActivityService extends TranEx {
 		try {
 		if(session.getAttribute("id") != null) {
 			mav.addObject("avgActivityAllUser",avgActAllUser(bean));
-			mav.addObject("activityAllUser",activityAllUser(bean));
-	
+			mav.addObject("activityAllUser",activityAllUser(bean));	
 			mav.setViewName("adminActivityLog");
 		}else {
 			mav.setViewName("home");
 		}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+		}catch(Exception e) { }
 		return mav;
 	}
 
@@ -286,14 +271,17 @@ public class ActivityService extends TranEx {
 		sb.append("<br/>");
 		List<ActivityBean> acti = dao.getActivityAllData(bean);
 		List<ActivityBean> acti2 = dao.getAppliedAllData(bean);
-		double a = Math.round((acti.get(0).getStep()*0.0007)*100d)/100d;
-		double b = Math.round((acti.get(0).getFloor()*2.45)*100d)/100d;
-		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " + acti.get(0).getStep() + " : 지금까지 이만큼 걸으셨어요.</h1>");
-		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " + acti.get(0).getFloor() + " : 지금까지 이만큼 계단으로 오르내리셨어요.</h1>");
-		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " +acti2.get(0).getExp()+ " : 지금까지 이만큼 경험치로 전환 하셨어요.</h1>");
-		sb.append("<div id=\'showDetail\' style=\'display:none;\'>"+ a +" km 정도를 걸으셨어요!<br>"
-				+ b +" m 정도를 오르셨어요!</div>");
-		
+		double totalStepDistance = Math.round((acti.get(0).getStep()*0.0007)*100d)/100d;
+		double totalFloorHeight = Math.round((acti.get(0).getFloor()*2.45)*100d)/100d;
+		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " 
+				+ acti.get(0).getStep() + " : 지금까지 이만큼 걸으셨어요.</h1>");
+		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " 
+				+ acti.get(0).getFloor() + " : 지금까지 이만큼 계단으로 오르내리셨어요.</h1>");
+		sb.append("<h1 class=\'act\' style=\'margin-top:2%;\'>※ " 
+				+acti2.get(0).getExp()+ " : 지금까지 이만큼 경험치로 전환 하셨어요.</h1>");
+		sb.append("<div id=\'showDetail\' style=\'display:none;\'>"
+				+ totalStepDistance +" km 정도를 걸으셨어요!<br>"
+				+ totalFloorHeight +" m 정도를 오르셨어요!</div>");
 		return sb.toString();
 	}
 
@@ -305,20 +293,16 @@ public class ActivityService extends TranEx {
 	 * @return type : String
 	 */
 	private String activityWeekExpData(ActivityBean bean) {
-		String sb = "";
-		
-		Gson gson = new Gson();
-		
-		List<ActivityBean> acti = dao.getAppliedWeekExp(bean);
-		
+		String sb = "";		
+		Gson gson = new Gson();		
+		List<ActivityBean> acti = dao.getAppliedWeekExp(bean);		
 		Collections.sort(acti, new Comparator<ActivityBean>(){
 			@Override
 			public int compare(ActivityBean r2, ActivityBean r1){
 				return r1.getDate().compareTo(r2.getDate());
 			}
 		});
-		sb = gson.toJson(acti);
-				
+		sb = gson.toJson(acti);				
 		return sb;
 	}
 
@@ -330,21 +314,16 @@ public class ActivityService extends TranEx {
 	 * @return type : String
 	 */
 	private String activityWeekActData(ActivityBean bean) {
-		String sb = "";
-		
+		String sb = "";		
 		Gson gson = new Gson();
-		
-		List<ActivityBean> acti = dao.getWeekActivity(bean);
-		
+		List<ActivityBean> acti = dao.getWeekActivity(bean);		
 		Collections.sort(acti, new Comparator<ActivityBean>(){
 			@Override
 			public int compare(ActivityBean r2, ActivityBean r1){
 				return r1.getDate().compareTo(r2.getDate());
 			}
-		});
-		
+		});		
 		sb = gson.toJson(acti);
-
 		return sb;
 	}
 
@@ -376,14 +355,10 @@ public class ActivityService extends TranEx {
 	 * @return type : String
 	 */
 	private String yesterDayStepData(ActivityBean bean) {
-		String sb = "";
-		
-		Gson gson = new Gson();
-		
-		List<ActivityBean> acti = dao.getYesterdayAct(bean);
-		
-		sb = gson.toJson(acti);
-	
+		String sb = "";		
+		Gson gson = new Gson();		
+		List<ActivityBean> acti = dao.getYesterdayAct(bean);		
+		sb = gson.toJson(acti);	
 		return sb;
 	}
 
@@ -395,13 +370,10 @@ public class ActivityService extends TranEx {
 	 * @return type : String
 	 */
 	private String appliedExpIndi(ActivityBean bean) {
-		String sb = "";
-			
+		String sb = "";			
 			bean.setExp(1);
-			bean = dao.getWeekAppliedExp(bean);
-			
+			bean = dao.getWeekAppliedExp(bean);			
 			sb = String.valueOf(bean.getExp());			
-
 		return sb;
 	}
 
@@ -421,7 +393,8 @@ public class ActivityService extends TranEx {
 			int step = acti.get(0).getStep();
 			int applicableExp = (floor * 100) + (step / 10);
 			sb.append(String.valueOf(applicableExp) + " 을(를) 경험치 전환이 가능 합니다. <br>");
-			sb.append("<button class=\'button\' onClick='setexp(\""+ applicableExp + "\")' style=\'height: 35px; width: 10%; margin-top:2%\'>경험치로 바꾸기</button>");			
+			sb.append("<button class=\'button\' onClick='setexp(\""+ applicableExp + "\")' "
+					+ "style=\'height: 35px; width: 10%; margin-top:2%\'>경험치로 바꾸기</button>");			
 		}catch(Exception e) {
 			
 		}		
@@ -436,14 +409,10 @@ public class ActivityService extends TranEx {
 	 * @return type : String
 	 */
 	private String todayActivity(ActivityBean bean) {
-		String sb = "";
-		
-		Gson gson = new Gson();
-		
+		String sb = "";		
+		Gson gson = new Gson();		
 		List<ActivityBean> acti = dao.getTodayAct(bean);
-		sb = gson.toJson(acti);
-	
-		System.out.println(sb);
+		sb = gson.toJson(acti);	
 		return sb;
 	}
 

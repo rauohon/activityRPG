@@ -231,15 +231,10 @@
 			SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor 
 		FROM 
 			ACTIVITY 
-		<where>
+		WHERE
 				<![CDATA[AT_LOGDATE <= SYSDATE AND AT_LOGDATE > SYSDATE-1		
 			AND
 				AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID = #{id})]]>
-			<if test="exp != null">
-				AND
-					AT_LOG = 1
-			</if>
-		</where>
 	</select>
 	
 	<!-- 	전환 가능한 경험치 가져오기 -->
@@ -319,7 +314,9 @@
 	<!-- 전체 활동량 가져오기 -->
 	<select id="getActivityAllData" parameterType="actBean" resultType="actBean">
 		SELECT 
-			SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor FROM ACTIVITY 
+			SUM(AT_STEP) AS step, SUM(AT_FLOOR) AS floor 
+		FROM 
+			ACTIVITY 
 		WHERE 
 			AT_MRID = (SELECT MR_RIID FROM MEMBER_RASP WHERE MR_MBID=#{id})
 	</select>
@@ -439,10 +436,7 @@
 
 	<!-- 아이템 착용전 기착용 여부 확인 -->
 	<select id="getIsEquip" parameterType="gameBean" resultType="Integer">
-		SELECT
-		COUNT(*)
-		FROM
-		EQUIPMENT
+		SELECT COUNT(*) FROM EQUIPMENT
 		<where>
 			EQ_CHNAME = #{content}
 			<if test="weapon != null">AND EQ_WEAPON = #{useItem}</if>
@@ -456,8 +450,7 @@
 
 	<!-- 아이템 착용 -->
 	<update id="setEquipItemUpdate" parameterType="map">
-		UPDATE
-		EQUIPMENT
+		UPDATE 	EQUIPMENT
 		<set>
 			<if test="weapon != null">EQ_WEAPON = #{useItem}</if>
 			<if test="armor != null">EQ_ARMOR = #{useItem}</if>
@@ -466,9 +459,7 @@
 			<if test="ring != null">EQ_RING = #{useItem}</if>
 			<if test="necklace != null">EQ_NECKLACE = #{useItem}</if>
 		</set>
-		<where>
-			EQ_CHNAME = #{content}
-		</where>
+		WHERE EQ_CHNAME = #{content}
 	</update>
 
 	<!-- 아이템 착용 후 능력치 적용 -->
@@ -485,14 +476,11 @@
 
 	<!-- 포션 사용 후 보유량 감소 시키기 -->
 	<update id="setAfterItemUse" parameterType="map">
-		UPDATE
-		INVENTORY
-		SET
-		IV_AMOUNT = IV_AMOUNT - 1
+		UPDATE 	INVENTORY SET IV_AMOUNT = IV_AMOUNT - 1
 		WHERE
-		IV_CHNAME = #{content}
+			IV_CHNAME = #{content}
 		AND
-		IV_ITCODE = #{useItem}
+			IV_ITCODE = #{useItem}
 	</update>
 
 	<!-- 장착 아이템 해제하기 -->
@@ -527,8 +515,13 @@
 	
 	<!-- 길드 가입 여부 확인하기 -->
 	<select id="getUserIsGuildCheck" parameterType="gameBean" resultType="Integer">
-		SELECT COUNT(*) FROM GUILD 
-		WHERE GU_CODE = (SELECT CH_GUCODE FROM USER_CHARACTER WHERE CH_MBID =#{id})
+		SELECT 
+			COUNT(*) 
+		FROM 
+			GUILD 
+		WHERE 
+			GU_CODE = 
+				(SELECT CH_GUCODE FROM USER_CHARACTER WHERE CH_MBID =#{id})
 	</select>
 	
 	<!-- 길드코드가져오기 -->
