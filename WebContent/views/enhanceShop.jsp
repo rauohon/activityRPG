@@ -84,6 +84,31 @@ function init(){
 			background-repeat: no-repeat;
 			background-attachment: fixed;
 		}
+		#inventoryDiv {
+	background-image: url("images/frame.png");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	width: 300px;
+	height: 800px;
+	text-align: left;
+	overflow: auto;
+	padding: 10px;
+	position: absolute;
+	left: 900px;	
+}
+
+#itemInformationDiv {
+	background-image: url("images/frame.png");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	width: 800px;
+	height: 200px;
+	text-align: left;
+	padding: 10px;
+	position: absolute;
+	top: 680px;
+	left: 40px;	
+}
 	</style>
 	<div id='wraper' style="padding-top: 60px;">
 	<a href='BackPage' class='button'>뒤로가기</a>

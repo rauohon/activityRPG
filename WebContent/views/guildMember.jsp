@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="/css/backGround.css"/>
+<link rel="stylesheet" type="text/css" href="css/backGround.css"/>
 <link rel="stylesheet" type="text/css"
    href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -59,14 +59,14 @@
 	}
 
 	body{
-		background-image:url("/images/guild.jpg");
+		background-image:url("images/guild.jpg");
 		background-repeat:no-repeat;
 		background-size:100% 100%;
 		overflow:hidden;
 		/* background-attachment:fixed; */
 	}
 	.guildMemberBox{
-		background-image:url("/images/guild2.jpg");
+		background-image:url("images/guild2.jpg");
 		background-repeat:no-repeat;
 		background-size:50% 100%;
 		overflow:hidden;
@@ -102,7 +102,7 @@ function init(){
 	<%@ include file="nav.jsp"%>
 	<style>	
 	body{
-		background-image:url("/images/guild.jpg");
+		background-image:url("images/guild.jpg");
 		background-repeat:no-repeat;
 		background-size:100% 100%;
 		overflow:hidden;

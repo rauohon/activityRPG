@@ -29,6 +29,8 @@ public class GamePlayService  extends TranEx {
 	private IMBatisDao dao;
 	@Autowired
 	private ProjectUtils session;
+	@Autowired
+	private GameNomalService gNService;
 	
 	boolean transaction = false;
 	RedirectView rv = null;
@@ -195,230 +197,244 @@ public class GamePlayService  extends TranEx {
 	 */
 	private void setEquipment(GameBean bean, int jobCode) {
 		String ida = bean.getId();
+		GameBean statusBean = new GameBean();
+		statusBean = dao.getCharacterStatus(bean);
+		System.out.println(statusBean.getChStr() + "사용자 힘 능력치 확인");
 		Map<String, String> map = new HashMap<String, String>();
+		System.out.println("사용 method 스타트");
 		map.put("content",bean.getChName());
 		map.put("equipItem", String.valueOf(bean.getItcode()));
 		int requiAbility = 0;			// 장비 필요 능력치
 		int chStatus = 0;						// 캐릭터의 해당 능력치
 		int applyStatus = 0;			// 캐릭터에 적용할 능력치
-			bean = dao.getItemInfo(bean);
-			map.put("useItem", bean.getItcode());
-			requiAbility = bean.getRequiAbility(); // 아이템의 요구 능력치
-			applyStatus = bean.getAbility(); // 아이템의 향상 적용 능력치
-			bean = dao.getEquipList(map);
-			if(chStatus >= requiAbility) {
+		bean = dao.getItemInfo(bean);
+		map.put("useItem", bean.getItcode());
+		requiAbility = bean.getRequiAbility(); // 아이템의 요구 능력치
+		System.out.println(requiAbility);
+		applyStatus = bean.getAbility(); // 아이템의 향상 적용 능력치
+		System.out.println(applyStatus);
+		bean = dao.getEquipList(map);
+		chStatus = statusBean.getChStr();
+		System.out.println(chStatus);
+		if(chStatus >= requiAbility) {
+			System.out.println("요구 사항 적합");
 			GameBean bean2 = new GameBean();
 			bean2.setId(ida);
 			bean = dao.getCharacterStatus(bean2); 
 			switch(jobCode) {
-				case 0: // 무기 변경
-					map.put("weapon", "무기");
-					bean.setChAttack(applyStatus);
-					bean.setChDefense(0);
-					bean.setChHp(0);
-					bean.setChMp(0);
-					if(dao.getIsEquip(map) != 0) { // 아이템 착용 여부 확인
-						if(dao.setEquipItemUpdate(map) != 0) { // 착용아이템 업데이트
-							if(dao.setItemApplyStatus(bean) != 0) { // 
-								transaction = true;
-							}else {
-								System.out.println("에러1");
-							}
-						}else {
-							System.out.println("에러2");
-						}
-					}else {
-						if(dao.setEquipItemUpdate(map) != 0) {
-							if(dao.setItemApplyStatus(bean) != 0) {
-								transaction = true;
-							}else {
-								System.out.println("에러3");
-							}
-						}else {
-							System.out.println("에러4");
-						}
-					}
-					break;
-				case 1:
-					// 갑옷 변경
-					map.put("armor", "갑옷");
-					bean.setChAttack(0);
-					bean.setChDefense(applyStatus);
-					bean.setChHp(0);
-					bean.setChMp(0);
-					if(dao.getIsEquip(map) != 0) {
-						if(dao.setEquipItemUpdate(map) != 0) {
-							if(dao.setItemApplyStatus(bean) != 0) {
-								transaction = true;
-							}else {
-								System.out.println("에러1");
-							}
-						}else {
-							System.out.println("에러2");
-						}
-					}else {
-						if(dao.setEquipItemUpdate(map) != 0) {
-							if(dao.setItemApplyStatus(bean) != 0) {
-								transaction = true;
-							}else {
-								System.out.println("에러3");
-							}
-						}else {
-							System.out.println("에러4");
-						}
-					}
-					break;
-				case 2:
-					// 장갑 변경
-					map.put("glove", "장갑");
-					bean.setChAttack(0);
-					bean.setChDefense(applyStatus);
-					bean.setChHp(0);
-					bean.setChMp(0);
-					if(dao.getIsEquip(map) != 0) {
-						if(dao.setEquipItemUpdate(map) != 0) {
-							if(dao.setItemApplyStatus(bean) != 0) {
-								transaction = true;
-							}else {
-								System.out.println("에러1");
-							}
-						}else {
-							System.out.println("에러2");
-						}
-					}else {
-						if(dao.setEquipItemUpdate(map) != 0) {
-							if(dao.setItemApplyStatus(bean) != 0) {
-								transaction = true;
-							}else {
-								System.out.println("에러3");
-							}
-						}else {
-							System.out.println("에러4");
-						}
-					}
-					break;
-				case 3:
-					// 신발 변경
-					map.put("shoe", "신발");
-					bean.setChAttack(0);
-					bean.setChDefense(applyStatus);
-					bean.setChHp(0);
-					bean.setChMp(0);
-					if(dao.getIsEquip(map) != 0) {
-						if(dao.setEquipItemUpdate(map) != 0) {
-							System.out.println("chAttack : " + bean.getChAttack());
-							if(dao.setItemApplyStatus(bean) != 0) {
-								transaction = true;
-							}else {
-								System.out.println("에러1");
-							}
-						}else {
-							System.out.println("에러2");
-						}
-					}else {
-						if(dao.setEquipItemUpdate(map) != 0) {
-							if(dao.setItemApplyStatus(bean) != 0) {
-								transaction = true;
-							}else {
-								System.out.println("에러3");
-							}
-						}else {
-							System.out.println("에러4");
-						}
-					}
-					break;
-				case 4:
-					// 반지 변경
-					map.put("ring", "반지");
-					bean.setChAttack(0);
-					bean.setChDefense(0);
-					bean.setChHp(applyStatus);
-					bean.setChMp(0);
-					if(dao.getIsEquip(map) != 0) {
-						if(dao.setEquipItemUpdate(map) != 0) {
-							if(dao.setItemApplyStatus(bean) != 0) {
-								transaction = true;
-							}else {
-								System.out.println("에러1");
-							}
-						}else {
-							System.out.println("에러2");
-						}
-					}else {
-						if(dao.setEquipItemUpdate(map) != 0) {
-							if(dao.setItemApplyStatus(bean) != 0) {
-								transaction = true;
-							}else {
-								System.out.println("에러3");
-							}
-						}else {
-							System.out.println("에러4");
-						}
-					}
-					break;
-				case 5:
-					// 목걸이 변경
-					map.put("necklace", "목걸이");
-					bean.setChAttack(0);
-					bean.setChDefense(0);
-					bean.setChHp(0);
-					bean.setChMp(applyStatus);
-					if(dao.getIsEquip(map) != 0) {
-						if(dao.setEquipItemUpdate(map) != 0) {
-							if(dao.setItemApplyStatus(bean) != 0) {
-								transaction = true;
-							}else {
-								System.out.println("에러1");
-							}
-						}else {
-							System.out.println("에러2");
-						}
-					}else {
-						if(dao.setEquipItemUpdate(map) != 0) {
-							if(dao.setItemApplyStatus(bean) != 0) {
-								transaction = true;
-							}else {
-								System.out.println("에러3");
-							}
-						}else {
-							System.out.println("에러4");
-						}
-					}
-					break;
-				case 6:
-					// 체력 포션 사용
-					bean.setChAttack(0);
-					bean.setChDefense(0);
-					bean.setChHp(applyStatus);
-					bean.setChMp(0);
-					if(dao.setItemApplyStatus(bean) != 0) {
-						if(dao.setAfterItemUse(map) != 0) {
-							transaction = true;							
+			case 0: // 무기 변경
+				System.out.println("무기 실 착용 method 스타트");
+				map.put("weapon", "무기");
+				bean.setChAttack(applyStatus);
+				bean.setChDefense(0);
+				bean.setChHp(0);
+				bean.setChMp(0);
+				if(dao.getIsEquip(map) != 0) { // 아이템 착용 여부 확인
+					if(dao.setEquipItemUpdate(map) != 0) { // 착용아이템 업데이트
+						if(dao.setItemApplyStatus(bean) != 0) { 
+							transaction = true;
 						}else {
 							System.out.println("에러1");
 						}
 					}else {
 						System.out.println("에러2");
 					}
-					break;
-				case 7:
-					// 마나 포션 사용
-					bean.setChAttack(0);
-					bean.setChDefense(0);
-					bean.setChHp(0);
-					bean.setChMp(applyStatus);
-					if(dao.setItemApplyStatus(bean) != 0) {
-						if(dao.setAfterItemUse(map) != 0) {
-							transaction = true;							
+				}else {
+					if(dao.setEquipItemUpdate(map) != 0) {
+						if(dao.setItemApplyStatus(bean) != 0) {
+							transaction = true;
+						}else {
+							System.out.println("에러3");
+						}
+					}else {
+						System.out.println("에러4");
+					}
+				}
+				break;
+			case 1:
+				// 갑옷 변경
+				System.out.println("갑옷 실 착용 method 스타트");
+				map.put("armor", "갑옷");
+				bean.setChAttack(0);
+				bean.setChDefense(applyStatus);
+				bean.setChHp(0);
+				bean.setChMp(0);
+				if(dao.getIsEquip(map) != 0) {
+					if(dao.setEquipItemUpdate(map) != 0) {
+						if(dao.setItemApplyStatus(bean) != 0) {
+							transaction = true;
 						}else {
 							System.out.println("에러1");
 						}
 					}else {
 						System.out.println("에러2");
 					}
-					break;
+				}else {
+					if(dao.setEquipItemUpdate(map) != 0) {
+						if(dao.setItemApplyStatus(bean) != 0) {
+							transaction = true;
+						}else {
+							System.out.println("에러3");
+						}
+					}else {
+						System.out.println("에러4");
+					}
+				}
+				break;
+			case 2:
+				// 장갑 변경
+				System.out.println("장갑 실 착용 method 스타트");
+				map.put("glove", "장갑");
+				bean.setChAttack(0);
+				bean.setChDefense(applyStatus);
+				bean.setChHp(0);
+				bean.setChMp(0);
+				if(dao.getIsEquip(map) != 0) {
+					if(dao.setEquipItemUpdate(map) != 0) {
+						if(dao.setItemApplyStatus(bean) != 0) {
+							transaction = true;
+						}else {
+							System.out.println("에러1");
+						}
+					}else {
+						System.out.println("에러2");
+					}
+				}else {
+					if(dao.setEquipItemUpdate(map) != 0) {
+						if(dao.setItemApplyStatus(bean) != 0) {
+							transaction = true;
+						}else {
+							System.out.println("에러3");
+						}
+					}else {
+						System.out.println("에러4");
+					}
+				}
+				break;
+			case 3:
+				// 신발 변경
+				map.put("shoe", "신발");
+				bean.setChAttack(0);
+				bean.setChDefense(applyStatus);
+				bean.setChHp(0);
+				bean.setChMp(0);
+				if(dao.getIsEquip(map) != 0) {
+					if(dao.setEquipItemUpdate(map) != 0) {
+						System.out.println("chAttack : " + bean.getChAttack());
+						if(dao.setItemApplyStatus(bean) != 0) {
+							transaction = true;
+						}else {
+							System.out.println("에러1");
+						}
+					}else {
+						System.out.println("에러2");
+					}
+				}else {
+					if(dao.setEquipItemUpdate(map) != 0) {
+						if(dao.setItemApplyStatus(bean) != 0) {
+							transaction = true;
+						}else {
+							System.out.println("에러3");
+						}
+					}else {
+						System.out.println("에러4");
+					}
+				}
+				break;
+			case 4:
+				// 반지 변경
+				map.put("ring", "반지");
+				bean.setChAttack(0);
+				bean.setChDefense(0);
+				bean.setChHp(applyStatus);
+				bean.setChMp(0);
+				if(dao.getIsEquip(map) != 0) {
+					if(dao.setEquipItemUpdate(map) != 0) {
+						if(dao.setItemApplyStatus(bean) != 0) {
+							transaction = true;
+						}else {
+							System.out.println("에러1");
+						}
+					}else {
+						System.out.println("에러2");
+					}
+				}else {
+					if(dao.setEquipItemUpdate(map) != 0) {
+						if(dao.setItemApplyStatus(bean) != 0) {
+							transaction = true;
+						}else {
+							System.out.println("에러3");
+						}
+					}else {
+						System.out.println("에러4");
+					}
+				}
+				break;
+			case 5:
+				// 목걸이 변경
+				map.put("necklace", "목걸이");
+				bean.setChAttack(0);
+				bean.setChDefense(0);
+				bean.setChHp(0);
+				bean.setChMp(applyStatus);
+				if(dao.getIsEquip(map) != 0) {
+					if(dao.setEquipItemUpdate(map) != 0) {
+						if(dao.setItemApplyStatus(bean) != 0) {
+							transaction = true;
+						}else {
+							System.out.println("에러1");
+						}
+					}else {
+						System.out.println("에러2");
+					}
+				}else {
+					if(dao.setEquipItemUpdate(map) != 0) {
+						if(dao.setItemApplyStatus(bean) != 0) {
+							transaction = true;
+						}else {
+							System.out.println("에러3");
+						}
+					}else {
+						System.out.println("에러4");
+					}
+				}
+				break;
+			case 6:
+				// 체력 포션 사용
+				bean.setChAttack(0);
+				bean.setChDefense(0);
+				bean.setChHp(applyStatus);
+				bean.setChMp(0);
+				if(dao.setItemApplyStatus(bean) != 0) {
+					if(dao.setAfterItemUse(map) != 0) {
+						transaction = true;							
+					}else {
+						System.out.println("에러1");
+					}
+				}else {
+					System.out.println("에러2");
+				}
+				break;
+			case 7:
+				// 마나 포션 사용
+				bean.setChAttack(0);
+				bean.setChDefense(0);
+				bean.setChHp(0);
+				bean.setChMp(applyStatus);
+				if(dao.setItemApplyStatus(bean) != 0) {
+					if(dao.setAfterItemUse(map) != 0) {
+						transaction = true;							
+					}else {
+						System.out.println("에러1");
+					}
+				}else {
+					System.out.println("에러2");
+				}
+				break;
 			}
 			chStatus = bean.getChStr();			
+		}else {
+			System.out.println("능력치 부적합");
 		}
 	}
 
@@ -430,34 +446,41 @@ public class GamePlayService  extends TranEx {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView itemUse(GameBean bean) {
-		rv = new RedirectView("/CharacterInfo");
-		rv.setExposeModelAttributes(false);
-		mav.setView(rv);
+		
 		int jobcode = Integer.parseInt(bean.getItcode());
 		setTransactionConf(TransactionDefinition.PROPAGATION_REQUIRED, TransactionDefinition.ISOLATION_READ_COMMITTED, false);
 		try {
 			bean.setId(session.getAttribute("id").toString());
 		if(jobcode <= 2000) {// 무기 착용
+			System.out.println("무기 착용 시작");
 			setEquipment(bean, 0);//실제 착용 method
 		}else if(jobcode <= 3000) {// 갑옷 착용
+			System.out.println("갑옷 착용 시작");
 			setEquipment(bean, 1);
 		}else if(jobcode <= 4000) {// 장갑 착용
+			System.out.println("장갑 착용 시작");
 			setEquipment(bean, 2);
 		}else if(jobcode <= 5000) {// 신발 착용
+			System.out.println("신발 착용 시작");
 			setEquipment(bean, 3);
 		}else if(jobcode <= 6000) {// 반지 착용
+			System.out.println("반지 착용 시작");
 			setEquipment(bean, 4);
 		}else if(jobcode <= 7000) {// 목걸이 착용
+			System.out.println("목걸이 착용 시작");
 			setEquipment(bean, 5);
 		}else if(jobcode <= 7500) {// 체력포션 사용
+			System.out.println("마나 포션 사용 시작");
 			setEquipment(bean, 6);
 		}else{// 마나포션 사용
+			System.out.println("마나 포션 사용 시작");
 			setEquipment(bean, 7);
 		}
 		setTransactionResult(transaction);
 		} catch (Exception e) {
 				e.printStackTrace();
 			}
+		mav = gNService.entrance(5, bean);
 		return mav;
 	}
 
@@ -469,25 +492,18 @@ public class GamePlayService  extends TranEx {
 	 * @return type : ModelAndView
 	 */
 	private ModelAndView movement(GameBean bean) {
-		RedirectView rv = null;
 		int random = 18; 	//(int) (Math.random()*10)+3;
 		int moveValue = Integer.parseInt(bean.getMoveValue());
 		if((random%moveValue) == 0) {
-			System.out.println("일반 전투");
+			System.out.println("일반 전투1");
 			// 배틀페이지 이동 RequestMethod = get
-			rv = new RedirectView("/BattlePage");
-			rv.setExposeModelAttributes(false);
-			mav.setView(rv);
+			mav = battlePage();
 		}else if((random%moveValue) == 2) {
-			System.out.println("보스 스테이지");
-			rv = new RedirectView("/BattlePage");
-			rv.setExposeModelAttributes(false);
-			mav.setView(rv);
+			System.out.println("일반 전투2");
+			mav = battlePage();
 		}else {
 			System.out.println("보물");
-			rv = new RedirectView("/BattlePage2");
-			rv.setExposeModelAttributes(false);
-			mav.setView(rv);
+			mav.setViewName("battlePage2");
 		}		
 		return mav;
 	}
@@ -894,9 +910,12 @@ public class GamePlayService  extends TranEx {
 			ModelAndView mav = new ModelAndView();
 			List<GameBean> characterInformation = null;
 			List<BattleBean> monsterInformation = null;
+			mav.setViewName("vaillage");
 			try {
+				System.out.println("배틀1");
 				String characterName = (String)session.getAttribute("characterName");
 				session.setAttribute("page", "battlePage");
+				System.out.println("배틀2");
 				//캐릭터 정보 가져오기
 				characterInformation = dao.characterInformation(characterName);
 
@@ -942,10 +961,12 @@ public class GamePlayService  extends TranEx {
 				mav.addObject("characterTotalHp", characterInformation.get(0).getHp());
 				mav.addObject("characterTotalMp", characterInformation.get(0).getMp());
 				mav.addObject("monsterTotalHp", monsterInformation.get(0).getMonsterHp());
+				mav.setViewName("battlePage");
 			}catch(Exception e) {
 				e.printStackTrace();
+				System.out.println("배틀3");
 			}
-			mav.setViewName("battlePage");
+			System.out.println("배틀4");
 			return mav;
 		}
 

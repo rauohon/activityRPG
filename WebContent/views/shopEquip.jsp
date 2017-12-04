@@ -138,7 +138,7 @@ function init(){
 		${equipItemList }
 	<div class="shopbt">
 		<div class="gold">
-			<img src="/images/gold3.png" alt="Inven Gold" width="33" height="33">&nbsp;${chGold }
+			<img src="images/gold3.png" alt="Inven Gold" width="33" height="33">&nbsp;${chGold }
 		</div>
 		<br/>
 		<div class="shopDeal">

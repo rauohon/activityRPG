@@ -7,7 +7,7 @@
 <title>Item Information</title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/common.js"></script>
+<script src="js/common.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> <!-- alert창 변경 -->
 <script>
 	function enhance(){

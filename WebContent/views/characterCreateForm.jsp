@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 
 <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> <!-- 움직이는 배경을 위함 -->
-<link rel="stylesheet" href="/css/createCharacterForm.css" /> <!-- 움직이는 배경을 위함 -->
-<script src="/js/jquery.particleground.js"></script>	<!-- 움직이는 배경을 위함 -->
-<script src="/js/jquery.particleground2.js"></script>	<!-- 움직이는 배경을 위함 -->
+<link rel="stylesheet" href="css/createCharacterForm.css" /> <!-- 움직이는 배경을 위함 -->
+<script src="js/jquery.particleground.js"></script>	<!-- 움직이는 배경을 위함 -->
+<script src="js/jquery.particleground2.js"></script>	<!-- 움직이는 배경을 위함 -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> <!-- alert창 변경 -->
 <title>Character Create Form</title>
 </head>
@@ -20,7 +20,7 @@
 		var sex = ${userSex };
 		if(sex == 1){ //여자
 			var girl = document.getElementById("girl");
-			girl.src = "/images/woman.png";
+			girl.src = "images/woman.png";
 			girl.width = 500;
 			girl.height = 600;
 			girl.alt = "여자 사진입니다.";
@@ -28,7 +28,7 @@
 		}else if(sex == 0){
 			//남자
 			var boy = document.getElementById("boy");
-			boy.src = "/images/man.png";
+			boy.src = "images/man.png";
 			boy.width = 500;
 			boy.height = 600;
 			boy.alt = "남자 사진입니다.";

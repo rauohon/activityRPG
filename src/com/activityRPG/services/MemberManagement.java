@@ -263,7 +263,7 @@ public class MemberManagement extends TranEx {
 				session.removeAttribute("characterName");	//세션에 저장된 캐릭터 이름 제거
 				session.removeAttribute("userSex");			//세션에 저장된 유저 성별 제거
 
-				rv = new RedirectView("/");
+				rv = new RedirectView("/activityRPG");
 				rv.setExposeModelAttributes(false);
 				mav.setView(rv);
 				transaction = true;

@@ -51,7 +51,7 @@ function init(){
 	<%@ include file="nav.jsp"%>
 	<style>
 	body {
-		background-image: url("/images/message.jpg");
+		background-image: url("images/message.jpg");
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-attachment: fixed;

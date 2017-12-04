@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 </head>
-<link rel="stylesheet" type="text/css" href="/css/attackBoardMakeForm.css"/>
+<link rel="stylesheet" type="text/css" href="css/attackBoardMakeForm.css"/>
 <script>
 function init(){
 	var userType = "${userType}";

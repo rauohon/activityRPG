@@ -40,7 +40,7 @@ function init(){
 	<%@ include file="nav.jsp"%>
 	<style>
 		body {
-			background-image: url("/images/main.jpg");
+			background-image: url("images/main.jpg");
 			background-size: cover;
 			background-repeat: no-repeat;
 			background-attachment: fixed;

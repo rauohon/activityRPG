@@ -6,11 +6,11 @@
 <meta charset="UTF-8">
 <title>battle Page</title>
 </head>
-<link rel="stylesheet" type="text/css" href="/css/battlePage.css"/>
+<link rel="stylesheet" type="text/css" href="css/battlePage.css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="//code.jquery.com/jquery-1.12.4.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="/js/common.js"></script>
+<script src="js/common.js"></script>
 <script>
 	//그래프를 위한 내용 
 	var beforeHp = "${beforeHp}";
@@ -153,17 +153,17 @@
 		
 		//배경화면
 		if(fieldCode == 1){	//초원
-			$("body").css("background-image", "url(/images/patagonia.png)")
+			$("body").css("background-image", "url(images/patagonia.png)")
 			$("body").css("background-size", "cover")
 			$("body").css("background-repeat", "no-repeat")
 			$("body").css("background-attachment", "fixed")
 		}else if(fieldCode == 2){	//정글
-			$("body").css("background-image", "url(/images/jungle.png)")
+			$("body").css("background-image", "url(images/jungle.png)")
 			$("body").css("background-size", "cover")
 			$("body").css("background-repeat", "no-repeat")
 			$("body").css("background-attachment", "fixed")
 		}else if(fieldCode == 3){	//산
-			$("body").css("background-image", "url(/images/mountain.png)")
+			$("body").css("background-image", "url(images/mountain.png)")
 			$("body").css("background-size", "cover")
 			$("body").css("background-repeat", "no-repeat")
 			$("body").css("background-attachment", "fixed")
@@ -171,42 +171,42 @@
 		
 		//몬스터 사진
 		if(monsterCode == 1){	//표범
-			$("#monster").css("background-image", "url(/images/cat.png)")
+			$("#monster").css("background-image", "url(images/cat.png)")
 			$("#monster").css("background-size", "100% 100%")
 			$("#monster").css("background-repeat", "no-repeat")
 		}else if(monsterCode == 2){	//사자
-			$("#monster").css("background-image", "url(/images/lion.png)")
+			$("#monster").css("background-image", "url(images/lion.png)")
 			$("#monster").css("background-size", "100% 100%")
 			$("#monster").css("background-repeat", "no-repeat")
 		}else if(monsterCode == 3){	//암사자
-			$("#monster").css("background-image", "url(/images/mountain-lion.png)")
+			$("#monster").css("background-image", "url(images/mountain-lion.png)")
 			$("#monster").css("background-size", "100% 100%")
 			$("#monster").css("background-repeat", "no-repeat")
 		}else if(monsterCode == 4){	//악어
-			$("#monster").css("background-image", "url(/images/cayman.png)")
+			$("#monster").css("background-image", "url(images/cayman.png)")
 			$("#monster").css("background-size", "100% 100%")
 			$("#monster").css("background-repeat", "no-repeat")
 		}else if(monsterCode == 5){	//아나콘다
-			$("#monster").css("background-image", "url(/images/anaconda.png)")
+			$("#monster").css("background-image", "url(images/anaconda.png)")
 			$("#monster").css("background-size", "100% 100%")
 			$("#monster").css("background-repeat", "no-repeat")
 		}else if(monsterCode == 6){	//돌악마
-			$("#monster").css("background-image", "url(/images/stone-woman.png)")
+			$("#monster").css("background-image", "url(images/stone-woman.png)")
 			$("#monster").css("background-size", "100% 100%")
 			$("#monster").css("background-repeat", "no-repeat")
 		}else if(monsterCode == 7){	//아나콘다
-			$("#monster").css("background-image", "url(/images/elf.png)")
+			$("#monster").css("background-image", "url(images/elf.png)")
 			$("#monster").css("background-size", "100% 100%")
 			$("#monster").css("background-repeat", "no-repeat")
 		}
 		
 		//캐릭터 사진
 		if(sex == 0){	//남자
-			$("#character").css("background-image", "url(/images/man.png)")
+			$("#character").css("background-image", "url(images/man.png)")
 			$("#character").css("background-size", "100% 100%")
 			$("#character").css("background-repeat", "no-repeat")
 		}else{	//여자
-			$("#character").css("background-image", "url(/images/woman.png)")
+			$("#character").css("background-image", "url(images/woman.png)")
 			$("#character").css("background-size", "100% 100%")
 			$("#character").css("background-repeat", "no-repeat")
 		}
@@ -331,9 +331,9 @@
 	</div>
 	
 	<div id="command">
-		<button class="button" onClick="doAttack()"><img src="/images/swords.png" width="25px" height="25px" /> 공격한다</button><br/>
-		<button class="button" onClick="openBag()"><img src="/images/bag.png" width="25px" height="25px" /> 가방을 연다</button><br/>
-		<button class="button" onClick="run()"><img src="/images/pace.png" width="25px" height="25px" /> 도망간다</button>
+		<button class="button" onClick="doAttack()"><img src="images/swords.png" width="25px" height="25px" /> 공격한다</button><br/>
+		<button class="button" onClick="openBag()"><img src="images/bag.png" width="25px" height="25px" /> 가방을 연다</button><br/>
+		<button class="button" onClick="run()"><img src="images/pace.png" width="25px" height="25px" /> 도망간다</button>
 	</div>
 </body>
 </html>

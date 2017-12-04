@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 </head>
-<link rel="stylesheet" type="text/css" href="/css/attackBoardModifyForm.css" />
+<link rel="stylesheet" type="text/css" href="css/attackBoardModifyForm.css" />
 <script>
 	function attackBoardModify() {
 		attackBoardModifyForm.submit();

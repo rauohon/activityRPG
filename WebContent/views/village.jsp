@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/home.css" media="screen" type="text/css" />
@@ -37,9 +38,8 @@
 	background: rgba(246, 138, 111,0.6);
 }
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/common.js"></script>
-<script src="/js/chat.js"></script>
+<script src="js/common.js"></script>
+<script src="js/chat.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var guildcode = '${guildCode}';
@@ -103,7 +103,6 @@ function onMessage(evt){
 	//서버가 전송한 메시지 가져오기
 	var data = evt.data;
 	//메시지를 출력
-	alert(data);
 	$('#chatEveryUserMsgArea').append(data + "<br />");
 }
 </script>

@@ -40,7 +40,7 @@
     	height: 500px;
     	border: 1px solid #444444;
     	margin : 20px 10px;
-    	background: url("/images/question.jpg") no-repeat center center;
+    	background: url("images/question.jpg") no-repeat center center;
     	background-size: 400px 400px;
 	}
 	table.type th{

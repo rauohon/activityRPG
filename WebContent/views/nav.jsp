@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<script src="/js/common.js"></script>
+<script src="js/common.js"></script>
 <script type="text/javascript">
 //nav 컨트롤 용
 

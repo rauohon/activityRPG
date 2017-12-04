@@ -31,7 +31,7 @@
     	height: 500px;
     	border: 1px solid #444444;
     	margin : 20px 10px;
-    	background: url("/images/notice.png") no-repeat center center;
+    	background: url("images/notice.png") no-repeat center center;
 	}
 	table.type th{
 		height:19px;
