@@ -2,7 +2,6 @@ package com.activityRPG.utils;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.mobile.device.DeviceUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -17,14 +16,6 @@ public class ProjectUtils {
 	 *    그렇지 않으면, 재사용되는 쓰레드가 올바르지 않은 데이터를 참조할 수 있다.
 	 */
 	
-	public int screenType(int serviceCode){
-		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
-		return serviceCode * (isMobile(request)? -1 : 1);
-	}
-	
-	private boolean isMobile(HttpServletRequest request){
-		return DeviceUtils.getCurrentDevice(request).isMobile();
-	}
 	
 	/* Session영역으로부터 attribute 값을 가져 오기 위한 method  */
     public Object getAttribute(String name) throws Exception {
